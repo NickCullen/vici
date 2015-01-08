@@ -1,0 +1,44 @@
+<root>
+	<objects>
+		<gameobject id="FirstObject" indestructable="1" enabled="1" layer="0">
+			<components>
+				<component type="VCamera">
+					<!-- the buffer flags this camera will clear -->
+					<clear_color_buffer>1</clear_color_buffer>
+					<clear_depth_buffer>0</clear_depth_buffer>
+					<clear_accum_buffer>0</clear_accum_buffer>
+					<clear_stencil_buffer>0</clear_stencil_buffer>
+					<!-- the layers this camera will render -->
+					<renderlayers>
+						<layer>0</layer>
+					</renderlayers>
+				</component>
+			</components>
+			<gameobjects>
+				<gameobject id="Second" indestructable="0" enabled="1" layer="0">
+				<components>
+
+				</components>
+				<gameobjects>
+
+				</gameobjects>
+			</gameobject>
+			</gameobjects>
+		</gameobject>
+
+		
+
+		<gameobject id="Object" indestructable="1" enabled="1" layer="0">
+			<components>
+				<component type="MeshRenderer">
+
+				</component>
+			</components>
+			<gameobjects>
+
+			</gameobjects>
+		</gameobject>
+
+	</objects>
+
+</root>
