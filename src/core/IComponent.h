@@ -1,15 +1,23 @@
 #ifndef V_COMPONENT
 #define V_COMPONENT
 
-//so we can create and register components
+/*include the core engine */
 #include "core.h"
+
+/*Useful short hand macros*/
+#define _transform _go->GetTransform()
 
 class IComponent
 {
+	/*friend classes to internal objects*/
+	friend class Vici;
+	friend class GameObject;
 private:
 
 protected:
+	/*The game object this component belongs to*/
 	GameObject* _go;
+
 
 public:
 	IComponent();
@@ -28,8 +36,11 @@ public:
 	/*registers for a callback*/
 	void RegisterCallback(EComponentCallback callback);
 
-	/*Helper Functions*/
-	GameObject* GetGameObject();
+	/*Getters and setters*/
+	inline GameObject* GetGameObject()
+	{
+		return _go;
+	}
 };
 
 #endif

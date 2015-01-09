@@ -2,21 +2,16 @@
 
 IComponent::IComponent()
 {
-
+	_go = NULL;
 }
 IComponent::~IComponent()
 {
 	
 }
 
-/*Helper Functions*/
-GameObject* IComponent::GetGameObject()
-{
-	return _go;
-}
-
 void IComponent::Init(GameObject* go, rapidxml::xml_node<char>* data)
 {
+	/*initial vars*/
 	_go = go;
 
 }

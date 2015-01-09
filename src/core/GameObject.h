@@ -63,7 +63,8 @@ public:
 	//registers for a callback
 	void RegisterCallback(IComponent* comp, EComponentCallback callback);
 
-	/*Get setters*/
+	/*Get setters - inlined functions are written in header 
+	* due to the nature of inline functions*/
 	void SetEnabled(bool flag);
 	inline bool GetEnabled()
 	{
@@ -73,6 +74,11 @@ public:
 	inline unsigned int GetLayer()
 	{
 		return _layer;
+	}
+
+	inline Transform* GetTransform()
+	{
+		return _t;
 	}
 };
 

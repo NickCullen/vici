@@ -3,7 +3,6 @@
 
 #include "core.h"
 
-
 #ifdef _WIN32
 #include "glew.h"
 #else
@@ -11,11 +10,17 @@
 #include <gl/GLU.h>
 #endif
 
+/*Forward Decl*/
 class VCamera;
 
 class OpenGLRenderer
 {
 private:
+	//the camera for this renderer
+	VCamera* _cam;
+
+	//the matrix stack for this renderer
+	MatrixStack _ms;
 
 protected:
 
@@ -37,9 +42,15 @@ public:
 
 	/*override functions*/
 	virtual void ClearBuffer(int flags, glm::vec4* col);
+
+	/*Inline getters and setters*/
+	inline MatrixStack* GetMatrixStack()
+	{
+		return &_ms;
+	}
 };
 
-//defines
+/*definitions*/
 #define VICI_COLOR_BUFFER_BIT GL_COLOR_BUFFER_BIT
 #define VICI_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
 #define VICI_ACCUM_BUFFER_BIT GL_ACCUM_BUFFER_BIT

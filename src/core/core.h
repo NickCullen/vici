@@ -1,6 +1,7 @@
 /*definitions*/
 #define _CRT_SECURE_NO_WARNINGS
 #define GLM_FORCE_PURE
+#define NULL 0
 
 /*External libs*/
 #include "glm/glm.hpp"
@@ -13,7 +14,6 @@
 
 /*Engine core*/
 #include "Vici.h"
-#include "OpenGLRenderer.h"
 #include "GameObject.h"
 #include "VHash.h"
 #include "SceneLoader.h"
@@ -24,3 +24,10 @@
 
 /*Util*/
 #include "TextFile.h"
+
+/*Renderering*/
+#include "OpenGLRenderer.h"
+#include "MatrixStack.h"
+
+/*Data structures*/
+#include "Stack.h"

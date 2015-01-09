@@ -47,6 +47,7 @@ void MeshRenderer::PreRender(OpenGLRenderer* renderer)
 }
 void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 {
+
 	glColor3f(0, 1, 0);
 	glBegin(GL_POLYGON);
 		glVertex3f(0.25, 0.25, 0.0);

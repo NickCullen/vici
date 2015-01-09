@@ -1,6 +1,7 @@
 #ifndef V_COMPONENT_FACTORY
 #define V_COMPONENT_FACTORY
 
+/*Forward Decl*/
 class IComponent;
 
 /*for mapping of instances and creation functions*/
@@ -32,14 +33,15 @@ public:
 	ComponentFactory();
 	~ComponentFactory();
 	
-	static IComponent* CreateComponent(std::string id)
-	{
-		MapType::iterator it = GetTypes()->find(id);
-		if (it == GetTypes()->end())
-			return 0;
-		return it->second();
-	}
+	/*prevent duplication of code*/
+	static IComponent* FindType(std::string id);
 
+	/*Creates a component of the given id - will return NULL (0) if not found*/
+	static IComponent* CreateComponent(std::string id);
+
+	/*Same as above but returns the type cast as the given typename
+	* Note that this will still return null if not found 
+	* Code has to be written in the header file due to the nature of template functions*/
 	template<typename T>
 	static T* CreateComponent(std::string id)
 	{

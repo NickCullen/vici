@@ -4,7 +4,7 @@
 
 OpenGLRenderer::OpenGLRenderer()
 {
-
+	_cam = NULL;
 }
 
 OpenGLRenderer::~OpenGLRenderer()
@@ -15,7 +15,7 @@ OpenGLRenderer::~OpenGLRenderer()
 /*if this is override please remember to call base.Init()*/
 void OpenGLRenderer::Init(VCamera* cam)
 {
-
+	_cam = cam;
 }
 
 /*Pre scene initialization*/

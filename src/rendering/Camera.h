@@ -6,19 +6,7 @@
 /*Forward decl*/
 class OpenGLRenderer;
 
-/*Camera clear flags
 
-	GL_COLOR_BUFFER_BIT
-		Indicates the buffers currently enabled for color
-		writing.
-	GL_DEPTH_BUFFER_BIT
-		Indicates the depth buffer.
-	GL_ACCUM_BUFFER_BIT
-		Indicates the accumulation buffer.
-	GL_STENCIL_BUFFER_BIT
-		Indicates the stencil buffer.
-
-*/
 class VCamera : public IDrawable
 {
 private:
