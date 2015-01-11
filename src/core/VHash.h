@@ -4,6 +4,9 @@
 //the typedef for a hash
 typedef unsigned int vhash_int; 
 
+/* This class is used to optimize the comparison between 2 strings 
+ * It will take a string (char*) and covert it into an unsigned integer
+ * This makes comparison between 2 strings (i.e. 2 hashes) a simple integer check */
 class VHash
 {
 private:

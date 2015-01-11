@@ -53,7 +53,7 @@ public:
 	void AddGameObject(GameObject* go);
 
 	/* inline getters and seters*/
-	static Vici* Instance()
+	static inline Vici* Instance()
 	{
 		return _instance;
 	}
