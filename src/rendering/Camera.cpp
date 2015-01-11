@@ -7,7 +7,7 @@ VCamera::VCamera()
 {
 	//default
 	_clear_flags = 0;
-	_clear_color = glm::vec4(1.0f, 0.0f, 1.0f, 1.0f);
+	_clear_color = glm::vec4(0.2f,0.2f,0.2f, 1.0f);
 
 	//get a scene renderer
 	_renderer = new OpenGLRenderer();
