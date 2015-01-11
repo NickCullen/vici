@@ -36,3 +36,13 @@ message("Included libraries = ${EXTRA_LIBS}")
 
 #link up librares
 target_link_libraries(testing vlibrary platformlib ${EXTRA_LIBS})
+
+#post build commands (copy dlls and their equivilant etc.)
+
+if(WIN32)
+#copy contents of win32 bin folder 
+add_custom_command(TARGET testing POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/win32/bin"
+        $<TARGET_FILE_DIR:testing>)
+endif()

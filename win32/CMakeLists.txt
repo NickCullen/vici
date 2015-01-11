@@ -15,3 +15,4 @@ add_library(platformlib STATIC ${sources})
 
 #set the extra libs so that they will be compiled
 set(EXTRA_LIBS glfw3 glew32 ${OPENGL_LIBRARIES} PARENT_SCOPE)
+
