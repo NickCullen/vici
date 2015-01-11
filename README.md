@@ -8,7 +8,7 @@ To build the engine you must have cmake installed as there are no project soluti
 - cmake ..
 
 Once you have run cmake the project files will have been built in the build directory. Simply open up testing.sln (windows) and right click testing project in the project explorer to set it as the startup project.
-Now hit complete/run and the project will start building. There are post-build scripts that are defined in CMAKE to copy over the TestProj folder and all the required shared libraries used in the project.
+Now hit compile/run and the project will start building. There are post-build scripts that are defined in CMAKE to copy over the TestProj folder and all the required shared libraries used in the project.
 
 #Description
 This is a side project I am working on just out of interest and for learning new things in game engine architecture. I don't plan on selling this so feel free to download and have a poke around, just remember I have recently started this so a lot of clean-up is required!
