@@ -46,3 +46,9 @@ add_custom_command(TARGET testing POST_BUILD
         "${PROJECT_SOURCE_DIR}/win32/bin"
         $<TARGET_FILE_DIR:testing>)
 endif()
+
+#copy contents of TestProj to output dir 
+add_custom_command(TARGET testing POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/TestProj"
+        "${CMAKE_CURRENT_BINARY_DIR}")
