@@ -4,7 +4,7 @@
 #include <vector>
 #include "Object.h"
 #include "VHash.h"
-#include "rapidxml\rapidxml.hpp"
+#include "rapidxml/rapidxml.hpp"
 
 /*Forward Decls*/
 class OpenGLRenderer;

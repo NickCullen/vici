@@ -6,8 +6,8 @@
 #ifdef _WIN32
 #include "glew.h"
 #else
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include <OpenGL/GL.h>
+#include <OpenGL/GLU.h>
 #endif
 
 /*Forward Decl*/

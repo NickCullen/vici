@@ -27,6 +27,16 @@ if(WIN32)
 
 	#add windows sub dir
 	add_subdirectory(win32)
+elseif(APPLE)
+	# Set compiler flags and options. 
+	# Here it is setting the Visual Studio warning level to 4
+	#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+
+	#link up win32 lib dir
+	link_directories("${PROJECT_SOURCE_DIR}/mac/lib")
+
+	#add windows sub dir
+	add_subdirectory(mac)
 endif()
 
 #compile

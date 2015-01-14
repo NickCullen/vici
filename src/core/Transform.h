@@ -3,7 +3,7 @@
 
 /*Forward decl*/
 
-#include "glm\glm.hpp"
+#include "glm/glm.hpp"
 
 class Transform
 {
