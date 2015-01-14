@@ -65,3 +65,14 @@ void Platform_EnterLoop(Vici* v)
 		return;
 	}
 }
+
+const char* Platform_Pathify(const char* file)
+{
+	char* start = (char*)file;
+	while(*start != '\0')
+	{
+		if(*start == '/') *start = '\\';
+		start++;
+	}
+	return file;
+}
