@@ -28,6 +28,8 @@ if(WIN32)
 	#add windows sub dir
 	add_subdirectory(win32)
 elseif(APPLE)
+	include_directories("/System/Library/Frameworks")
+
 	# Set compiler flags and options. 
 	# Here it is setting the Visual Studio warning level to 4
 	#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")

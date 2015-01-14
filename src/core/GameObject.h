@@ -12,7 +12,7 @@ class IComponent;
 class Transform;
 
 //functions to be called
-enum EComponentCallback { Awake, Start, Update, PreRender, OnRender, PostRender, OnEnable, OnDisable, MAX_CALL_COUNT};
+enum EComponentCallback { eAwake, eStart, eUpdate, ePreRender, eOnRender, ePostRender, eOnEnable, eOnDisable, eMAX_CALL_COUNT};
 
 class GameObject : public Object
 {
@@ -27,7 +27,7 @@ private:
 	std::vector<IComponent*> _components;
 
 	//callbacks
-	std::vector<IComponent*> _calls[MAX_CALL_COUNT];
+	std::vector<IComponent*> _calls[eMAX_CALL_COUNT];
 
 	//enabled flag
 	bool _enabled;

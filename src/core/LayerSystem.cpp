@@ -1,8 +1,8 @@
 #include "LayerSystem.h"
-#include "rapidxml\rapidxml.hpp"
+#include "rapidxml/rapidxml.hpp"
 #include <string>
 #include "TextFile.h"
-
+#include "Platform.h"
 //static init
 LayerInfo* LayerSystem::_layers = NULL;
 unsigned int LayerSystem::_num_of_layers = 0;
@@ -11,6 +11,9 @@ void LayerSystem::Init(const char* cwd)
 {
 	char buff[512];
 	sprintf(buff, "%s\\%s.xml", cwd, "settings\\layers");
+
+	//convert slash to correct os filesytem
+	strcpy(buff,Platform_Pathify(buff));
 
 	//load xml file
 	TextFile tf(buff);

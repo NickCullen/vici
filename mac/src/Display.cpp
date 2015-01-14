@@ -22,7 +22,9 @@ void Display::Init(char* cwd)
 	//set the file path
 	strcpy(buff, cwd);
 	strcat(buff, "\\settings\\display.xml");
-
+	//convert slash to correct os filesytem
+	strcpy(buff,Platform_Pathify(buff));
+	
 	//instantiate doc and load file
 	rapidxml::xml_document<char> doc;
 	TextFile tf(buff);

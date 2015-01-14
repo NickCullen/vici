@@ -17,4 +17,7 @@ bool Platform_OpenWindow(int w, int h, const char* title);
 //enters game loop
 void Platform_EnterLoop(class Vici* v);
 
+//makes all the slashes the correct way
+const char* Platform_Pathify(const char* file);
+
 #endif

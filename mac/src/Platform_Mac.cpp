@@ -1,17 +1,18 @@
 #include "Platform.h"
-#include <windows.h>
-#include "glew.h"
 #include "GLFW/glfw3.h"
 #include <stdio.h>
 #include "OpenGLRenderer.h"
 #include "Vici.h"
-#include <direct.h>
+#include <unistd.h>
 
 GLFWwindow* window = NULL;
 
 char* Platform_Getcwd(char* buff, int len)
 {
-	return _getcwd(buff, len);
+    //hard coded for now
+    strcpy(buff,"/Users/Nick/Documents/vici/build");
+    //getcwd(buff,len);
+    return buff;
 }
 
 double Platform_GetTime()
@@ -37,9 +38,6 @@ bool Platform_OpenWindow(int w, int h, const char* title)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
-	//init glew
-	glewInit();
-
 	return true;
 }
 
@@ -64,4 +62,15 @@ void Platform_EnterLoop(Vici* v)
 		glfwTerminate();
 		return;
 	}
+}
+
+const char* Platform_Pathify(const char* file)
+{
+	char* start = (char*)file;
+	while(*start != '\0')
+	{
+		if(*start == '\\') *start = '/';
+		start++;
+	}
+	return file;
 }

@@ -29,6 +29,9 @@ void SceneLoader::Init(Vici* v)
 		strcpy(buff, _v->_cwd);
 		strcat(buff, "\\settings\\scenes.xml");
 
+		//convert slash to correct os filesytem
+		strcpy(buff,Platform_Pathify(buff));
+
 		//instantiate doc and load file
 		rapidxml::xml_document<char> doc;
 		TextFile tf(buff);

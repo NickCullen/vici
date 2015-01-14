@@ -66,9 +66,9 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 //logic and render funcs
 void GameObject::Awake()
 {
-	for (unsigned int i = 0; i < _calls[EComponentCallback::Awake].size(); i++)
+	for (unsigned int i = 0; i < _calls[eAwake].size(); i++)
 	{
-		_calls[EComponentCallback::Awake].at(i)->Awake();
+		_calls[eAwake].at(i)->Awake();
 	}
 
 	//dispatch children calls
@@ -79,9 +79,9 @@ void GameObject::Awake()
 }
 void GameObject::Start()
 {
-	for (unsigned int i = 0; i < _calls[EComponentCallback::Start].size(); i++)
+	for (unsigned int i = 0; i < _calls[eStart].size(); i++)
 	{
-		_calls[EComponentCallback::Start].at(i)->Start();
+		_calls[eStart].at(i)->Start();
 	}
 
 	//dispatch children calls
@@ -93,9 +93,9 @@ void GameObject::Start()
 
 void GameObject::Update()
 {
-	for (unsigned int i = 0; i < _calls[EComponentCallback::Update].size(); i++)
+	for (unsigned int i = 0; i < _calls[eUpdate].size(); i++)
 	{
-		_calls[EComponentCallback::Update].at(i)->Update();
+		_calls[eUpdate].at(i)->Update();
 	}
 
 	//dispatch children calls
@@ -107,9 +107,9 @@ void GameObject::Update()
 void GameObject::PreRender(OpenGLRenderer* renderer)
 {
 	IDrawable* dr = NULL;
-	for (unsigned int i = 0; i < _calls[EComponentCallback::PreRender].size(); i++)
+	for (unsigned int i = 0; i < _calls[ePreRender].size(); i++)
 	{
-		dr = (IDrawable*)_calls[EComponentCallback::PreRender].at(i);
+		dr = (IDrawable*)_calls[ePreRender].at(i);
 		dr->PreRender(renderer);
 	}
 
@@ -122,9 +122,9 @@ void GameObject::PreRender(OpenGLRenderer* renderer)
 void GameObject::Render(OpenGLRenderer* renderer)
 {
 	IDrawable* dr = NULL;
-	for (unsigned int i = 0; i < _calls[EComponentCallback::OnRender].size(); i++)
+	for (unsigned int i = 0; i < _calls[eOnRender].size(); i++)
 	{
-		dr = (IDrawable*)_calls[EComponentCallback::OnRender].at(i);
+		dr = (IDrawable*)_calls[eOnRender].at(i);
 		dr->OnRender(renderer);
 	}
 
@@ -137,9 +137,9 @@ void GameObject::Render(OpenGLRenderer* renderer)
 void GameObject::PostRender(OpenGLRenderer* renderer)
 {
 	IDrawable* dr = NULL;
-	for (unsigned int i = 0; i < _calls[EComponentCallback::PostRender].size(); i++)
+	for (unsigned int i = 0; i < _calls[ePostRender].size(); i++)
 	{
-		dr = (IDrawable*)_calls[EComponentCallback::PostRender].at(i);
+		dr = (IDrawable*)_calls[ePostRender].at(i);
 		dr->PostRender(renderer);
 	}
 
@@ -152,9 +152,9 @@ void GameObject::PostRender(OpenGLRenderer* renderer)
 
 void GameObject::OnEnable()
 {
-	for (unsigned int i = 0; i < _calls[EComponentCallback::OnEnable].size(); i++)
+	for (unsigned int i = 0; i < _calls[eOnEnable].size(); i++)
 	{
-		_calls[EComponentCallback::OnEnable].at(i)->OnEnable();
+		_calls[eOnEnable].at(i)->OnEnable();
 	}
 	
 	//dispatch children calls
@@ -165,9 +165,9 @@ void GameObject::OnEnable()
 }
 void GameObject::OnDisable()
 {
-	for (unsigned int i = 0; i < _calls[EComponentCallback::OnDisable].size(); i++)
+	for (unsigned int i = 0; i < _calls[eOnDisable].size(); i++)
 	{
-		_calls[EComponentCallback::OnDisable].at(i)->OnDisable();
+		_calls[eOnDisable].at(i)->OnDisable();
 	}
 
 	//dispatch children calls

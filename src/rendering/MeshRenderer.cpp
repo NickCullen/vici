@@ -16,13 +16,13 @@ void MeshRenderer::Init(GameObject* go, rapidxml::xml_node<char>* node)
 
 	
 	//list for on enable and disable
-	RegisterCallback(EComponentCallback::OnEnable);
-	RegisterCallback(EComponentCallback::OnDisable);
+	RegisterCallback(eOnEnable);
+	RegisterCallback(eOnDisable);
 
 	//render callbacks
-	RegisterCallback(EComponentCallback::PreRender);
-	RegisterCallback(EComponentCallback::OnRender);
-	RegisterCallback(EComponentCallback::PostRender);
+	RegisterCallback(ePreRender);
+	RegisterCallback(eOnRender);
+	RegisterCallback(ePostRender);
 }
 
 //required logic functions
