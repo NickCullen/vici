@@ -20,7 +20,7 @@ add_subdirectory(src)
 if(WIN32)
 	# Set compiler flags and options. 
 	# Here it is setting the Visual Studio warning level to 4
-	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+	#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 
 	#link up win32 lib dir
 	link_directories("${PROJECT_SOURCE_DIR}/win32/lib")

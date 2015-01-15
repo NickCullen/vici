@@ -20,7 +20,11 @@ source_group("Header\\Util" FILES ${util_h})
 source_group("Source\\Datastructures" FILES ${datastructures})
 source_group("Header\\Datastructures" FILES ${datastructures_h})
 
+#do the same with the global engine includes for reference
+FILE(GLOB include_h "${PROJECT_SOURCE_DIR}/include/*.h*")
+source_group("Includes" FILES ${include_h})
+
 #compile engine sources
 add_library(vlibrary STATIC ${core} ${rendering} ${util} ${datastructures} 
-							${core_h} ${rendering_h} ${util_h} ${datastructures_h} )	#header files need to be included so they get added to the vs filters
+							${core_h} ${rendering_h} ${util_h} ${datastructures_h} ${include_h})	#header files need to be included so they get added to the vs filters
 

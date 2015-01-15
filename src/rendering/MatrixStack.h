@@ -2,7 +2,7 @@
 #define V_MATRIX_STACK
 
 #include "Stack.h"
-#include "glm/glm.hpp"
+#include "glm.h"
 
 struct MatrixTransform
 {

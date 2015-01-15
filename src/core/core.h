@@ -1,11 +1,9 @@
 /*definitions*/
 #define _CRT_SECURE_NO_WARNINGS
-#define GLM_FORCE_PURE
 #define NULL 0
 
 /*External libs*/
-#include "glm/glm.hpp"
-#include "glm/ext.hpp"
+#include "glm.h"
 #include "rapidxml/rapidxml.hpp"
 
 /*Platform Includes*/
