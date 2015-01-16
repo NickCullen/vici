@@ -20,47 +20,60 @@ add_subdirectory(src)
 if(WIN32)
 	# Set compiler flags and options. 
 	# Here it is setting the Visual Studio warning level to 4
-	#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 
 	#link up win32 lib dir
 	link_directories("${PROJECT_SOURCE_DIR}/win32/lib")
 
-	#add windows sub dir
+	#compile platform library for windows
 	add_subdirectory(win32)
 elseif(APPLE)
+	#include the apple frameworks dir
 	include_directories("/System/Library/Frameworks")
 
-	# Set compiler flags and options. 
-	# Here it is setting the Visual Studio warning level to 4
-	#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-
-	#link up win32 lib dir
+	#link up mac lib dir
 	link_directories("${PROJECT_SOURCE_DIR}/mac/lib")
 
-	#add windows sub dir
+	#compile platform library for mac
 	add_subdirectory(mac)
 endif()
 
-#compile
-add_executable(testing TestProj/main.cpp)
+#if the program should compile into lib 
+if(BUILD_LIB)
 
-message("Included libraries = ${EXTRA_LIBS}")
+#or should build as an exec with TestProj and test files
+else()
 
-#link up librares
-target_link_libraries(testing vlibrary platformlib ${EXTRA_LIBS})
+	#compile into a executable with the test project
+	add_executable(testing TestProj/main.cpp)
 
-#post build commands (copy dlls and their equivilant etc.)
+	#link up librares
+	target_link_libraries(testing vlibrary platformlib ${EXTRA_LIBS})
 
-if(WIN32)
-#copy contents of win32 bin folder 
-add_custom_command(TARGET testing POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${PROJECT_SOURCE_DIR}/win32/bin"
-        $<TARGET_FILE_DIR:testing>)
-endif()
+	#post build commands (copy dlls and their equivilant etc.)
 
-#copy contents of TestProj to output dir 
-add_custom_command(TARGET testing POST_BUILD
+	if(WIN32)
+		#copy contents of win32 bin folder 
+		add_custom_command(TARGET testing POST_BUILD
+		    COMMAND ${CMAKE_COMMAND} -E copy_directory
+		        "${PROJECT_SOURCE_DIR}/win32/bin"
+		        $<TARGET_FILE_DIR:testing>)
+
+	elseif(APPLE)
+		#copy contents of mac bin folder 
+		add_custom_command(TARGET testing POST_BUILD
+		    COMMAND ${CMAKE_COMMAND} -E copy_directory
+		        "${PROJECT_SOURCE_DIR}/mac/bin"
+		        $<TARGET_FILE_DIR:testing>)
+
+	endif()
+
+	#copy contents of TestProj to output dir 
+	add_custom_command(TARGET testing POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_SOURCE_DIR}/TestProj"
         "${CMAKE_CURRENT_BINARY_DIR}")
+endif()
+
+
+
