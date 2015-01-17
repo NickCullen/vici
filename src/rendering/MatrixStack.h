@@ -1,7 +1,7 @@
 #ifndef V_MATRIX_STACK
 #define V_MATRIX_STACK
 
-#include "Stack.h"
+#include "TStack.h"
 #include "glm.h"
 
 struct MatrixTransform
@@ -21,7 +21,7 @@ class MatrixStack
 	friend class VCamera;
 	friend class OpenGLRenderer;
 private:
-	Stack<MatrixTransform> _stack;
+	TStack<MatrixTransform> _stack;
 	MatrixTransform* _current_matrix;
 public:
 	MatrixStack(void);
@@ -36,15 +36,15 @@ public:
 			*tmp = *_current_matrix;
 		_current_matrix = tmp;
 		//add it to the stack
-		_stack.push(_current_matrix);
+		_stack.Push(_current_matrix);
 	}
 	__forceinline void PopMatrix(void)
 	{
 		//pop the current matrix and get the previous one
-		MatrixTransform* tmp = _stack.peak();
-		_stack.pop();
+		MatrixTransform* tmp = _stack.Peak();
+		_stack.Pop();
 		delete(tmp);
-		_current_matrix = _stack.peak();
+		_current_matrix = _stack.Peak();
 	}
 
 	void ApplyMatrix(glm::mat4x4& matrix)
@@ -55,7 +55,7 @@ public:
 	__forceinline void Identity(void)
 	{
 		//set the current matrix to the identity
-		MatrixTransform* tmp = _stack.peak();
+		MatrixTransform* tmp = _stack.Peak();
 		tmp->_current_transform = glm::mat4x4(1.0f, 0.0f, 0.0f, 0.0f,
 											0.0f, 1.0f, 0.0f, 0.0f,
 											0.0f, 0.0f, 1.0f, 0.0f,
