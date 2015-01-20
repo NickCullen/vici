@@ -74,3 +74,36 @@ VHash VHash::operator=(char* eq)
 	return *this;
 }
 
+bool VHash::operator<(vhash_int other)
+{
+	return(_hash < other);
+}
+bool VHash::operator<(const VHash& other)
+{
+	return(_hash < other._hash);
+}
+bool VHash::operator<(const char* other)
+{
+	return (_hash < Hashify(other));
+}
+bool VHash::operator<(char* other)
+{
+	return (_hash < Hashify((const char*)other));
+}
+
+bool VHash::operator>(vhash_int other)
+{
+	return(_hash > other);
+}
+bool VHash::operator>(const VHash& other)
+{
+	return(_hash > other._hash);
+}
+bool VHash::operator>(const char* other)
+{
+	return (_hash > Hashify(other));
+}
+bool VHash::operator>(char* other)
+{
+	return (_hash > Hashify((const char*)other));
+}

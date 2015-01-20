@@ -13,12 +13,23 @@
 /*Static decl*/
 Vici* Vici::_instance = NULL;
 
+//function for inserting game objects
+int CompareGameObject(GameObject* lhs, GameObject* rhs)
+{
+	if (lhs->ID() < rhs->ID()) return -1;
+	else if (lhs->ID() > rhs->ID()) return 0;
+	else return 1;
+}
+
 Vici::Vici()
 {
-	_started = false;
 	if (_instance == NULL)
 	{
+		_started = false;
 		_instance = this;
+
+		//set tree comparison func
+		_objects.SetComparisonFunc(CompareGameObject);
 	}
 }
 Vici::~Vici()
@@ -50,22 +61,22 @@ void Vici::Begin()
 		//load first scene (for some reason it wont let me put 0 here without casting it to unsigned in...)
 		SceneLoader::LoadScene((unsigned int)0);
 		
-		for (unsigned int i = 0; i < _objects.size(); i++)
+		TTREE_foreach(GameObject*, object, _objects)
 		{
-			_objects[i]->Awake();
+			object->Awake();
 		}
 
-		for (unsigned int i = 0; i < _objects.size(); i++)
+		TTREE_foreach(GameObject*, object, _objects)
 		{
-			if (_objects[i]->GetEnabled())
+			if (object->GetEnabled())
 			{
-				_objects[i]->OnEnable();
+				object->OnEnable();
 			}
 		}
 
-		for (unsigned int i = 0; i < _objects.size(); i++)
+		TTREE_foreach(GameObject*, object, _objects)
 		{
-			_objects[i]->Start();
+			object->Start();
 		}
 
 		_started = true;
@@ -75,21 +86,21 @@ void Vici::Begin()
 /* Update and render funcs */
 void Vici::Update()
 {
-	for (unsigned int i = 0; i < _objects.size(); i++)
+	TTREE_foreach(GameObject*, object, _objects)
 	{
-		_objects[i]->Update();
+		object->Update();
 	}
 }
 
 void Vici::Render()
 {
-	for (unsigned int i = 0; i < _cameras.size(); i++)
+	TLIST_foreach(VCamera*, camera, _cameras)
 	{
 		//prepare the scene
-		_cameras[i]->PrepareScene();
+		camera->PrepareScene();
 
 		//now do renderings
-		_cameras[i]->Render();
+		camera->Render();
 	}
 }
 
@@ -101,7 +112,7 @@ char* Vici::GetCwd()
 /*Testing funcs*/
 void Vici::AddGameObject(GameObject* go)
 {
-	_objects.push_back(go);
+	_objects.Insert(go);
 }
 
 /*Component registrations*/

@@ -68,7 +68,9 @@ void SceneLoader::Init(Vici* v)
 
 void SceneLoader::UnloadCurrentScene()
 {
-	for (int i = _v->_objects.size() - 1; i >= 0; i--)
+	//TODO: needs fixing
+
+	/*for (int i = _v->_objects.size() - 1; i >= 0; i--)
 	{
 		GameObject* go = _v->_objects[i];
 		if (!go->Indestructable())
@@ -77,7 +79,7 @@ void SceneLoader::UnloadCurrentScene()
 			delete(go);
 		}
 
-	}
+	}*/
 }
 
 void SceneLoader::LoadScene(unsigned int index)

@@ -21,7 +21,7 @@ class MatrixStack
 	friend class VCamera;
 	friend class OpenGLRenderer;
 private:
-	TStack<MatrixTransform> _stack;
+	TStack<MatrixTransform*> _stack;
 	MatrixTransform* _current_matrix;
 public:
 	MatrixStack(void);
@@ -41,10 +41,10 @@ public:
 	__forceinline void PopMatrix(void)
 	{
 		//pop the current matrix and get the previous one
-		MatrixTransform* tmp = _stack.Peak();
+		MatrixTransform* tmp = _stack.Peek();
 		_stack.Pop();
 		delete(tmp);
-		_current_matrix = _stack.Peak();
+		_current_matrix = _stack.Peek();
 	}
 
 	void ApplyMatrix(glm::mat4x4& matrix)
@@ -55,7 +55,7 @@ public:
 	__forceinline void Identity(void)
 	{
 		//set the current matrix to the identity
-		MatrixTransform* tmp = _stack.Peak();
+		MatrixTransform* tmp = _stack.Peek();
 		tmp->_current_transform = glm::mat4x4(1.0f, 0.0f, 0.0f, 0.0f,
 											0.0f, 1.0f, 0.0f, 0.0f,
 											0.0f, 0.0f, 1.0f, 0.0f,

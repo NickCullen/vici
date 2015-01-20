@@ -1,147 +1,142 @@
-#ifndef V_TStack
-#define V_TStack
+#ifndef TSTACK_H
+#define TSTACK_H
 
+/* Definitions and macros */
 #ifndef NULL
 #define NULL 0
-#endif
+#endif 
 
-template<typename C>
+/* Nodes to store in the TStack */
+template<typename T>
 struct TStackNode
 {
-	C* _data;
-	TStackNode* _next;
-	TStackNode* _prev;
-};
+	//the data 
+	T _data;
 
-template<typename C>
+	//all a stack nodes needs is a pointer to previous node
+	TStackNode<T>* _prev;
+
+	//ctor
+	TStackNode()
+	{
+		_prev = NULL;
+	}
+};/* End of TStackNode */
+
+
+
+/* Templated class for stack */
+template<typename T>
 class TStack
 {
 private:
-	TStackNode<C>* _head;
-	TStackNode<C>* _top;
+	//top of the stack
+	TStackNode<T>* _top;
+	
+	//number of nodes
 	int _count;
 public:
-	TStack(void);
-	~TStack(void);
-
-	void Push(C* data);
-	C* Pop(void);
-	C* Peak(void);
-
-	void Empty(void);
-	bool IsEmpty(void);
-
-
-	/*this function should not be used - it is very slow and only here for testing purposes*/
-	C* operator[](int index);
-};
-
-template<typename C>
-TStack<C>::TStack(void)
-{
-	_head = NULL;
-	_top = NULL;
-	_count = 0;
-}
-
-template<typename C>
-TStack<C>::~TStack(void)
-{
-	Empty();
-}
-
-template<typename C>
-bool TStack<C>::IsEmpty(void)
-{
-	return !_head ? true : false;
-}
-
-template<typename C>
-C* TStack<C>::Pop(void)
-{
-	C* retval = NULL;
-	if (_top != NULL)
+	//ctor
+	TStack()
 	{
-		retval = _top->_data;
-		//if we are not on the _head of the TStack
-		if (_top->_prev != NULL)
+		_top = NULL;
+		_count = 0;
+	}
+	//dtor
+	~TStack()
+	{
+		//empty the stack
+		Empty();
+	}
+
+	//empty the stack
+	void Empty()
+	{
+		while (!IsEmpty())
+			Pop();
+	}
+
+	//returns true if no items on stack
+	inline bool IsEmpty()
+	{
+		return !_count;
+	}
+
+	//returns number of nodes
+	inline int Count()
+	{
+		return _count;
+	}
+
+	//pops a stack node from the stack
+	T Pop()
+	{
+		//the data to return
+		T ret = T();
+
+		if (_top != NULL)
 		{
-			TStackNode<C>* holder = _top;
+			//store the top in a temp var
+			TStackNode<T>* tmp = _top;
+			//set what to return
+			ret = tmp->_data;
+			//set the top to be the previous node (will set to NULL if it just popped the last element)
 			_top = _top->_prev;
-			_top->_next = NULL;
-			delete(holder);
+
+			//delete tmp
+			delete(tmp);
+
+			//deduct count 
 			_count--;
+		}
+
+		//return it
+		return ret;
+	}
+
+	//adds an item on top of the stack
+	void Push(T data)
+	{
+		//if there are already items on the list
+		if (_top != NULL)
+		{
+			//append a new node and set its data
+			TStackNode<T>* new_top = new TStackNode<T>();
+
+			//set its data
+			new_top->_data = data;
+
+			//set the previous node for new_top (i.e. the current _top)
+			new_top->_prev = _top;
+			
+			//now make _top the new node
+			_top = new_top;
 		}
 		else
 		{
-			delete(_top);
-			_top = NULL;
-			_head = NULL;
-			_count--;
+			//simply create a new node for _top
+			_top = new TStackNode<T>();
+
+			//assign data
+			_top->_data = data;
 		}
 
+		//increment count
+		_count++;
 	}
 
-	return retval;
-}
-template<typename C>
-void TStack<C>::Empty(void)
-{
-	while (Pop())
-		;
-}
-template<typename C>
-C* TStack<C>::Peak(void)
-{
-	if (_top)
+	//peeks at the current data
+	T Peek()
 	{
-		return _top->_data;
+		T ret = T();
+		//if there is an item on stack set data in ret and return it
+		if (_top != NULL)
+		{
+			ret = _top->_data;
+		}
+
+		return ret;
 	}
-
-	return NULL;
-}
-
-template<typename C>
-void TStack<C>::Push(C* data)
-{
-	//if _head has not been set
-	if (!_head)
-	{
-		//set the _top
-		_head = new TStackNode<C>();
-		_head->_next = NULL;
-		_head->_prev = NULL;
-		_head->_data = data;
-		//set the current to always point to the _top
-		_top = _head;
-	}
-	else
-	{
-		_top->_next = new TStackNode<C>();
-		_top->_next->_prev = _top;
-		_top = _top->_next;
-		_top->_data = data;
-	}
-
-	_count++;
-}
-
-
-//NEVER USE THIS FUNCTION IT IS NASTY I ONLY IMPLEMENTED IT TO TEST FOR DUPLICATED PROCS WHILST ITERATING THROUGH TREE!!!!
-template<typename C>
-C* TStack<C>::operator[](int index)
-{
-	TStackNode<C>* tmp = _head;
-	int count = 0;
-	while (count < index && tmp)
-	{
-		tmp = tmp->_next;
-		count++;
-	}
-	if (tmp)
-		return tmp->_data;
-	else
-		return NULL;
-}
+}; /* End of TStack */
 
 #endif

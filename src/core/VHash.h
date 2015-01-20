@@ -36,6 +36,16 @@ public:
 	VHash operator=(const char* eq);
 	VHash operator=(char* eq);
 
+	//gt lt
+	bool operator<(vhash_int other);
+	bool operator<(const VHash& other);
+	bool operator<(const char* other);
+	bool operator<(char* other);
+
+	bool operator>(vhash_int other);
+	bool operator>(const VHash& other);
+	bool operator>(const char* other);
+	bool operator>(char* other);
 
 	//getters
 	inline vhash_int Value()

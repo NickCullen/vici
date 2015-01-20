@@ -8,10 +8,10 @@ const int BUFF_LEN = 512;
 class GameObject;
 class VCamera;
 
-#include <vector>
+#include "tds.h"
 
 /*Macros for vici access*/
-#define _V Vici::Instance()
+#define _vici Vici::Instance()
 
 class Vici
 {
@@ -20,8 +20,8 @@ class Vici
 private:
 	static Vici* _instance;
 
-	std::vector<GameObject*> _objects;
-	std::vector<VCamera*> _cameras;
+	TTree<GameObject*> _objects;
+	TList<VCamera*> _cameras;
 
 	bool _started;
 

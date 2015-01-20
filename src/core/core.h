@@ -28,6 +28,4 @@
 #include "MatrixStack.h"
 
 /*Data structures*/
-#include "TStack.h"
-#include "TList.h"
-#include "TListIter.h"
+#include "tds.h"

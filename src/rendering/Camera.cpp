@@ -16,19 +16,13 @@ VCamera::VCamera()
 	_renderer->Init(this);
 
 	//add to vici camera list
-	Vici::_instance->_cameras.push_back(this);
+	Vici::_instance->_cameras.PushBack(this);
 }
 VCamera::~VCamera()
 {
 	//remove from vici camera list
-	for (unsigned int i = 0; i < Vici::_instance->_cameras.size(); i++)
-	{
-		if (Vici::_instance->_cameras[i] == this)
-		{
-			Vici::_instance->_cameras.erase(Vici::_instance->_cameras.begin() + i);
-			break;
-		}
-	}
+	_vici->_cameras.Remove(this);
+
 	//delete renderer
 	delete (_renderer);
 }

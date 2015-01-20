@@ -16,6 +16,7 @@ enum EComponentCallback { eAwake, eStart, eUpdate, ePreRender, eOnRender, ePostR
 
 class GameObject : public Object
 {
+	friend class Vici;
 private:
 	//the transform of this game object
 	Transform* _t;
@@ -79,6 +80,11 @@ public:
 	inline Transform* GetTransform()
 	{
 		return _t;
+	}
+
+	inline VHash ID()
+	{
+		return _id;
 	}
 };
 
