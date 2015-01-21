@@ -49,3 +49,21 @@ glm::mat4 Transform::GetMVP(glm::mat4& view, glm::mat4& projection)
 	return projection * view * model;
 
 }
+
+glm::mat4 Transform::GetModelMatrix()
+{
+	glm::mat4 model;
+
+	//transltae
+	model = glm::translate(model, _pos);
+
+	//rotation
+	model = glm::rotate(model, _rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, _rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, _rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	//scale
+	model = glm::scale(model, _scale);
+
+	return model;
+}

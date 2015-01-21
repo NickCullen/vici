@@ -35,6 +35,8 @@ public:
 	/*Camera and model calculations*/
 	glm::mat4 GetMVP(glm::mat4& view, glm::mat4& projection);
 
+	//returns model matrix
+	glm::mat4 GetModelMatrix();
 
 };
 

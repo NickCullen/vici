@@ -15,6 +15,8 @@ class VCamera;
 
 class OpenGLRenderer
 {
+	friend class VCamera;
+
 private:
 	//the camera for this renderer
 	VCamera* _cam;

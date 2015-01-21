@@ -58,6 +58,9 @@ void VCamera::PrepareScene()
 	//clear appropriate buffers
 	_renderer->ClearBuffer(_clear_flags, &_clear_color);
 
+	//load matrix identity
+	_renderer->_ms.Identity();
+
 	//set up projection matrices
 	_projection_mat = glm::perspective<float>(45.0f, Display::AspectRatio(), 0.1f, 100.0f);
 
