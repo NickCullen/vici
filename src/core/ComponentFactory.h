@@ -61,14 +61,18 @@ public:
 	*/
 	static IComponent* CreateComponent(std::string id);
 
-	/*Same as above but returns the type cast as the given typename
-	* Note that this will still return null if not found 
-	* Code has to be written in the header file due to the nature of template functions*/
+	/**
+	* Same as the non-template CreateComponent function except it casts the output to the 
+	* type specified in <>. e.g. to create a camera component would be to write:
+	* VCamera* cam = ComponentFactory::CreateComponent<VCamera>("VCamera");
+	* @param id string containing id of required component
+	* @return The created component pointer of specified type (NULL if not created)
+	*/
 	template<typename T>
 	static T* CreateComponent(std::string id)
 	{
 		IComponent* comp = CreateComponent(id);
-		return comp != NULL ? dynamic_cast<T>(comp) : NULL;
+		return comp != NULL ? (T*)comp : NULL;
 	}
 };
 
