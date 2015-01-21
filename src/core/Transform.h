@@ -5,6 +5,13 @@
 
 #include "glm.h"
 
+/**
+* Transform containing information on moving and representing the object in the world
+* this is newly implemented and will change alot so there won't be much documentation until I 
+* am satisfied with the way it is working. 
+* Status(incomplete - new)
+*/
+
 class Transform
 {
 private:

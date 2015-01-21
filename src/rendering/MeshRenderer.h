@@ -3,6 +3,10 @@
 
 #include "IDrawable.h"
 
+/** 
+* Placeholder class for now no comments to follow
+*/
+
 class MeshRenderer : public IDrawable
 {
 private:

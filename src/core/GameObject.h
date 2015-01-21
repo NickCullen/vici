@@ -14,6 +14,10 @@ class Transform;
 //functions to be called
 enum EComponentCallback { eAwake, eStart, eUpdate, ePreRender, eOnRender, ePostRender, eOnEnable, eOnDisable, eMAX_CALL_COUNT};
 
+/** This class isn't finish enough to comment on yet
+* Status (unfinished - ongoing)
+*/
+
 class GameObject : public Object
 {
 	friend class Vici;

@@ -6,33 +6,57 @@ class VCamera;
 
 #define MAX_LAYER_NAME 64
 
+/**
+* structure containing information about the layer so it can be ordered and 
+* rendered correctly
+*/
+
 struct LayerInfo
 {
-	//the layer number
-	int _layer;
-	//the camera to render this layer
-	VCamera* _renderer;
-
+	int _layer;	/**< the id for this layer */
+	VCamera* _renderer;	/**< the camera that will render this layer */
 };
 
+/**
+* static classed used to initialize all the layers in use for the current scene 
+* can be used for getting a reference to the camera that will render this layer
+* status(ongoing)
+*/
 class LayerSystem
 {
 private:
-	//array of layer infos
-	static LayerInfo* _layers;
-	static unsigned int _num_of_layers;
+	static LayerInfo* _layers;	/**< Array of all the layers for the current scene */
+	static unsigned int _num_of_layers; /**< counter for how many layers are in the scene */
 public:
-	//irrelevant ctor and dtor
-	LayerSystem(){};
-	~LayerSystem(){};
 
-	//init from xml
-	static void Init(const char* cwd);
+	/** 
+	* Unused constructor
+	*/
+	LayerSystem(){}; 
 
-	//sets the camera
+	/**
+	* Unused destructor
+	*/
+	~LayerSystem(){}; 
+
+	/**
+	* called at the beginning of each scene to load the current layers
+	* @param cwd a string containing the current working directory 
+	*/
+	static void Init(const char* cwd); 
+
+	/**
+	* sets the camera that will render the specified layer
+	* @param cam VCamera pointer to the layer renderer
+	* @param layer the unsigned integer id for the layer
+	*/
 	static void SetCameraForLayer(VCamera* cam, unsigned int layer);
 
-	//get the camera for a specfic layer
+	/**
+	* Returns the camera that renders the specified layer (can be NULL)
+	* @param layer unsigned integer id of the layer you want to get the camera for
+	* @return VCamera pointer for the camera that will render the layer (can be NULL)
+	*/
 	static VCamera* GetCameraForLayer(unsigned int layer);
 };
 

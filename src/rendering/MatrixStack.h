@@ -4,6 +4,11 @@
 #include "TStack.h"
 #include "glm.h"
 
+/** 
+* Node to place on the matrix stack containing the current snapshot of the 
+* matrix at this time 
+*/
+
 struct MatrixTransform
 {
 	glm::mat4x4 _current_transform;
@@ -15,6 +20,13 @@ struct MatrixTransform
 										0.0f, 0.0f, 0.0f, 1.0f);
 	}
 };
+
+/**
+* This class is reused from an older project it may not last in Vici 
+* But I won't find out if I need it or not until I start working on 
+* transforms etc. so as for now Status(New - incomplete - maybe deleted).
+* No comments to follow
+*/
 
 class MatrixStack
 {
