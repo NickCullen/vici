@@ -63,20 +63,20 @@ void Vici::Begin()
 		
 		TTREE_foreach(GameObject*, object, _objects)
 		{
-			object->Awake();
+			object->Dispatch(eAwake);
 		}
 
 		TTREE_foreach(GameObject*, object, _objects)
 		{
 			if (object->GetEnabled())
 			{
-				object->OnEnable();
+				object->Dispatch(eOnEnable);
 			}
 		}
 
 		TTREE_foreach(GameObject*, object, _objects)
 		{
-			object->Start();
+			object->Dispatch(eStart);
 		}
 
 		_started = true;
@@ -88,7 +88,7 @@ void Vici::Update()
 {
 	TTREE_foreach(GameObject*, object, _objects)
 	{
-		object->Update();
+		object->Dispatch(eUpdate);
 	}
 }
 

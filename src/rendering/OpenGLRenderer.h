@@ -3,7 +3,7 @@
 
 #include "core.h"
 
-#ifdef _WIN32
+#ifdef VICI_WINDOWS
 #include "glew.h"
 #else
 #include <OpenGL/GL.h>
@@ -53,9 +53,11 @@ public:
 };
 
 /*definitions*/
+#ifdef VICI_OPENGL
 #define VICI_COLOR_BUFFER_BIT GL_COLOR_BUFFER_BIT
 #define VICI_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
 #define VICI_ACCUM_BUFFER_BIT GL_ACCUM_BUFFER_BIT
 #define VICI_STENCIL_BUFFER_BIT GL_STENCIL_BUFFER_BIT
+#endif
 
 #endif

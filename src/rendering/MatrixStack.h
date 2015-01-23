@@ -12,13 +12,6 @@
 struct MatrixTransform
 {
 	glm::mat4x4 _current_transform;
-	MatrixTransform(void)
-	{
-		_current_transform = glm::mat4x4(1.0f, 0.0f, 0.0f, 0.0f,
-										0.0f, 1.0f, 0.0f, 0.0f,
-										0.0f, 0.0f, 1.0f, 0.0f,
-										0.0f, 0.0f, 0.0f, 1.0f);
-	}
 };
 
 /**
@@ -35,6 +28,11 @@ class MatrixStack
 private:
 	TStack<MatrixTransform*> _stack;
 	MatrixTransform* _current_matrix;
+
+	glm::mat4x4 _view_matrix;
+	glm::mat4x4 _projection_matrix;
+
+	
 public:
 	MatrixStack(void);
 	~MatrixStack(void);
@@ -72,6 +70,16 @@ public:
 											0.0f, 1.0f, 0.0f, 0.0f,
 											0.0f, 0.0f, 1.0f, 0.0f,
 											0.0f, 0.0f, 0.0f, 1.0f);
+	}
+
+	inline void SetProjection(glm::mat4x4& projection_mat)
+	{
+		_projection_matrix = projection_mat;
+	}
+
+	inline void SetView(glm::mat4x4& view_mat)
+	{
+		_view_matrix = view_mat;
 	}
 };
 

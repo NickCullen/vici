@@ -1,8 +1,9 @@
 #include "GameObject.h"
 #include "IComponent.h"
-#include "IDrawable.h"
 #include "ComponentFactory.h"
 #include "Transform.h"
+#include "IDrawable.h"
+#include "MatrixStack.h"
 
 GameObject::GameObject()
 {
@@ -40,7 +41,7 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			component->Init(this, cur_component);
 
 			//add it to the components list
-			_components.push_back(component);
+			_components.PushBack(component);
 
 			//get next
 			cur_component = cur_component->next_sibling();
@@ -56,129 +57,101 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			go->Init(this, cur_object);
 
 			//add to child node
-			_children.push_back(go);
+			_children.PushBack(go);
 
 			//get next
 			cur_object = cur_object->next_sibling();
 		}
 	}
 }
-//logic and render funcs
-void GameObject::Awake()
-{
-	for (unsigned int i = 0; i < _calls[eAwake].size(); i++)
-	{
-		_calls[eAwake].at(i)->Awake();
-	}
 
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
-	{
-		_children[i]->Awake();
-	}
-}
-void GameObject::Start()
+void GameObject::ApplyModelMatrix(MatrixStack* stack)
 {
-	for (unsigned int i = 0; i < _calls[eStart].size(); i++)
-	{
-		_calls[eStart].at(i)->Start();
-	}
-
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
-	{
-		_children[i]->Start();
-	}
+	stack->ApplyMatrix(_t->GetModelMatrix());
 }
 
-void GameObject::Update()
-{
-	for (unsigned int i = 0; i < _calls[eUpdate].size(); i++)
-	{
-		_calls[eUpdate].at(i)->Update();
-	}
-
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
-	{
-		_children[i]->Update();
-	}
-}
 void GameObject::PreRender(OpenGLRenderer* renderer)
 {
-	IDrawable* dr = NULL;
-	for (unsigned int i = 0; i < _calls[ePreRender].size(); i++)
+	TLIST_foreach(IDrawable*, drw, _render_list)
 	{
-		dr = (IDrawable*)_calls[ePreRender].at(i);
-		dr->PreRender(renderer);
+		drw->PreRender(renderer);
 	}
 
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
+	//the matrix stack
+	MatrixStack* ms = renderer->GetMatrixStack();
+
+	//apply to child objects
+	TLIST_foreach(GameObject*, child, _children)
 	{
-		_children[i]->PreRender(renderer);
+		//push
+		ms->PushMatrix();
+
+		//apply
+		child->ApplyModelMatrix(ms);
+
+		//render
+		child->PreRender(renderer);
+
+		//pop
+		ms->PopMatrix();
 	}
 }
 void GameObject::Render(OpenGLRenderer* renderer)
 {
-	IDrawable* dr = NULL;
-	for (unsigned int i = 0; i < _calls[eOnRender].size(); i++)
+	TLIST_foreach(IDrawable*, drw, _render_list)
 	{
-		dr = (IDrawable*)_calls[eOnRender].at(i);
-		dr->OnRender(renderer);
+		drw->OnRender(renderer);
 	}
 
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
+	//the matrix stack
+	MatrixStack* ms = renderer->GetMatrixStack();
+
+	//apply to child objects
+	TLIST_foreach(GameObject*, child, _children)
 	{
-		_children[i]->Render(renderer);
+		//push
+		ms->PushMatrix();
+
+		//apply
+		child->ApplyModelMatrix(ms);
+
+		//render
+		child->Render(renderer);
+
+		//pop
+		ms->PopMatrix();
 	}
 }
 void GameObject::PostRender(OpenGLRenderer* renderer)
 {
-	IDrawable* dr = NULL;
-	for (unsigned int i = 0; i < _calls[ePostRender].size(); i++)
+	TLIST_foreach(IDrawable*, drw, _render_list)
 	{
-		dr = (IDrawable*)_calls[ePostRender].at(i);
-		dr->PostRender(renderer);
+		drw->PostRender(renderer);
 	}
 
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
+	//the matrix stack
+	MatrixStack* ms = renderer->GetMatrixStack();
+
+	//apply to child objects
+	TLIST_foreach(GameObject*, child, _children)
 	{
-		_children[i]->PostRender(renderer);
+		//push
+		ms->PushMatrix();
+
+		//apply
+		child->ApplyModelMatrix(ms);
+
+		//render
+		child->PostRender(renderer);
+
+		//pop
+		ms->PopMatrix();
 	}
 }
 
-void GameObject::OnEnable()
+void GameObject::RegisterCallback(EComponentCallback type, Delegate callback)
 {
-	for (unsigned int i = 0; i < _calls[eOnEnable].size(); i++)
-	{
-		_calls[eOnEnable].at(i)->OnEnable();
-	}
-	
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
-	{
-		_children[i]->OnEnable();
-	}
-}
-void GameObject::OnDisable()
-{
-	for (unsigned int i = 0; i < _calls[eOnDisable].size(); i++)
-	{
-		_calls[eOnDisable].at(i)->OnDisable();
-	}
-
-	//dispatch children calls
-	for (unsigned int i = 0; i < _children.size(); i++)
-	{
-		_children[i]->OnDisable();
-	}
-}
-void GameObject::RegisterCallback(IComponent* comp, EComponentCallback callback)
-{
-	_calls[callback].push_back(comp);
+	_calls[type].PushBack(callback);
 }
 
 
@@ -188,15 +161,31 @@ void GameObject::SetEnabled(bool flag)
 	{
 		_enabled = flag;
 		if (_enabled)
-			OnEnable();
+			Dispatch(eOnEnable);
 		else
-			OnDisable();
+			Dispatch(eOnDisable);
 
 		//dispatch children calls
-		for (unsigned int i = 0; i < _children.size(); i++)
+		TLIST_foreach(GameObject*,obj,_children)
 		{
-			_children[i]->SetEnabled(flag);
+			obj->SetEnabled(flag);
 		}
 	}
 	
+}
+
+void GameObject::Dispatch(EComponentCallback method)
+{
+	TLIST_foreach(Delegate, callback, _calls[method])
+	{
+		//callback is actually an iterator so we need to
+		//dereference it first
+		(*callback)();
+	}
+
+	//dispatch children calls
+	TLIST_foreach(GameObject*, obj, _children)
+	{
+		obj->Dispatch(method);
+	}
 }

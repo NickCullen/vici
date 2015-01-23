@@ -1,5 +1,4 @@
 /*definitions*/
-#define _CRT_SECURE_NO_WARNINGS
 #define NULL 0
 
 /*External libs*/
@@ -19,6 +18,7 @@
 #include "ComponentFactory.h"
 #include "LayerSystem.h"
 #include "Transform.h"
+#include "Delegate.h"
 
 /*Util*/
 #include "TextFile.h"

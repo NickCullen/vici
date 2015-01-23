@@ -6,6 +6,13 @@ project(testing)
 # defined projects like INSTALL.vcproj and ZERO_CHECK.vcproj
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+#add preprocessor definitions
+if(WIN32)
+ 	add_definitions(-DVICI_WINDOWS -DVICI_PC -DVICI_OPENGL -D_CRT_SECURE_NO_WARNINGS)
+elseif(APPLE)
+	add_definitions(-DVICI_MAC -DVICI_PC -DVICI_OPENGL)
+endif()
+
 #engine includes
 include_directories("${PROJECT_SOURCE_DIR}/include")
 include_directories("${PROJECT_SOURCE_DIR}/src/core")
@@ -18,10 +25,6 @@ add_subdirectory(src)
 
 #win32 build
 if(WIN32)
-	# Set compiler flags and options. 
-	# Here it is setting the Visual Studio warning level to 4
-	#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-
 	#link up win32 lib dir
 	link_directories("${PROJECT_SOURCE_DIR}/win32/lib")
 

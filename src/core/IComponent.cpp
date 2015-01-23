@@ -16,7 +16,7 @@ void IComponent::Init(GameObject* go, rapidxml::xml_node<char>* data)
 
 }
 
-void IComponent::RegisterCallback(EComponentCallback callback)
+void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 {
-	_go->RegisterCallback(this, callback);
+	_go->RegisterCallback(cb, callback);
 }

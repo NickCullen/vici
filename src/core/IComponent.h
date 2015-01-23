@@ -45,34 +45,13 @@ public:
 	virtual void Init(GameObject* go, rapidxml::xml_node<char>* data);
 
 	/**
-	* Called once when the component is created
+	* Components which require logic functions (See EComponentCallback) will
+	* need to register for a callback by passing in a delegate and the type of callback they
+	* require. Safe to use in Init function.
+	* @param callback_type The enum specifying which callback is required (see EComponentCallback(
+	* @param callback The delegate containing callback information (i.e. the method to call when the logic function is fired off)
 	*/
-	virtual void Awake(){};
-	/**
-	* Called once when the component is created but after Awake
-	*/
-	virtual void Start(){}; 
-	/**
-	* Called once per frame
-	*/
-	virtual void Update(){};
-	/**
-	* Called when game object becomes active
-	*/
-	virtual void OnEnable(){};
-	/**
-	* Called when game object becomes inactive
-	*/
-	virtual void OnDisable(){};
-	
-	/**
-	* Components that require the logic functions (see above) will have to register
-	* for them by calling RegisterCallback and passing in the required enum (see EComponentCallback)
-	* this method is likely to change soon to take a function pointer - when this happens all the
-	* logic functions won't be specified in IComponent; rather by the component themselves
-	* @param callback enum specifying required callback
-	*/
-	void RegisterCallback(EComponentCallback callback);
+	void RegisterCallback(EComponentCallback callback_type, Delegate callback);
 
 	/**
 	* Getter function to return the game object this component is attached to

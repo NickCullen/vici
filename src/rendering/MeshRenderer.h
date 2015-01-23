@@ -23,6 +23,8 @@ public:
 	//required logic functions
 	virtual void OnEnable();
 	virtual void OnDisable();
+
+	//render functions
 	virtual void PreRender(OpenGLRenderer* renderer);
 	virtual void OnRender(OpenGLRenderer* renderer);
 	virtual void PostRender(OpenGLRenderer* renderer);

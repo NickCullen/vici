@@ -14,5 +14,6 @@ void IDrawable::Init(GameObject* go, rapidxml::xml_node<char>* data)
 	//important to call IComponent init
 	IComponent::Init(go, data);
 
-	
+	//add to game objects render list
+	go->RenderList()->PushBack(this);
 }

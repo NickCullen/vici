@@ -1,7 +1,7 @@
 #ifndef V_CAMERA
 #define V_CAMERA
 
-#include "IDrawable.h"
+#include "IComponent.h"
 
 /*Forward decl*/
 class OpenGLRenderer;
@@ -9,11 +9,11 @@ class OpenGLRenderer;
 /**
 * Component used to render a layer in the current scene
 * this component and renderering in general is still new to the engine
-* so no detailed comments will be made here 
+* so not many detailed comments will be made here 
 * status (incomplete - new )
 */
 
-class VCamera : public IDrawable
+class VCamera : public IComponent
 {
 private:
 	//the renderer
@@ -26,10 +26,13 @@ private:
 	glm::vec4 _clear_color;
 
 	//game objects to render
-	std::vector<GameObject*> _render_list;
+	TList<GameObject*> _render_list;
 	
 	//the projection matrix
 	glm::mat4x4 _projection_mat;
+
+	//the view matrix
+	glm::mat4x4 _view_mat;
 
 public:
 	/** 
@@ -56,7 +59,10 @@ public:
 	*/
 	void PrepareScene();
 
-	//renderings
+	/** 
+	* Called to render the componets that require drawing
+	* this will be called once per frame 
+	*/
 	void Render();
 
 	/**
