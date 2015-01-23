@@ -12,18 +12,15 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::Init(GameObject* go, rapidxml::xml_node<char>* node)
 {
+	//Important to set the hash if for this component
+	_hash = "MeshRenderer";
+
+	//call parent init
 	IDrawable::Init(go, node);
 
-	
 	//list for on enable and disable
 	RegisterCallback(eOnEnable, DELEGATE(MeshRenderer, OnEnable, this));
 	RegisterCallback(eOnDisable, DELEGATE(MeshRenderer, OnDisable, this));
-
-	////render callbacks
-	//RegisterCallback(ePreRender);
-	//RegisterCallback(eOnRender);
-	//RegisterCallback(ePostRender);
-	
 }
 
 //required logic functions

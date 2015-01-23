@@ -1,6 +1,6 @@
 <root>
 	<objects>
-		<gameobject id="FirstObject" indestructable="1" enabled="1" layer="0">
+		<gameobject id="FirstObject" indestructable="0" enabled="1" layer="0">
 			<components>
 				<component type="VCamera">
 					<!-- the buffer flags this camera will clear -->

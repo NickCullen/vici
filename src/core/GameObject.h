@@ -30,8 +30,6 @@ class GameObject : public Object
 private:
 	Transform* _t;	/**< Pointer to the transform of the GameObject holding its position, rotation and scale */
 
-	VHash _id;	/**< The hash ID of this object loading from xml */
-
 	TList<IComponent*> _components; /**< List of components attached to this object */
 
 	TList<IDrawable*> _render_list;	/**< List of IDrawable components attached to this object (note these are also found in _components as an IComponent* type */
@@ -137,14 +135,6 @@ public:
 		return _t;
 	}
 
-	/**
-	* Getter for _id
-	* @return Returns the hash value of the id for the game object
-	*/
-	inline VHash ID()
-	{
-		return _id;
-	}
 
 	/**
 	* Getter for the render list of this game object. This contains all the IDrawable
@@ -156,6 +146,11 @@ public:
 		return &_render_list;
 	}
 	
+
+	/**
+	* Called when a game object is being destroyed
+	*/
+	void OnDestroy();
 };
 
 #endif

@@ -14,15 +14,14 @@ VCamera::VCamera()
 }
 VCamera::~VCamera()
 {
-	//remove from vici camera list
-	_vici->_cameras.Remove(this);
 
-	//delete renderer
-	delete (_renderer);
 }
 
 void VCamera::Init(GameObject* go, rapidxml::xml_node<char>* node)
 {
+	//Important to set the hash if for this component
+	_hash = "VCamera";
+
 	//remmeber to call parents init func
 	IComponent::Init(go, node);
 
@@ -53,6 +52,14 @@ void VCamera::Init(GameObject* go, rapidxml::xml_node<char>* node)
 	}
 }
 
+void VCamera::OnDestroy()
+{
+	//remove from vici camera list
+	_vici->_cameras.Remove(this);
+
+	//delete renderer
+	delete (_renderer);
+}
 //set up before rendinger
 void VCamera::PrepareScene()
 {
@@ -74,7 +81,6 @@ void VCamera::PrepareScene()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-
 
 }
 

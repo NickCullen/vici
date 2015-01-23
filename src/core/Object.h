@@ -1,6 +1,8 @@
 #ifndef V_OBJECT
 #define V_OBJECT
 
+#include "VHash.h"
+
 /**
 * Base class of most objects used for fast == operator and 
 * specifying indestructable objects 
@@ -15,8 +17,10 @@ private:
 	unsigned int _instance; /**< the instance id for this Object */
 	
 	bool _indestructable;	/**< flag specifying if this Object is indestructable or not */
-protected:
 
+	
+protected:
+	VHash _hash; /**< The hash id of this object */
 public:
 	/**
 	* Constructor for Object - will set _instance = _count++ when created 
@@ -59,6 +63,26 @@ public:
 		return _indestructable;
 	}
 
+	/**
+	* Getter for _id
+	* @return Returns the hash value of the id for this Object
+	*/
+	inline VHash ID()
+	{
+		return _hash;
+	}
+
+	/**
+	* virtual method that is called when an Object is destroyed
+	* Any class that inherits from Object must implement this method
+	*/
+	virtual void OnDestroy(){};
+
+	/**
+	* Static class that will call the OnDestory method (and destroy) and object
+	* if it is not indestructable
+	*/
+	static void Destroy(Object* o);
 };
 
 #endif
