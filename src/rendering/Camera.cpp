@@ -100,6 +100,7 @@ void VCamera::Render()
 		obj->PostRender(_renderer);
 
 		//pop if off the stack
+		_renderer->_ms.PopMatrix();
 	}
 }
 
