@@ -39,6 +39,16 @@ public:
 	*/
 	void Unlock();
 
+	/**
+	* Override the delete method 
+	* @param go The GameObject to delete
+	*/
+	void Remove(GameObject* go);
 
+	/**
+	* Override the delete method for iterator
+	* @param itr The current iterator
+	*/
+	void Remove(TTreeIter<T>& itr);
 };
 #endif

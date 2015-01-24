@@ -115,6 +115,10 @@ void Vici::AddGameObject(GameObject* go)
 	_objects.Insert(go);
 }
 
+void Vici::RemoveGameObject(GameObject* go)
+{
+	//TODO
+}
 /*Component registrations*/
 void Vici::RegisterComponents()
 {

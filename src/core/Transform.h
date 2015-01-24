@@ -19,6 +19,9 @@ private:
 	glm::vec3 _scale;
 	glm::vec3 _rotation;
 
+	glm::mat4x4 _model;
+
+	bool _update_model_matrix;
 public:
 	Transform();
 	~Transform();
@@ -31,9 +34,6 @@ public:
 	void Scale(glm::vec3 scale);
 	void Rotate(float angle, glm::vec3 axis);
 	void Rotate(float angle, float ax_x, float ax_y, float ax_z);
-
-	/*Camera and model calculations*/
-	glm::mat4 GetMVP(glm::mat4& view, glm::mat4& projection);
 
 	//returns model matrix
 	glm::mat4 GetModelMatrix();

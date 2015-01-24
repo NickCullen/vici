@@ -90,6 +90,12 @@ public:
 	void AddGameObject(GameObject* go);
 
 	/**
+	* Removes the game object from the update lists (Yet to be implemented)
+	* @param go The game object to remove from list
+	*/
+	void RemoveGameObject(GameObject* go);
+
+	/**
 	* Static getter to return the running instance of Vici (may be NULL)
 	*/
 	static inline Vici* Instance()

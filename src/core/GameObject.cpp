@@ -25,7 +25,7 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 	if (node != NULL)
 	{
 		/*set initial vars*/
-		_id = node->first_attribute("id")->value();
+		_hash = node->first_attribute("id")->value();
 		if (atoi(node->first_attribute("indestructable")->value()) == 1) MakeIndestructable();
 		_enabled = (atoi(node->first_attribute("enabled")->value()) == 1) ? true : false;
 		_layer = atoi(node->first_attribute("layer")->value());
@@ -63,6 +63,42 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			cur_object = cur_object->next_sibling();
 		}
 	}
+}
+
+void GameObject::OnDestroy()
+{
+	//remove components
+	while (!_components.IsEmpty())
+	{
+		//remove from list
+		IComponent* comp = _components.PopBack();
+
+		//destroy it
+		Destroy(comp);
+	}
+
+	//clear render lists
+	_render_list.Empty();
+
+	//clear calls
+	for (int i = 0; i < eMAX_CALL_COUNT; i++)
+	{
+		_calls[i].Empty();
+	}
+
+	//delete transform
+	delete(_t);
+
+	//destroy all children
+	while (!_children.IsEmpty())
+	{
+		GameObject* child = _children.PopBack();
+
+		Destroy(child);
+	}
+
+	//finally remove from _vici game object list
+	_vici->RemoveGameObject(this);
 }
 
 void GameObject::ApplyModelMatrix(MatrixStack* stack)

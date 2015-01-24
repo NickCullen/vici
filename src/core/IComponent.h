@@ -12,7 +12,7 @@
 * inherit from this class, otherwise IDrawable should be used. 
 */
 
-class IComponent
+class IComponent : public Object
 {
 	/*friend classes to internal objects*/
 	friend class Vici;
@@ -61,6 +61,7 @@ public:
 	{
 		return _go;
 	}
+
 };
 
 #endif
