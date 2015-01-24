@@ -57,7 +57,7 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			go->Init(this, cur_object);
 
 			//add to child node
-			_children.PushBack(go);
+			_children.Insert(go);
 
 			//get next
 			cur_object = cur_object->next_sibling();
@@ -67,6 +67,13 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 
 void GameObject::OnDestroy()
 {
+	//if this is the top most parent remove from update list
+	if (_parent == NULL)
+		_vici->RemoveGameObject(this);
+	//else remove from parents _children list
+	else
+		_parent->_children.Remove(this);
+
 	//remove components
 	while (!_components.IsEmpty())
 	{
@@ -89,16 +96,13 @@ void GameObject::OnDestroy()
 	//delete transform
 	delete(_t);
 
-	//destroy all children
-	while (!_children.IsEmpty())
+	_children.Lock();
+	//destroy children
+	TTREE_foreach(GameObject*, child, _children)
 	{
-		GameObject* child = _children.PopBack();
-
 		Destroy(child);
 	}
-
-	//finally remove from _vici game object list
-	_vici->RemoveGameObject(this);
+	_children.Unlock();
 }
 
 void GameObject::ApplyModelMatrix(MatrixStack* stack)
@@ -117,7 +121,7 @@ void GameObject::PreRender(OpenGLRenderer* renderer)
 	MatrixStack* ms = renderer->GetMatrixStack();
 
 	//apply to child objects
-	TLIST_foreach(GameObject*, child, _children)
+	TTREE_foreach(GameObject*, child, _children)
 	{
 		//push
 		ms->PushMatrix();
@@ -143,7 +147,7 @@ void GameObject::Render(OpenGLRenderer* renderer)
 	MatrixStack* ms = renderer->GetMatrixStack();
 
 	//apply to child objects
-	TLIST_foreach(GameObject*, child, _children)
+	TTREE_foreach(GameObject*, child, _children)
 	{
 		//push
 		ms->PushMatrix();
@@ -169,7 +173,7 @@ void GameObject::PostRender(OpenGLRenderer* renderer)
 	MatrixStack* ms = renderer->GetMatrixStack();
 
 	//apply to child objects
-	TLIST_foreach(GameObject*, child, _children)
+	TTREE_foreach(GameObject*, child, _children)
 	{
 		//push
 		ms->PushMatrix();
@@ -202,7 +206,7 @@ void GameObject::SetEnabled(bool flag)
 			Dispatch(eOnDisable);
 
 		//dispatch children calls
-		TLIST_foreach(GameObject*,obj,_children)
+		TTREE_foreach(GameObject*, obj, _children)
 		{
 			obj->SetEnabled(flag);
 		}
@@ -217,11 +221,22 @@ void GameObject::Dispatch(EComponentCallback method)
 		//callback is actually an iterator so we need to
 		//dereference it first
 		(*callback)();
+
+		//if this object has been set to garbage break out
+		if (IsGarbage())
+		{
+			//return
+			return;
+		}
 	}
 
+	_children.Lock();
+
 	//dispatch children calls
-	TLIST_foreach(GameObject*, obj, _children)
+	TTREE_foreach(GameObject*, obj, _children)
 	{
-		obj->Dispatch(method);
+		if(!obj->IsGarbage()) obj->Dispatch(method);
 	}
+
+	_children.Unlock();
 }

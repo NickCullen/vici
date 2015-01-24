@@ -5,6 +5,7 @@
 #include "VHash.h"
 #include "rapidxml/rapidxml.hpp"
 #include "TList.h"
+#include "GameObjectTree.h"
 #include "Delegate.h"
 
 /*Forward Decls*/
@@ -42,7 +43,7 @@ private:
 
 	GameObject* _parent; /**< The parent GameObject of this GameObject (can be NULL) */
 
-	TList<GameObject*> _children; /**< List of child GameObjects */
+	GameObjectTree _children; /**< tree of child GameObjects */
 
 protected:
 

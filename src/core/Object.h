@@ -32,7 +32,7 @@ public:
 	/**
 	* Destructor for Object
 	*/
-	~Object();	
+	virtual ~Object();	
 
 	/**
 	* Copy constructor for Object used to ensure _count isnt incremented and _instance is copied

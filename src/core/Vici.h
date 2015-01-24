@@ -9,6 +9,7 @@ class GameObject;
 class VCamera;
 
 #include "tds.h"
+#include "GameObjectTree.h"
 
 /*Macros for vici access*/
 #define _vici Vici::Instance()
@@ -27,7 +28,8 @@ class Vici
 private:
 	static Vici* _instance; /**< The only allowed running instance of the engine */
 
-	TTree<GameObject*> _objects; /**< Tree of Game Objects (soon to turn into a GameObjectTree) */
+	GameObjectTree _objects; /**< Tree of Game Objects */
+
 	TList<VCamera*> _cameras;	/**< List containing all active cameras */
 
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */

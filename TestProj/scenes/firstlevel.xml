@@ -2,7 +2,12 @@
 	<objects>
 		<gameobject id="FirstObject" indestructable="0" enabled="1" layer="0">
 			<components>
-				<component type="VCamera">
+				
+			</components>
+			<gameobjects>
+				<gameobject id="Second" indestructable="0" enabled="1" layer="0">
+				<components>
+					<component type="VCamera">
 					<!-- the buffer flags this camera will clear -->
 					<clear_color_buffer>1</clear_color_buffer>
 					<clear_depth_buffer>0</clear_depth_buffer>
@@ -13,11 +18,6 @@
 						<layer>0</layer>
 					</renderlayers>
 				</component>
-			</components>
-			<gameobjects>
-				<gameobject id="Second" indestructable="0" enabled="1" layer="0">
-				<components>
-
 				</components>
 				<gameobjects>
 

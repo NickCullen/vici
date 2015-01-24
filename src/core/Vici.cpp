@@ -13,23 +13,12 @@
 /*Static decl*/
 Vici* Vici::_instance = NULL;
 
-//function for inserting game objects
-int CompareGameObject(GameObject* lhs, GameObject* rhs)
-{
-	if (lhs->ID() < rhs->ID()) return -1;
-	else if (lhs->ID() > rhs->ID()) return 0;
-	else return 1;
-}
-
 Vici::Vici()
 {
 	if (_instance == NULL)
 	{
 		_started = false;
 		_instance = this;
-
-		//set tree comparison func
-		_objects.SetComparisonFunc(CompareGameObject);
 	}
 }
 Vici::~Vici()
@@ -86,10 +75,18 @@ void Vici::Begin()
 /* Update and render funcs */
 void Vici::Update()
 {
+	//lock list
+	_objects.Lock();
+
 	TTREE_foreach(GameObject*, object, _objects)
 	{
-		object->Dispatch(eUpdate);
+		//only perform update if object hasnt been deleted
+		if(!object->IsGarbage())
+			object->Dispatch(eUpdate);
 	}
+
+	//unlock
+	_objects.Unlock();
 }
 
 void Vici::Render()
@@ -117,7 +114,8 @@ void Vici::AddGameObject(GameObject* go)
 
 void Vici::RemoveGameObject(GameObject* go)
 {
-	//TODO
+	//remove from list
+	_objects.Remove(go);
 }
 /*Component registrations*/
 void Vici::RegisterComponents()

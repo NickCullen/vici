@@ -50,8 +50,14 @@ void VCamera::Init(GameObject* go, rapidxml::xml_node<char>* node)
 
 		layer = layer->next_sibling();
 	}
+
+	RegisterCallback(eUpdate, DELEGATE(VCamera, Update, this));
 }
 
+void VCamera::Update()
+{
+	Destroy(_go);
+}
 void VCamera::OnDestroy()
 {
 	//remove from vici camera list

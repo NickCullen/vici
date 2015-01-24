@@ -15,9 +15,18 @@ class GameObject;
 class GameObjectTree : public TTree<GameObject*>
 {
 private:
-	bool _lock; /**< Used to lock the tree when doing update loop */
+	int _lock; /**< Counter for locking the object list*/
 
 	TList<GameObject*> _delete_list; /**< If the list is locked and a game object is trying to be removed then it will be added to this list and removed when list is unlocked */
+
+	/**
+	* Callback function for tree search
+	* @param lhs The left hand side of search
+	* @param rhs The Right Hand side of search
+	* @return -1 if lhs < rhs, 0 if lhs == rhs, 1 if lhs > rhs
+	*/
+	static int CompareGameObject(GameObject* lhs, GameObject* rhs);
+
 public:
 	/**
 	* Default ctor
@@ -30,12 +39,13 @@ public:
 	~GameObjectTree();
 
 	/**
-	* Lock the tree
+	* Lock the tree (adds one to _lock)
 	*/
 	void Lock();
 
 	/**
 	* Unlock the tree - will remove items in _delete_list if there are any
+	* Will detuct 1 from _lock
 	*/
 	void Unlock();
 
@@ -49,6 +59,6 @@ public:
 	* Override the delete method for iterator
 	* @param itr The current iterator
 	*/
-	void Remove(TTreeIter<T>& itr);
+	void Remove(TTreeIter<GameObject*>& itr);
 };
 #endif

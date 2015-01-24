@@ -61,63 +61,63 @@ struct TTreeNode
 		_last_visitor = NULL;
 	}
 
-	/**
-	* Inline function which will return if this is a leaf node 
-	* or false if node
-	* @return Boolean
-	*/
-	inline bool IsLeaf()
-	{
-		return (_left == NULL && _right == NULL);
-	}
+	///**
+	//* Inline function which will return if this is a leaf node 
+	//* or false if node
+	//* @return Boolean
+	//*/
+	//inline bool IsLeaf()
+	//{
+	//	return (_left == NULL && _right == NULL);
+	//}
 
-	/**
-	* Inline function which will return true if this is the root node of the tree
-	* @return Boolean
-	*/
-	inline bool IsRoot()
-	{
-		return (_parent == NULL);
-	}
+	///**
+	//* Inline function which will return true if this is the root node of the tree
+	//* @return Boolean
+	//*/
+	//inline bool IsRoot()
+	//{
+	//	return (_parent == NULL);
+	//}
 
-	/**
-	* Inline function which will return true if this node has only a single child
-	* @return Boolean
-	*/
-	inline bool HasOneChild()
-	{
-		return ((_left != NULL && _right == NULL) || (_right != NULL && _left == NULL));
-	}
+	///**
+	//* Inline function which will return true if this node has only a single child
+	//* @return Boolean
+	//*/
+	//inline bool HasOneChild()
+	//{
+	//	return ((_left != NULL && _right == NULL) || (_right != NULL && _left == NULL));
+	//}
 
-	
-	/**
-	* Sets the specified child to null
-	* @param child The child to set to NULL
-	*/
-	inline void SetChildToNull(TTreeNode<T>* child)
-	{
-		if (child == _left) _left = NULL;
-		else if (child == _right) _right = NULL;
-	}
+	//
+	///**
+	//* Sets the specified child to null
+	//* @param child The child to set to NULL
+	//*/
+	//inline void SetChildToNull(TTreeNode<T>* child)
+	//{
+	//	if (child == _left) _left = NULL;
+	//	else if (child == _right) _right = NULL;
+	//}
 
-	/** 
-	* Replaces the specified child node to the new_child
-	* @param child The child to be replaced
-	* @param new_child the new child to replace the old
-	*/
-	inline void ReplaceChild(TTreeNode<T>* child, TTreeNode<T>* new_child)
-	{
-		if (child == _left)
-		{
-			_left = new_child;
-			new_child->_parent = this;
-		}
-		else if (child == _right)
-		{
-			_right = new_child;
-			new_child->_parent = this;
-		}
-	}
+	///** 
+	//* Replaces the specified child node to the new_child
+	//* @param child The child to be replaced
+	//* @param new_child the new child to replace the old
+	//*/
+	//inline void ReplaceChild(TTreeNode<T>* child, TTreeNode<T>* new_child)
+	//{
+	//	if (child == _left)
+	//	{
+	//		_left = new_child;
+	//		new_child->_parent = this;
+	//	}
+	//	else if (child == _right)
+	//	{
+	//		_right = new_child;
+	//		new_child->_parent = this;
+	//	}
+	//}
 
 }; 
 
@@ -153,6 +153,7 @@ private:
 		return root;
 	}
 
+protected:
 	/**
 	* To be used internally to delete a node from the tree. This is a 
 	* recursive method
@@ -244,7 +245,7 @@ public:
 	/** 
 	* Default destructor which will empty the tree
 	*/
-	~TTree()
+	virtual ~TTree()
 	{
 		//empty list
 		Empty();
@@ -505,7 +506,7 @@ public:
         _current = tree->_root;
         
         //set its last visitor to be this
-        _current->_last_visitor = this;
+        if(_current) _current->_last_visitor = this;
     }
     
 	/**
