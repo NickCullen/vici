@@ -7,6 +7,7 @@ Object::Object()
 {
 	_indestructable = false;
 	_instance = ++_count;
+	_garbage = false;
 }
 
 Object::~Object()

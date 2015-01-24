@@ -12,9 +12,12 @@ class Object
 	friend class SceneLoader;
 private:
 	static unsigned int _count;	/**< static unsigned int containing the total number of Objects ever instantiated */
+
 	unsigned int _instance; /**< the instance id for this Object */
 	
 	bool _indestructable;	/**< flag specifying if this Object is indestructable or not */
+
+	bool _garbage; /**< Flag to represent if this object is garbage or not */
 protected:
 
 public:
@@ -59,6 +62,22 @@ public:
 		return _indestructable;
 	}
 
+	/**
+	* Checks to see if the object is garbage
+	* @return Boolean true if garbage false if not
+	*/
+	inline bool IsGarbage()
+	{
+		return _garbage;
+	}
+
+	/**
+	* Sets the object to be garbage
+	*/
+	void SetGarbage()
+	{
+		_garbage = true;
+	}
 };
 
 #endif
