@@ -83,6 +83,7 @@ public:
 	void OnDestroy();
 
 	static DerivedRegister<VCamera> reg; /**< Static registration member var used to register this component with the ComponentFactory */
+
 };
 
 

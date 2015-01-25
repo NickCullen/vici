@@ -41,7 +41,7 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			component->Init(this, cur_component);
 
 			//add it to the components list
-			_components.PushBack(component);
+			_components.Insert(component);
 
 			//get next
 			cur_component = cur_component->next_sibling();
@@ -74,15 +74,14 @@ void GameObject::OnDestroy()
 	else
 		_parent->_children.Remove(this);
 
-	//remove components
-	while (!_components.IsEmpty())
+	_components.Lock();
+	//destroy components
+	TTREE_foreach(IComponent*, comp, _components)
 	{
-		//remove from list
-		IComponent* comp = _components.PopBack();
-
 		//destroy it
 		Destroy(comp);
 	}
+	_components.Unlock();
 
 	//clear render lists
 	_render_list.Empty();
@@ -103,6 +102,22 @@ void GameObject::OnDestroy()
 		Destroy(child);
 	}
 	_children.Unlock();
+}
+
+
+void GameObject::AddComponent(IComponent* comp)
+{
+	_components.Insert(comp);
+}
+
+void GameObject::RemoveComponent(IComponent* comp)
+{
+	_components.Remove(comp);
+}
+
+IComponent* GameObject::FindComponent(VHash type_id)
+{
+	return _components.FindComponent(type_id);
 }
 
 void GameObject::ApplyModelMatrix(MatrixStack* stack)
@@ -216,6 +231,9 @@ void GameObject::SetEnabled(bool flag)
 
 void GameObject::Dispatch(EComponentCallback method)
 {
+	//make sure to lock components
+	_components.Lock();
+
 	TLIST_foreach(Delegate, callback, _calls[method])
 	{
 		//callback is actually an iterator so we need to
@@ -225,10 +243,16 @@ void GameObject::Dispatch(EComponentCallback method)
 		//if this object has been set to garbage break out
 		if (IsGarbage())
 		{
+			//unlock components
+			_components.Unlock();
+
 			//return
 			return;
 		}
 	}
+
+	//unlock components
+	_components.Unlock();
 
 	_children.Lock();
 

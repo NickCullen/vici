@@ -45,6 +45,11 @@ public:
 	virtual void Init(GameObject* go, rapidxml::xml_node<char>* data);
 
 	/**
+	* Called when the component gets destroyed
+	*/
+	virtual void OnDestroy();
+
+	/**
 	* Components which require logic functions (See EComponentCallback) will
 	* need to register for a callback by passing in a delegate and the type of callback they
 	* require. Safe to use in Init function.

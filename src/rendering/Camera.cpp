@@ -50,6 +50,7 @@ void VCamera::Init(GameObject* go, rapidxml::xml_node<char>* node)
 
 		layer = layer->next_sibling();
 	}
+
 }
 
 void VCamera::OnDestroy()
@@ -59,6 +60,9 @@ void VCamera::OnDestroy()
 
 	//delete renderer
 	delete (_renderer);
+
+	//call parents on destroy
+	IComponent::OnDestroy();
 }
 //set up before rendinger
 void VCamera::PrepareScene()

@@ -81,7 +81,7 @@ void Vici::Update()
 	TTREE_foreach(GameObject*, object, _objects)
 	{
 		//only perform update if object hasnt been deleted
-		if(!object->IsGarbage())
+		if(!object->IsGarbage() && object->GetEnabled())
 			object->Dispatch(eUpdate);
 	}
 

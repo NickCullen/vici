@@ -17,3 +17,13 @@ void IDrawable::Init(GameObject* go, rapidxml::xml_node<char>* data)
 	//add to game objects render list
 	go->RenderList()->PushBack(this);
 }
+
+void IDrawable::OnDestroy()
+{
+	//call IComponent OnDestroy
+	IComponent::OnDestroy();
+
+	//remove from components render list
+	_go->RenderList()->Remove(this);
+
+}

@@ -16,6 +16,12 @@ void IComponent::Init(GameObject* go, rapidxml::xml_node<char>* data)
 
 }
 
+void IComponent::OnDestroy()
+{
+	//remove from game objects component list
+	_go->RemoveComponent(this);
+}
+
 void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 {
 	_go->RegisterCallback(cb, callback);

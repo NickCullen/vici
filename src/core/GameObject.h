@@ -6,6 +6,7 @@
 #include "rapidxml/rapidxml.hpp"
 #include "TList.h"
 #include "GameObjectTree.h"
+#include "ComponentTree.h"
 #include "Delegate.h"
 
 /*Forward Decls*/
@@ -31,7 +32,7 @@ class GameObject : public Object
 private:
 	Transform* _t;	/**< Pointer to the transform of the GameObject holding its position, rotation and scale */
 
-	TList<IComponent*> _components; /**< List of components attached to this object */
+	ComponentTree _components; /**< tree of components attached to this object */
 
 	TList<IDrawable*> _render_list;	/**< List of IDrawable components attached to this object (note these are also found in _components as an IComponent* type */
 
@@ -147,11 +148,38 @@ public:
 		return &_render_list;
 	}
 	
-
 	/**
 	* Called when a game object is being destroyed
 	*/
 	void OnDestroy();
+
+	/**
+	* Used to attach a component to the components list
+	* @param comp The component to attached to the object
+	*/
+	void AddComponent(IComponent* comp);
+
+	/**
+	* Removes the specified component from the components list
+	* @param comp The component to be removed
+	*/
+	void RemoveComponent(IComponent* comp);
+
+	/**
+	* Searches and finds a component of given type
+	* @param component The type id of the Component you want to find This 
+	* is the string representation of the component type name
+	*/
+	IComponent* FindComponent(VHash type_id);
+
+	/**
+	* Works the same as FindComponent except it casts it to the given type
+	* Note that this will return NULL if component wasn't found!
+	* @param component The type id of the Component you want to find This
+	* is the string representation of the component type name
+	*/
+	template<typename T>
+	inline T* FindComponent(VHash type_id){ return (T*)FindComponent(type_id); }
 };
 
 #endif

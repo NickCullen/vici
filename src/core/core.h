@@ -19,6 +19,8 @@
 #include "LayerSystem.h"
 #include "Transform.h"
 #include "Delegate.h"
+#include "GameObjectTree.h"
+#include "ComponentTree.h"
 
 /*Util*/
 #include "TextFile.h"

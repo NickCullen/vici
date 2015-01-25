@@ -55,6 +55,11 @@ public:
 	* @param renderer the renderer being used to render the scene
 	*/
 	virtual void PostRender(OpenGLRenderer* renderer){};
+
+	/**
+	* Called when this IDrawable is destroyed
+	*/
+	virtual void OnDestroy();
 };
 
 #endif
