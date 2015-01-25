@@ -17,7 +17,7 @@ class IDrawable;
 class MatrixStack;
 
 //functions to be called
-enum EComponentCallback { eAwake, eStart, eUpdate, eOnEnable, eOnDisable, eMAX_CALL_COUNT};
+enum EComponentCallback { eUpdate, eOnEnable, eOnDisable, eMAX_CALL_COUNT};
 
 /** 
 * The GameObject class is very much an on going process so methods and members here
@@ -46,6 +46,7 @@ private:
 
 	GameObjectTree _children; /**< tree of child GameObjects */
 
+	bool _start_called; /**< Flag to set so we dont call OnStart more than once */
 protected:
 
 public:
@@ -102,6 +103,12 @@ public:
 	* @param method The enum specifying which logic function to execute
 	*/
 	void Dispatch(EComponentCallback method);
+
+	/** 
+	* As OnStart is a required method then we need to 
+	* dispatch this as a specified method in GameObject
+	*/
+	void OnStart();
 
 	/**
 	* Sets the _enabled flag to the input bool. This will fire off OnEnabled or OnDisabled logic functions

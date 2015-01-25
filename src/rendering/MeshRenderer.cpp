@@ -3,6 +3,8 @@
 
 MeshRenderer::MeshRenderer()
 {
+	//Important to set the hash if for this component
+	_hash = "MeshRenderer";
 
 }
 MeshRenderer::~MeshRenderer()
@@ -10,14 +12,15 @@ MeshRenderer::~MeshRenderer()
 
 }
 
-void MeshRenderer::Init(GameObject* go, rapidxml::xml_node<char>* node)
+void MeshRenderer::Init(rapidxml::xml_node<char>* node)
 {
-	//Important to set the hash if for this component
-	_hash = "MeshRenderer";
-
 	//call parent init
-	IDrawable::Init(go, node);
+	IDrawable::Init(node);
+}
 
+//implementation of SetupCallbacks
+void MeshRenderer::OnStart()
+{
 	//list for on enable and disable
 	RegisterCallback(eOnEnable, DELEGATE(MeshRenderer, OnEnable, this));
 	RegisterCallback(eOnDisable, DELEGATE(MeshRenderer, OnDisable, this));

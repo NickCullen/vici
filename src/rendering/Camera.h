@@ -48,10 +48,15 @@ public:
 	/** 
 	* Adds this camera to the _vici camera list and lets it know what
 	* layers it will render
-	* @param go pointer to game object this component is attached to
 	* @param node pointer to xml node containing this components init data
 	*/
-	virtual void Init(GameObject* go, rapidxml::xml_node<char>* node);
+	virtual void Init(rapidxml::xml_node<char>* node);
+
+	/**
+	* Called so component can register to logic callback functions
+	* and interact with other components& game objects
+	*/
+	void OnStart();
 
 	/** 
 	* Called by _vici to prepare scene (i.e set clear flags etc.) 

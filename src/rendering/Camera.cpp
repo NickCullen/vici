@@ -5,32 +5,22 @@
 
 VCamera::VCamera()
 {
+	//Important to set the hash if for this component
+	_hash = "VCamera";
+
 	//default
 	_clear_flags = 0;
 	_clear_color = glm::vec4(0.2f,0.2f,0.2f, 1.0f);
-
-	//add to vici camera list
-	Vici::_instance->_cameras.PushBack(this);
 }
 VCamera::~VCamera()
 {
 
 }
 
-void VCamera::Init(GameObject* go, rapidxml::xml_node<char>* node)
+void VCamera::Init(rapidxml::xml_node<char>* node)
 {
-	//Important to set the hash if for this component
-	_hash = "VCamera";
-
 	//remmeber to call parents init func
-	IComponent::Init(go, node);
-
-	//get a scene renderer
-	_renderer = new OpenGLRenderer();
-
-	//initialize the scene
-	_renderer->Init(this);
-
+	IComponent::Init(node);
 
 	//get and set the clear flags
 	_clear_flags = atoi(node->first_node("clear_color_buffer")->value()) == 1? VICI_COLOR_BUFFER_BIT : 0;
@@ -51,6 +41,18 @@ void VCamera::Init(GameObject* go, rapidxml::xml_node<char>* node)
 		layer = layer->next_sibling();
 	}
 
+}
+
+void VCamera::OnStart()
+{
+	//add to vici camera list
+	_vici->_cameras.PushBack(this);
+
+	//get a scene renderer
+	_renderer = new OpenGLRenderer();
+
+	//initialize the scene
+	_renderer->Init(this);
 }
 
 void VCamera::OnDestroy()

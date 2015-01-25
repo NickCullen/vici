@@ -49,23 +49,23 @@ void Vici::Begin()
 	{
 		//load first scene (for some reason it wont let me put 0 here without casting it to unsigned in...)
 		SceneLoader::LoadScene((unsigned int)0);
-		
+
+		//dispatch start to all objects
 		TTREE_foreach(GameObject*, object, _objects)
 		{
-			object->Dispatch(eAwake);
+			if (object->GetEnabled())
+			{
+				object->OnStart();
+			}
 		}
 
+		//dispatch on enabled messages to those who just become enabled
 		TTREE_foreach(GameObject*, object, _objects)
 		{
 			if (object->GetEnabled())
 			{
 				object->Dispatch(eOnEnable);
 			}
-		}
-
-		TTREE_foreach(GameObject*, object, _objects)
-		{
-			object->Dispatch(eStart);
 		}
 
 		_started = true;

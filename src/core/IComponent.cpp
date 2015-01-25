@@ -9,10 +9,8 @@ IComponent::~IComponent()
 	
 }
 
-void IComponent::Init(GameObject* go, rapidxml::xml_node<char>* data)
+void IComponent::Init(rapidxml::xml_node<char>* data)
 {
-	/*initial vars*/
-	_go = go;
 
 }
 

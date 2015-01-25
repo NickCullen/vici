@@ -18,11 +18,14 @@ public:
 	~MeshRenderer();
 
 	//init
-	virtual void Init(GameObject* go, rapidxml::xml_node<char>* node);
+	virtual void Init(rapidxml::xml_node<char>* node);
 
 	//required logic functions
 	virtual void OnEnable();
 	virtual void OnDisable();
+
+	//implementation of SetupCallbacks
+	void OnStart();
 
 	//render functions
 	virtual void PreRender(OpenGLRenderer* renderer);

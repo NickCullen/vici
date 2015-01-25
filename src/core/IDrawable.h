@@ -34,11 +34,10 @@ public:
 	* Called when a component is created via xml. No references should be made to other
 	* components in this function as there is no guarantee that they may be instantiated yet.
 	* Idrawable will call the parent (IComponent) Init function. note that components
-	* inheriting from this class MUST call IDrawable::Init(go, data) 
-	* @param go this component belongs to
+	* inheriting from this class MUST call IDrawable::Init(data) 
 	* @param data the xml node containing the required loading information
 	*/
-	virtual void Init(GameObject* go, rapidxml::xml_node<char>* data);
+	virtual void Init(rapidxml::xml_node<char>* data);
 
 	/**
 	* Called before rendering a frame

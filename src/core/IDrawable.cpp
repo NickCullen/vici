@@ -9,13 +9,13 @@ IDrawable::~IDrawable()
 
 }
 
-void IDrawable::Init(GameObject* go, rapidxml::xml_node<char>* data)
+void IDrawable::Init(rapidxml::xml_node<char>* data)
 {
 	//important to call IComponent init
-	IComponent::Init(go, data);
+	IComponent::Init(data);
 
 	//add to game objects render list
-	go->RenderList()->PushBack(this);
+	_go->RenderList()->PushBack(this);
 }
 
 void IDrawable::OnDestroy()

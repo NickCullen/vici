@@ -26,7 +26,8 @@ protected:
 public:
 
 	/**
-	* IComponent constructor
+	* IComponent constructor - this should be used to setup
+	* initiale member variables of the component
 	*/
 	IComponent();
 
@@ -36,13 +37,19 @@ public:
 	virtual ~IComponent(); 
 
 	/**
-	* Called when a component is created via xml. No references should be made to other 
-	* components in this function as there is no guarantee that they may be instantiated yet.
-	* note that components inheriting from this class MUST call IDrawable::Init(go, data)
-	* @param go this component belongs to
+	* Called when a component is created via xml. (i.e. when the scene file is loaded) No references should 
+	* be made to other components in this function as there is no guarantee that they may be instantiated yet.
+	* Note that components inheriting directly from this class MUST call IComponent::Init(data)
 	* @param data the xml node containing the required loading information
 	*/
-	virtual void Init(GameObject* go, rapidxml::xml_node<char>* data);
+	virtual void Init(rapidxml::xml_node<char>* data);
+
+	/**
+	* Called when the component is created (after init IF the component was loaded
+	* from xml). It is safe to register for callbacks here and reference other components 
+	* and game objects
+	*/
+	virtual void OnStart() = 0;
 
 	/**
 	* Called when the component gets destroyed
@@ -65,6 +72,15 @@ public:
 	inline GameObject* GetGameObject()
 	{
 		return _go;
+	}
+
+	/**
+	* Sets the GameObject that this component is attached to
+	* @param go The GameObject that this component is attached to
+	*/
+	inline void SetGameObject(GameObject* go)
+	{
+		_go = go;
 	}
 
 };

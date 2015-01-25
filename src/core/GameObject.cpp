@@ -11,6 +11,7 @@ GameObject::GameObject()
 	_parent = NULL;
 	_layer = 0;	//0 is default layer
 	_t = new Transform();
+	_start_called = false;
 }
 GameObject::~GameObject()
 {
@@ -37,8 +38,11 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			//create the component
 			IComponent* component = ComponentFactory::CreateComponent(cur_component->first_attribute("type")->value());
 
-			//init the component
-			component->Init(this, cur_component);
+			//set its game object
+			component->SetGameObject(this);
+
+			//init the component from xml
+			component->Init(cur_component);
 
 			//add it to the components list
 			_components.Insert(component);
@@ -260,6 +264,46 @@ void GameObject::Dispatch(EComponentCallback method)
 	TTREE_foreach(GameObject*, obj, _children)
 	{
 		if(!obj->IsGarbage()) obj->Dispatch(method);
+	}
+
+	_children.Unlock();
+}
+
+void GameObject::OnStart()
+{
+	//if already called return
+	if (_start_called) return;
+
+	//else set true and carry on
+	_start_called = true;
+
+	//make sure to lock components
+	_components.Lock();
+
+	TTREE_foreach(IComponent*, comp, _components)
+	{
+		comp->OnStart();
+
+		//if this object has been set to garbage break out
+		if (IsGarbage())
+		{
+			//unlock components
+			_components.Unlock();
+
+			//return
+			return;
+		}
+	}
+
+	//unlock components
+	_components.Unlock();
+
+	_children.Lock();
+
+	//dispatch children calls
+	TTREE_foreach(GameObject*, obj, _children)
+	{
+		if (!obj->IsGarbage()) obj->OnStart();
 	}
 
 	_children.Unlock();
