@@ -215,12 +215,3 @@ if __name__ == "__main__":
 	#close files
 	f.close();
 	out.close()
-
-	out = open(sys.argv[2],"rb")
-	length = struct.unpack('i', out.read(4))[0]
-	verts = array('f')
-	verts.fromfile(out,length)
-
-	print(length)
-	print(verts)
-	out.close()

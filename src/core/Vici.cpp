@@ -122,4 +122,6 @@ void Vici::RegisterComponents()
 {
 	VCamera::reg = DerivedRegister<VCamera>("VCamera");
 	MeshRenderer::reg = DerivedRegister<MeshRenderer>("MeshRenderer");
+	Mesh::reg = DerivedRegister<Mesh>("Mesh");
+	Material::reg = DerivedRegister<Material>("Material");
 }

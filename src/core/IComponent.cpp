@@ -20,6 +20,11 @@ void IComponent::OnDestroy()
 	_go->RemoveComponent(this);
 }
 
+void IComponent::OnStart()
+{
+
+}
+
 void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 {
 	_go->RegisterCallback(cb, callback);

@@ -1,6 +1,11 @@
 #ifndef V_MESHRENDERER
 #define V_MESHRENDERER
 
+/* Forward decl */
+class Material;
+class Shader;
+class Mesh;
+
 #include "IDrawable.h"
 
 /** 
@@ -10,7 +15,11 @@
 class MeshRenderer : public IDrawable
 {
 private:
-	
+	Material* _material; /** The material with the shader that will render this mesh */
+
+	Mesh* _mesh; /**< containing all the mesh data */
+
+	Shader* _shader; /**< The shader to render the mesh */
 protected:
 
 public:

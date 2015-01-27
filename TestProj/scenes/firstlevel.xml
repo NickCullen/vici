@@ -33,6 +33,13 @@
 				<component type="MeshRenderer">
 
 				</component>
+				<component type="Mesh">
+					<mesh>Assets/Models/Exported.mesh</mesh>
+				</component>
+				<component type="Material">
+					<vert>Assets/Shaders/Test.vert</vert>
+					<frag>Assets/Shaders/Test.frag</frag>
+				</component>
 			</components>
 			<gameobjects>
 

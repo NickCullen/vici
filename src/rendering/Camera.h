@@ -15,6 +15,7 @@ class OpenGLRenderer;
 
 class VCamera : public IComponent
 {
+	friend class OpenGLRenderer;
 private:
 	//the renderer
 	OpenGLRenderer* _renderer;

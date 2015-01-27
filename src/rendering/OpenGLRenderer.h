@@ -3,13 +3,6 @@
 
 #include "core.h"
 
-#ifdef VICI_WINDOWS
-#include "glew.h"
-#else
-#include <OpenGL/GL.h>
-#include <OpenGL/GLU.h>
-#endif
-
 /*Forward Decl*/
 class VCamera;
 
@@ -50,14 +43,8 @@ public:
 	{
 		return &_ms;
 	}
-};
 
-/*definitions*/
-#ifdef VICI_OPENGL
-#define VICI_COLOR_BUFFER_BIT GL_COLOR_BUFFER_BIT
-#define VICI_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
-#define VICI_ACCUM_BUFFER_BIT GL_ACCUM_BUFFER_BIT
-#define VICI_STENCIL_BUFFER_BIT GL_STENCIL_BUFFER_BIT
-#endif
+	void SetUniforms(Shader* shader);
+};
 
 #endif

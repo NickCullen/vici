@@ -1,11 +1,16 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
+#include "Material.h"
+#include "Mesh.h"
 
 MeshRenderer::MeshRenderer()
 {
 	//Important to set the hash if for this component
 	_hash = "MeshRenderer";
-
+	
+	_material = NULL; 
+	_mesh = NULL; 
+	_shader = NULL; 
 }
 MeshRenderer::~MeshRenderer()
 {
@@ -24,6 +29,20 @@ void MeshRenderer::OnStart()
 	//list for on enable and disable
 	RegisterCallback(eOnEnable, DELEGATE(MeshRenderer, OnEnable, this));
 	RegisterCallback(eOnDisable, DELEGATE(MeshRenderer, OnDisable, this));
+
+	//get references
+	_material = _go->FindComponent<Material>("Material");
+	_mesh = _go->FindComponent<Mesh>("Mesh");
+	
+	//set shader
+	if (_material)
+	{
+		_shader = _material->GetShader();
+
+		//let the mesh create buffers
+		_mesh->CreateBuffers(_shader);
+	}
+
 }
 
 //required logic functions
@@ -48,14 +67,31 @@ void MeshRenderer::PreRender(OpenGLRenderer* renderer)
 }
 void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 {
+	//if shader null try get it again if stull null then return
+	if (_shader == NULL)
+	{
+		_shader = _material->GetShader();
+		if (_shader == NULL)
+			return;
+		else
+			_mesh->CreateBuffers(_shader);
+	}
+	else
+	{
+		//use shader
+		glUseProgram(_shader->Program());
 
-	glColor3f(0, 1, 0);
-	glBegin(GL_POLYGON);
-		glVertex3f(0.25, 0.25, 0.0);
-		glVertex3f(0.75, 0.25, 0.0);
-		glVertex3f(0.75, 0.75, 0.0);
-		glVertex3f(0.25, 0.75, 0.0);
-	glEnd();
+		//set uniforms
+		renderer->SetUniforms(_shader);
+
+		//send vertices to shader
+		_mesh->SetArrays(_shader);
+
+
+		//draw
+		//_mesh->DrawElements();
+	}
+
 }
 void MeshRenderer::PostRender(OpenGLRenderer* renderer)
 {

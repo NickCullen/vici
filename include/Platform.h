@@ -5,6 +5,8 @@
 #define NULL 0
 #endif
 
+#include "PlatformDefinitions.h"
+
 //gets the current working directory
 char* Platform_Getcwd(char* buff, int len);
 

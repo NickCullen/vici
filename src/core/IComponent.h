@@ -49,7 +49,7 @@ public:
 	* from xml). It is safe to register for callbacks here and reference other components 
 	* and game objects
 	*/
-	virtual void OnStart() = 0;
+	virtual void OnStart();
 
 	/**
 	* Called when the component gets destroyed

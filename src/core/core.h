@@ -28,6 +28,7 @@
 /*Renderering*/
 #include "OpenGLRenderer.h"
 #include "MatrixStack.h"
+#include "Shader.h"
 
 /*Data structures*/
 #include "tds.h"
