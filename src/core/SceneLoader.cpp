@@ -55,6 +55,10 @@ void SceneLoader::Init(Vici* v)
 				sprintf(data._scene_file, "%s\\scenes\\%s.xml", _v->_cwd, cur->value());
 				sprintf(data._scene_assets, "%s\\scenes\\%s_assets.xml", _v->_cwd, cur->value());
 
+                //make them sensible to current platform file system
+                strcpy(data._scene_file, Platform_Pathify(data._scene_file));
+                strcpy(data._scene_assets, Platform_Pathify(data._scene_assets));
+                
 				//add to scene data
 				_scenes.push_back(data);
 

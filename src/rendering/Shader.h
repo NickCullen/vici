@@ -21,7 +21,7 @@ private:
 	GLuint _program; /**< The program as a whole */
 
 	GLint _mvp_loc; /**< Location of mvp matrix uniform location */
-	GLint _normal_loc; /**< Location of normal matrix uniform location */
+	GLint _normal_matrix_loc; /**< Location of normal matrix uniform location */
 
 	GLint _vertex_location; /**< Location of vertex in attribute */
 	GLint _uv_location; /**< Location of uv in attribute */
@@ -57,7 +57,7 @@ public:
 	* Returns the normal matrix location
 	* @return int
 	*/
-	inline GLint NormalMatrixLocation(void){ return _normal_loc; }
+	inline GLint NormalMatrixLocation(void){ return _normal_matrix_loc; }
 
 	/**
 	* Returns the in vertex attribute location
@@ -75,7 +75,7 @@ public:
 	* Returns the in normal attribute location
 	* @return int
 	*/
-	inline GLint NormalLocation(){ return _normal_loc; }
+	inline GLint NormalLocation(){ return _normal_location; }
 
 	/**
 	* Check if shader is loaded or not

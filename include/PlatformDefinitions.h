@@ -9,11 +9,12 @@
 #endif
 //mac
 #ifdef VICI_MAC
-#include <OpenGL/GL.h>
-#include <OpenGL/GLU.h>
+#include <OpenGL/gl3.h>
+#include <OpenGL/glu.h>
 #endif
 
-
+/* Constants */
+const int MAX_PATH = 256;
 
 /* Integer typedefs */
 typedef int64_t int64;

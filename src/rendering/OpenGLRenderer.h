@@ -24,19 +24,19 @@ public:
 	~OpenGLRenderer();
 
 	/*if this is override please remember to call base.Init()*/
-	virtual void Init(VCamera* cam);
+    void Init(VCamera* cam);
 
 	/*Pre scene initialization*/
-	virtual void PreSceneRender();
+    void PreSceneRender();
 
 	/*During scene renering */
-	virtual void RenderScene();
+    void RenderScene();
 
 	/* post scene rendering */
-	virtual void PostSceneRender();
+    void PostSceneRender();
 
 	/*override functions*/
-	virtual void ClearBuffer(int flags, glm::vec4* col);
+    void ClearBuffer(int flags, glm::vec4* col);
 
 	/*Inline getters and setters*/
 	inline MatrixStack* GetMatrixStack()

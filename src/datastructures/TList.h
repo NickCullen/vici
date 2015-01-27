@@ -79,7 +79,7 @@ private:
 	*/
 	inline TListNode<T>* Top()
 	{
-		return _too != _head ? _top : NULL;
+		return _top != _head ? _top : NULL;
 	}
 public:
 	/** 

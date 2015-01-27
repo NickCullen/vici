@@ -9,7 +9,7 @@ class IComponent;
 #include<string>
 
 /*definition for the creation function of a component */
-template<typename T> IComponent * CreateInstance() { return new T; }
+template<typename T> IComponent* CreateInstance() { return new T; }
 
 /*the typedef for the hash table of mappings*/
 typedef std::map<std::string, IComponent*(*)()> MapType;

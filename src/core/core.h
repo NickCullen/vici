@@ -1,5 +1,7 @@
 /*definitions*/
+#ifndef NULL
 #define NULL 0
+#endif
 
 /*External libs*/
 #include "glm.h"

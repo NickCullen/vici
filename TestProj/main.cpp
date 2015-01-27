@@ -1,11 +1,6 @@
 #include <stdio.h>
-#include "Display.h"
-#include "Platform.h"
-#include "rapidxml/rapidxml.hpp"
-#include "TextFile.h"
-#include "GameObject.h"
-#include "IComponent.h"
 #include "Vici.h"
+#include "Platform.h"
 
 int main(int argc, char** argv)
 {

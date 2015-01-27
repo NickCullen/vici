@@ -11,8 +11,9 @@ Shader::Shader()
 	_program = 0;
 
 	_mvp_loc = -1;
-	_normal_loc = -1;
-
+	_normal_matrix_loc = -1;
+    _normal_location = _vertex_location = _uv_location = -1;
+    
 	_is_loaded = false;
 }
 
@@ -85,9 +86,9 @@ void Shader::Create(char *pVertexShader_path, char *pFragmentShader_Path)
 	DebugProgram(_program, GL_LINK_STATUS);
 
 	_mvp_loc = glGetUniformLocation(_program, "uMVP");
-	_normal_loc = glGetUniformLocation(_program, "uNormalMatrix");
+	_normal_matrix_loc = glGetUniformLocation(_program, "uNormalMatrix");
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
-	_normal_loc = glGetAttribLocation(_program, "aNormal");
+	_normal_location = glGetAttribLocation(_program, "aNormal");
 	_uv_location = glGetAttribLocation(_program, "aUV");
 
 	_is_loaded = true;

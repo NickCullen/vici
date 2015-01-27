@@ -37,7 +37,7 @@ public:
 	MatrixStack(void);
 	~MatrixStack(void);
 
-	__forceinline void PushMatrix(void)
+	inline void PushMatrix(void)
 	{
 		//create the current matrix
 		MatrixTransform* tmp = new MatrixTransform();
@@ -48,7 +48,7 @@ public:
 		//add it to the stack
 		_stack.Push(_current_matrix);
 	}
-	__forceinline void PopMatrix(void)
+	inline void PopMatrix(void)
 	{
 		//pop the current matrix and get the previous one
 		MatrixTransform* tmp = _stack.Peek();
@@ -57,12 +57,12 @@ public:
 		_current_matrix = _stack.Peek();
 	}
 
-	void ApplyMatrix(glm::mat4x4& matrix)
+	void ApplyMatrix(const glm::mat4x4& matrix)
 	{
 		_current_matrix->_current_transform = _current_matrix->_current_transform * matrix;
 	}
 
-	__forceinline void Identity(void)
+	inline void Identity(void)
 	{
 		//set the current matrix to the identity
 		MatrixTransform* tmp = _stack.Peek();
