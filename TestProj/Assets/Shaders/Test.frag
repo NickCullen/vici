@@ -1,6 +1,6 @@
 #version 150
 
-varying in vec3 normal;
+varying vec3 normal;
 
 void main()
 {

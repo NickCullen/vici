@@ -7,7 +7,7 @@ attribute vec3 aNormal;
 uniform mat4 uMVP;
 uniform mat3 uNormalMatrix;
 
-varying out vec3 normal;
+varying vec3 normal;
 
 void main() 
 { 

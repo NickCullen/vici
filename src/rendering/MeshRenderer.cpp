@@ -91,7 +91,6 @@ void MeshRenderer::Update()
 {
 	static float rot = 0;
 
-
 	rot++;
 
 	//rotate
