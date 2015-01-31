@@ -1,4 +1,4 @@
-#version 120
+#version 150
 
 attribute vec3 aVertex;
 attribute vec3 aUV;
