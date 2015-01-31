@@ -59,9 +59,6 @@ void Mesh::SetMeshFile(char* file)
 			//cpy
 			fread(_vertex_array, _vertex_count * sizeof(float) * 3, 1, f);
 
-			glGenVertexArrays(1, &vao);
-			glBindVertexArray(vao);
-
 			//generate vertex buffer
 			glGenBuffers(1, &_vertex_buffer);
 
@@ -140,83 +137,35 @@ void Mesh::SetMeshFile(char* file)
 
 void Mesh::SetArrays(Shader* shader)
 {
-	glBindVertexArray(vao);
+	//Vertex Array
+	if (_vertex_count > 0)
+	{
+		glEnableVertexAttribArray(shader->VertexLocation());
+		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
+		glVertexAttribPointer(shader->VertexLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
 	
+	//normal array
+	if (_normal_count > 0)
+	{
+		glEnableVertexAttribArray(shader->NormalLocation());
+		glBindBuffer(GL_ARRAY_BUFFER, _normal_buffer);
+		glVertexAttribPointer(shader->NormalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+
+	//uv array
+	if (_normal_count > 0)
+	{
+		glEnableVertexAttribArray(shader->UVLocation());
+		glBindBuffer(GL_ARRAY_BUFFER, _uv_buffer);
+		glVertexAttribPointer(shader->UVLocation(), 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+
 }
 
 void Mesh::DrawElements()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
-	glDrawElements(GL_TRIANGLES, _index_count, GL_UNSIGNED_INT, _index_array);
+	glDrawElements(GL_TRIANGLES, _index_count, GL_UNSIGNED_INT, (void*)0);
 }
 
-void Mesh::CreateBuffers(Shader* shader)
-{
-	//use so we can get locations
-	glUseProgram(shader->Program());
-
-	//if not 0 copy them of
-	if (_vertex_count != 0)
-	{
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
-
-		//generate vertex buffer
-		glGenBuffers(1, &_vertex_buffer);
-
-		// The following commands will talk about our 'vertexbuffer' buffer
-		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
-
-		// Give our vertices to OpenGL.
-		glBufferData(GL_ARRAY_BUFFER, _vertex_count * sizeof(float)* 3, _vertex_array, GL_STATIC_DRAW);
-
-		//specify what this will hold
-		glVertexAttribPointer(shader->VertexLocation(), _vertex_count, GL_FLOAT, GL_FALSE, 0, 0);
-
-		glEnableVertexAttribArray(0); // Disable our Vertex Array Object  
-		glBindVertexArray(0); // Disable our Vertex Buffer Object  
-		
-	}
-
-	//if not 0 copy them of
-	if (_uv_count != 0)
-	{
-		//generate vertex buffer
-		glGenBuffers(1, &_uv_buffer);
-
-		// The following commands will talk about our 'vertexbuffer' buffer
-		glBindBuffer(GL_ARRAY_BUFFER, _uv_buffer);
-
-		// Give our vertices to OpenGL.
-		glBufferData(GL_ARRAY_BUFFER, _uv_count * sizeof(float)* 2, _uv_array, GL_STATIC_DRAW);
-	}
-
-	//if not 0 copy them of
-	if (_normal_count != 0)
-	{
-
-		//generate vertex buffer
-		glGenBuffers(1, &_normal_buffer);
-
-		// The following commands will talk about our 'vertexbuffer' buffer
-		glBindBuffer(GL_ARRAY_BUFFER, _normal_buffer);
-
-		// Give our vertices to OpenGL.
-		glBufferData(GL_ARRAY_BUFFER, _normal_count * sizeof(float)* 3, _normal_array, GL_STATIC_DRAW);
-	}
-
-
-	//if not 0 copy them of
-	if (_index_count != 0)
-	{
-
-		glGenBuffers(1, &_index_buffer);
-
-		// The following commands will talk about our index buffer
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
-
-		// Give our vertices to OpenGL.
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, _index_count * sizeof(uint32), _index_array, GL_STATIC_DRAW);
-	}
-
-}

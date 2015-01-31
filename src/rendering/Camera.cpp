@@ -72,22 +72,22 @@ void VCamera::PrepareScene()
 	//clear appropriate buffers
 	_renderer->ClearBuffer(_clear_flags, &_clear_color);
 
-	//load matrix identity
+	//load matrix identity   
 	_renderer->_ms.Identity();
 
 	//set up projection matrices
 	_projection_mat = glm::perspective<float>(45.0f, Display::AspectRatio(), 0.1f, 100.0f);
 
+	//_view_mat = glm::translate(_view_mat, glm::vec3(0, 0, 10));
+
+	_view_mat = glm::lookAt(glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
+							glm::vec3(0, 0, 0), // and looks at the origin
+							glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+							);
+
 	//specify the view and projection matrices
 	_renderer->_ms.SetProjection(_projection_mat);
 	_renderer->_ms.SetView(_view_mat);
-
-	//OLD OPEN GL NOTE THIS WILL CHANGE 
-	//I AM JUST WORKING ON LOGIC FUNCTIONS AT THE MOMENT
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-
 }
 
 void VCamera::Render()

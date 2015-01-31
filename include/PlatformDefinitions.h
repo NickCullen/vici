@@ -14,7 +14,7 @@
 #endif
 
 /* Constants */
-const int MAX_PATH = 256;
+#define BUFFER_SIZE 256
 
 /* Integer typedefs */
 typedef int64_t int64;

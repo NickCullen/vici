@@ -47,5 +47,5 @@ void OpenGLRenderer::ClearBuffer(int flags, glm::vec4* col)
 
 void OpenGLRenderer::SetUniforms(Shader* shader)
 {
-	glUniformMatrix4fv(shader->MVPLocation(), 1, GL_FALSE, glm::value_ptr(_cam->_projection_mat));
+	glUniformMatrix4fv(shader->MVPLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._projection_matrix * _ms._view_matrix * _ms._current_matrix->_current_transform));
 }

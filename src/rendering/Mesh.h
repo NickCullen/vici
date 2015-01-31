@@ -17,7 +17,7 @@ private:
 	uint32 _vertex_buffer;	/**< The integer representing the vertex buffer */
 	uint32 _uv_buffer;		/**< The integer representing the vertex buffer */
 	uint32 _normal_buffer;	/**< The integer representing the vertex buffer */
-	uint32 _index_buffer;		/**< The index buffer array */
+	uint32 _index_buffer;	/**< The index buffer array */
 
 	float* _vertex_array;	/**< The array of vertices */
 	float* _uv_array;		/**< The array of uvs */
@@ -30,9 +30,7 @@ private:
 	uint32* _index_array;	/**< The index array describing faces */
 	int32 _index_count;		/**< Number of indices in index array */
 
-	uint32 vao;
-
-	char _file_path[MAX_PATH]; /**< The full path to the mesh file */
+	char _file_path[BUFFER_SIZE]; /**< The full path to the mesh file */
 
 protected:
 
@@ -73,12 +71,6 @@ public:
 	* job because it knows the topology of the mesh*
 	*/
 	void DrawElements();
-
-	/** 
-	* Generates the buffers for the arrays
-	* @param shader The shader whos locations we use
-	*/
-	void CreateBuffers(Shader* shader);
 
 	static DerivedRegister<Mesh> reg; /**< Used to register Component */
 };

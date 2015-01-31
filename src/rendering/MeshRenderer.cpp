@@ -40,7 +40,7 @@ void MeshRenderer::OnStart()
 		_shader = _material->GetShader();
 
 		//let the mesh create buffers
-		_mesh->CreateBuffers(_shader);
+		//_mesh->CreateBuffers(_shader);
 	}
 
 }
@@ -67,31 +67,17 @@ void MeshRenderer::PreRender(OpenGLRenderer* renderer)
 }
 void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 {
-	//if shader null try get it again if stull null then return
-	if (_shader == NULL)
-	{
-		_shader = _material->GetShader();
-		if (_shader == NULL)
-			return;
-		else
-			_mesh->CreateBuffers(_shader);
-	}
-	else
-	{
-		//use shader
-		glUseProgram(_shader->Program());
+	//use shader
+	glUseProgram(_shader->Program());
 
-		//set uniforms
-		renderer->SetUniforms(_shader);
+	//set uniforms
+	renderer->SetUniforms(_shader);
 
-		//send vertices to shader
-		_mesh->SetArrays(_shader);
+	//send vertices to shader
+	_mesh->SetArrays(_shader);
 
-
-		//draw
-		//_mesh->DrawElements();
-	}
-
+	//draw
+	_mesh->DrawElements();
 }
 void MeshRenderer::PostRender(OpenGLRenderer* renderer)
 {
