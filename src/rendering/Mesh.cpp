@@ -163,6 +163,7 @@ void Mesh::SetArrays(Shader* shader)
 
 }
 
+
 void Mesh::DrawElements()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
