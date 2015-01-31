@@ -5,7 +5,7 @@
 				<component type="VCamera">
 					<!-- the buffer flags this camera will clear -->
 					<clear_color_buffer>1</clear_color_buffer>
-					<clear_depth_buffer>0</clear_depth_buffer>
+					<clear_depth_buffer>1</clear_depth_buffer>
 					<clear_accum_buffer>0</clear_accum_buffer>
 					<clear_stencil_buffer>0</clear_stencil_buffer>
 					<!-- the layers this camera will render -->

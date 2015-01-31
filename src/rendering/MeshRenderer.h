@@ -44,6 +44,9 @@ public:
 	//register functions
 	static DerivedRegister<MeshRenderer> reg;
 
+
+	//for testing
+	void Update();
 };
 
 #endif
