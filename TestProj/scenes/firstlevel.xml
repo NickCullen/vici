@@ -34,7 +34,7 @@
 
 				</component>
 				<component type="Mesh">
-					<mesh>Assets/Models/Exported.mesh</mesh>
+					<mesh>Assets/Models/monkey.mesh</mesh>
 				</component>
 				<component type="Material">
 					<vert>Assets/Shaders/Test.vert</vert>
