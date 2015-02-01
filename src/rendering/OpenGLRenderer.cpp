@@ -63,5 +63,4 @@ void OpenGLRenderer::SetUniforms(Shader* shader)
 
 	//push globals
 	glUniform1f(shader->TimeLocation(), VTime::_time);
-
 }
