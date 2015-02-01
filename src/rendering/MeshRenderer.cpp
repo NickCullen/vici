@@ -74,6 +74,9 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 	//set uniforms
 	renderer->SetUniforms(_shader);
 
+	//set material uniforms
+	_material->SetUniforms();
+
 	//send vertices to shader
 	_mesh->SetArrays(_shader);
 
@@ -95,5 +98,7 @@ void MeshRenderer::Update()
 
 	//rotate
 	_transform->Rotate(glm::radians(rot), glm::vec3(0, 1, 0));
+
+
 
 }

@@ -23,6 +23,7 @@
 #include "Delegate.h"
 #include "GameObjectTree.h"
 #include "ComponentTree.h"
+#include "VTime.h"
 
 /*Util*/
 #include "TextFile.h"
@@ -31,6 +32,7 @@
 #include "OpenGLRenderer.h"
 #include "MatrixStack.h"
 #include "Shader.h"
+#include "Texture.h"
 
 /*Data structures*/
 #include "tds.h"

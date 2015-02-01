@@ -13,6 +13,8 @@ class Material : public IComponent
 private:
 	Shader _shader; /**< The shader used to render this material */
 
+	TList<Texture*> _textures; /**< List of textures */
+
 public:
 	/** 
 	* Default ctor
@@ -49,6 +51,12 @@ public:
 	* @param frag File path with extension to fragment shader
 	*/
 	void SetShader(char* vert, char* frag);
+
+	/**
+	* Sets all the required uniforms in the shader 
+	* such uniforms include textures, material properties etc.
+	*/
+	void SetUniforms();
 
 	static DerivedRegister<Material> reg; /**< Used to register this class with ComponetFactory */
 };

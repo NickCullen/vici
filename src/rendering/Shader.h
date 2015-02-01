@@ -22,6 +22,7 @@ private:
 
 	GLint _mvp_loc; /**< Location of mvp matrix uniform location */
 	GLint _normal_matrix_loc; /**< Location of normal matrix uniform location */
+	GLint _time_location; /**< Location of the time uniform in the shader */
 
 	GLint _vertex_location; /**< Location of vertex in attribute */
 	GLint _uv_location; /**< Location of uv in attribute */
@@ -76,6 +77,18 @@ public:
 	* @return int
 	*/
 	inline GLint NormalLocation(){ return _normal_location; }
+	
+	/**
+	* Returns the location of the time uniform 
+	* @return int containing the uniformlocation for the time variable
+	*/
+	inline GLint TimeLocation(){ return _time_location; }
+
+	/**
+	* Returns the location of the specified sample
+	* @param id The samplers name in the glsl shader
+	*/
+	GLint SamplerLocation(char* id);
 
 	/**
 	* Check if shader is loaded or not

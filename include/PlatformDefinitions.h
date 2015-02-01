@@ -1,11 +1,15 @@
 
-/* Platform Specific Includes */
+/* Platform Specific Includes & typedefs*/
 
 //windows
 #ifdef VICI_WINDOWS
 #include "glew.h"
 #include <Windows.h>
+#include "GLFW/glfw3.h"
 #include <stdint.h>
+
+typedef GLFWwindow VWindow;
+
 #endif
 //mac
 #ifdef VICI_MAC
@@ -34,5 +38,4 @@ typedef uint8_t uint8;
 #define VICI_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
 #define VICI_ACCUM_BUFFER_BIT GL_ACCUM_BUFFER_BIT
 #define VICI_STENCIL_BUFFER_BIT GL_STENCIL_BUFFER_BIT
-
 #endif

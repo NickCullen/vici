@@ -4,6 +4,7 @@
 
 int Display::_w = 0;
 int Display::_h = 0;
+VWindow* Display::_window = NULL;
 
 Display::Display()
 {
@@ -37,7 +38,7 @@ void Display::Init(char* cwd)
 		bool fullscreen = false;
 		if (fullscreen_node != NULL)
 		{
-			fullscreen = strcmp("false", fullscreen_node->value());
+			fullscreen = (bool)strcmp("false", fullscreen_node->value());
 		}
 
 		//if fullscreen set full screen else read w and h
@@ -56,10 +57,32 @@ void Display::Init(char* cwd)
 		}
 
 		//open the window
-		Platform_OpenWindow(_w, _h, title);
+		_window = Platform_OpenWindow(_w, _h, title);
 	}
 	else
 	{
 		printf("Could not find display settings xml file!\n");
 	}
+}
+
+void Display::SetSize(int w, int h, bool force_window_resize)
+{
+	_w = w;
+	_h = h;
+
+	if (force_window_resize)
+	{
+#ifdef VICI_WINDOWS
+		glfwSetWindowSize(_window, _w, _h);
+#endif
+#ifdef VICI_MAC
+		glfwSetWindowSize(_window, _w, _h);
+#endif
+	}
+}
+
+void Display::OnResize(VWindow* win, int w, int h)
+{
+	_w = w;
+	_h = h;
 }

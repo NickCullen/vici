@@ -90,6 +90,7 @@ void Shader::Create(char *pVertexShader_path, char *pFragmentShader_Path)
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
 	_normal_location = glGetAttribLocation(_program, "aNormal");
 	_uv_location = glGetAttribLocation(_program, "aUV");
+	_time_location = glGetUniformLocation(_program, "time");
 
 	_is_loaded = true;
 }
@@ -132,4 +133,9 @@ void Shader::DebugProgram(GLuint program, GLenum checkType)
 			delete(infoLog);
 		}
 	}
+}
+
+GLint Shader::SamplerLocation(char* id)
+{
+	return glGetUniformLocation(_program, id);
 }

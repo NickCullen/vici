@@ -1,6 +1,6 @@
 #include "OpenGLRenderer.h"
 #include "Camera.h"
-
+#include "VTime.h"
 
 OpenGLRenderer::OpenGLRenderer()
 {
@@ -60,4 +60,8 @@ void OpenGLRenderer::SetUniforms(Shader* shader)
 	//set normal matrix
 	glm::mat3 normal_matrix = glm::inverseTranspose(glm::mat3(_ms._current_matrix->_current_transform));
 	glUniformMatrix3fv(shader->NormalMatrixLocation(), 1, GL_FALSE, glm::value_ptr<float>(normal_matrix));
+
+	//push globals
+	glUniform1f(shader->TimeLocation(), VTime::_time);
+
 }

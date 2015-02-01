@@ -1,13 +1,11 @@
 #include "Platform.h"
 #include <windows.h>
 #include "glew.h"
-#include "GLFW/glfw3.h"
 #include <stdio.h>
 #include "OpenGLRenderer.h"
 #include "Vici.h"
 #include <direct.h>
-
-GLFWwindow* window = NULL;
+#include "VTime.h"
 
 char* Platform_Getcwd(char* buff, int len)
 {
@@ -19,15 +17,14 @@ double Platform_GetTime()
 	return glfwGetTime();
 }
 
-
-bool Platform_OpenWindow(int w, int h, const char* title)
+VWindow* Platform_OpenWindow(int w, int h, const char* title)
 {
 	/* Initialize the library */
 	if (!glfwInit())
 		return false;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(w, h, title, NULL, NULL);
+	VWindow* window = glfwCreateWindow(w, h, title, NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -37,26 +34,53 @@ bool Platform_OpenWindow(int w, int h, const char* title)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+	/* Set callbacks */
+	glfwSetWindowSizeCallback(window, Display::OnResize);
+
 	//init glew
 	glewInit();
 
-	return true;
+	return window;
 }
 
 void Platform_EnterLoop(Vici* v)
 {
-	if (window != NULL)
+	//for timing
+	float last = 0.0f, start = 0.0f, current = 0.0f;
+
+	//cache last and start
+	start = last = (float)Platform_GetTime();
+
+	//get the window
+	VWindow* win = Display::Window();
+
+	if (win != NULL)
 	{
 		/* Loop until the user closes the window */
-		while (!glfwWindowShouldClose(window))
+		while (!glfwWindowShouldClose(win))
 		{
-			v->Update();
+			//get the current time
+			current = (float)Platform_GetTime();
 
-			v->Render();
+			//loop at target fps
+			if (current - last >= VTime::_target_fps)
+			{
+				//update time
+				VTime::_time = current - start;
+				VTime::_delta_time = current - last;
 
-			/* Swap front and back buffers */
-			glfwSwapBuffers(window);
+				//update engine
+				v->Update();
 
+				//render frame
+				v->Render();
+
+				/* Swap front and back buffers */
+				glfwSwapBuffers(win);
+
+				last = (float)Platform_GetTime();
+			}
+			
 			/* Poll for and process events */
 			glfwPollEvents();
 		}
