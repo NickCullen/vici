@@ -18,7 +18,7 @@ private:
 
 	uint32 _texture; /**< Texture reference in opengl */
 
-	char* _id; /**< ID of sampler in the shader */
+	uint32 _type; /**< Type of texture (GL_TEXTURE_2D, GL_TEXTURE_3D etc. etc.) */
 
 	/**
 	* Returns the format in enum type given the
@@ -26,7 +26,16 @@ private:
 	* @param format The string format of the image can be one of the following - "grey, greyalpha, rgb, rgba"
 	* @return integer reference the stb enum of the format
 	*/
-	int GetFormat(char* format);
+	uint32 GetFormat(char* format);
+
+	/**
+	* Returns the type of texture from the given strin
+	* it should be the value of the 'type' node from
+	* xml file
+	* @param type The string containing the type of texture (1d, 2d, 3d etc.)
+	* @return Unsigned integer containing the GL_TEXTURE_*D value 
+	*/
+	uint32 GetType(char* type);
 
 public:
 	/** 
@@ -46,17 +55,15 @@ public:
 	void LoadFromNode(rapidxml::xml_node<char>* node);
 
 	/**
-	* Returns the string id of the texture
-	* so we can find its location in a shader
-	* @return char* id of the texture 
-	*/
-	inline char* GetID(){ return _id; }
-
-	/**
 	* Returns the gl reference texture
 	* @return The integer used to reference the texture in opengl
 	*/
 	inline uint32 GetTextureID(){ return _texture; }
+
+	/**
+	* Binds the texture 
+	*/
+	void Bind();
 
 };
 

@@ -3,6 +3,25 @@
 
 #include "IComponent.h"
 
+/**
+* Structure to keep the id and texture
+* together so we can send it to the shader
+*/
+struct TextureReference
+{
+	Texture* _tex; /**< The texture */
+	int32 _location; /**< The location of the texture sampler in the shader*/
+
+	/**
+	* Default constructor
+	*/
+	TextureReference()
+	{
+		_tex = NULL;
+		_location = -1;
+	}
+};
+
 /** 
 * Material represents how a surface is made up
 * status (new - ongoing)
@@ -13,7 +32,7 @@ class Material : public IComponent
 private:
 	Shader _shader; /**< The shader used to render this material */
 
-	TList<Texture*> _textures; /**< List of textures */
+	TList<TextureReference> _textures; /**< List of texture references so we can send them to the shader later */
 
 public:
 	/** 

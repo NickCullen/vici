@@ -14,7 +14,7 @@ Texture::~Texture()
 
 }
 
-int Texture::GetFormat(char* format)
+uint32 Texture::GetFormat(char* format)
 {
 	if (strcmp("rgb", format) == 0) return 3;
 	else if (strcmp("rgba", format) == 0) return 4;
@@ -22,12 +22,21 @@ int Texture::GetFormat(char* format)
 	else if (strcmp("greyalpha", format) == 0) return 2;
 	else return 0;	//return default
 }
+
+uint32 Texture::GetType(char* type)
+{
+	if (strcmp("2d", type) == 0) return GL_TEXTURE_2D;
+	else if (strcmp("1d", type) == 0) return GL_TEXTURE_1D;
+	else if (strcmp("3d", type) == 0) return GL_TEXTURE_3D;
+	else return GL_TEXTURE_2D; //default assumed 2d
+}
+
 void Texture::LoadFromNode(rapidxml::xml_node<char>* node)
 {
 	//get node values
 	char* path = node->first_node("path")->value();
 	char* format = node->first_attribute("format")->value();
-	char* id = node->first_node("id")->value();
+	char* type = node->first_node("type")->value();
 
 	//convert path to releative platform friendly path
 	char buff[BUFFER_SIZE];
@@ -44,11 +53,14 @@ void Texture::LoadFromNode(rapidxml::xml_node<char>* node)
 		return;
 	}
 
+	//set the texture type
+	_type = GetType(type);
+
 	//generate texture
 	glGenTextures(1, &_texture);
 
 	//bind it so we can set its properties
-	glBindTexture(GL_TEXTURE_2D, _texture);
+	glBindTexture(_type, _texture);
 
 	//set some formats up
 	uint32 glformat = 0;
@@ -72,24 +84,23 @@ void Texture::LoadFromNode(rapidxml::xml_node<char>* node)
 	}
 
 	// Give the image to OpenGL
-	glTexImage2D(GL_TEXTURE_2D, 0, glformat, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(_type, 0, glformat, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, image);
 
 	// Nice trilinear filtering.
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glGenerateMipmap(_type);
 
 	//bind default texture again
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(_type, 0);
 
 	//free up on memory
 	stbi_image_free(image);
+}
 
-	//store its id so we can send it to the shader
-	_id = new char[strlen(id) + 1];
-
-	//copy of
-	strcpy(_id, id);
+void Texture::Bind()
+{
+	glBindTexture(_type, _texture);
 }

@@ -39,13 +39,13 @@
 				<component type="Material">
 					<vert>Assets/Shaders/Test.vert</vert>
 					<frag>Assets/Shaders/Test.frag</frag>
-					<texture format="rgb">
+					<texture format="rgb" id="SimpleTexture">
 						<path>Assets/Textures/Thatched.jpg</path>
-						<id>SimpleTexture</id>
+						<type>2d</type>
 					</texture>
-					<texture format="rgba">
+					<texture format="rgba" id="RedTexture">
 						<path>Assets/Textures/red.png</path>
-						<id>RedTexture</id>
+						<type>2d</type>
 					</texture>
 				</component>
 			</components>

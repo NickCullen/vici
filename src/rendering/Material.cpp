@@ -24,14 +24,24 @@ void Material::Init(rapidxml::xml_node<char>* node)
 	rapidxml::xml_node<char>* cur_texture = node->first_node("texture");
 	while (cur_texture != NULL)
 	{
-		//create
+		//instantiate a texture
 		Texture* tex = new Texture();
 
-		// loaad
+		//Load the texture
 		tex->LoadFromNode(cur_texture);
 
-		//add the texture to the list
-		_textures.PushBack(tex);
+		//create a texture reference
+		TextureReference ref;
+
+		//set pointer to texture
+		ref._tex = tex;
+
+		//get the sampler uniform location
+		char* uniform_name = cur_texture->first_attribute("id")->value();
+		ref._location = _shader.SamplerLocation(uniform_name);
+
+		//add the texture reference to the list
+		_textures.PushBack(ref);
 
 		//get next texture
 		cur_texture = cur_texture->next_sibling("texture");
@@ -50,16 +60,16 @@ void Material::SetUniforms()
 {
 	int count = 0;
 
-	TLIST_foreach(Texture*, tex, _textures)
+	TLIST_foreach(TextureReference, tex, _textures)
 	{
-		//get the textures location in the shader
-		int32 location = _shader.SamplerLocation(tex->GetID());
+		//set the texture this sampler will use
+		glUniform1i((*tex)._location, count); 
 
-		glUniform1i(location, count); //Texture unit 0 is for base images.
-
-		//When rendering an objectwith this program.
+		//bind the texture to that active texture location
 		glActiveTexture(GL_TEXTURE0 + count);
-		glBindTexture(GL_TEXTURE_2D, tex->GetTextureID());
+		
+		//bind it
+		(*tex)._tex->Bind();
 
 		count ++;
 		
