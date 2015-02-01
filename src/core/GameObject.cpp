@@ -31,6 +31,13 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 		_enabled = (atoi(node->first_attribute("enabled")->value()) == 1) ? true : false;
 		_layer = atoi(node->first_attribute("layer")->value());
 
+		/* If there is a transform node init the transform */
+		rapidxml::xml_node<char>* transform = node->first_node("transform");
+		if (transform != NULL)
+		{
+			_t->Init(transform);
+		}
+
 		/*Create components*/
 		rapidxml::xml_node<char>* cur_component = node->first_node("components")->first_node("component");
 		while (cur_component)

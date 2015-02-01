@@ -4,6 +4,7 @@
 /*Forward decl*/
 
 #include "glm.h"
+#include "rapidxml\rapidxml.hpp"
 
 /**
 * Transform containing information on moving and representing the object in the world
@@ -26,6 +27,9 @@ public:
 	Transform();
 	~Transform();
 
+	//init from xml node
+	void Init(rapidxml::xml_node<char>* node);
+
 	/*Transforms*/
 	void Translate(glm::vec3 offset);
 	void Translate(float x, float y, float z);
@@ -38,6 +42,21 @@ public:
 	//returns model matrix
 	glm::mat4 GetModelMatrix();
 
+	//getters
+	inline glm::vec3 GetPosition()
+	{
+		return _pos;
+	}
+
+	inline glm::vec3 GetRotation()
+	{
+		return _rotation;
+	}
+
+	inline glm::vec3 GetScale()
+	{
+		return _scale;
+	}
 };
 
 #endif

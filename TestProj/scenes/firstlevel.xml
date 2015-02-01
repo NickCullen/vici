@@ -1,6 +1,12 @@
 <root>
 	<objects>
 		<gameobject id="FirstObject" indestructable="0" enabled="1" layer="0">
+			<transform>
+				<position>0 0 3</position>
+				<rotation>0 0 0</rotation>
+				<scale>1 1 1</scale>
+			</transform>
+
 			<components>
 				<component type="VCamera">
 					<!-- the buffer flags this camera will clear -->
@@ -15,20 +21,18 @@
 				</component>
 			</components>
 			<gameobjects>
-				<gameobject id="Second" indestructable="0" enabled="1" layer="0">
-				<components>
-					
-				</components>
-				<gameobjects>
 
-				</gameobjects>
-			</gameobject>
 			</gameobjects>
 		</gameobject>
 
 		
 
 		<gameobject id="Object" indestructable="1" enabled="1" layer="0">
+			<transform>
+				<position>0 0 0</position>
+				<rotation>0 90 0</rotation>
+				<scale>1 1 1</scale>
+			</transform>
 			<components>
 				<component type="MeshRenderer">
 

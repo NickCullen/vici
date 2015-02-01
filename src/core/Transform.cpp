@@ -11,6 +11,37 @@ Transform::~Transform()
 
 }
 
+void Transform::Init(rapidxml::xml_node<char>* node)
+{
+	//make sure node exists
+	if (node != NULL)
+	{
+		//get nodes
+		rapidxml::xml_node<char>* position_node = node->first_node("position");
+		rapidxml::xml_node<char>* rotation_node = node->first_node("rotation");
+		rapidxml::xml_node<char>* scale_node = node->first_node("scale");
+
+		//load values
+		if (position_node != NULL)
+		{
+			char* data = position_node->value();
+			sscanf(data, "%f %f %f", &_pos[0], &_pos[1], &_pos[2]);
+		}
+
+		if (rotation_node != NULL)
+		{
+			char* data = rotation_node->value();
+			sscanf(data, "%f %f %f", &_rotation[0], &_rotation[1], &_rotation[2]);
+		}
+
+		if (scale_node != NULL)
+		{
+			char* data = scale_node->value();
+			sscanf(data, "%f %f %f", &_scale[0], &_scale[1], &_scale[2]);
+		}
+
+	}
+}
 /* Transforms */
 void Transform::Translate(glm::vec3 offset)
 {

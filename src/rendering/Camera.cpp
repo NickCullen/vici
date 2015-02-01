@@ -80,10 +80,11 @@ void VCamera::PrepareScene()
 
 	//_view_mat = glm::translate(_view_mat, glm::vec3(0, 0, 10));
 
-	_view_mat = glm::lookAt(glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
+	_view_mat = glm::lookAt(_transform->GetPosition(), // Camera is at (4,3,3), in World Space
 							glm::vec3(0, 0, 0), // and looks at the origin
 							glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 							);
+
 
 	//specify the view and projection matrices
 	_renderer->_ms.SetProjection(_projection_mat);
