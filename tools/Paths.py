@@ -14,14 +14,14 @@ class Paths:
 		#add the paths
 		for line in f:
 			kv = line.split(':')
-			self.paths[kv[0]] = self.Pathify(root + "/" + kv[1])
+			path = kv[1].replace("\n","")
+			self.paths[kv[0]] = self.PlatformURL(root + "/" + path)
+			print(self.paths[kv[0]])
 
 	#returns the value of a path
 	def Path(self, path):
 		return self.paths[path]
 
 	#converts specified path to a platform sensible path (i.e. sensible slashes)
-	def Pathify(self, path):
+	def PlatformURL(self, path):
 		return os.path.normpath(path)
-
-tmp = Paths()

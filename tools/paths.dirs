@@ -1,4 +1,4 @@
-root:../TestProj/
-assets:../TestProj/Assets/
-settings:../TestProj/settings/
-scenes:../TestProj/scenes/
+root:../TestProj
+assets:../TestProj/Assets
+settings:../TestProj/settings
+scenes:../TestProj/scenes

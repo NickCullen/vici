@@ -3,6 +3,7 @@
 #for args
 import sys, getopt, struct
 from array import array
+from Paths import *
 
 #the file to open
 f = {}
@@ -198,9 +199,13 @@ def WriteMesh(m):
 
 if __name__ == "__main__":
 	
-	#open
+	#open obj
 	f = open(sys.argv[1],"r")
-	out = open(sys.argv[2],"wb")
+
+	#create output file
+	paths = Paths()
+	output = paths.PlatformURL(paths.Path("assets") + "/Models/" + sys.argv[2] + ".mesh")
+	out = open(output,"wb")
 
 	print("Reading obj file")
 	#read obj
