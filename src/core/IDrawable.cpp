@@ -9,7 +9,7 @@ IDrawable::~IDrawable()
 
 }
 
-void IDrawable::Init(rapidxml::xml_node<char>* data)
+void IDrawable::Init(XmlNode& data)
 {
 	//important to call IComponent init
 	IComponent::Init(data);

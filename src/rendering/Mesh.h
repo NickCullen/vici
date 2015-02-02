@@ -50,7 +50,7 @@ public:
 	* Will set the mesh file name from xml node
 	* @param node The xml node containing component data
 	*/
-	virtual void Init(rapidxml::xml_node<char>* node);
+	virtual void Init(XmlNode& node);
 
 	/**
 	* Setting the file name will load the file

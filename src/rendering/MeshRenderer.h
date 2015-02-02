@@ -27,7 +27,7 @@ public:
 	~MeshRenderer();
 
 	//init
-	virtual void Init(rapidxml::xml_node<char>* node);
+	virtual void Init(XmlNode& node);
 
 	//required logic functions
 	virtual void OnEnable();

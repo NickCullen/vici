@@ -9,7 +9,7 @@ IComponent::~IComponent()
 	
 }
 
-void IComponent::Init(rapidxml::xml_node<char>* data)
+void IComponent::Init(XmlNode& data)
 {
 
 }

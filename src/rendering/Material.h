@@ -49,7 +49,7 @@ public:
 	* Used to initilize material from node
 	* @param node Node containing component data
 	*/
-	virtual void Init(rapidxml::xml_node<char>* node);
+	virtual void Init(XmlNode& node);
 
 
 	/**

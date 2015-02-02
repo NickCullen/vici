@@ -1,7 +1,6 @@
 #include "Vici.h"
 #include "GameObject.h"
 #include "Platform.h"
-#include "rapidxml/rapidxml.hpp"
 #include <string>
 #include "Display.h"
 #include "SceneLoader.h"

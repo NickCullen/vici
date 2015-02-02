@@ -17,28 +17,28 @@ VCamera::~VCamera()
 
 }
 
-void VCamera::Init(rapidxml::xml_node<char>* node)
+void VCamera::Init(XmlNode& node)
 {
 	//remmeber to call parents init func
 	IComponent::Init(node);
 
 	//get and set the clear flags
-	_clear_flags = atoi(node->first_node("clear_color_buffer")->value()) == 1? VICI_COLOR_BUFFER_BIT : 0;
-	_clear_flags |= atoi(node->first_node("clear_depth_buffer")->value()) == 1 ? VICI_DEPTH_BUFFER_BIT : 0;
-	_clear_flags |= atoi(node->first_node("clear_accum_buffer")->value()) == 1 ? VICI_ACCUM_BUFFER_BIT : 0;
-	_clear_flags |= atoi(node->first_node("clear_stencil_buffer")->value()) == 1 ? VICI_STENCIL_BUFFER_BIT : 0;
+	_clear_flags = node.GetChild("clear_color_buffer").ValueBool() ? VICI_COLOR_BUFFER_BIT : 0;
+	_clear_flags |= node.GetChild("clear_depth_buffer").ValueBool() ? VICI_DEPTH_BUFFER_BIT : 0;
+	_clear_flags |= node.GetChild("clear_accum_buffer").ValueBool() ? VICI_ACCUM_BUFFER_BIT : 0;
+	_clear_flags |= node.GetChild("clear_stencil_buffer").ValueBool() ? VICI_STENCIL_BUFFER_BIT : 0;
 
 	//setup all the layers this camera will render
-	rapidxml::xml_node<char>* layer = node->first_node("renderlayers")->first_node();
-	while (layer)
+	XmlNode layer = node.GetChild("renderlayers").FirstChild();
+	while (!layer.IsNull())
 	{
 		//get the render layer
-		unsigned int render_layer = atoi(layer->value());
+		unsigned int render_layer = layer.ValueInt();
 
 		//set it up
 		LayerSystem::SetCameraForLayer(this, render_layer);
 
-		layer = layer->next_sibling();
+		layer = layer.NextSibling();
 	}
 
 }

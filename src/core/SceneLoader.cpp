@@ -33,27 +33,25 @@ void SceneLoader::Init(Vici* v)
 		strcpy(buff,Platform_Pathify(buff));
 
 		//instantiate doc and load file
-		rapidxml::xml_document<char> doc;
-		TextFile tf(buff);
+		XmlDocument doc;
 
-		if (tf.IsLoaded())
+		if (doc.Load(buff))
 		{
-			doc.parse<0>(tf);
-			rapidxml::xml_node<char>* root = doc.first_node();
+			XmlNode root = doc.Root();
 
 			//current scene
-			rapidxml::xml_node<char>* cur = root->first_node();
-			while (cur != NULL)
+			XmlNode cur = root.FirstChild();
+			while (!cur.IsNull())
 			{
 				//construct scene data
 				SceneData data = SceneData();
 
 				//create its hash id
-				data._id = cur->value();
+				data._id = cur.ValueString();
 
 				//set its file and asset dir
-				sprintf(data._scene_file, "%s\\scenes\\%s.xml", _v->_cwd, cur->value());
-				sprintf(data._scene_assets, "%s\\scenes\\%s_assets.xml", _v->_cwd, cur->value());
+				sprintf(data._scene_file, "%s\\scenes\\%s.xml", _v->_cwd, cur.ValueString());
+				sprintf(data._scene_assets, "%s\\scenes\\%s_assets.xml", _v->_cwd, cur.ValueString());
 
                 //make them sensible to current platform file system
                 strcpy(data._scene_file, Platform_Pathify(data._scene_file));
@@ -63,7 +61,7 @@ void SceneLoader::Init(Vici* v)
 				_scenes.push_back(data);
 
 				//next
-				cur = cur->next_sibling();
+				cur = cur.NextSibling();
 			}
 			
 		}
@@ -91,20 +89,18 @@ void SceneLoader::LoadScene(unsigned int index)
 	if (index < _scenes.size())
 	{
 		//load file
-		rapidxml::xml_document<char> doc;
-		TextFile tf(_scenes[index]._scene_file);
-		
-		if (tf.IsLoaded())
+		XmlDocument doc;
+
+		if (doc.Load(_scenes[index]._scene_file))
 		{
-			doc.parse<0>(tf);
-			rapidxml::xml_node<char>* root = doc.first_node();
+			XmlNode root = doc.Root();
 
 			//unload current game objects
 			UnloadCurrentScene();
 
 			//load game objects
-			rapidxml::xml_node<char>* cur = root->first_node("objects")->first_node("gameobject");
-			while (cur)
+			XmlNode cur = root.GetChild("objects").GetChild("gameobject");
+			while (!cur.IsNull())
 			{
 				//instantiate and init GO
 				GameObject* go = new GameObject();
@@ -113,7 +109,7 @@ void SceneLoader::LoadScene(unsigned int index)
 				//add to scene list
 				_v->AddGameObject(go);
 
-				cur = cur->next_sibling();
+				cur = cur.NextSibling();
 			}
 
 			_current_level = index;

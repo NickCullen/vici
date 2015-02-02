@@ -11,18 +11,18 @@ Material::~Material()
 
 }
 
-void Material::Init(rapidxml::xml_node<char>* node)
+void Material::Init(XmlNode& node)
 {
 	//get the shader paths
-	char* vert = node->first_node("vert")->value();
-	char* frag = node->first_node("frag")->value();
+	char* vert = node.GetChild("vert").ValueString();
+	char* frag = node.GetChild("frag").ValueString();
 
 	//load shader
 	SetShader(vert, frag);
 
 	//load textures
-	rapidxml::xml_node<char>* cur_texture = node->first_node("texture");
-	while (cur_texture != NULL)
+	XmlNode cur_texture = node.GetChild("texture");
+	while (!cur_texture.IsNull())
 	{
 		//instantiate a texture
 		Texture* tex = new Texture();
@@ -37,14 +37,14 @@ void Material::Init(rapidxml::xml_node<char>* node)
 		ref._tex = tex;
 
 		//get the sampler uniform location
-		char* uniform_name = cur_texture->first_attribute("id")->value();
+		char* uniform_name = cur_texture.GetAttributeString("id");
 		ref._location = _shader.SamplerLocation(uniform_name);
 
 		//add the texture reference to the list
 		_textures.PushBack(ref);
 
 		//get next texture
-		cur_texture = cur_texture->next_sibling("texture");
+		cur_texture = cur_texture.NextSibling("texture");
 	}
 }
 

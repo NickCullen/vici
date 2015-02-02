@@ -31,12 +31,12 @@ uint32 Texture::GetType(char* type)
 	else return GL_TEXTURE_2D; //default assumed 2d
 }
 
-void Texture::LoadFromNode(rapidxml::xml_node<char>* node)
+void Texture::LoadFromNode(XmlNode& node)
 {
 	//get node values
-	char* path = node->first_node("path")->value();
-	char* format = node->first_attribute("format")->value();
-	char* type = node->first_node("type")->value();
+	char* path = node.GetString("path");
+	char* format = node.GetAttributeString("format");
+	char* type = node.GetString("type");
 
 	//convert path to releative platform friendly path
 	char buff[BUFFER_SIZE];

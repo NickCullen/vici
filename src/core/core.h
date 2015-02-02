@@ -5,7 +5,6 @@
 
 /*External libs*/
 #include "glm.h"
-#include "rapidxml/rapidxml.hpp"
 
 /*Platform Includes*/
 #include "Platform.h"
@@ -27,6 +26,7 @@
 
 /*Util*/
 #include "TextFile.h"
+#include "Xml.h"
 
 /*Renderering*/
 #include "OpenGLRenderer.h"

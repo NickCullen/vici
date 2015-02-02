@@ -3,7 +3,7 @@
 
 #include "Object.h"
 #include "VHash.h"
-#include "rapidxml/rapidxml.hpp"
+#include "Xml.h"
 #include "TList.h"
 #include "GameObjectTree.h"
 #include "ComponentTree.h"
@@ -67,7 +67,7 @@ public:
 	* @param parent A Pointer to the parent GameObject (Can be NULL if the initilizing GameObject is the root)
 	* @param node The XML Node contaning init data for the GameObject
 	*/
-	void Init(GameObject* parent, rapidxml::xml_node<>* node);
+	void Init(GameObject* parent, XmlNode& node);
 
 	/**
 	* First call of the render process and called Before Render

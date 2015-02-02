@@ -17,7 +17,7 @@ MeshRenderer::~MeshRenderer()
 
 }
 
-void MeshRenderer::Init(rapidxml::xml_node<char>* node)
+void MeshRenderer::Init(XmlNode& node)
 {
 	//call parent init
 	IDrawable::Init(node);

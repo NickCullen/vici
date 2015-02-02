@@ -4,7 +4,7 @@
 /*Forward decl*/
 
 #include "glm.h"
-#include "rapidxml\rapidxml.hpp"
+#include "Xml.h"
 
 /**
 * Transform containing information on moving and representing the object in the world
@@ -28,7 +28,7 @@ public:
 	~Transform();
 
 	//init from xml node
-	void Init(rapidxml::xml_node<char>* node);
+	void Init(XmlNode& node);
 
 	/*Transforms*/
 	void Translate(glm::vec3 offset);

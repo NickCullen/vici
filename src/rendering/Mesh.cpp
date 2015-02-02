@@ -21,13 +21,13 @@ Mesh::~Mesh()
 	if (_index_array != NULL) delete(_index_array);
 }
 
-void Mesh::Init(rapidxml::xml_node<char>* node)
+void Mesh::Init(XmlNode& node)
 {
 	//call parent init
 	IComponent::Init(node);
 
 	//get the mesh file
-	char* file = node->first_node("mesh")->value();
+	char* file = node.GetChild("mesh").ValueString();
 	
 	//set mesh file (note this will trigger loading)
 	SetMeshFile(file);

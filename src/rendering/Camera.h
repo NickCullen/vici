@@ -51,7 +51,7 @@ public:
 	* layers it will render
 	* @param node pointer to xml node containing this components init data
 	*/
-	virtual void Init(rapidxml::xml_node<char>* node);
+	virtual void Init(XmlNode& node);
 
 	/**
 	* Called so component can register to logic callback functions

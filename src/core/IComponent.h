@@ -42,7 +42,7 @@ public:
 	* Note that components inheriting directly from this class MUST call IComponent::Init(data)
 	* @param data the xml node containing the required loading information
 	*/
-	virtual void Init(rapidxml::xml_node<char>* data);
+	virtual void Init(XmlNode& data);
 
 	/**
 	* Called when the component is created (after init IF the component was loaded

@@ -2,7 +2,7 @@
 #define V_TEXTURE
 
 #include "PlatformDefinitions.h"
-#include "rapidxml\rapidxml.hpp"
+#include "Xml.h"
 
 /** 
 * Texture asset (works in the same way Mesh does)
@@ -52,7 +52,7 @@ public:
 	* Loads the data from the given xml node
 	* @param node The xml node containing information about this texture
 	*/
-	void LoadFromNode(rapidxml::xml_node<char>* node);
+	void LoadFromNode(XmlNode& node);
 
 	/**
 	* Returns the gl reference texture

@@ -18,32 +18,32 @@ GameObject::~GameObject()
 
 }
 
-void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
+void GameObject::Init(GameObject* parent, XmlNode& node)
 {
 	//set parent
 	_parent = parent;
 
-	if (node != NULL)
+	if (!node.IsNull())
 	{
 		/*set initial vars*/
-		_hash = node->first_attribute("id")->value();
-		if (atoi(node->first_attribute("indestructable")->value()) == 1) MakeIndestructable();
-		_enabled = (atoi(node->first_attribute("enabled")->value()) == 1) ? true : false;
-		_layer = atoi(node->first_attribute("layer")->value());
+		_hash = node.GetAttributeString("id");
+		if (node.GetAttributeBool("indestructable")) MakeIndestructable();
+		_enabled = node.GetAttributeBool("enabled");
+		_layer = node.GetAttributeBool("layer");
 
 		/* If there is a transform node init the transform */
-		rapidxml::xml_node<char>* transform = node->first_node("transform");
-		if (transform != NULL)
+		XmlNode transform = node.GetChild("transform");
+		if (!transform.IsNull())
 		{
 			_t->Init(transform);
 		}
 
 		/*Create components*/
-		rapidxml::xml_node<char>* cur_component = node->first_node("components")->first_node("component");
-		while (cur_component)
+		XmlNode cur_component = node.GetChild("component");
+		while (!cur_component.IsNull())
 		{
 			//create the component
-			IComponent* component = ComponentFactory::CreateComponent(cur_component->first_attribute("type")->value());
+			IComponent* component = ComponentFactory::CreateComponent(cur_component.GetAttributeString("type"));
 
 			//set its game object
 			component->SetGameObject(this);
@@ -55,12 +55,12 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			_components.Insert(component);
 
 			//get next
-			cur_component = cur_component->next_sibling();
+			cur_component = cur_component.NextSibling("component");
 		}
 
 		/* create sub objects*/
-		rapidxml::xml_node<char>* cur_object = node->first_node("gameobjects")->first_node("gameobject");
-		while (cur_object)
+		XmlNode cur_object = node.GetChild("gameobject");
+		while (!cur_object.IsNull())
 		{
 			GameObject* go = new GameObject();
 
@@ -71,7 +71,7 @@ void GameObject::Init(GameObject* parent, rapidxml::xml_node<>* node)
 			_children.Insert(go);
 
 			//get next
-			cur_object = cur_object->next_sibling();
+			cur_object = cur_object.NextSibling("gameobject");
 		}
 	}
 }
