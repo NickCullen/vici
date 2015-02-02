@@ -21,14 +21,10 @@ public:
 	*/
 	~VTime(){};
 
-	/**
-	* The time since program has run
-	*/
-	static float _time;
+	static float _time; /**< The time since the program has started */
 
-	/**
-	* The delta time since last frame
-	*/
-	static float _delta_time;
+	static float _delta_time; /**< The delta time since last frame update */
+
+	static float _time_scale; /**< The time scale of program */
 };
 #endif

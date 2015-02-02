@@ -9,6 +9,7 @@
 /*Platform Includes*/
 #include "Platform.h"
 #include "Display.h"
+#include "Input.h"
 
 /*Engine core*/
 #include "Vici.h"

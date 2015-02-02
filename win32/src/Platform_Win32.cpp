@@ -87,7 +87,7 @@ void Platform_EnterLoop(Vici* v)
 			{
 				//update time
 				VTime::_time = current - start;
-				VTime::_delta_time = current - last;
+				VTime::_delta_time = (current - last) * VTime::_time_scale;
 
 				//update engine
 				v->Update();

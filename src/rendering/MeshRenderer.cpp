@@ -92,13 +92,5 @@ void MeshRenderer::PostRender(OpenGLRenderer* renderer)
 //for testing
 void MeshRenderer::Update()
 {
-	static float rot = 0;
-
-	rot++;
-
-	//rotate
-	_transform->Rotate(glm::radians(rot), glm::vec3(0, 1, 0));
-
-
 
 }

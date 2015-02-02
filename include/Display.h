@@ -67,6 +67,25 @@ public:
 	}
 
 	/**
+	* Gets the height of the window
+	* @return integer representing the height of the window
+	*/
+	static inline int Height()
+	{
+		return _h;
+	}
+
+
+	/**
+	* Gets the width of the window
+	* @return integer representing the width of the window
+	*/
+	static inline int Width()
+	{
+		return _w; 
+	}
+
+	/**
 	* Calculates the aspect reation of the current window
 	* @return float containing aspect ratio
 	*/
