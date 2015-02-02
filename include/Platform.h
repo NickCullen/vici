@@ -14,7 +14,7 @@ char* Platform_Getcwd(char* buff, int len);
 double Platform_GetTime();
 
 //opens a window
-VWindow* Platform_OpenWindow(int w, int h, const char* title);
+VWindow* Platform_OpenWindow(int* w, int* h, const char* title, bool fullscreen = false);
 
 //enters game loop
 void Platform_EnterLoop(class Vici* v);

@@ -30,11 +30,5 @@ public:
 	* The delta time since last frame
 	*/
 	static float _delta_time;
-
-	/**
-	* The target frame per second
-	*/
-	static float _target_fps;
-
 };
 #endif

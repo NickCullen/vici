@@ -37,6 +37,8 @@ private:
 
 	static VWindow* _window; /**< The window that is used to render the engine */
 
+	static int _refresh_rate; /**< Refresh rate of the monitor */
+
 public:
 	/**
 	* Unused constructor (Static class)
@@ -98,6 +100,12 @@ public:
 	* @param h The new height of the window
 	*/
 	static void OnResize(VWindow* win, int w, int h);
+
+	/**
+	* gets the refresh rate of the monitor
+	* @return Integer specifying the refresh rate of the monitor
+	*/
+	inline static int RefreshRate(){ return _refresh_rate; }
 };
 
 #endif

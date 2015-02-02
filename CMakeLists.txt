@@ -8,9 +8,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 #add preprocessor definitions
 if(WIN32)
- 	add_definitions(-DVICI_WINDOWS -DVICI_PC -DVICI_OPENGL -D_CRT_SECURE_NO_WARNINGS)
+ 	add_definitions(-DVICI_WINDOWS -DVICI_DESKTOP -DVICI_OPENGL -D_CRT_SECURE_NO_WARNINGS)
 elseif(APPLE)
-	add_definitions(-DVICI_MAC -DVICI_PC -DVICI_OPENGL)
+	add_definitions(-DVICI_MAC -DVICI_DESKTOP -DVICI_OPENGL)
 endif()
 
 #engine includes

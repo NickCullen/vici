@@ -4,6 +4,7 @@
 
 int Display::_w = 0;
 int Display::_h = 0;
+int Display::_refresh_rate = 60;
 VWindow* Display::_window = NULL;
 
 Display::Display()
@@ -19,6 +20,7 @@ void Display::Init(char* cwd)
 {
 	char title[256];
 	char buff[758];
+
 
 	//set the file path
 	strcpy(buff, cwd);
@@ -39,23 +41,24 @@ void Display::Init(char* cwd)
 			fullscreen = fullscreen_node.ValueBool();
 		}
 
-		//if fullscreen set full screen else read w and h
-		if (fullscreen)
-		{
-			printf("\n*** Fullscreen is not yet supported ***\n");
-		}
-		else
-		{
-			//width and height
-			_w = root.GetInt("width");
-			_h = root.GetInt("height");
+		//width and height
+		_w = root.GetInt("width");
+		_h = root.GetInt("height");
 
-			//title
-			strcpy(title, root.GetString("title"));
-		}
+		//title
+		strcpy(title, root.GetString("title"));
+		
+		//open window
+		_window = Platform_OpenWindow(&_w, &_h, title, fullscreen);
 
-		//open the window
-		_window = Platform_OpenWindow(_w, _h, title);
+		//get refresh rate
+#ifdef VICI_DESKTOP
+		//get the monitor info
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+		//set refresh rate
+		_refresh_rate = mode->refreshRate;
+#endif
 	}
 	else
 	{
@@ -70,10 +73,7 @@ void Display::SetSize(int w, int h, bool force_window_resize)
 
 	if (force_window_resize)
 	{
-#ifdef VICI_WINDOWS
-		glfwSetWindowSize(_window, _w, _h);
-#endif
-#ifdef VICI_MAC
+#ifdef VICI_DESKTOP
 		glfwSetWindowSize(_window, _w, _h);
 #endif
 	}
