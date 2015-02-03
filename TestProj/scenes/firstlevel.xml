@@ -25,7 +25,7 @@
 
 		<gameobject id="Object" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>0 0 0</position>
+				<position>0 0 -15</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>

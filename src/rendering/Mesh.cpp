@@ -160,7 +160,6 @@ void Mesh::SetArrays(Shader* shader)
 		glBindBuffer(GL_ARRAY_BUFFER, _uv_buffer);
 		glVertexAttribPointer(shader->UVLocation(), 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
-
 }
 
 
@@ -168,5 +167,6 @@ void Mesh::DrawElements()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
 	glDrawElements(GL_TRIANGLES, _index_count, GL_UNSIGNED_INT, (void*)0);
+
 }
 
