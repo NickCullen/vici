@@ -8,6 +8,7 @@
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 
+//windows typedefs
 typedef GLFWwindow VWindow;
 
 #endif
@@ -15,6 +16,17 @@ typedef GLFWwindow VWindow;
 #ifdef VICI_MAC
 #include <OpenGL/gl3.h>
 #include <OpenGL/glu.h>
+
+//mac typedefs
+typedef GLFWwindow VWindow;
+
+#endif
+
+//defining release/debug builds
+#ifdef NDEBUG
+#define VICI_RELEASE
+#else
+#define VICI_DEBUG
 #endif
 
 /* Constants */

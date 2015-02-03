@@ -16,7 +16,7 @@ class Paths:
 			kv = line.split(':')
 			path = kv[1].replace("\n","")
 			self.paths[kv[0]] = self.PlatformURL(root + "/" + path)
-			print(self.paths[kv[0]])
+
 
 	#returns the value of a path
 	def Path(self, path):

@@ -4,6 +4,7 @@
 import sys, getopt, struct
 from array import array
 from Paths import *
+from objmaterial import *
 
 #the file to open
 f = {}
@@ -100,7 +101,9 @@ def ReadObj():
 
 			#append this face to the faces list
 			faces.append(Face(v1,v2,v3))
-		#else - not supported
+		elif values[0] == "mtllib":
+			#output the material file
+			materials = ObjMaterial(values[1])
 		else: continue
 
 	#print counts
