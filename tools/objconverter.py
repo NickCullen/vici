@@ -104,6 +104,47 @@ class Mesh:
 		#write indices
 		array("i",self.indices).tofile(out)
 
+	def WriteExcerpt(self, out, name):
+		#example
+		'''
+		<component type="MeshRenderer">
+
+		</component>
+		<component type="Mesh">
+			<mesh>Assets/Models/monkey.mesh</mesh>
+		</component>
+		<component type="Material">
+			<vert>Assets/Shaders/Test.vert</vert>
+			<frag>Assets/Shaders/Test.frag</frag>
+			<texture format="rgb" id="SimpleTexture">
+				<path>Assets/Textures/Thatched.jpg</path>
+				<type>2d</type>
+			</texture>
+			<texture format="rgba" id="RedTexture">
+				<path>Assets/Textures/red.png</path>
+				<type>2d</type>
+			</texture>
+		</component>
+		'''
+		out.write("\t<component type=\"MeshRenderer\">\n")
+		out.write("\t\t<indices>" + str(meshes.index(self)) + "</indices>\n")
+		out.write("\t</component>\n")
+		out.write("\t<component type=\"Mesh\">\n")
+		out.write("\t\t<mesh>Assets/Models/"+name+".mesh</mesh>\n")
+		out.write("\t</component>\n")
+		out.write("\t<component type=\"Material\">\n")
+		out.write("\t<vert>Assets/Shaders/Test.vert</vert>\n")
+		out.write("\t<frag>Assets/Shaders/Test.frag</frag>\n")
+		out.write("\t<texture format=\"rgb\" id=\"SimpleTexture\">\n")
+		out.write("\t	<path>Assets/Textures/Thatched.jpg</path>\n")
+		out.write("\t	<type>2d</type>\n")
+		out.write("\t</texture>\n")
+		out.write("\t<texture format=\"rgba\" id=\"RedTexture\">\n")
+		out.write("\t	<path>Assets/Textures/red.png</path>\n")
+		out.write("\t	<type>2d</type>\n")
+		out.write("\t</texture>\n")
+		out.write("\t</component>\n")
+
 #called when obj file loaded
 def ReadObj():
 	#the current mesh
@@ -228,7 +269,7 @@ def WriteArrays(out):
 		#write norms
 		array("f",m['norms']).tofile(out)
 
-def WriteExcerpt(file, name):
+def WriteExcerpt(out, name):
 	#example
 	'''
 	<gameobject id="Object" indestructable="false" enabled="true" layer="0">
@@ -237,35 +278,27 @@ def WriteExcerpt(file, name):
 			<rotation>0 0 0</rotation>
 			<scale>1 1 1</scale>
 		</transform>
-		<component type="MeshRenderer">
+		
+		... mesh excerpt here ...
 
-		</component>
-		<component type="Mesh">
-			<mesh>Assets/Models/monkey.mesh</mesh>
-		</component>
-		<component type="Material">
-			<vert>Assets/Shaders/Test.vert</vert>
-			<frag>Assets/Shaders/Test.frag</frag>
-			<texture format="rgb" id="SimpleTexture">
-				<path>Assets/Textures/Thatched.jpg</path>
-				<type>2d</type>
-			</texture>
-			<texture format="rgba" id="RedTexture">
-				<path>Assets/Textures/red.png</path>
-				<type>2d</type>
-			</texture>
-		</component>
 	</gameobject>
 	'''
 
-	file.write("<gameobject id=\"" + name + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
-	file.write("\t<transform>\n")
-			file.write("\t\t<position>0 0 -15</position>\n")
-			file.write("\t\t<rotation>0 0 0</rotation>\n")
-			file.write("\t\t<scale>1 1 1</scale>\n")
-		file.write("\t</transform>\n")
+	out.write("<gameobject id=\"" + name + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
+	for m in meshes:
+		out.write("<gameobject id=\"" + m.id + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
+		out.write("\t<transform>\n")
+		out.write("\t\t<position>0 0 -15</position>\n")
+		out.write("\t\t<rotation>0 0 0</rotation>\n")
+		out.write("\t\t<scale>1 1 1</scale>\n")
+		out.write("\t</transform>\n")
 
-	file.write("</gameobject>")
+		#write the mesh
+		m.WriteExcerpt(out, name)
+
+		out.write("</gameobject>")
+	out.write("</gameobject>")
+
 if __name__ == "__main__":
 	
 	#open obj file
@@ -302,7 +335,7 @@ if __name__ == "__main__":
 	#output excerpt
 	xml = open("Excerpt.xml","w")
 	WriteExcerpt(xml, sys.argv[2])
-
+	xml.close()
 	#close file
 	f.close()
 	out.close()

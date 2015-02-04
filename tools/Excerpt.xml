@@ -1,0 +1,27 @@
+<gameobject id="lizardman" indestructable="false" enabled="true" layer="0">
+	<gameobject id="Lizardman" indestructable="false" enabled="true" layer="0">
+		<transform>
+			<position>0 0 -15</position>
+			<rotation>0 0 0</rotation>
+			<scale>1 1 1</scale>
+		</transform>
+		<component type="MeshRenderer">
+			<indices>0</indices>
+		</component>
+		<component type="Mesh">
+			<mesh>Assets/Models/lizardman.mesh</mesh>
+		</component>
+		<component type="Material">
+		<vert>Assets/Shaders/Test.vert</vert>
+		<frag>Assets/Shaders/Test.frag</frag>
+		<texture format="rgb" id="SimpleTexture">
+			<path>Assets/Textures/Thatched.jpg</path>
+			<type>2d</type>
+		</texture>
+		<texture format="rgba" id="RedTexture">
+			<path>Assets/Textures/red.png</path>
+			<type>2d</type>
+		</texture>
+		</component>
+	</gameobject>
+</gameobject>

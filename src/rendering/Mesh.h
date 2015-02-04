@@ -72,7 +72,7 @@ public:
 	* Called to execute the draw elements functions. This is the Mesh
 	* job because it knows the topology of the mesh*
 	*/
-	void DrawElements();
+	void DrawElements(int32 index);
 
 	static DerivedRegister<Mesh> reg; /**< Used to register Component */
 };

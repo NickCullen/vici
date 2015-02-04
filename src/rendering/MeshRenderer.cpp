@@ -11,6 +11,7 @@ MeshRenderer::MeshRenderer()
 	_material = NULL; 
 	_mesh = NULL; 
 	_shader = NULL; 
+	_indices = 0;
 }
 MeshRenderer::~MeshRenderer()
 {
@@ -21,6 +22,9 @@ void MeshRenderer::Init(XmlNode& node)
 {
 	//call parent init
 	IDrawable::Init(node);
+
+	//get the indices index
+	_indices = node.GetInt("indices");
 }
 
 //implementation of SetupCallbacks
@@ -81,7 +85,7 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 	_mesh->SetArrays(_shader);
 
 	//draw
-	_mesh->DrawElements();
+	_mesh->DrawElements(_indices);
 }
 void MeshRenderer::PostRender(OpenGLRenderer* renderer)
 {

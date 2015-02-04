@@ -178,13 +178,9 @@ void Mesh::SetArrays(Shader* shader)
 }
 
 
-void Mesh::DrawElements()
+void Mesh::DrawElements(int32 index)
 {
-	//note this will take an integer param and draw that array index
-	for (int i = 0; i < _num_arrays; i++)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffers[i]);
-		glDrawElements(GL_TRIANGLES, _index_count[i], GL_UNSIGNED_INT, (void*)0);
-	}
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffers[index]);
+	glDrawElements(GL_TRIANGLES, _index_count[index], GL_UNSIGNED_INT, (void*)0);
 }
 

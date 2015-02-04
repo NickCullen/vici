@@ -314,4 +314,5 @@ void GameObject::OnStart()
 	}
 
 	_children.Unlock();
+
 }

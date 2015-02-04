@@ -20,6 +20,8 @@ private:
 	Mesh* _mesh; /**< containing all the mesh data */
 
 	Shader* _shader; /**< The shader to render the mesh */
+
+	int32 _indices; /**< id of the index array to use in the mesh */
 protected:
 
 public:
