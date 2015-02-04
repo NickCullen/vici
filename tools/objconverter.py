@@ -14,6 +14,12 @@ points = []
 uvs = []
 normals = []
 
+#opengl array friendly vertices
+o_verts = []
+
+#list of mesh objects
+meshes = []
+
 #structure to hold a 3D point (x,y,z) 
 class Point:
 	def __init__(self,x,y,z):
@@ -59,18 +65,13 @@ class Mesh:
 	def __init__(self, id):
 		self.id = id
 
-		self.vertices = []	#list of vertuces (point, uv, normal)
-
 		self.faces = [] 	#list of faces (vertex, vertex, vertex)
 
-	def Write(self):
-		#the mesh construct
-		m = dict(verts = [],uvs = [],norms = [],indices = [])
+		#the indices into the arrays
+		self.indices = []
 
-		#array friendly vertices
-		o_verts = []
-
-		index = 0
+	#constructs the indices of the mesh (will also create the opengl friend arrays)
+	def ConstructIndices(self):
 
 		#convert into friendly arrays
 		for face in self.faces:
@@ -78,66 +79,30 @@ class Mesh:
 			#first vertex
 			if not face.v1 in o_verts:
 				o_verts.append(face.v1)
-				m['indices'].append(index)
-				index+=1
+				self.indices.append(len(o_verts)-1)
 			else:
-				m['indices'].append(o_verts.index(face.v1))
+				self.indices.append(o_verts.index(face.v1))
 
 			#second vertex
 			if not face.v2 in o_verts:
 				o_verts.append(face.v2)
-				m['indices'].append(index)
-				index+=1
+				self.indices.append(len(o_verts)-1)
 			else:
-				m['indices'].append(o_verts.index(face.v2))
+				self.indices.append(o_verts.index(face.v2))
 
 			#third vertex
 			if not face.v3 in o_verts:
 				o_verts.append(face.v3)
-				m['indices'].append(index)
-				index+=1
+				self.indices.append(len(o_verts)-1)
 			else:
-				m['indices'].append(o_verts.index(face.v3))
+				self.indices.append(o_verts.index(face.v3))
 
-		#add them to the mesh construct
-		for v in o_verts:
-			m['verts'].append(v.point.x)
-			m['verts'].append(v.point.y)
-			m['verts'].append(v.point.z)
-			m['uvs'].append(v.uv.u)
-			m['uvs'].append(v.uv.v)
-			m['norms'].append(v.normal.x)
-			m['norms'].append(v.normal.y)
-			m['norms'].append(v.normal.z)
-
-		#create output file
-		paths = Paths()
-		output = paths.PlatformURL(paths.Path("assets") + "/Models/" + self.id + ".mesh")
-		out = open(output,"wb")
-		if(out):
-			#write len of vert array
-			out.write(struct.pack('i',(int(len(m['verts'])/3))))
-			#write verts
-			array("f",m['verts']).tofile(out)
-
-			#write len of uv array
-			out.write(struct.pack('i',(int(len(m['uvs'])/2))))
-			#write uvs
-			array("f",m['uvs']).tofile(out)
-
-			#write len of norms array
-			out.write(struct.pack('i',(int(len(m['norms'])/3))))
-			#write norms
-			array("f",m['norms']).tofile(out)
-
-			#write len of indices array
-			out.write(struct.pack('i',(int(len(m['indices'])))))
-			#write indices
-			array("i",m['indices']).tofile(out)
-
-			#close
-			out.close()
-
+	#write indices to file
+	def WriteIndices(self, out):
+		#write len of indices array
+		out.write(struct.pack('i',(int(len(self.indices)))))
+		#write indices
+		array("i",self.indices).tofile(out)
 
 #called when obj file loaded
 def ReadObj():
@@ -156,9 +121,9 @@ def ReadObj():
 
 		#creating a new mesh
 		if values[0] == "o":
-			#write the mesh if already one
+			#If there is already a current mesh add it to the meshes list
 			if current != 0:
-				current.Write()
+				meshes.append(current)
 
 			#create a new mesh
 			current = Mesh(values[1])
@@ -199,7 +164,7 @@ def ReadObj():
 				sys.exit()
 			
 
-			#append this face to the faces list
+			#append this face to the faces list of the mesh
 			current.faces.append(Face(v1,v2,v3))
 		elif values[0] == "mtllib":
 			#output the material file
@@ -208,15 +173,69 @@ def ReadObj():
 
 	#write the last mesh
 	if current != 0:
-		current.Write()
+		meshes.append(current)
+
+def WriteArrays(out):
+	m = dict(verts = [], uvs = [], norms = [])
+
+	#add them to the mesh construct
+	for v in o_verts:
+		m['verts'].append(v.point.x)
+		m['verts'].append(v.point.y)
+		m['verts'].append(v.point.z)
+		m['uvs'].append(v.uv.u)
+		m['uvs'].append(v.uv.v)
+		m['norms'].append(v.normal.x)
+		m['norms'].append(v.normal.y)
+		m['norms'].append(v.normal.z)
+
+	if(out):
+		#write len of vert array
+		out.write(struct.pack('i',(int(len(m['verts'])/3))))
+		#write verts
+		array("f",m['verts']).tofile(out)
+
+		#write len of uv array
+		out.write(struct.pack('i',(int(len(m['uvs'])/2))))
+		#write uvs
+		array("f",m['uvs']).tofile(out)
+
+		#write len of norms array
+		out.write(struct.pack('i',(int(len(m['norms'])/3))))
+		#write norms
+		array("f",m['norms']).tofile(out)
 
 if __name__ == "__main__":
 	
-	#open obj
+	#open obj file
 	f = open(sys.argv[1],"r")
 
+	print("Reading OBJ File")
 	#read obj
 	ReadObj()
 
+	#the output mesh file
+	paths = Paths()
+	out_path = paths.PlatformURL(paths.Path("assets") + "/Models/" + sys.argv[2] + ".mesh")
+	out = open(out_path,"wb")
+
+	print("Constructing mesh filder indices")
+	#construct mesh indices (thus creating opengl friendly arrays)
+	for m in meshes:
+		m.ConstructIndices()
+
+	print("Writing Vertex Arrays to file")
+	#write vertex arrays
+	WriteArrays(out)
+
+	#write ehow many meshes (num of index arrays) there are
+	out.write(struct.pack('i', int(len(meshes))))
+
+	print("Writing Indices to file")
+	#write mesh indices per mesh
+	for m in meshes:
+		m.WriteIndices(out)
+
 	#close file
-	f.close();
+	f.close()
+	out.close()

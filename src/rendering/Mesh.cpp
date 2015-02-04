@@ -7,10 +7,10 @@ Mesh::Mesh()
 	_hash = "Mesh";
 
 	//default all to NULL
-	_vertex_buffer = _uv_buffer = _normal_buffer = _index_buffer = NULL;
+	_vertex_buffer = _uv_buffer = _normal_buffer  = NULL;
 	_vertex_array = _uv_array = _normal_array = NULL;
 	_vertex_count = _uv_count = _normal_count = 0;
-	_index_array = NULL;
+	_num_arrays = 0;
 }
 Mesh::~Mesh()
 {
@@ -18,7 +18,12 @@ Mesh::~Mesh()
 	if (_vertex_array != NULL) delete(_vertex_array);
 	if (_uv_array != NULL) delete(_uv_array);
 	if (_normal_array != NULL) delete(_normal_array);
-	if (_index_array != NULL) delete(_index_array);
+
+	for (int i = 0; i < _num_arrays; i++)
+	{
+		delete(_index_arrays[i]);
+	}
+	delete(_index_arrays);
 }
 
 void Mesh::Init(XmlNode& node)
@@ -109,24 +114,36 @@ void Mesh::SetMeshFile(char* file)
 			glBufferData(GL_ARRAY_BUFFER, _normal_count * sizeof(float)* 3, _normal_array, GL_STATIC_DRAW);
 		}
 
-		//read the number of indices
-		fread(&_index_count, sizeof(int32), 1, f);
-		//if not 0 copy them of
-		if (_index_count != 0)
+		//read how many index arrays this mesh holds
+		fread(&_num_arrays, sizeof(int32), 1, f);
+
+		//allocate memory to size counters
+		_index_count = new int32[_num_arrays];
+		_index_arrays = new uint32*[_num_arrays];
+		_index_buffers = new uint32[_num_arrays];
+
+		//generate the buffers
+		glGenBuffers(_num_arrays, _index_buffers);
+
+		//generate the index arrays
+		for (int32 i = 0; i < _num_arrays; i++)
 		{
-			//allocate
-			_index_array = new uint32[_index_count];
-			//cpy
-			fread(_index_array, _index_count * sizeof(uint32), 1, f);
+			//read the number of indices
+			fread(&_index_count[i], sizeof(int32), 1, f);
+			//if not 0 copy them of
+			if (_index_count != 0)
+			{
+				//allocate
+				_index_arrays[i] = new uint32[_index_count[i]];
+				//cpy
+				fread(_index_arrays[i], _index_count[i] * sizeof(uint32), 1, f);
 
-			//generate vertex buffer
-			glGenBuffers(1, &_index_buffer);
+				// The following commands will talk about our index buffer
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffers[i]);
 
-			// The following commands will talk about our index buffer
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
-
-			// Give our vertices to OpenGL.
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, _index_count * sizeof(uint32), _index_array, GL_STATIC_DRAW);
+				// Give our vertices to OpenGL.
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, _index_count[i] * sizeof(uint32), _index_arrays[i], GL_STATIC_DRAW);
+			}
 		}
 
 		//close file
@@ -165,8 +182,10 @@ void Mesh::SetArrays(Shader* shader)
 
 void Mesh::DrawElements()
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
-	glDrawElements(GL_TRIANGLES, _index_count, GL_UNSIGNED_INT, (void*)0);
-
+	for (int i = 0; i < _num_arrays; i++)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffers[i]);
+		glDrawElements(GL_TRIANGLES, _index_count[i], GL_UNSIGNED_INT, (void*)0);
+	}
 }
 

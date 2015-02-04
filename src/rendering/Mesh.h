@@ -17,7 +17,7 @@ private:
 	uint32 _vertex_buffer;	/**< The integer representing the vertex buffer */
 	uint32 _uv_buffer;		/**< The integer representing the vertex buffer */
 	uint32 _normal_buffer;	/**< The integer representing the vertex buffer */
-	uint32 _index_buffer;	/**< The index buffer array */
+	uint32* _index_buffers;	/**< The index buffers array */
 
 	float* _vertex_array;	/**< The array of vertices */
 	float* _uv_array;		/**< The array of uvs */
@@ -27,8 +27,10 @@ private:
 	int32 _uv_count;		/**< Number of vertices in _uv_array */
 	int32 _normal_count;	/**< Number of vertices in _normal_array */
 
-	uint32* _index_array;	/**< The index array describing faces */
-	int32 _index_count;		/**< Number of indices in index array */
+	uint32** _index_arrays;	/**< The array of index arrays describing faces */
+	int32* _index_count;	/**< Number of indices in its relevant index array */
+
+	int32 _num_arrays;	/**< Number of index arrays */
 
 	char _file_path[BUFFER_SIZE]; /**< The full path to the mesh file */
 

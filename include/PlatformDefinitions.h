@@ -24,9 +24,11 @@ typedef GLFWwindow VWindow;
 
 //defining release/debug builds
 #ifdef NDEBUG
-#define VICI_RELEASE
+#define VICI_RELEASE 1
+#define VICI_DEBUG 0
 #else
-#define VICI_DEBUG
+#define VICI_DEBUG 1
+#define VICI_RELEASE 0
 #endif
 
 /* Constants */
