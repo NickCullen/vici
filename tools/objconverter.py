@@ -109,6 +109,12 @@ def ReadObj():
 	#the current mesh
 	current = 0
 
+	#flag indicating if more than one material is being used 
+	#on the current object. if this is the case we need to make 
+	#a new object!
+	material_used = 0
+
+
 	for line in f:
 		#skip # lines
 		if line.startswith('#'): continue	
@@ -124,6 +130,9 @@ def ReadObj():
 			#If there is already a current mesh add it to the meshes list
 			if current != 0:
 				meshes.append(current)
+
+			#reset
+			material_used = 0
 
 			#create a new mesh
 			current = Mesh(values[1])
@@ -169,6 +178,20 @@ def ReadObj():
 		elif values[0] == "mtllib":
 			#output the material file
 			materials = ObjMaterial(values[1])
+		elif values[0] == "usemtl":
+			#check to see if a material has already been set
+			#if so make a new mesh as 2 materials cannot be 
+			#assigned to one mesh!
+			if material_used == 1:
+				meshes.append(current)	#add current to the list
+				current = Mesh("Child") #create a new mesh
+
+			#assign the material to the mesh
+			current.material = values[1]
+
+			#set true
+			material_used = 1
+
 		else: continue
 
 	#write the last mesh
@@ -205,6 +228,44 @@ def WriteArrays(out):
 		#write norms
 		array("f",m['norms']).tofile(out)
 
+def WriteExcerpt(file, name):
+	#example
+	'''
+	<gameobject id="Object" indestructable="false" enabled="true" layer="0">
+		<transform>
+			<position>0 0 -15</position>
+			<rotation>0 0 0</rotation>
+			<scale>1 1 1</scale>
+		</transform>
+		<component type="MeshRenderer">
+
+		</component>
+		<component type="Mesh">
+			<mesh>Assets/Models/monkey.mesh</mesh>
+		</component>
+		<component type="Material">
+			<vert>Assets/Shaders/Test.vert</vert>
+			<frag>Assets/Shaders/Test.frag</frag>
+			<texture format="rgb" id="SimpleTexture">
+				<path>Assets/Textures/Thatched.jpg</path>
+				<type>2d</type>
+			</texture>
+			<texture format="rgba" id="RedTexture">
+				<path>Assets/Textures/red.png</path>
+				<type>2d</type>
+			</texture>
+		</component>
+	</gameobject>
+	'''
+
+	file.write("<gameobject id=\"" + name + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
+	file.write("\t<transform>\n")
+			file.write("\t\t<position>0 0 -15</position>\n")
+			file.write("\t\t<rotation>0 0 0</rotation>\n")
+			file.write("\t\t<scale>1 1 1</scale>\n")
+		file.write("\t</transform>\n")
+
+	file.write("</gameobject>")
 if __name__ == "__main__":
 	
 	#open obj file
@@ -219,7 +280,7 @@ if __name__ == "__main__":
 	out_path = paths.PlatformURL(paths.Path("assets") + "/Models/" + sys.argv[2] + ".mesh")
 	out = open(out_path,"wb")
 
-	print("Constructing mesh filder indices")
+	print("Constructing mesh filter indices")
 	#construct mesh indices (thus creating opengl friendly arrays)
 	for m in meshes:
 		m.ConstructIndices()
@@ -235,6 +296,11 @@ if __name__ == "__main__":
 	#write mesh indices per mesh
 	for m in meshes:
 		m.WriteIndices(out)
+
+	print("Outputting Excerpt.xml")
+	#output excerpt
+	xml = open("Excerpt.xml","w")
+	WriteExcerpt(xml, sys.argv[2])
 
 	#close file
 	f.close()
