@@ -1,0 +1,14 @@
+# Blender MTL File: 'Lizardman2.blend'
+# Material Count: 1
+
+newmtl Lizardman
+Ns 262.745098
+Ka 0.000000 0.000000 0.000000
+Kd 0.531778 0.531778 0.531778
+Ks 0.310758 0.310758 0.310758
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Nick\Downloads\Lizardman\Textures\Lizardman_nor3.png
+map_Bump C:\\Users\\Nick\\Downloads\\Lizardman\\Textures\\Lizardman_nor3.png
+map_Ks C:\\Users\\Nick\\Downloads\\Lizardman\\Textures\\Lizardman_spec.png

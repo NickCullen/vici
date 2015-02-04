@@ -289,6 +289,7 @@ if __name__ == "__main__":
 	#write vertex arrays
 	WriteArrays(out)
 
+	print("A total of " + str(len(meshes)) + " Meshes contstructed")
 	#write ehow many meshes (num of index arrays) there are
 	out.write(struct.pack('i', int(len(meshes))))
 
