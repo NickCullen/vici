@@ -52,7 +52,7 @@ void OpenGLRenderer::ClearBuffer(int flags, glm::vec4* col)
 	glClear(flags);
 }
 
-void OpenGLRenderer::SetUniforms(Shader* shader)
+void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 {
 	//set MVP matrix
 	glUniformMatrix4fv(shader->MVPLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._projection_matrix * _ms._view_matrix * _ms._current_matrix->_current_transform));

@@ -1,17 +1,12 @@
-#ifndef V_MESH
-#define V_MESH
+#ifndef V_MESH_ASSET
+#define V_MESH_ASSET
 
 /* Forward Decl */
-class Shader;
+class ShaderAsset;
 
-#include "IComponent.h"
+#include "Asset.h"
 
-/** 
-* Component which holds the buffers and vertex arrays
-* Used to describe a mesh
-*/
-
-class Mesh : public IComponent
+class MeshAsset : public Asset
 {
 private:
 	uint32 _vertex_buffer;	/**< The integer representing the vertex buffer */
@@ -34,47 +29,42 @@ private:
 
 	char _file_path[BUFFER_SIZE]; /**< The full path to the mesh file */
 
-protected:
-
 public:
-	/**
-	* Default Mesh Constructor will init all
-	* member vars to NULL 
-	*/
-	Mesh();
+	MeshAsset();
 
-	/**
-	* Default destructor
-	*/
-	~Mesh();
+	~MeshAsset();
 
 	/**
 	* Will set the mesh file name from xml node
-	* @param node The xml node containing component data
+	* @param node The xml node containing mesh data
 	*/
-	virtual void Init(XmlNode& node);
+	void Load(XmlNode& node);
 
 	/**
-	* Setting the file name will load the file
-	* and create needed buffers
-	* Note that this will soon change to use assets instead of direct loading
-	* @param file The path to the file name including extension
+	* Unloads the mesh asset
 	*/
-	void SetMeshFile(char* file);
+	void Unload();
 
-	/** 
+	/**
 	* Called so the mesh can set its attribues to the shader
 	* @param shader The shader with the locations of inputs
 	*/
-	void SetArrays(Shader* shader);
+	void SetArrays(ShaderAsset* shader);
 
 	/**
 	* Called to execute the draw elements functions. This is the Mesh
-	* job because it knows the topology of the mesh*
+	* job because it knows the topology of the mesh
 	*/
 	void DrawElements(int32 index);
 
-	static DerivedRegister<Mesh> reg; /**< Used to register Component */
+	static AssetRegister<MeshAsset> reg; /**< Static register for this asset type*/
 };
+
+
+
+
+
+
+
 
 #endif

@@ -19,6 +19,7 @@ include_directories("${PROJECT_SOURCE_DIR}/src/core")
 include_directories("${PROJECT_SOURCE_DIR}/src/rendering")
 include_directories("${PROJECT_SOURCE_DIR}/src/util")
 include_directories("${PROJECT_SOURCE_DIR}/src/datastructures")
+include_directories("${PROJECT_SOURCE_DIR}/src/assets")
 
 #compile engine sources into vlibrary
 add_subdirectory(src)

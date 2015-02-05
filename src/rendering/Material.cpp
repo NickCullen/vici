@@ -13,32 +13,26 @@ Material::~Material()
 
 void Material::Init(XmlNode& node)
 {
-	//get the shader paths
-	char* vert = node.GetChild("vert").ValueString();
-	char* frag = node.GetChild("frag").ValueString();
-
-	//load shader
-	SetShader(vert, frag);
+	//get the shader
+	char* shader = node.GetChild("shader").ValueString();
+	_shader = (ShaderAsset*)_Assets->GetAsset(shader);
 
 	//load textures
 	XmlNode cur_texture = node.GetChild("texture");
 	while (!cur_texture.IsNull())
 	{
-		//instantiate a texture
-		Texture* tex = new Texture();
-
-		//Load the texture
-		tex->LoadFromNode(cur_texture);
+		//get the texture
+		TextureAsset* texture = (TextureAsset*)_Assets->GetAsset(cur_texture.ValueString());
 
 		//create a texture reference
 		TextureReference ref;
 
 		//set pointer to texture
-		ref._tex = tex;
+		ref._tex = texture;
 
 		//get the sampler uniform location
-		char* uniform_name = cur_texture.GetAttributeString("id");
-		ref._location = _shader.SamplerLocation(uniform_name);
+		char* uniform_name = cur_texture.GetAttributeString("uniform");
+		ref._location = _shader->SamplerLocation(uniform_name);
 
 		//add the texture reference to the list
 		_textures.PushBack(ref);
@@ -46,14 +40,6 @@ void Material::Init(XmlNode& node)
 		//get next texture
 		cur_texture = cur_texture.NextSibling("texture");
 	}
-}
-
-
-void Material::SetShader(char* vert, char* frag)
-{
-	if (vert == NULL || frag == NULL) return;
-
-	_shader.Create(vert, frag);
 }
 
 void Material::SetUniforms()

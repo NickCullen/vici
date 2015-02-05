@@ -1,41 +1,24 @@
-#include "Texture.h"
+#include "TextureAsset.h"
 #include "stb.h"
 #include "Vici.h"
 #include "Platform.h"
 
-Texture::Texture()
+TextureAsset::TextureAsset()
 {
 	_width = _height = _comp = 0;
 	_texture = 0;
 }
 
-Texture::~Texture()
+TextureAsset::~TextureAsset()
 {
 
 }
 
-uint32 Texture::GetFormat(char* format)
-{
-	if (strcmp("rgb", format) == 0) return 3;
-	else if (strcmp("rgba", format) == 0) return 4;
-	else if (strcmp("grey", format) == 0) return 1;
-	else if (strcmp("greyalpha", format) == 0) return 2;
-	else return 0;	//return default
-}
-
-uint32 Texture::GetType(char* type)
-{
-	if (strcmp("2d", type) == 0) return GL_TEXTURE_2D;
-	else if (strcmp("1d", type) == 0) return GL_TEXTURE_1D;
-	else if (strcmp("3d", type) == 0) return GL_TEXTURE_3D;
-	else return GL_TEXTURE_2D; //default assumed 2d
-}
-
-void Texture::LoadFromNode(XmlNode& node)
+void TextureAsset::Load(XmlNode& node)
 {
 	//get node values
 	char* path = node.GetString("path");
-	char* format = node.GetAttributeString("format");
+	char* format = node.GetString("format");
 	char* type = node.GetString("type");
 
 	//convert path to releative platform friendly path
@@ -49,7 +32,7 @@ void Texture::LoadFromNode(XmlNode& node)
 	//check if image was loaded
 	if (image == NULL)
 	{
-		printf("Could not load texture at %s\n", path);
+		printf("Could not load texture at %s\n", _id);
 		return;
 	}
 
@@ -99,8 +82,31 @@ void Texture::LoadFromNode(XmlNode& node)
 	//free up on memory
 	stbi_image_free(image);
 }
+void TextureAsset::Unload()
+{
 
-void Texture::Bind()
+}
+
+
+uint32 TextureAsset::GetFormat(char* format)
+{
+	if (strcmp("rgb", format) == 0) return 3;
+	else if (strcmp("rgba", format) == 0) return 4;
+	else if (strcmp("grey", format) == 0) return 1;
+	else if (strcmp("greyalpha", format) == 0) return 2;
+	else return 0;	//return default
+}
+
+uint32 TextureAsset::GetType(char* type)
+{
+	if (strcmp("2d", type) == 0) return GL_TEXTURE_2D;
+	else if (strcmp("1d", type) == 0) return GL_TEXTURE_1D;
+	else if (strcmp("3d", type) == 0) return GL_TEXTURE_3D;
+	else return GL_TEXTURE_2D; //default assumed 2d
+}
+
+
+void TextureAsset::Bind()
 {
 	glBindTexture(_type, _texture);
 }

@@ -88,10 +88,32 @@ void SceneLoader::LoadScene(unsigned int index)
 {
 	if (index < _scenes.size())
 	{
+		//load assets
+		XmlDocument asset_doc;
+		bool assets_loaded = false;
+
+		if (asset_doc.Load(_scenes[index]._scene_assets))
+		{
+			XmlNode root = asset_doc.Root();
+
+			XmlNode cur = root.GetChild("asset");
+			while (!cur.IsNull())
+			{
+				//load the current asset
+				_Assets->LoadAsset(cur);
+
+				//get the next asset
+				cur = cur.NextSibling();
+			}
+
+			//set true
+			assets_loaded = true;
+		}
+
 		//load file
 		XmlDocument doc;
 
-		if (doc.Load(_scenes[index]._scene_file))
+		if (assets_loaded && doc.Load(_scenes[index]._scene_file))
 		{
 			XmlNode root = doc.Root();
 

@@ -1,9 +1,10 @@
-#include "Shader.h"
+#include "ShaderAsset.h"
+#include "Platform.h"
 #include "Vici.h"
 #include <string>
 #include "TextFile.h"
 
-Shader::Shader()
+ShaderAsset::ShaderAsset() : Asset()
 {
 	_v = 0;
 	_f = 0;
@@ -12,18 +13,19 @@ Shader::Shader()
 
 	_mvp_loc = -1;
 	_normal_matrix_loc = -1;
-    _normal_location = _vertex_location = _uv_location = -1;
-    
+	_normal_location = _vertex_location = _uv_location = -1;
+
 	_is_loaded = false;
+
 }
 
-Shader::~Shader()
+ShaderAsset::~ShaderAsset()
 {
-	Clean();
+
 }
 
 
-void Shader::Clean()
+void ShaderAsset::Unload()
 {
 	if (_v)
 		glDeleteShader(_v);
@@ -34,18 +36,18 @@ void Shader::Clean()
 
 	_is_loaded = false;
 }
-void Shader::Create(char *pVertexShader_path, char *pFragmentShader_Path)
+
+void ShaderAsset::Load(XmlNode& node)
 {
 	_v = glCreateShader(GL_VERTEX_SHADER);
 	_f = glCreateShader(GL_FRAGMENT_SHADER);
 
-
 	// store vertex path..
-	sprintf(_v_path, "%s/%s", _vici->GetCwd(), pVertexShader_path);
+	sprintf(_v_path, "%s/%s", _vici->GetCwd(), node.GetString("vert"));
 	strcpy(_v_path, Platform_Pathify(_v_path));
 
 	// store shader path..
-	sprintf(_f_path, "%s/%s", _vici->GetCwd(), pFragmentShader_Path);
+	sprintf(_f_path, "%s/%s", _vici->GetCwd(), node.GetString("frag"));
 	strcpy(_f_path, Platform_Pathify(_f_path));
 
 	TextFile vs = TextFile(_v_path);
@@ -62,13 +64,11 @@ void Shader::Create(char *pVertexShader_path, char *pFragmentShader_Path)
 		return;
 	}
 
-
 	const char *vv = vs;
 	const char *ff = fs;
 
 	glShaderSource(_v, 1, &vv, NULL);
 	glShaderSource(_f, 1, &ff, NULL);
-
 
 	//compile and check for errors
 	glCompileShader(_v);
@@ -96,7 +96,7 @@ void Shader::Create(char *pVertexShader_path, char *pFragmentShader_Path)
 }
 
 
-void Shader::DebugShader(GLuint shader, GLenum checkType)
+void ShaderAsset::DebugShader(GLuint shader, GLenum checkType)
 {
 	//check for errors
 	int noError;
@@ -116,7 +116,7 @@ void Shader::DebugShader(GLuint shader, GLenum checkType)
 }
 
 
-void Shader::DebugProgram(GLuint program, GLenum checkType)
+void ShaderAsset::DebugProgram(GLuint program, GLenum checkType)
 {
 	//check for errors
 	int noError;
@@ -135,7 +135,7 @@ void Shader::DebugProgram(GLuint program, GLenum checkType)
 	}
 }
 
-GLint Shader::SamplerLocation(char* id)
+GLint ShaderAsset::SamplerLocation(char* id)
 {
-	return glGetUniformLocation(_program, id);
+	return glGetUniformLocation(_program, id); 
 }

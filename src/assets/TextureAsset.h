@@ -1,15 +1,9 @@
-#ifndef V_TEXTURE
-#define V_TEXTURE
+#ifndef V_TEXTURE_ASSET
+#define V_TEXTURE_ASSET
 
-#include "PlatformDefinitions.h"
-#include "Xml.h"
+#include "Asset.h"
 
-/** 
-* Texture asset (works in the same way Mesh does)
-* except it isn't a component
-*/
-
-class Texture 
+class TextureAsset : public Asset
 {
 private:
 	int _width; /**< Width of the texture */
@@ -33,26 +27,24 @@ private:
 	* it should be the value of the 'type' node from
 	* xml file
 	* @param type The string containing the type of texture (1d, 2d, 3d etc.)
-	* @return Unsigned integer containing the GL_TEXTURE_*D value 
+	* @return Unsigned integer containing the GL_TEXTURE_*D value
 	*/
 	uint32 GetType(char* type);
-
 public:
-	/** 
-	* Default ctor
-	*/
-	Texture();
+	TextureAsset();
+
+	~TextureAsset();
 
 	/**
-	* Default dtor
+	* Loads the texture from the asset node
+	* @param node The asset node
 	*/
-	~Texture();
+	virtual void Load(XmlNode& node);
 
 	/**
-	* Loads the data from the given xml node
-	* @param node The xml node containing information about this texture
+	* Unload the texture from memory
 	*/
-	void LoadFromNode(XmlNode& node);
+	virtual void Unload();
 
 	/**
 	* Returns the gl reference texture
@@ -61,10 +53,18 @@ public:
 	inline uint32 GetTextureID(){ return _texture; }
 
 	/**
-	* Binds the texture 
+	* Binds the texture
 	*/
 	void Bind();
 
+	static AssetRegister<TextureAsset> reg; /**< Static register for this asset type*/
 };
+
+
+
+
+
+
+
 
 #endif

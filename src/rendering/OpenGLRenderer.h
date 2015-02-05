@@ -44,7 +44,7 @@ public:
 		return &_ms;
 	}
 
-	void SetUniforms(Shader* shader);
+	void SetUniforms(ShaderAsset* shader);
 };
 
 #endif

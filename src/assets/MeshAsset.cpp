@@ -1,18 +1,18 @@
-#include "Mesh.h"
-#include "Shader.h"
+#include "MeshAsset.h"
+#include "ShaderAsset.h"
+#include "Vici.h"
+#include "Platform.h"
 
-Mesh::Mesh()
+MeshAsset::MeshAsset() : Asset()
 {
-	//Important to set the hash if for this component
-	_hash = "Mesh";
-
 	//default all to NULL
-	_vertex_buffer = _uv_buffer = _normal_buffer  = NULL;
+	_vertex_buffer = _uv_buffer = _normal_buffer = NULL;
 	_vertex_array = _uv_array = _normal_array = NULL;
 	_vertex_count = _uv_count = _normal_count = 0;
 	_num_arrays = 0;
 }
-Mesh::~Mesh()
+
+MeshAsset::~MeshAsset()
 {
 	//free memory
 	if (_vertex_array != NULL) delete(_vertex_array);
@@ -26,23 +26,14 @@ Mesh::~Mesh()
 	delete(_index_arrays);
 }
 
-void Mesh::Init(XmlNode& node)
+void MeshAsset::Unload()
 {
-	//call parent init
-	IComponent::Init(node);
 
-	//get the mesh file
-	char* file = node.GetChild("mesh").ValueString();
-	
-	//set mesh file (note this will trigger loading)
-	SetMeshFile(file);
 }
-
-
-
-void Mesh::SetMeshFile(char* file)
+void MeshAsset::Load(XmlNode& node)
 {
-	if (file == NULL) return;
+	//get the mesh file
+	char* file = node.GetString("path");
 
 	//set the full path to the file
 	sprintf(_file_path, "%s/%s", _vici->GetCwd(), file);
@@ -62,7 +53,7 @@ void Mesh::SetMeshFile(char* file)
 			//allocate
 			_vertex_array = new float[_vertex_count * 3];
 			//cpy
-			fread(_vertex_array, _vertex_count * sizeof(float) * 3, 1, f);
+			fread(_vertex_array, _vertex_count * sizeof(float)* 3, 1, f);
 
 			//generate vertex buffer
 			glGenBuffers(1, &_vertex_buffer);
@@ -71,7 +62,7 @@ void Mesh::SetMeshFile(char* file)
 			glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
 
 			// Give our vertices to OpenGL.
-			glBufferData(GL_ARRAY_BUFFER, _vertex_count * sizeof(float) * 3, _vertex_array, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, _vertex_count * sizeof(float)* 3, _vertex_array, GL_STATIC_DRAW);
 		}
 
 		//read the number of uvs
@@ -82,7 +73,7 @@ void Mesh::SetMeshFile(char* file)
 			//allocate
 			_uv_array = new float[_uv_count * 2];
 			//cpy
-			fread(_uv_array, _uv_count * sizeof(float) * 2, 1, f);
+			fread(_uv_array, _uv_count * sizeof(float)* 2, 1, f);
 
 			//generate vertex buffer
 			glGenBuffers(1, &_uv_buffer);
@@ -149,8 +140,7 @@ void Mesh::SetMeshFile(char* file)
 	}
 }
 
-
-void Mesh::SetArrays(Shader* shader)
+void MeshAsset::SetArrays(ShaderAsset* shader)
 {
 	//Vertex Array
 	if (_vertex_count > 0)
@@ -159,7 +149,7 @@ void Mesh::SetArrays(Shader* shader)
 		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
 		glVertexAttribPointer(shader->VertexLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
-	
+
 	//normal array
 	if (_normal_count > 0)
 	{
@@ -178,9 +168,10 @@ void Mesh::SetArrays(Shader* shader)
 }
 
 
-void Mesh::DrawElements(int32 index)
+void MeshAsset::DrawElements(int32 index)
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffers[index]);
 	glDrawElements(GL_TRIANGLES, _index_count[index], GL_UNSIGNED_INT, (void*)0);
+
 }
 

@@ -1,15 +1,15 @@
-#ifndef V_SHADER
-#define V_SHADER
+#ifndef V_SHADER_ASSET
+#define V_SHADER_ASSET
 
-#include "Platform.h"
+#include "Asset.h"
 
-/** 
+/**
 * Class used to load shader files and acess
 * locations of uniforms/attribues etc.
 * Status (new - ongoing)
 */
 
-class Shader
+class ShaderAsset : public Asset
 {
 private:
 	char _v_path[256]; /**< path for vertex shader */
@@ -30,16 +30,26 @@ private:
 
 	bool _is_loaded; /**< Flag to show if the shader has been loaded */
 public:
-	/** 
+	/**
 	* Default ctor
 	*/
-	Shader();
+	ShaderAsset();
 
 	/**
 	* Default dtor
 	*/
-	~Shader();
+	~ShaderAsset();
 
+	/**
+	* Load the shader from Asset node
+	* @param node The asset node
+	*/
+	void Load(XmlNode& node);
+
+	/**
+	* Unloads the shader from memory
+	*/
+	void Unload();
 
 	/**
 	* Inline function returning the
@@ -53,7 +63,7 @@ public:
 	* @return int
 	*/
 	inline GLint MVPLocation(){ return _mvp_loc; }
-	
+
 	/**
 	* Returns the normal matrix location
 	* @return int
@@ -77,9 +87,9 @@ public:
 	* @return int
 	*/
 	inline GLint NormalLocation(){ return _normal_location; }
-	
+
 	/**
-	* Returns the location of the time uniform 
+	* Returns the location of the time uniform
 	* @return int containing the uniformlocation for the time variable
 	*/
 	inline GLint TimeLocation(){ return _time_location; }
@@ -95,9 +105,9 @@ public:
 	* @return Returns true if loaded false if not
 	*/
 	inline bool IsLoaded(){ return _is_loaded; }
-	
+
 	/**
-	* Destroys the shader if it was creates
+	* Destroys the shader if it was created
 	*/
 	void Clean();
 
@@ -110,7 +120,7 @@ public:
 	void Create(char* vertex_shader, char* fragment_shader);
 
 	/**
-	* Debugs the shader 
+	* Debugs the shader
 	* @param shaderProgram The shader to debug
 	* @param checkType the type of check to carry out on the shader
 	*/
@@ -123,6 +133,8 @@ public:
 	* @param checkType the type of check to carry out on the shader
 	*/
 	void DebugProgram(GLuint program, GLenum checkType);
+
+	static AssetRegister<ShaderAsset> reg; /**< Used to register the asset to the asset factory */
 };
 
 #endif

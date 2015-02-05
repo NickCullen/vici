@@ -10,9 +10,11 @@ class VCamera;
 
 #include "tds.h"
 #include "GameObjectTree.h"
+#include "AssetLoader.h"
 
-/*Macros for vici access*/
+/*Macros for vici access and some components*/
 #define _vici Vici::Instance()
+#define _Assets _vici->GetAssetLoader()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -35,6 +37,8 @@ private:
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
 
 	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
+
+	AssetLoader _asset_loader; /**< The asset Loader for assets */
 
 	/**
 	* Called to register all components of the engine by setting their static
@@ -103,6 +107,15 @@ public:
 	static inline Vici* Instance()
 	{
 		return _instance;
+	}
+
+	/**
+	* Gets the asset Loader
+	* @return Pointer to the asset loader class
+	*/
+	AssetLoader* GetAssetLoader()
+	{
+		return &_asset_loader;
 	}
 };
 

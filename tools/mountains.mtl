@@ -1,5 +1,5 @@
 # Blender MTL File: 'mountains.blend'
-# Material Count: 6
+# Material Count: 3
 
 newmtl grass1
 Ns 96.078431
@@ -22,17 +22,6 @@ illum 1
 map_Kd C:\Users\Nick\textures\generic_grassoverhang2_col.png
 map_d C:\\Users\\Nick\\textures\\generic_grassoverhang2_col.png
 
-newmtl mountain1
-Ns 96.078431
-Ka 0.047500 0.022451 0.047243
-Kd 0.500283 0.507982 0.537982
-Ks 0.097212 0.097212 0.097212
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd C:\Users\Nick\textures\generic_grayrock1_col.jpg
-map_Bump C:\\Users\\Nick\\textures\\generic_redrock_nor.jpg
-
 newmtl mountain2
 Ns 96.078431
 Ka 0.047500 0.022451 0.047243
@@ -42,26 +31,4 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd C:\Users\Nick\textures\generic_grayrock1_col.jpg
-map_Bump C:\\Users\\Nick\\textures\\generic_redrock_nor.jpg
-
-newmtl mountainGeneric
-Ns 96.078431
-Ka 0.047500 0.022451 0.047243
-Kd 0.500283 0.507982 0.537982
-Ks 0.097212 0.097212 0.097212
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd C:\Users\Nick\textures\generic_grayrock1_col.jpg
-map_Bump C:\\Users\\Nick\\textures\\generic_redrock_nor.jpg
-
-newmtl mountains1
-Ns 101.960784
-Ka 0.047500 0.022451 0.047243
-Kd 0.362317 0.166974 0.000000
-Ks 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 1
-map_Kd C:\Users\Nick\textures\generic_redrock_col.jpg
 map_Bump C:\\Users\\Nick\\textures\\generic_redrock_nor.jpg

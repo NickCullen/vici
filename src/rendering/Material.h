@@ -9,7 +9,7 @@
 */
 struct TextureReference
 {
-	Texture* _tex; /**< The texture */
+	TextureAsset* _tex; /**< The texture */
 	int32 _location; /**< The location of the texture sampler in the shader*/
 
 	/**
@@ -30,7 +30,7 @@ struct TextureReference
 class Material : public IComponent
 {
 private:
-	Shader _shader; /**< The shader used to render this material */
+	ShaderAsset* _shader; /**< The shader used to render this material */
 
 	TList<TextureReference> _textures; /**< List of texture references so we can send them to the shader later */
 
@@ -57,19 +57,10 @@ public:
 	* this material
 	* @return Pointer to shader (note can be NULL if shader isnt loaded)
 	*/
-	inline Shader* GetShader()
+	inline ShaderAsset* GetShader()
 	{
-		return _shader.IsLoaded() ? &_shader : NULL;
+		return _shader->IsLoaded() ? _shader : NULL;
 	}
-
-	/**
-	* Sets and loads the vertex and fragment shader for 
-	* this material. Calling this function will trigger the 
-	* process for loading and initializing the shader
-	* @param vert File path with extension to vertex shader
-	* @param frag File path with extension to fragment shader
-	*/
-	void SetShader(char* vert, char* frag);
 
 	/**
 	* Sets all the required uniforms in the shader 

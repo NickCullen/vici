@@ -1,7 +1,6 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
 #include "Material.h"
-#include "Mesh.h"
 
 MeshRenderer::MeshRenderer()
 {
@@ -25,6 +24,9 @@ void MeshRenderer::Init(XmlNode& node)
 
 	//get the indices index
 	_indices = node.GetInt("indices");
+
+	//get the mesh asset
+	_mesh = (MeshAsset*)_Assets->GetAsset(node.GetString("mesh"));
 }
 
 //implementation of SetupCallbacks
@@ -37,8 +39,7 @@ void MeshRenderer::OnStart()
 
 	//get references
 	_material = _go->FindComponent<Material>("Material");
-	_mesh = _go->FindComponent<Mesh>("Mesh");
-	
+
 	//set shader
 	if (_material)
 	{

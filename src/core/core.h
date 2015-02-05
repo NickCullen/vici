@@ -32,8 +32,9 @@
 /*Renderering*/
 #include "OpenGLRenderer.h"
 #include "MatrixStack.h"
-#include "Shader.h"
-#include "Texture.h"
+#include "ShaderAsset.h"
+#include "TextureAsset.h"
+#include "MeshAsset.h"
 
 /*Data structures*/
 #include "tds.h"
