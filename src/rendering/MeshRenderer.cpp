@@ -44,9 +44,6 @@ void MeshRenderer::OnStart()
 	if (_material)
 	{
 		_shader = _material->GetShader();
-
-		//let the mesh create buffers
-		//_mesh->CreateBuffers(_shader);
 	}
 
 }

@@ -35,6 +35,7 @@
 #include "ShaderAsset.h"
 #include "TextureAsset.h"
 #include "MeshAsset.h"
+#include "MaterialAsset.h"
 
 /*Data structures*/
 #include "tds.h"

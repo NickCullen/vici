@@ -90,7 +90,8 @@ void ShaderAsset::Load(XmlNode& node)
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
 	_normal_location = glGetAttribLocation(_program, "aNormal");
 	_uv_location = glGetAttribLocation(_program, "aUV");
-	_time_location = glGetUniformLocation(_program, "time");
+	_time_location = glGetUniformLocation(_program, "uTime");
+	_scene_ambience_location = glGetUniformLocation(_program, "uSceneAmbience");
 
 	_is_loaded = true;
 }
@@ -138,4 +139,9 @@ void ShaderAsset::DebugProgram(GLuint program, GLenum checkType)
 GLint ShaderAsset::SamplerLocation(char* id)
 {
 	return glGetUniformLocation(_program, id); 
+}
+
+GLint ShaderAsset::UniformLocation(char* id)
+{
+	return glGetUniformLocation(_program, id);
 }

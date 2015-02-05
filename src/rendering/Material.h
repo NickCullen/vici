@@ -34,6 +34,16 @@ private:
 
 	TList<TextureReference> _textures; /**< List of texture references so we can send them to the shader later */
 
+	MaterialAsset* _material_asset; /**< The asset file containing default material properties */
+
+
+	int32 _material_ka_location; /**< Location of material ambience */
+	int32 _material_kd_location; /**< Location of material diffuse */
+	int32 _material_ks_location; /**< Location of material specular */
+	int32 _material_ns_location; /**< Location of material shininess */
+	int32 _material_d_location;	 /**< Location of material dissolve */
+	int32 _material_illum_location; /**< Location of material illumination model location */
+
 public:
 	/** 
 	* Default ctor

@@ -17,6 +17,8 @@ private:
 	//the matrix stack for this renderer
 	MatrixStack _ms;
 
+	//the scene ambience
+	glm::vec4 _scene_ambience;
 protected:
 
 public:

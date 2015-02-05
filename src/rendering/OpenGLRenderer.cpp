@@ -5,6 +5,7 @@
 OpenGLRenderer::OpenGLRenderer()
 {
 	_cam = NULL;
+	_scene_ambience = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 OpenGLRenderer::~OpenGLRenderer()
@@ -61,6 +62,8 @@ void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 	glm::mat3 normal_matrix = glm::inverseTranspose(glm::mat3(_ms._current_matrix->_current_transform));
 	glUniformMatrix3fv(shader->NormalMatrixLocation(), 1, GL_FALSE, glm::value_ptr<float>(normal_matrix));
 
+
 	//push globals
 	glUniform1f(shader->TimeLocation(), VTime::_time);
+	glUniform4fv(shader->SceneAmbienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
 }

@@ -2,7 +2,7 @@
 
 Asset::Asset()
 {
-
+	_reference_count = 0;
 }
 
 Asset::~Asset()

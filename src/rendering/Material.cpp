@@ -4,6 +4,10 @@
 Material::Material()
 {
 	_hash = "Material";
+	_material_asset = NULL;
+
+	//set defaults
+	_material_ka_location = _material_kd_location = _material_ks_location = _material_ns_location = _material_d_location = _material_illum_location = -1;
 }
 
 Material::~Material()
@@ -16,6 +20,17 @@ void Material::Init(XmlNode& node)
 	//get the shader
 	char* shader = node.GetChild("shader").ValueString();
 	_shader = (ShaderAsset*)_Assets->GetAsset(shader);
+
+	//get locations
+	if (_shader != NULL)
+	{
+		_material_ka_location = _shader->UniformLocation("uMaterial.ka");
+		_material_kd_location = _shader->UniformLocation("uMaterial.kd");
+		_material_ks_location = _shader->UniformLocation("uMaterial.ks");
+		_material_ns_location = _shader->UniformLocation("uMaterial.ns");
+		_material_d_location = _shader->UniformLocation("uMaterial.d");
+		_material_illum_location = _shader->UniformLocation("uMaterial.illum");
+	}
 
 	//load textures
 	XmlNode cur_texture = node.GetChild("texture");
@@ -40,12 +55,20 @@ void Material::Init(XmlNode& node)
 		//get next texture
 		cur_texture = cur_texture.NextSibling("texture");
 	}
+
+	//Get the material asset if any
+	XmlNode material_node = node.GetChild("material");
+	if (!material_node.IsNull())
+	{
+		_material_asset = (MaterialAsset*)_Assets->GetAsset(material_node.ValueString());
+	}
 }
 
 void Material::SetUniforms()
 {
 	int count = 0;
 
+	//set textures
 	TLIST_foreach(TextureReference, tex, _textures)
 	{
 		//set the texture this sampler will use
@@ -57,7 +80,17 @@ void Material::SetUniforms()
 		//bind it
 		(*tex)._tex->Bind();
 
-		count ++;
-		
+		count ++;	
+	}
+
+	//set materials
+	if (_material_asset != NULL)
+	{
+		if (_material_ka_location != -1) glUniform4fv(_material_ka_location, 1, glm::value_ptr<float>(_material_asset->_ka));
+		if (_material_kd_location != -1) glUniform4fv(_material_kd_location, 1, glm::value_ptr<float>(_material_asset->_kd));
+		if (_material_ks_location != -1) glUniform4fv(_material_ks_location, 1, glm::value_ptr<float>(_material_asset->_ks));
+		if (_material_ns_location != -1) glUniform1f(_material_ns_location, _material_asset->_ns);
+		if (_material_d_location != -1) glUniform1f(_material_d_location, _material_asset->_d);
+		if (_material_illum_location != -1)  glUniform1d(_material_ka_location, _material_asset->_illum);
 	}
 }

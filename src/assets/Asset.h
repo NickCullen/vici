@@ -17,7 +17,7 @@ protected:
 public:
 	Asset();
 
-	~Asset();
+	virtual ~Asset();
 
 	virtual void Load(XmlNode& node) = 0;
 	virtual void Unload() = 0;

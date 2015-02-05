@@ -87,5 +87,6 @@ void AssetLoader::RegisterAssets()
 	TextureAsset::reg = AssetRegister<TextureAsset>("TextureAsset");
 	MeshAsset::reg = AssetRegister<MeshAsset>("MeshAsset");
 	ShaderAsset::reg = AssetRegister<ShaderAsset>("ShaderAsset");
+	MaterialAsset::reg = AssetRegister<MaterialAsset>("MaterialAsset");
 }
 
