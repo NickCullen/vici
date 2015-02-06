@@ -176,10 +176,10 @@ class ObjMaterial:
 		'''
 
 		#write Materials
-		out.write("<!-- Materials -->")
+		out.write("<!-- Materials -->\n")
 		for k,v in self.materials.items():
 			out.write("<asset type=\"MaterialAsset\" id=\""+v.id+"\">\n")
-			out.write("\t<path>Assets/Materials/"+v.id+".material\n")
+			out.write("\t<path>Assets/Materials/"+v.id+".material</path>\n")
 			out.write("</asset>\n")
 
 		''' Texture example
@@ -190,10 +190,10 @@ class ObjMaterial:
 		</asset>
 		'''
 
-
+		#construct textures
 
 		#write textures
-		out.write("<!-- Textures -->")
+		out.write("<!-- Textures -->\n")
 		for k,v in self.materials.items():
 			out.write("<asset type=\"TextureAsset\" id=\""+v.id+"\">\n")
 			out.write("\t<path>Assets/Materials/"+v.id+".material\n")

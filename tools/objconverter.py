@@ -306,11 +306,11 @@ def WriteAssetExcerpt(out, name):
 
 	#write mesh asset
 	out.write("<!-- Mesh -->\n")
-	out.write("<asset type=\"MeshAsset\" id=\"" + name + ">\n")
+	out.write("<asset type=\"MeshAsset\" id=\"" + name + "\">\n")
 	out.write("\t<path>Assets/Models/"+name+".mesh\n")
-	out.write("</asset>")
+	out.write("</asset>\n")
 
-	material.WriteAssetExcerpt(out, name)
+	materials.WriteAssetExcerpt(out, name)
 
 if __name__ == "__main__":
 	
@@ -352,7 +352,7 @@ if __name__ == "__main__":
 
 	print("Outputting Asset Excerpt_assets.xml")
 	#output asset excerpt
-	xml = open("Excerpt_assets.xml")
+	xml = open("Excerpt_assets.xml","w")
 	WriteAssetExcerpt(xml, sys.argv[2])
 	xml.close()
 
