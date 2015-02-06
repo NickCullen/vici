@@ -3,16 +3,25 @@
 varying vec3 normal;
 varying vec2 uv;
 
-uniform sampler2D Diffuse;
+struct Material
+{
+	vec4 ks;
+	vec4 ns;
+}
+
+uniform sampler2D uAmbient;
+uniform sampler2D uDiffuse;
+
+uniform Material uMaterial;
+
+uniform vec3 uSceneAmbience;
 
 void main()
 {
-	vec4 mat_amb = vec4(0.2,0.2,0.2,1);
-	vec4 mat_diff = texture2D(Diffuse, uv);
-
 	float intensity = max(0, dot(normal, vec3(0,0.8,0.2)));
-	vec4 amb = mat_amb * mat_diff;
-	vec4 diff = intensity * mat_diff;
 
-   gl_FragColor = amb + diff;
+	vec4 amb = uSceneAmbience * texture2D(uAmbient, uv);
+	vec4 diff = intensity * texture2D(UDiffuse, uv);
+
+	gl_FragColor = amb + diff;
 }

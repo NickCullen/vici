@@ -1,22 +1,5 @@
 <root>
-	<asset type="TextureAsset" id="RedTexture">
-		<path>Assets/Textures/red.png</path>
-		<format>rgba</format>
-		<type>2d</type>
-	</asset>
-	<asset type="TextureAsset" id="ThatchedTexture">
-		<path>Assets/Textures/Thatched.jpg</path>
-		<format>rgb</format>
-		<type>2d</type>
-	</asset>
-	<asset type="TextureAsset" id="LizardManDiffuse">
-		<path>Assets/Textures/Lizardman_col.png</path>
-		<format>rgba</format>
-		<type>2d</type>
-	</asset>
-	<asset type="MeshAsset" id="LizardMan">
-		<path>Assets/Models/lizardman.mesh</path>
-	</asset>
+	<!-- Shaders -->
 	<asset type="ShaderAsset" id="DiffuseShader">
 		<vert>Assets/Shaders/Diffuse.vert</vert>
 		<frag>Assets/Shaders/Diffuse.frag</frag>
@@ -26,7 +9,21 @@
 		<vert>Assets/Shaders/Flat.vert</vert>
 		<frag>Assets/Shaders/Flat.frag</frag>
 	</asset>
+
+	<!-- Textures -->
+	<asset type="TextureAsset" id="LizardManDiffuse">
+		<path>Assets/Textures/Lizardman_col.png</path>
+		<format>rgba</format>
+		<type>2d</type>
+	</asset>
+
+	<!-- Meshes -->
+	<asset type="MeshAsset" id="LizardMan">
+		<path>Assets/Models/lizardman.mesh</path>
+	</asset>
 	
+	
+	<!-- Materials -->
 	<asset type="MaterialAsset" id="lizardman_material">
 		<path>Assets/Materials/lizardman.material</path>
 	</asset>

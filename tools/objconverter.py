@@ -20,6 +20,9 @@ o_verts = []
 #list of mesh objects
 meshes = []
 
+#the material class containing all the materials from the obj material file
+materials = []
+
 #structure to hold a 3D point (x,y,z) 
 class Point:
 	def __init__(self,x,y,z):
@@ -108,42 +111,38 @@ class Mesh:
 		#example
 		'''
 		<component type="MeshRenderer">
-
-		</component>
-		<component type="Mesh">
-			<mesh>Assets/Models/monkey.mesh</mesh>
+			<mesh>LizardMan</mesh>
 		</component>
 		<component type="Material">
-			<vert>Assets/Shaders/Test.vert</vert>
-			<frag>Assets/Shaders/Test.frag</frag>
-			<texture format="rgb" id="SimpleTexture">
-				<path>Assets/Textures/Thatched.jpg</path>
-				<type>2d</type>
-			</texture>
-			<texture format="rgba" id="RedTexture">
-				<path>Assets/Textures/red.png</path>
-				<type>2d</type>
-			</texture>
+			<shader>DiffuseShader</shader>
+			<material>lizardman_material</material>
+			<texture uniform="SimpleTexture">LizardManDiffuse</texture>
 		</component>
 		'''
-		out.write("\t<component type=\"MeshRenderer\">\n")
-		out.write("\t\t<indices>" + str(meshes.index(self)) + "</indices>\n")
-		out.write("\t</component>\n")
-		out.write("\t<component type=\"Mesh\">\n")
-		out.write("\t\t<mesh>Assets/Models/"+name+".mesh</mesh>\n")
-		out.write("\t</component>\n")
-		out.write("\t<component type=\"Material\">\n")
-		out.write("\t<vert>Assets/Shaders/Test.vert</vert>\n")
-		out.write("\t<frag>Assets/Shaders/Test.frag</frag>\n")
-		out.write("\t<texture format=\"rgb\" id=\"SimpleTexture\">\n")
-		out.write("\t	<path>Assets/Textures/Thatched.jpg</path>\n")
-		out.write("\t	<type>2d</type>\n")
-		out.write("\t</texture>\n")
-		out.write("\t<texture format=\"rgba\" id=\"RedTexture\">\n")
-		out.write("\t	<path>Assets/Textures/red.png</path>\n")
-		out.write("\t	<type>2d</type>\n")
-		out.write("\t</texture>\n")
-		out.write("\t</component>\n")
+
+		#mesh renderer
+		out.write("\t\t<component type=\"MeshRenderer\">\n")
+		out.write("\t\t\t<indices>" + str(meshes.index(self)) + "</indices>\n")
+		out.write("\t\t\t<mesh>" + self.id + "</mesh>\n")
+		out.write("\t\t</component>\n")
+
+		#material
+		out.write("\t\t<component type=\"Material\">\n")
+		out.write("\t\t\t<shader>DiffuseShader</shader>\n")
+		out.write("\t\t\t<material>" + self.material + "</material>\n")
+
+		#write material textures
+		this_material = materials.GetMaterial(self.material)
+
+		if this_material:
+			textures = this_material.GetTextures()
+			for k,v in textures.items():
+				out.write("\t\t\t<texture uniform=\"" + str(k) + "\">"+str(this_material.id)+"</texture>\n")
+		else:
+			print("Could not find material for " + self.id)
+
+		#end of material
+		out.write("\t\t</component>\n")
 
 #called when obj file loaded
 def ReadObj():
@@ -218,7 +217,9 @@ def ReadObj():
 			current.faces.append(Face(v1,v2,v3))
 		elif values[0] == "mtllib":
 			#output the material file
+			global materials
 			materials = ObjMaterial(values[1])
+			print("Set Material File: " + values[1])
 		elif values[0] == "usemtl":
 			#check to see if a material has already been set
 			#if so make a new mesh as 2 materials cannot be 
@@ -274,30 +275,42 @@ def WriteExcerpt(out, name):
 	'''
 	<gameobject id="Object" indestructable="false" enabled="true" layer="0">
 		<transform>
-			<position>0 0 -15</position>
+			<position>0 0 0</position>
 			<rotation>0 0 0</rotation>
 			<scale>1 1 1</scale>
 		</transform>
-		
-		... mesh excerpt here ...
-
 	</gameobject>
 	'''
 
 	out.write("<gameobject id=\"" + name + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
 	for m in meshes:
-		out.write("<gameobject id=\"" + m.id + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
-		out.write("\t<transform>\n")
-		out.write("\t\t<position>0 0 -15</position>\n")
-		out.write("\t\t<rotation>0 0 0</rotation>\n")
-		out.write("\t\t<scale>1 1 1</scale>\n")
-		out.write("\t</transform>\n")
+		out.write("\t<gameobject id=\"" + m.id + "\" indestructable=\"false\" enabled=\"true\" layer=\"0\">\n")
+		out.write("\t\t<transform>\n")
+		out.write("\t\t\t<position>0 0 0</position>\n")
+		out.write("\t\t\t<rotation>0 0 0</rotation>\n")
+		out.write("\t\t\t<scale>1 1 1</scale>\n")
+		out.write("\t\t</transform>\n")
 
 		#write the mesh
 		m.WriteExcerpt(out, name)
 
-		out.write("</gameobject>")
-	out.write("</gameobject>")
+		out.write("\t</gameobject>\n")
+	out.write("</gameobject>\n")
+
+def WriteAssetExcerpt(out, name):
+	'''Mesh example
+	<asset type="MeshAsset" id="LizardMan">
+		<path>Assets/Models/lizardman.mesh</path>
+	</asset>
+	'''
+
+	#write mesh asset
+	out.write("<!-- Mesh -->\n")
+	out.write("<asset type=\"MeshAsset\" id=\"" + name + ">\n")
+	out.write("\t<path>Assets/Models/"+name+".mesh\n")
+	out.write("</asset>")
+
+	material.WriteAssetExcerpt(out, name)
 
 if __name__ == "__main__":
 	
@@ -336,6 +349,13 @@ if __name__ == "__main__":
 	xml = open("Excerpt.xml","w")
 	WriteExcerpt(xml, sys.argv[2])
 	xml.close()
+
+	print("Outputting Asset Excerpt_assets.xml")
+	#output asset excerpt
+	xml = open("Excerpt_assets.xml")
+	WriteAssetExcerpt(xml, sys.argv[2])
+	xml.close()
+
 	#close file
 	f.close()
 	out.close()
