@@ -32,7 +32,7 @@
 				<mesh>Monkey_Mesh</mesh>
 			</component>
 			<component type="Material">
-				<shader>DiffuseShader</shader>
+				<shader>FlatShader</shader>
 				<material>Stone_material</material>
 				<texture uniform="uAmbient">Stone_Texture</texture>
 				<texture uniform="uDiffuse">Stone_Texture</texture>
