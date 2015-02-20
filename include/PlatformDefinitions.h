@@ -16,6 +16,8 @@ typedef GLFWwindow VWindow;
 #ifdef VICI_MAC
 #include <OpenGL/gl3.h>
 #include <OpenGL/glu.h>
+#include "GLFW/glfw3.h"
+#include <stdint.h>
 
 //mac typedefs
 typedef GLFWwindow VWindow;

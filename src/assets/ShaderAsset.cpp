@@ -64,6 +64,7 @@ void ShaderAsset::Load(XmlNode& node)
 		return;
 	}
 
+    
 	const char *vv = vs;
 	const char *ff = fs;
 

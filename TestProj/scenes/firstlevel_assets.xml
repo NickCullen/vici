@@ -11,20 +11,20 @@
 	</asset>
 
 	<!-- Textures -->
-	<asset type="TextureAsset" id="LizardManDiffuse">
-		<path>Assets/Textures/Lizardman_col.png</path>
-		<format>rgba</format>
+	<asset type="TextureAsset" id="Stone_Texture">
+		<path>Assets/Textures/Stone.jpg</path>
+		<format>rgb</format>
 		<type>2d</type>
 	</asset>
 
 	<!-- Meshes -->
-	<asset type="MeshAsset" id="LizardMan">
-		<path>Assets/Models/lizardman.mesh</path>
+	<asset type="MeshAsset" id="Monkey_Mesh">
+		<path>Assets/Models/monkey.mesh</path>
 	</asset>
 	
 	
 	<!-- Materials -->
-	<asset type="MaterialAsset" id="lizardman_material">
-		<path>Assets/Materials/lizardman.material</path>
+	<asset type="MaterialAsset" id="Stone_material">
+		<path>Assets/Materials/Stone.material</path>
 	</asset>
 </root>

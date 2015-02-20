@@ -88,7 +88,6 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 void MeshRenderer::PostRender(OpenGLRenderer* renderer)
 {
 
-
 }
 
 //for testing

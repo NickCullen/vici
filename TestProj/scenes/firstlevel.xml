@@ -29,12 +29,13 @@
 				<scale>1 1 1</scale>
 			</transform>
 			<component type="MeshRenderer">
-				<mesh>LizardMan</mesh>
+				<mesh>Monkey_Mesh</mesh>
 			</component>
 			<component type="Material">
-				<shader>FlatShader</shader>
-				<material>lizardman_material</material>
-				<texture uniform="SimpleTexture">LizardManDiffuse</texture>
+				<shader>DiffuseShader</shader>
+				<material>Stone_material</material>
+				<texture uniform="uAmbient">Stone_Texture</texture>
+				<texture uniform="uDiffuse">Stone_Texture</texture>
 			</component>
 		</gameobject>
 	

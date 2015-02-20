@@ -5,7 +5,7 @@
 class TextFile;
 
 /* Includes */
-#include "rapidxml\rapidxml.hpp"
+#include "rapidxml/rapidxml.hpp"
 
 /**
 * Definition of the byte to parse xml

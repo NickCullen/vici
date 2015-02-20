@@ -32,7 +32,7 @@ void TextureAsset::Load(XmlNode& node)
 	//check if image was loaded
 	if (image == NULL)
 	{
-		printf("Could not load texture at %s\n", _id);
+		printf("Could not load texture at %s\n", _id.c_str());
 		return;
 	}
 
