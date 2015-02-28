@@ -8,7 +8,7 @@
 
 GLFWwindow* window = NULL;
 
-void Platform_LogString(char* fmt, ...)
+void Platform_LogString(const char* fmt, ...)
 {
 	  /* Write the error message */
 	va_list args;
@@ -35,7 +35,7 @@ VWindow* Platform_OpenWindow(int* w, int* h, const char* title, bool fullscreen)
 {
 	/* Initialize the library */
 	if (!glfwInit())
-		return false;
+		return NULL;
 
 	/* If fullscreen we need to set the width and height to the monitor width and height */
 	if (fullscreen)
@@ -59,7 +59,7 @@ VWindow* Platform_OpenWindow(int* w, int* h, const char* title, bool fullscreen)
 	if (!window)
 	{
 		glfwTerminate();
-		return false;
+		return NULL;
 	}
 
 	/* Make the window's context current */

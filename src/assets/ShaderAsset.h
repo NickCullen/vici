@@ -105,14 +105,14 @@ public:
 	* Returns the location of the specified sample
 	* @param id The samplers name in the glsl shader
 	*/
-	GLint SamplerLocation(char* id);
+	GLint SamplerLocation(const char* id);
 
 	/**
 	* Returns the location of the specified uniform
 	* @param id The uniform id
 	* @return Integer specifying the location of the uniform 
 	*/
-	GLint UniformLocation(char* id);
+	GLint UniformLocation(const char* id);
 
 	/**
 	* Check if shader is loaded or not

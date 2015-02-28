@@ -74,25 +74,25 @@ public:
 	* XmlDocument is open
 	* @param id The id of the node whos value to get
 	*/
-	char* GetString(char* id);
+	char* GetString(const char* id);
 
 	/**
 	* Gets a boolean from a child node 
 	* @param id The id of the node whos value to get
 	*/
-	bool GetBool(char* id);
+	bool GetBool(const char* id);
 
 	/**
 	* Gets a float from a child node
 	* @param id The id of the node whos value to get
 	*/
-	float GetFloat(char* id);
+	float GetFloat(const char* id);
 
 	/** 
 	* Gets a int from a chikd node
 	* @param id The id of the node whos value to get
 	*/
-	int GetInt(char* id);
+	int GetInt(const char* id);
 
 	/**
 	* Gets a string (char*) from a the current nodes attribute
@@ -100,25 +100,25 @@ public:
 	* XmlDocument is open
 	* @param id The id of the attribute whos value to get
 	*/
-	char* GetAttributeString(char* id);
+	char* GetAttributeString(const char* id);
 
 	/**
 	* Gets a boolean from the current nodes attribute
 	* @param id The id of the attribute whos value to get
 	*/
-	bool GetAttributeBool(char* id);
+	bool GetAttributeBool(const char* id);
 
 	/**
 	* Gets a float from the current nodes attribute
 	* @param id The id of the attribute whos value to get
 	*/
-	float GetAttributeFloat(char* id);
+	float GetAttributeFloat(const char* id);
 
 	/** 
 	* Gets a int from the current nodes attribute
 	* @param id The id of the attribute whos value to get
 	*/
-	int GetAttributeInt(char* id);
+	int GetAttributeInt(const char* id);
 
 	/**
 	* Returns the first child node of this node
@@ -132,7 +132,7 @@ public:
 	* @param id The id of the required child node
 	* @return The first child (check if IsNull to make sure it was found)
 	*/
-	XmlNode GetChild(char* id);
+	XmlNode GetChild(const char* id);
 
 	/**
 	* Gets the next sibling node
@@ -145,7 +145,7 @@ public:
 	* @param id The id of the next sibling required
 	* @return The next sibling (check if IsNull to make sure it was found)
 	*/
-	XmlNode NextSibling(char* id);
+	XmlNode NextSibling(const char* id);
 
 	/**
 	* Returns true if this current node is null 
@@ -186,7 +186,7 @@ public:
 	* @param file The path to the file including extension
 	* @return Boolean returning true if loaded or false if not.
 	*/
-	bool Load(char* file);
+	bool Load(const char* file);
 
 	/**
 	* Unloads the document (free memory)

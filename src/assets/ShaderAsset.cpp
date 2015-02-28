@@ -137,12 +137,12 @@ void ShaderAsset::DebugProgram(GLuint program, GLenum checkType)
 	}
 }
 
-GLint ShaderAsset::SamplerLocation(char* id)
+GLint ShaderAsset::SamplerLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id); 
 }
 
-GLint ShaderAsset::UniformLocation(char* id)
+GLint ShaderAsset::UniformLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id);
 }

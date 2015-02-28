@@ -6,7 +6,7 @@
 MeshAsset::MeshAsset() : Asset()
 {
 	//default all to NULL
-	_vertex_buffer = _uv_buffer = _normal_buffer = NULL;
+	//_vertex_buffer = _uv_buffer = _normal_buffer = NULL;
 	_vertex_array = _uv_array = _normal_array = NULL;
 	_vertex_count = _uv_count = _normal_count = 0;
 	_num_arrays = 0;

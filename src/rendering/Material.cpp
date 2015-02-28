@@ -91,6 +91,6 @@ void Material::SetUniforms()
 		if (_material_ks_location != -1) glUniform4fv(_material_ks_location, 1, glm::value_ptr<float>(_material_asset->_ks));
 		if (_material_ns_location != -1) glUniform1f(_material_ns_location, _material_asset->_ns);
 		if (_material_d_location != -1) glUniform1f(_material_d_location, _material_asset->_d);
-		if (_material_illum_location != -1)  glUniform1d(_material_ka_location, _material_asset->_illum);
+		if (_material_illum_location != -1)  glUniform1i(_material_ka_location, _material_asset->_illum);
 	}
 }
