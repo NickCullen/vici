@@ -37,11 +37,12 @@ public:
 	/**
 	* Default ctor which initializes pointers to NULL 
 	*/
-	Delegate()
-	{
-		_object_ptr = 0;
-		_stub_ptr = 0;
-	}
+	Delegate();
+
+	/**
+	* Default destructor
+	*/
+	~Delegate();
 
 	/**
 	* The method to call to create a delegate (or use the DELEGATE macro above)
