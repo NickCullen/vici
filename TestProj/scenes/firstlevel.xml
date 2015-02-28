@@ -27,7 +27,7 @@
 				<rotation>0 0 0</rotation>
 			</transform>
 			<component type="Light">
-
+				<intensity>1 0 0 1</intensity>
 			</component>
 		</gameobject>
 		

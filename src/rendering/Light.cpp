@@ -6,6 +6,7 @@ Light::Light() : IComponent()
 {
 	_attenuation = 5.0f;
 	_type = eDirectional;
+	_intensity = glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
 
 Light::~Light()
@@ -18,6 +19,12 @@ void Light::Init(XmlNode& node)
 	//call parents Init
 	IComponent::Init(node);
 
+	//get nodes
+	XmlNode intensity_node = node.GetChild("intensity");
+	
+	//set values
+	if(!intensity_node.IsNull())
+		sscanf(intensity_node.ValueString(), "%f %f %f %f", &_intensity[0], &_intensity[1], &_intensity[2], &_intensity[3]);
 
 }
 
@@ -54,7 +61,11 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 	loc = shader->UniformLocation((uniform + ".direction").c_str());
 	if(loc != -1) glUniform4fv(loc, 1, glm::value_ptr<float>(_transform->ForwardDirection()));
 
-	Platform_LogString("%f %f %f\n", _transform->ForwardDirection().x,_transform->ForwardDirection().y,_transform->ForwardDirection().z);
+	//intensity
+	loc = shader->UniformLocation((uniform + ".intensity").c_str());
+	if(loc != -1) glUniform4fv(loc,1,glm::value_ptr<float>(_intensity));
+
+	//Platform_LogString("%f %f %f\n", _transform->ForwardDirection().x,_transform->ForwardDirection().y,_transform->ForwardDirection().z);
 }
 
 bool Light::InRange(Transform* transform)

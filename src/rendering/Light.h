@@ -27,6 +27,8 @@ private:
 	LightType _type;	/**< The type of light */
 
 	float _attenuation; /**< Distance the light will reach */
+
+	glm::vec4 _intensity; /**< Intensity of this light */
 public:
 	/**
 	* Default constructor

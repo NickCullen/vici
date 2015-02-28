@@ -20,6 +20,7 @@ struct Light
 	float attenuation;	
 	vec4 position;
 	vec4 direction;
+	vec4 intensity;
 };
 
 uniform Light uLights[MAX_LIGHTS];
@@ -36,7 +37,7 @@ void main()
 	vec4 amb = uSceneAmbience * uMaterial.ka;
 
 	//diffuse
-	vec4 diff = intensity * uMaterial.kd;
+	vec4 diff = intensity * uMaterial.kd * uLights[0].intensity;
 
 	gl_FragColor = amb + diff;
 }
