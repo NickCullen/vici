@@ -20,6 +20,8 @@ private:
 	ShaderAsset* _shader; /**< The shader to render the mesh */
 
 	int32 _indices; /**< id of the index array to use in the mesh */
+
+	bool _recieve_lighting; /**< Flag specifying if this mesh will recieve lighting or not (default = true) */
 protected:
 
 public:

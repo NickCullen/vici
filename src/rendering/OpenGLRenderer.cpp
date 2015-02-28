@@ -66,12 +66,13 @@ void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 	//push globals
 	glUniform1f(shader->TimeLocation(), VTime::_time);
 	glUniform4fv(shader->SceneAmbienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
-
 }
+
 
 void OpenGLRenderer::SetLightUniforms(ShaderAsset* shader, Transform* transform)
 {
 	int32 index = 0;
+	int32 light_count = 0;
 
 	//make sure we dont exceed max lights or the light count
 	TLIST_foreach(Light*, light, _lights)
@@ -86,8 +87,15 @@ void OpenGLRenderer::SetLightUniforms(ShaderAsset* shader, Transform* transform)
 
 			//increment index
 			index++;
+
+			//increment light count
+			light_count++;
 		}
 	}
+
+	//set nnumber of lights
+	int32 loc = shader->UniformLocation("uLightCount");
+	if(loc != -1) glUniform1i(loc, light_count);
 }
 
 void OpenGLRenderer::AddLight(Light* light)

@@ -9,6 +9,14 @@ struct Material
 	vec4 ns;
 };
 
+const int MAX_LIGHTS = 8;
+
+struct Light
+{
+	float attenuation;	
+};
+
+uniform Light uLights[MAX_LIGHTS];
 uniform sampler2D uAmbient;
 uniform sampler2D uDiffuse;
 
@@ -22,6 +30,6 @@ void main()
 
 	vec4 amb = vec4(uSceneAmbience,1) * texture2D(uAmbient, uv);
 	vec4 diff = intensity * texture2D(uDiffuse, uv);
-
+	
 	gl_FragColor = amb + diff;
 }

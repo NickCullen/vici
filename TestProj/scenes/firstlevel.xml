@@ -21,6 +21,15 @@
 
 		</gameobject>
 
+		<gameobject id="Light" indestructable="false" enabled="true" layer="0">
+			<transform>
+				<position>100 0 2</position>
+				<rotation>0 0 0</rotation>
+			</transform>
+			<component type="Light">
+
+			</component>
+		</gameobject>
 		
 		<gameobject id="Object" indestructable="false" enabled="true" layer="0">
 			<transform>

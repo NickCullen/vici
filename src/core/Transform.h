@@ -22,6 +22,8 @@ private:
 
 	glm::mat4x4 _model;
 
+	glm::mat4x4 _rotation_matrix;
+
 	bool _update_model_matrix;
 public:
 	Transform();
@@ -57,6 +59,15 @@ public:
 	{
 		return _scale;
 	}
+
+	inline glm::vec4 ForwardDirection()
+	{
+		static glm::vec4 direction(0.0f,0.0f,1.0f,1.0f);
+		UpdateMatrix();
+		return direction * _rotation_matrix;
+	}
+
+	void UpdateMatrix();
 };
 
 #endif

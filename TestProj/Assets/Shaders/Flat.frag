@@ -12,12 +12,25 @@ struct Material
 	float d;
 };
 
+const int MAX_LIGHTS = 8;
+
+struct Light
+{
+	int type;
+	float attenuation;	
+	vec4 position;
+	vec4 direction;
+};
+
+uniform Light uLights[MAX_LIGHTS];
+uniform int uLightCount;
+
 uniform Material uMaterial;
 uniform vec4 uSceneAmbience;
 
 void main()
 {
-	float intensity = max(0, dot(normal, vec3(0,0.8,0.2)));
+	float intensity = max(0, dot(normal, vec3(uLights[0].direction)));
 
 	//ambience
 	vec4 amb = uSceneAmbience * uMaterial.ka;
@@ -25,6 +38,5 @@ void main()
 	//diffuse
 	vec4 diff = intensity * uMaterial.kd;
 
-	//final contrbution
 	gl_FragColor = amb + diff;
 }
