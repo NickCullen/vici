@@ -1,6 +1,7 @@
 #include "OpenGLRenderer.h"
 #include "Camera.h"
 #include "VTime.h"
+#include "Light.h"
 
 OpenGLRenderer::OpenGLRenderer()
 {
@@ -62,8 +63,39 @@ void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 	glm::mat3 normal_matrix = glm::inverseTranspose(glm::mat3(_ms._current_matrix->_current_transform));
 	glUniformMatrix3fv(shader->NormalMatrixLocation(), 1, GL_FALSE, glm::value_ptr<float>(normal_matrix));
 
-
 	//push globals
 	glUniform1f(shader->TimeLocation(), VTime::_time);
 	glUniform4fv(shader->SceneAmbienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
+
+}
+
+void OpenGLRenderer::SetLightUniforms(ShaderAsset* shader, Transform* transform)
+{
+	int32 index = 0;
+
+	//make sure we dont exceed max lights or the light count
+	TLIST_foreach(Light*, light, _lights)
+	{
+		if (index >= MAX_LIGHTS) break;
+
+		//check if the light will affect this position
+		if(light->InRange(transform))
+		{
+			//set the light in the lights array
+			light->SetUniform(shader, index);
+
+			//increment index
+			index++;
+		}
+	}
+}
+
+void OpenGLRenderer::AddLight(Light* light)
+{
+	_lights.PushBack(light);
+}
+
+void OpenGLRenderer::RemoveLight(Light* light)
+{
+	_lights.Remove(light);
 }

@@ -2,6 +2,7 @@
 #include "Platform.h"
 #include "OpenGLRenderer.h"
 #include "Vici.h"
+#include "Light.h"
 
 VCamera::VCamera()
 {
