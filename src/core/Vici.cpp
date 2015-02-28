@@ -32,6 +32,9 @@ void Vici::Init()
 	//set the cwd
 	Platform_Getcwd(_cwd, BUFF_LEN);
 
+	//print cwd
+	Platform_LogString("CWD = %s\n", _cwd);
+	
 	//initialize stuff
 	LayerSystem::Init(_cwd);
 	Display::Init(_cwd);

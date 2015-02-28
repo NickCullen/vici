@@ -4,14 +4,25 @@
 #include "OpenGLRenderer.h"
 #include "Vici.h"
 #include <unistd.h>
+#include <stdarg.h>
 
 GLFWwindow* window = NULL;
+
+void Platform_LogString(char* fmt, ...)
+{
+	  /* Write the error message */
+	va_list args;
+  	va_start (args, fmt);
+  	vprintf (fmt, args);
+  	va_end (args);
+
+}
 
 char* Platform_Getcwd(char* buff, int len)
 {
     //hard coded for now
-    strcpy(buff,"/Users/Nick/Documents/vici/build");
-    //getcwd(buff,len);
+    //strcpy(buff,"/Users/Nick/Documents/vici/build");
+    getcwd(buff,len);
     return buff;
 }
 

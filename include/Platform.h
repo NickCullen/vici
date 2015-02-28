@@ -7,6 +7,9 @@
 
 #include "PlatformDefinitions.h"
 
+//logs a string to the output method per ssystem
+void Platform_LogString(char* fmt, ...);
+
 //gets the current working directory
 char* Platform_Getcwd(char* buff, int len);
 
