@@ -4,14 +4,14 @@
 
 Light::Light() : IComponent()
 {
-	_constant_attenuation = 1.0f;
-	_linear_attenuation = 0.0014f;
-	_quadratic_attenuation = 0.000007f;
-
 	_type = eDirectional;
 	_ambient = _diffuse = _specular = glm::vec4(1.0f,0.0f,0.0f,1.0f);
+	_range = 5.0f;
 
-	_reach = 20.0f;
+	//calculate attenuation from range
+	_constant_attenuation = 1.0f;
+	_linear_attenuation = 4.5f/_range;
+	_quadratic_attenuation = 75.0f/(_range*_range);
 }
 
 Light::~Light()
@@ -29,10 +29,8 @@ void Light::Init(XmlNode& node)
 	XmlNode diffuse_node = node.GetChild("diffuse");
 	XmlNode specular_node = node.GetChild("specular");
 	XmlNode type_node = node.GetChild("type");
-	XmlNode constant_attenuation_node = node.GetChild("constant_attenuation");
-	XmlNode linear_attenuation_node = node.GetChild("linear_attenuation");
-	XmlNode quadratic_attenuation_node = node.GetChild("quadratic_attenuation");
-	
+	XmlNode range_node = node.GetChild("range");
+
 	//set values
 	if(!ambient_node.IsNull())
 		sscanf(ambient_node.ValueString(), "%f %f %f %f", &_ambient[0], &_ambient[1], &_ambient[2], &_ambient[3]);
@@ -42,13 +40,12 @@ void Light::Init(XmlNode& node)
 		sscanf(specular_node.ValueString(), "%f %f %f %f", &_specular[0], &_specular[1], &_specular[2], &_specular[3]);
 	if(!type_node.IsNull())
 		_type = (LightType)type_node.ValueInt();
-	if(!constant_attenuation_node.IsNull())
-		_constant_attenuation = constant_attenuation_node.ValueFloat();
-	if(!linear_attenuation_node.IsNull())
-		_linear_attenuation = linear_attenuation_node.ValueFloat();
-	if(!quadratic_attenuation_node.IsNull())
-		_quadratic_attenuation = quadratic_attenuation_node.ValueFloat();
-	
+	if(!range_node.IsNull())
+		_range = range_node.ValueFloat();
+
+	_constant_attenuation = 1.0f;
+	_linear_attenuation = 4.5f/_range;
+	_quadratic_attenuation = 75.0f/(_range*_range);
 }
 
 void Light::OnStart()
@@ -110,7 +107,24 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 
 bool Light::InRange(Transform* transform)
 {
-	return _type != eDirectional ? (glm::distance(_transform->GetPosition(), transform->GetPosition()) <= _reach) : true;
+	static float d = 0.0f;
+	static float max_reach = 0.0f;
+
+	switch(_type)
+	{
+		case eDirectional:
+			return true;
+
+		case ePoint:
+			return glm::distance(_transform->GetPosition(), transform->GetPosition()) <= _range;
+
+		case eSpot:
+			return (glm::distance(_transform->GetPosition(), transform->GetPosition()) <= _range);
+
+		default:
+			return false;
+	}
+
 }
 
 void Light::OnEnabled()
@@ -132,6 +146,18 @@ void Light::Update()
 {
 	static float rot = 0.0f;
 
-	//Platform_LogString("Light forward = %f %f %f\n", _transform->ForwardDirection().x, _transform->ForwardDirection().y, _transform->ForwardDirection().z);
-	_transform->Rotate(rot++, glm::vec3(0, 1, 0));
+	
+	//forward back
+	if(Input::KeyDown(GLFW_KEY_O))
+	{
+		_transform->Translate(glm::vec3(0,0,-1) * 0.02f);
+	}
+	else if(Input::KeyDown(GLFW_KEY_L))
+	{
+		_transform->Translate(glm::vec3(0,0,1) * 0.02f);
+	}
+
+
+	//Platform_LogString("Light dir = %f %f %f\n", _transform->GetPosition().x, _transform->GetPosition().y, _transform->GetPosition().z);
+	//_transform->Rotate(rot++, glm::vec3(0, 1, 0));
 }

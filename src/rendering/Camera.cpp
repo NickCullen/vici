@@ -142,16 +142,17 @@ void VCamera::Update()
 	//forward back
 	if(Input::KeyDown(GLFW_KEY_W))
 	{
-		_transform->Translate(glm::vec3(_transform->ForwardDirection() * _speed));
-		_speed += 0.0005f;
+		_transform->Translate(glm::vec3(0,0,-1) * _speed);
+		_speed += 0.005f;
 	}
 	else if(Input::KeyDown(GLFW_KEY_S))
 	{
-		_transform->Translate(glm::vec3(-_transform->ForwardDirection() * _speed));
-		_speed += 0.0005f;
+		_transform->Translate(glm::vec3(0,0,1) * _speed);
+		_speed += 0.00f;
 	}
 	else
 	{
-		_speed = 0.03f;
+		_speed = 0.05f;
 	}
+
 }

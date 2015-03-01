@@ -34,7 +34,7 @@ private:
 	glm::vec4 _diffuse;		/**< Diffuse intensity of the light */
 	glm::vec4 _specular;	/**< Specular intensity of the light */
 
-	float _reach;			/**< The distance this light will reach */
+	float _range;			/**< The distance this light will reach */
 	
 public:
 	/**
