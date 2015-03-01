@@ -104,7 +104,6 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 	//Platform_LogString("%f %f %f\n", _transform->ForwardDirection().x,_transform->ForwardDirection().y,_transform->ForwardDirection().z);
 }
 
-
 bool Light::InRange(Transform* transform)
 {
 	static float d = 0.0f;
