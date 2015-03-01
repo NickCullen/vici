@@ -62,9 +62,9 @@ public:
 
 	inline glm::vec4 ForwardDirection()
 	{
-		static glm::vec4 direction(0.0f,0.0f,1.0f,1.0f);
+		static glm::vec4 initial_direction(0.0f,0.0f,-1.0f,1.0f);
 		UpdateMatrix();
-		return direction * _rotation_matrix;
+		return initial_direction * _rotation_matrix;
 	}
 
 	void UpdateMatrix();

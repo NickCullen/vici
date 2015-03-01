@@ -11,7 +11,7 @@ VCamera::VCamera()
 
 	//default
 	_clear_flags = 0;
-	_clear_color = glm::vec4(0.2f,0.2f,0.2f, 1.0f);
+	_clear_color = glm::vec4(0.36078431372549f,0.47843137254902f,1.0f, 1.0f);
 }
 VCamera::~VCamera()
 {
@@ -54,6 +54,9 @@ void VCamera::OnStart()
 
 	//initialize the scene
 	_renderer->Init(this);
+
+	RegisterCallback(eUpdate, DELEGATE(VCamera, Update, this));
+
 }
 
 void VCamera::OnDestroy()
@@ -82,7 +85,7 @@ void VCamera::PrepareScene()
 	//_view_mat = glm::translate(_view_mat, glm::vec3(0, 0, 10));
 
 	_view_mat = glm::lookAt(_transform->GetPosition(), // Camera is at (4,3,3), in World Space
-							glm::vec3(0, 0, 0), // and looks at the origin
+							_transform->GetPosition() + glm::vec3(_transform->ForwardDirection()), // and looks at the origin
 							glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 							);
 
@@ -119,4 +122,36 @@ void VCamera::AddGameObject(GameObject* go)
 void VCamera::RemoveGameObject(GameObject* go)
 {
 	_render_list.Remove(go);
+}
+
+void VCamera::Update()
+{
+	//rotate
+	static int rot = 0;
+	if(Input::KeyDown(GLFW_KEY_A))
+	{
+		rot --;
+	}
+	else if(Input::KeyDown(GLFW_KEY_D))
+	{
+		rot ++;
+	}
+
+	_transform->Rotate(rot, 0, 1, 0);
+
+	//forward back
+	if(Input::KeyDown(GLFW_KEY_W))
+	{
+		_transform->Translate(glm::vec3(_transform->ForwardDirection() * _speed));
+		_speed += 0.0005f;
+	}
+	else if(Input::KeyDown(GLFW_KEY_S))
+	{
+		_transform->Translate(glm::vec3(-_transform->ForwardDirection() * _speed));
+		_speed += 0.0005f;
+	}
+	else
+	{
+		_speed = 0.03f;
+	}
 }

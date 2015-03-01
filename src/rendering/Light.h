@@ -6,14 +6,14 @@
 /**
 * Enum specifying the type of the light
 * 0 = directional 
-* 1 = spot
-* 2 = cone
+* 1 = point
+* 2 = spot
 */
 enum LightType
 {
 	eDirectional = 0,
-	eSpot = 1,
-	eCone = 2,
+	ePoint = 1,
+	eSpot = 2,
 };
 
 /**
@@ -26,9 +26,16 @@ class Light : public IComponent
 private:
 	LightType _type;	/**< The type of light */
 
-	float _attenuation; /**< Distance the light will reach */
+	float _constant_attenuation; 	/**< constant attenuation */
+	float _linear_attenuation;		/**< Linear attenuation */
+	float _quadratic_attenuation;	/**< Quadratic attenuation */
 
-	glm::vec4 _intensity; /**< Intensity of this light */
+	glm::vec4 _ambient;		/**< Ambient intensity of the light */
+	glm::vec4 _diffuse;		/**< Diffuse intensity of the light */
+	glm::vec4 _specular;	/**< Specular intensity of the light */
+
+	float _reach;			/**< The distance this light will reach */
+	
 public:
 	/**
 	* Default constructor

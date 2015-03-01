@@ -87,18 +87,19 @@ void Transform::UpdateMatrix()
 	//only do all this calculation if we need to
 	if (_update_model_matrix)
 	{
+		//reset
 		_model = glm::mat4x4();
+		_rotation_matrix = glm::mat4x4();
 
-		//transltae
+		//translate
 		_model = glm::translate(_model, _pos);
 
-		_rotation_matrix = glm::mat4x4(1.0f);
+		//rotate
+		_rotation_matrix = glm::rotate(_rotation_matrix, glm::radians(_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		_rotation_matrix = glm::rotate(_rotation_matrix, glm::radians(_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		_rotation_matrix = glm::rotate(_rotation_matrix, glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		//rotation
-		_rotation_matrix = glm::rotate(_rotation_matrix, _rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		_rotation_matrix = glm::rotate(_rotation_matrix, _rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-		_rotation_matrix = glm::rotate(_rotation_matrix, _rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-
+		//multiple model by rotation
 		_model = _model * _rotation_matrix;
 
 		//scale

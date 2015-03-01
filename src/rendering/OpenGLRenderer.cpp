@@ -6,7 +6,7 @@
 OpenGLRenderer::OpenGLRenderer()
 {
 	_cam = NULL;
-	_scene_ambience = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	_scene_ambience = glm::vec4(0.1f,0.1f,0.1f,1.0f);
 }
 
 OpenGLRenderer::~OpenGLRenderer()
@@ -56,8 +56,9 @@ void OpenGLRenderer::ClearBuffer(int flags, glm::vec4* col)
 
 void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 {
-	//set MVP matrix
+	//set MVP and MV matrix
 	glUniformMatrix4fv(shader->MVPLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._projection_matrix * _ms._view_matrix * _ms._current_matrix->_current_transform));
+	glUniformMatrix4fv(shader->MVLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._view_matrix * _ms._current_matrix->_current_transform));
 
 	//set normal matrix
 	glm::mat3 normal_matrix = glm::inverseTranspose(glm::mat3(_ms._current_matrix->_current_transform));
@@ -67,7 +68,6 @@ void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 	glUniform1f(shader->TimeLocation(), VTime::_time);
 	glUniform4fv(shader->SceneAmbienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
 }
-
 
 void OpenGLRenderer::SetLightUniforms(ShaderAsset* shader, Transform* transform)
 {

@@ -87,6 +87,7 @@ void ShaderAsset::Load(XmlNode& node)
 	DebugProgram(_program, GL_LINK_STATUS);
 
 	_mvp_loc = glGetUniformLocation(_program, "uMVP");
+	_mv_loc = glGetUniformLocation(_program, "uMV");
 	_normal_matrix_loc = glGetUniformLocation(_program, "uNormalMatrix");
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
 	_normal_location = glGetAttribLocation(_program, "aNormal");
