@@ -22,9 +22,37 @@
 		</gameobject>
 
 
-		<gameobject id="FrontLight" indestructable="false" enabled="true" layer="0">
+		<gameobject id="Left" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>0 0 5</position>
+				<position>-3 0 1</position>
+				<rotation>0 0 0</rotation>
+			</transform>
+			<component type="Light">
+				<type>1</type>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>0 0 1 1</diffuse>
+				<specular>1 1 1 1</specular>
+				<range>40</range>
+			</component>
+		</gameobject>
+
+		<gameobject id="Right" indestructable="false" enabled="true" layer="0">
+			<transform>
+				<position>3 0 2</position>
+				<rotation>0 0 0</rotation>
+			</transform>
+			<component type="Light">
+				<type>1</type>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>1 0 0 1</diffuse>
+				<specular>1 1 1 1</specular>
+				<range>40</range>
+			</component>
+		</gameobject>
+
+		<gameobject id="Back" indestructable="false" enabled="true" layer="0">
+			<transform>
+				<position>0 0 -2</position>
 				<rotation>0 0 0</rotation>
 			</transform>
 			<component type="Light">
@@ -32,7 +60,7 @@
 				<ambient>1 1 1 1</ambient>
 				<diffuse>0 1 0 1</diffuse>
 				<specular>1 1 1 1</specular>
-				<range>5</range>
+				<range>40</range>
 			</component>
 		</gameobject>
 

@@ -5,7 +5,6 @@ varying vec3 normal;
 varying vec2 uv;
 
 const int MAX_LIGHTS = 8;
-const vec3 eye = vec3(0,0,1);
 
 struct Material
 {
@@ -35,18 +34,15 @@ uniform int uLightCount;
 uniform Material uMaterial;
 uniform vec4 uSceneAmbience;
 
-void DirectionalLight(const in Light light, inout vec4 amb, inout vec4 diff, inout vec4 spec)
+void DirectionalLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 diff, inout vec4 spec)
 {
 	float nDotVP;	//normal . light direction
 	float nDotHV;	//normal . light half vector
 	float pf;		//power factor
 
-	//compute vector from surface to light position
-	
 	nDotVP = max(0.0, dot(normal, vec3(-light.direction)));
 
-	vec3 VP = normalize(vec3(light.position) - vertexEye);
-	vec3 halfVec = normalize(VP + eye);
+	vec3 halfVec = normalize(vec3(-light.direction) + eye);
 
 	nDotHV = max(0.0, dot(normal, halfVec));
 
@@ -60,7 +56,7 @@ void DirectionalLight(const in Light light, inout vec4 amb, inout vec4 diff, ino
 	spec += light.specular * pf;	
 }
 
-void PointLight(const in Light light, inout vec4 amb, inout vec4 diff, inout vec4 spec)
+void PointLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 diff, inout vec4 spec)
 {
 	float nDotVP;		//normal . light direction
 	float nDotHV;		//normal . light half vector
@@ -80,9 +76,9 @@ void PointLight(const in Light light, inout vec4 amb, inout vec4 diff, inout vec
 	VP = normalize(VP);
 	
 	//compute attenuation
-	attenuation = 1.0 / (light.constantAttenuation +
-					light.linearAttenuation * d +
-					light.quadraticAttenuation * d * d);
+	attenuation = 1.0 / light.constantAttenuation;// +
+					//light.linearAttenuation * d +
+					//light.quadraticAttenuation * d * d);
 
 	halfVector = normalize(VP + eye);
 			
@@ -101,6 +97,8 @@ void PointLight(const in Light light, inout vec4 amb, inout vec4 diff, inout vec
 
 void main()
 {
+	vec3 eye = -normalize(vertexEye);
+
 	vec4 ambient = vec4(0,0,0,0);
 	vec4 diffuse = vec4(0,0,0,0);
 	vec4 specular = vec4(0,0,0,0);
@@ -109,12 +107,11 @@ void main()
 	{	
 		//directional
 		if(uLights[i].type == 0)
-			DirectionalLight(uLights[i], ambient, diffuse, specular);
+			DirectionalLight(uLights[i], eye, ambient, diffuse, specular);
 		//point
 		else if(uLights[i].type == 1)
-			PointLight(uLights[i], ambient, diffuse, specular);
+			PointLight(uLights[i], eye, ambient, diffuse, specular);
 	}
 
-	gl_FragColor = diffuse;
-	//gl_FragColor = uSceneAmbience * ambient * uMaterial.ka + diffuse * uMaterial.kd + specular * uMaterial.ks;
+	gl_FragColor = uSceneAmbience * ambient * uMaterial.ka + diffuse * uMaterial.kd + specular * uMaterial.ks;
 }

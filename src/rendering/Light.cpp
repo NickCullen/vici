@@ -16,7 +16,6 @@ Light::Light() : IComponent()
 
 Light::~Light()
 {
-
 }
 
 void Light::Init(XmlNode& node)
@@ -105,6 +104,8 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 }
 
 
+
+
 bool Light::InRange(Transform* transform)
 {
 	static float d = 0.0f;
@@ -146,7 +147,6 @@ void Light::Update()
 {
 	static float rot = 0.0f;
 
-	
 	//forward back
 	if(Input::KeyDown(GLFW_KEY_O))
 	{
@@ -156,7 +156,6 @@ void Light::Update()
 	{
 		_transform->Translate(glm::vec3(0,0,1) * 0.02f);
 	}
-
 
 	//Platform_LogString("Light dir = %f %f %f\n", _transform->GetPosition().x, _transform->GetPosition().y, _transform->GetPosition().z);
 	//_transform->Rotate(rot++, glm::vec3(0, 1, 0));

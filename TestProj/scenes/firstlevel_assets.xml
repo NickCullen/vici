@@ -25,6 +25,6 @@
 	
 	<!-- Materials -->
 	<asset type="MaterialAsset" id="Stone_material">
-		<path>Assets/Materials/None.material</path>
+		<path>Assets/Materials/Stone.material</path>
 	</asset>
 </root>

@@ -15,7 +15,7 @@ varying vec2 uv;
 void main() 
 { 
     gl_Position = uMVP * vec4(aVertex,1.0);
-    normal = uNormalMatrix * aNormal;
+    normal = normalize(uNormalMatrix * aNormal);
     uv = aUV;
 
     //eye space
