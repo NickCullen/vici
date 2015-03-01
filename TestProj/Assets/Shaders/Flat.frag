@@ -76,9 +76,9 @@ void PointLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 di
 	VP = normalize(VP);
 	
 	//compute attenuation
-	attenuation = 1.0 / light.constantAttenuation;// +
-					//light.linearAttenuation * d +
-					//light.quadraticAttenuation * d * d);
+	attenuation = 1.0 / (light.constantAttenuation +
+					(light.linearAttenuation * d) +
+					(light.quadraticAttenuation * d * d));
 
 	halfVector = normalize(VP + eye);
 			
@@ -88,11 +88,14 @@ void PointLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 di
 	if(nDotVP == 0.0)
 		pf = 0.0;
 	else
+	{
 		pf = pow(nDotHV, uMaterial.ns);
 
-	amb += light.ambient * attenuation;
-	diff += light.diffuse * nDotVP * attenuation;
-	spec += light.specular * pf * attenuation;
+		amb += light.ambient * attenuation;
+		diff += light.diffuse * nDotVP * attenuation;
+		spec += light.specular * pf * attenuation;
+	}
+	
 }
 
 void main()

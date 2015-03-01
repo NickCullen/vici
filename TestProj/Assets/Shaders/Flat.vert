@@ -19,6 +19,6 @@ void main()
     uv = aUV;
 
     //eye space
-    vec4 tmp = uMV * vec4(aVertex, 1.0);
-    vertexEye = vec3(tmp) / tmp.w;
+    vertexEye = vec3(uMV * vec4(aVertex, 1.0));
+    //vertexEye = vec3(tmp) / tmp.w;
 }	

@@ -89,7 +89,6 @@ void VCamera::PrepareScene()
 							glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 							);
 
-
 	//specify the view and projection matrices
 	_renderer->_ms.SetProjection(_projection_mat);
 	_renderer->_ms.SetView(_view_mat);
@@ -127,7 +126,7 @@ void VCamera::RemoveGameObject(GameObject* go)
 void VCamera::Update()
 {
 	//rotate
-	static int rot = 0;
+	static float rot = _transform->GetRotation().y;
 	if(Input::KeyDown(GLFW_KEY_A))
 	{
 		rot -=2;

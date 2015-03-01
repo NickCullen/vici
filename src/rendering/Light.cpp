@@ -16,6 +16,7 @@ Light::Light() : IComponent()
 
 Light::~Light()
 {
+
 }
 
 void Light::Init(XmlNode& node)
@@ -104,8 +105,6 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 }
 
 
-
-
 bool Light::InRange(Transform* transform)
 {
 	static float d = 0.0f;
@@ -145,6 +144,7 @@ void Light::OnDisabled()
 }
 void Light::Update()
 {
+	return;
 	static float rot = 0.0f;
 
 	//forward back
