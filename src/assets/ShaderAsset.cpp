@@ -88,6 +88,7 @@ void ShaderAsset::Load(XmlNode& node)
 
 	_mvp_loc = glGetUniformLocation(_program, "uMVP");
 	_mv_loc = glGetUniformLocation(_program, "uMV");
+	_model_matrix_loc = glGetUniformLocation(_program, "uModelMatrix");
 	_normal_matrix_loc = glGetUniformLocation(_program, "uNormalMatrix");
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
 	_normal_location = glGetAttribLocation(_program, "aNormal");
@@ -97,7 +98,6 @@ void ShaderAsset::Load(XmlNode& node)
 
 	_is_loaded = true;
 }
-
 
 void ShaderAsset::DebugShader(GLuint shader, GLenum checkType)
 {

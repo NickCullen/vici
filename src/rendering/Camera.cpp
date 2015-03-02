@@ -154,4 +154,15 @@ void VCamera::Update()
 		_speed = 0.05f;
 	}
 
+	//up down
+	if (Input::KeyDown(GLFW_KEY_R))
+	{
+		_transform->Translate(0, 1 * _speed, 0);
+		_speed += 0.005f;
+	}
+	else if (Input::KeyDown(GLFW_KEY_F))
+	{
+		_transform->Translate(0, -1 * _speed, 0);
+		_speed += 0.005f;
+	}
 }

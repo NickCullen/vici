@@ -6,6 +6,16 @@
 #include "Vici.h"
 #include <direct.h>
 #include "VTime.h"
+#include <stdarg.h>
+
+void Platform_LogString(const char* fmt, ...)
+{
+	/* Write the error message */
+	va_list args;
+	va_start(args, fmt);
+	vprintf(fmt, args);
+	va_end(args);
+}
 
 char* Platform_Getcwd(char* buff, int len)
 {

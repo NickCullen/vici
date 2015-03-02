@@ -2,7 +2,7 @@
 	<objects>
 		<gameobject id="Camera" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>0 0 3</position>
+				<position>0 0 0</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>
@@ -21,23 +21,23 @@
 
 		</gameobject>
 
-		<gameobject id="Back" indestructable="false" enabled="true" layer="0">
+		<gameobject id="BackLight" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>0 0 -2</position>
+				<position>0 0 -6</position>
 				<rotation>0 0 0</rotation>
 			</transform>
 			<component type="Light">
-				<type>1</type>
+				<type>0</type>
 				<ambient>1 1 1 1</ambient>
-				<diffuse>0 1 0 1</diffuse>
-				<specular>1 1 1 1</specular>
+				<diffuse>1 1 1 1</diffuse>
+				<specular>1 0 0 1</specular>
 				<range>40</range>
 			</component>
 		</gameobject>
 
 		<gameobject id="Back_Object" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>0 0 6</position>
+				<position>0 0 -3</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>
@@ -54,7 +54,7 @@
 	
 		<gameobject id="Front_Object" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>0 0 0</position>
+				<position>0 0 3</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>
@@ -71,7 +71,7 @@
 
 		<gameobject id="Left_Object" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>-3 0 3</position>
+				<position>-3 0 0</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>
@@ -88,7 +88,7 @@
 
 		<gameobject id="Right_Object" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>3 0 3</position>
+				<position>3 0 0</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>

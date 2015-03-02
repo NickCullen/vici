@@ -56,9 +56,10 @@ void OpenGLRenderer::ClearBuffer(int flags, glm::vec4* col)
 
 void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 {
-	//set MVP and MV matrix
+	//set MVP and MV and model matrix
 	glUniformMatrix4fv(shader->MVPLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._projection_matrix * _ms._view_matrix * _ms._current_matrix->_current_transform));
 	glUniformMatrix4fv(shader->MVLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._view_matrix * _ms._current_matrix->_current_transform));
+	glUniformMatrix4fv(shader->ModelMatrixLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._current_matrix->_current_transform));
 
 	//set normal matrix
 	glm::mat3 normal_matrix = glm::inverseTranspose(glm::mat3(_ms._current_matrix->_current_transform));

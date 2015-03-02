@@ -22,6 +22,7 @@ private:
 
 	GLint _mvp_loc; /**< Location of mvp matrix uniform location */
 	GLint _mv_loc;	/**< Location of the model view matrix location */
+	GLint _model_matrix_loc;	/**< Location of the model matrix location */
 	GLint _normal_matrix_loc; /**< Location of normal matrix uniform location */
 	GLint _time_location; /**< Location of the time uniform in the shader */
 	GLint _scene_ambience_location; /**< Location of the scene ambience location*/
@@ -72,6 +73,12 @@ public:
 	*/
 	inline GLint MVLocation(){ return _mv_loc; }
 
+	/**
+	* Returns the model matrix location
+	* @return int
+	*/
+	inline GLint ModelMatrixLocation(){ return _model_matrix_loc; }
+	
 	/**
 	* Returns the normal matrix location
 	* @return int

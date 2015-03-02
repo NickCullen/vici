@@ -48,6 +48,7 @@ void Light::Init(XmlNode& node)
 	_quadratic_attenuation = 75.0f/(_range*_range);
 }
 
+
 void Light::OnStart()
 {
 	//register to enabled and disabled
@@ -83,11 +84,11 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 
 	//position
 	loc = shader->UniformLocation((uniform + ".position").c_str());
-	if(loc != -1) glUniform4fv(loc, 1, glm::value_ptr<float>(_transform->GetPosition()));
+	if(loc != -1) glUniform3fv(loc, 1, glm::value_ptr<float>(_transform->GetPosition()));
 
 	//direction
 	loc = shader->UniformLocation((uniform + ".direction").c_str());
-	if(loc != -1) glUniform4fv(loc, 1, glm::value_ptr<float>(_transform->ForwardDirection()));
+	if(loc != -1) glUniform3fv(loc, 1, glm::value_ptr<float>(_transform->ForwardDirection()));
 
 	//ambient ntensity
 	loc = shader->UniformLocation((uniform + ".ambient").c_str());

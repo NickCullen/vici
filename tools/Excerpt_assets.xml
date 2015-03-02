@@ -1,12 +1,30 @@
 <!-- Mesh -->
-<asset type="MeshAsset" id="monkey">
-	<path>Assets/Models/monkey.mesh
+<asset type="MeshAsset" id="bulb">
+	<path>Assets/Models/bulb.mesh
 </asset>
 <!-- Materials -->
-<asset type="MaterialAsset" id="None">
-	<path>Assets/Materials/None.material</path>
+<asset type="MaterialAsset" id="Material_#16">
+	<path>Assets/Materials/Material_#16.material</path>
+</asset>
+<asset type="MaterialAsset" id="Material_#4">
+	<path>Assets/Materials/Material_#4.material</path>
+</asset>
+<asset type="MaterialAsset" id="Material_#15">
+	<path>Assets/Materials/Material_#15.material</path>
+</asset>
+<asset type="MaterialAsset" id="Bottom">
+	<path>Assets/Materials/Bottom.material</path>
 </asset>
 <!-- Textures -->
-<asset type="TextureAsset" id="None">
-	<path>Assets/Materials/None.material
+<asset type="TextureAsset" id="Material_#16">
+	<path>Assets/Materials/Material_#16.material
+</asset>
+<asset type="TextureAsset" id="Material_#4">
+	<path>Assets/Materials/Material_#4.material
+</asset>
+<asset type="TextureAsset" id="Material_#15">
+	<path>Assets/Materials/Material_#15.material
+</asset>
+<asset type="TextureAsset" id="Bottom">
+	<path>Assets/Materials/Bottom.material
 </asset>

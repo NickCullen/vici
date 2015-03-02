@@ -1,5 +1,6 @@
 #version 120
 
+varying vec3 modelVertex;
 varying vec3 vertexEye;
 varying vec3 normal;
 varying vec2 uv;
@@ -21,8 +22,8 @@ struct Light
 	float constantAttenuation;
 	float linearAttenuation;
 	float quadraticAttenuation;	
-	vec4 position;
-	vec4 direction;
+	vec3 position;
+	vec3 direction;
 	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
@@ -40,9 +41,9 @@ void DirectionalLight(const in Light light, in vec3 eye, inout vec4 amb, inout v
 	float nDotHV;	//normal . light half vector
 	float pf;		//power factor
 
-	nDotVP = max(0.0, dot(normal, vec3(-light.direction)));
+	nDotVP = max(0.0, dot(normal, -light.direction));
 
-	vec3 halfVec = normalize(vec3(-light.direction) + eye);
+	vec3 halfVec = normalize(-light.direction + eye);
 
 	nDotHV = max(0.0, dot(normal, halfVec));
 
@@ -67,7 +68,7 @@ void PointLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 di
 	vec3 halfVector;	//direction of maximum highlights
 
 	//compute vector from surface to light position
-	VP = vec3(light.position) - vertexEye;
+	VP = light.position - modelVertex;
 
 	//compute distance between surface and light position
 	d = length(VP);
