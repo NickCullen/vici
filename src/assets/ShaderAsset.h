@@ -21,6 +21,7 @@ private:
 	GLuint _program; /**< The program as a whole */
 
 	GLint _mvp_loc; /**< Location of mvp matrix uniform location */
+	GLint _mv_loc;	/**< Location of the model view matrix location */
 	GLint _normal_matrix_loc; /**< Location of normal matrix uniform location */
 	GLint _time_location; /**< Location of the time uniform in the shader */
 	GLint _scene_ambience_location; /**< Location of the scene ambience location*/
@@ -66,6 +67,12 @@ public:
 	inline GLint MVPLocation(){ return _mvp_loc; }
 
 	/**
+	* Returns the model-view-projection matrix location
+	* @return int
+	*/
+	inline GLint MVLocation(){ return _mv_loc; }
+
+	/**
 	* Returns the normal matrix location
 	* @return int
 	*/
@@ -105,14 +112,14 @@ public:
 	* Returns the location of the specified sample
 	* @param id The samplers name in the glsl shader
 	*/
-	GLint SamplerLocation(char* id);
+	GLint SamplerLocation(const char* id);
 
 	/**
 	* Returns the location of the specified uniform
 	* @param id The uniform id
 	* @return Integer specifying the location of the uniform 
 	*/
-	GLint UniformLocation(char* id);
+	GLint UniformLocation(const char* id);
 
 	/**
 	* Check if shader is loaded or not

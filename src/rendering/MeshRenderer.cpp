@@ -11,6 +11,7 @@ MeshRenderer::MeshRenderer()
 	_mesh = NULL; 
 	_shader = NULL; 
 	_indices = 0;
+	_recieve_lighting = true;
 }
 MeshRenderer::~MeshRenderer()
 {
@@ -76,6 +77,9 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 	//set uniforms
 	renderer->SetUniforms(_shader);
 
+	//if recieving lighting - set uniforms
+	if(_recieve_lighting) renderer->SetLightUniforms(_shader, _transform);
+
 	//set material uniforms
 	_material->SetUniforms();
 
@@ -88,7 +92,6 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 void MeshRenderer::PostRender(OpenGLRenderer* renderer)
 {
 
-
 }
 
 //for testing
@@ -96,5 +99,5 @@ void MeshRenderer::Update()
 {
 	static float rot = 0.0f;
 
-	_transform->Rotate(glm::radians(rot++), glm::vec3(0, 1, 0));
+	//_transform->Rotate(glm::radians(rot++), glm::vec3(0, 1, 0));
 }

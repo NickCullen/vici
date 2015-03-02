@@ -64,6 +64,7 @@ void ShaderAsset::Load(XmlNode& node)
 		return;
 	}
 
+    
 	const char *vv = vs;
 	const char *ff = fs;
 
@@ -86,6 +87,7 @@ void ShaderAsset::Load(XmlNode& node)
 	DebugProgram(_program, GL_LINK_STATUS);
 
 	_mvp_loc = glGetUniformLocation(_program, "uMVP");
+	_mv_loc = glGetUniformLocation(_program, "uMV");
 	_normal_matrix_loc = glGetUniformLocation(_program, "uNormalMatrix");
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
 	_normal_location = glGetAttribLocation(_program, "aNormal");
@@ -136,12 +138,12 @@ void ShaderAsset::DebugProgram(GLuint program, GLenum checkType)
 	}
 }
 
-GLint ShaderAsset::SamplerLocation(char* id)
+GLint ShaderAsset::SamplerLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id); 
 }
 
-GLint ShaderAsset::UniformLocation(char* id)
+GLint ShaderAsset::UniformLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id);
 }

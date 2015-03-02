@@ -1,11 +1,12 @@
 #include "OpenGLRenderer.h"
 #include "Camera.h"
 #include "VTime.h"
+#include "Light.h"
 
 OpenGLRenderer::OpenGLRenderer()
 {
 	_cam = NULL;
-	_scene_ambience = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	_scene_ambience = glm::vec4(0.1f,0.1f,0.1f,1.0f);
 }
 
 OpenGLRenderer::~OpenGLRenderer()
@@ -55,15 +56,54 @@ void OpenGLRenderer::ClearBuffer(int flags, glm::vec4* col)
 
 void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 {
-	//set MVP matrix
+	//set MVP and MV matrix
 	glUniformMatrix4fv(shader->MVPLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._projection_matrix * _ms._view_matrix * _ms._current_matrix->_current_transform));
+	glUniformMatrix4fv(shader->MVLocation(), 1, GL_FALSE, glm::value_ptr<float>(_ms._view_matrix * _ms._current_matrix->_current_transform));
 
 	//set normal matrix
 	glm::mat3 normal_matrix = glm::inverseTranspose(glm::mat3(_ms._current_matrix->_current_transform));
 	glUniformMatrix3fv(shader->NormalMatrixLocation(), 1, GL_FALSE, glm::value_ptr<float>(normal_matrix));
 
-
 	//push globals
 	glUniform1f(shader->TimeLocation(), VTime::_time);
 	glUniform4fv(shader->SceneAmbienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
+}
+
+void OpenGLRenderer::SetLightUniforms(ShaderAsset* shader, Transform* transform)
+{
+	int32 index = 0;
+	int32 light_count = 0;
+
+	//make sure we dont exceed max lights or the light count
+	TLIST_foreach(Light*, light, _lights)
+	{
+		if (index >= MAX_LIGHTS) break;
+
+		//check if the light will affect this position
+		if(light->InRange(transform))
+		{
+			//set the light in the lights array
+			light->SetUniform(shader, index);
+
+			//increment index
+			index++;
+
+			//increment light count
+			light_count++;
+		}
+	}
+
+	//set nnumber of lights
+	int32 loc = shader->UniformLocation("uLightCount");
+	if(loc != -1) glUniform1i(loc, light_count);
+}
+
+void OpenGLRenderer::AddLight(Light* light)
+{
+	_lights.PushBack(light);
+}
+
+void OpenGLRenderer::RemoveLight(Light* light)
+{
+	_lights.Remove(light);
 }

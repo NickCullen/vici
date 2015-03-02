@@ -21,7 +21,7 @@ XmlNode::XmlNode(const XmlNode& other)
 	_current = other._current;
 }
 
-char* XmlNode::GetString(char* id)
+char* XmlNode::GetString(const char* id)
 {
 	char* ret = NULL;
 	if (_current != NULL)
@@ -35,7 +35,7 @@ char* XmlNode::GetString(char* id)
 	return ret;
 }
 
-bool XmlNode::GetBool(char* id)
+bool XmlNode::GetBool(const char* id)
 {
 	bool ret = false;
 	if (_current != NULL)
@@ -49,7 +49,7 @@ bool XmlNode::GetBool(char* id)
 	return ret;
 }
 
-float XmlNode::GetFloat(char* id)
+float XmlNode::GetFloat(const char* id)
 {
 	float ret = 0.0f;
 	if (_current != NULL)
@@ -63,7 +63,7 @@ float XmlNode::GetFloat(char* id)
 	return ret;
 }
 
-int XmlNode::GetInt(char* id)
+int XmlNode::GetInt(const char* id)
 {
 	int ret = 0;
 	if (_current != NULL)
@@ -77,7 +77,7 @@ int XmlNode::GetInt(char* id)
 	return ret;
 }
 
-char* XmlNode::GetAttributeString(char* id)
+char* XmlNode::GetAttributeString(const char* id)
 {
 	char* ret = NULL;
 	if (_current != NULL)
@@ -91,7 +91,7 @@ char* XmlNode::GetAttributeString(char* id)
 	return ret;
 }
 
-bool XmlNode::GetAttributeBool(char* id)
+bool XmlNode::GetAttributeBool(const char* id)
 {
 	bool ret = false;
 	if (_current != NULL)
@@ -105,7 +105,7 @@ bool XmlNode::GetAttributeBool(char* id)
 	return ret;
 }
 
-float XmlNode::GetAttributeFloat(char* id)
+float XmlNode::GetAttributeFloat(const char* id)
 {
 	float ret = 0.0f;
 	if (_current != NULL)
@@ -119,7 +119,7 @@ float XmlNode::GetAttributeFloat(char* id)
 	return ret;
 }
 
-int XmlNode::GetAttributeInt(char* id)
+int XmlNode::GetAttributeInt(const char* id)
 {
 	int ret = 0;
 	if (_current != NULL)
@@ -138,7 +138,7 @@ XmlNode XmlNode::FirstChild()
 	return IsNull() ? XmlNode() : _current->first_node();
 }
 
-XmlNode XmlNode::GetChild(char* id)
+XmlNode XmlNode::GetChild(const char* id)
 {
 	return IsNull() ? XmlNode() : _current->first_node(id);
 }
@@ -148,7 +148,7 @@ XmlNode XmlNode::NextSibling()
 	return IsNull() ? XmlNode() : _current->next_sibling();
 }
 
-XmlNode XmlNode::NextSibling(char* id)
+XmlNode XmlNode::NextSibling(const char* id)
 {
 	return IsNull() ? XmlNode() : _current->next_sibling(id);
 }

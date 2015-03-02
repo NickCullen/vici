@@ -32,7 +32,7 @@ void TextureAsset::Load(XmlNode& node)
 	//check if image was loaded
 	if (image == NULL)
 	{
-		printf("Could not load texture at %s\n", _id);
+		printf("Could not load texture at %s\n", _id.c_str());
 		return;
 	}
 
@@ -74,7 +74,7 @@ void TextureAsset::Load(XmlNode& node)
 	glTexParameteri(_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glGenerateMipmap(_type);
+	//glGenerateMipmap(_type);
 
 	//bind default texture again
 	glBindTexture(_type, 0);

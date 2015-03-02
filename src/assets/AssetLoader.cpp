@@ -34,9 +34,6 @@ void AssetLoader::ReleaseAsset(Asset* asset)
 	//if 0 unload asset!
 	if (asset->_reference_count <= 0)
 	{
-		//notify
-		printf("Unloading asset %s\n", asset->_id);
-
 		//unload
 		asset->Unload();
 		

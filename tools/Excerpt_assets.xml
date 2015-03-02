@@ -1,120 +1,12 @@
 <!-- Mesh -->
-<asset type="MeshAsset" id="house1">
-	<path>Assets/Models/house1.mesh
+<asset type="MeshAsset" id="monkey">
+	<path>Assets/Models/monkey.mesh
 </asset>
 <!-- Materials -->
-<asset type="MaterialAsset" id="Plaster.005">
-	<path>Assets/Materials/Plaster.005.material
-</asset>
-<asset type="MaterialAsset" id="Stone.001">
-	<path>Assets/Materials/Stone.001.material
-</asset>
-<asset type="MaterialAsset" id="DoorType1_2">
-	<path>Assets/Materials/DoorType1_2.material
-</asset>
-<asset type="MaterialAsset" id="WindowBlue1">
-	<path>Assets/Materials/WindowBlue1.material
-</asset>
-<asset type="MaterialAsset" id="Stone">
-	<path>Assets/Materials/Stone.material
-</asset>
-<asset type="MaterialAsset" id="Wood.002">
-	<path>Assets/Materials/Wood.002.material
-</asset>
-<asset type="MaterialAsset" id="DoorType1_1">
-	<path>Assets/Materials/DoorType1_1.material
-</asset>
-<asset type="MaterialAsset" id="Wood.001">
-	<path>Assets/Materials/Wood.001.material
-</asset>
-<asset type="MaterialAsset" id="DarkPlaster">
-	<path>Assets/Materials/DarkPlaster.material
-</asset>
-<asset type="MaterialAsset" id="Wood.005">
-	<path>Assets/Materials/Wood.005.material
-</asset>
-<asset type="MaterialAsset" id="WindowYellow1">
-	<path>Assets/Materials/WindowYellow1.material
-</asset>
-<asset type="MaterialAsset" id="RustedMetal.001">
-	<path>Assets/Materials/RustedMetal.001.material
-</asset>
-<asset type="MaterialAsset" id="RoofTiles.007">
-	<path>Assets/Materials/RoofTiles.007.material
-</asset>
-<asset type="MaterialAsset" id="RoofTiles.005">
-	<path>Assets/Materials/RoofTiles.005.material
-</asset>
-<asset type="MaterialAsset" id="Wood">
-	<path>Assets/Materials/Wood.material
-</asset>
-<asset type="MaterialAsset" id="RustedMetal">
-	<path>Assets/Materials/RustedMetal.material
-</asset>
-<asset type="MaterialAsset" id="Plaster.007">
-	<path>Assets/Materials/Plaster.007.material
-</asset>
-<asset type="MaterialAsset" id="WindowBlue2">
-	<path>Assets/Materials/WindowBlue2.material
-</asset>
-<asset type="MaterialAsset" id="Wood.007">
-	<path>Assets/Materials/Wood.007.material
+<asset type="MaterialAsset" id="None">
+	<path>Assets/Materials/None.material</path>
 </asset>
 <!-- Textures -->
-<asset type="TextureAsset" id="Plaster.005">
-	<path>Assets/Materials/Plaster.005.material
-</asset>
-<asset type="TextureAsset" id="Stone.001">
-	<path>Assets/Materials/Stone.001.material
-</asset>
-<asset type="TextureAsset" id="DoorType1_2">
-	<path>Assets/Materials/DoorType1_2.material
-</asset>
-<asset type="TextureAsset" id="WindowBlue1">
-	<path>Assets/Materials/WindowBlue1.material
-</asset>
-<asset type="TextureAsset" id="Stone">
-	<path>Assets/Materials/Stone.material
-</asset>
-<asset type="TextureAsset" id="Wood.002">
-	<path>Assets/Materials/Wood.002.material
-</asset>
-<asset type="TextureAsset" id="DoorType1_1">
-	<path>Assets/Materials/DoorType1_1.material
-</asset>
-<asset type="TextureAsset" id="Wood.001">
-	<path>Assets/Materials/Wood.001.material
-</asset>
-<asset type="TextureAsset" id="DarkPlaster">
-	<path>Assets/Materials/DarkPlaster.material
-</asset>
-<asset type="TextureAsset" id="Wood.005">
-	<path>Assets/Materials/Wood.005.material
-</asset>
-<asset type="TextureAsset" id="WindowYellow1">
-	<path>Assets/Materials/WindowYellow1.material
-</asset>
-<asset type="TextureAsset" id="RustedMetal.001">
-	<path>Assets/Materials/RustedMetal.001.material
-</asset>
-<asset type="TextureAsset" id="RoofTiles.007">
-	<path>Assets/Materials/RoofTiles.007.material
-</asset>
-<asset type="TextureAsset" id="RoofTiles.005">
-	<path>Assets/Materials/RoofTiles.005.material
-</asset>
-<asset type="TextureAsset" id="Wood">
-	<path>Assets/Materials/Wood.material
-</asset>
-<asset type="TextureAsset" id="RustedMetal">
-	<path>Assets/Materials/RustedMetal.material
-</asset>
-<asset type="TextureAsset" id="Plaster.007">
-	<path>Assets/Materials/Plaster.007.material
-</asset>
-<asset type="TextureAsset" id="WindowBlue2">
-	<path>Assets/Materials/WindowBlue2.material
-</asset>
-<asset type="TextureAsset" id="Wood.007">
-	<path>Assets/Materials/Wood.007.material
+<asset type="TextureAsset" id="None">
+	<path>Assets/Materials/None.material
 </asset>

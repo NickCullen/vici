@@ -17,7 +17,7 @@ XmlDocument::~XmlDocument()
 //	_doc = other._doc;
 //}
 
-bool XmlDocument::Load(char* file)
+bool XmlDocument::Load(const char* file)
 {
 	//load the file
 	_tf = new TextFile(file);

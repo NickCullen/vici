@@ -35,6 +35,9 @@ private:
 	//the view matrix
 	glm::mat4x4 _view_mat;
 
+	//internal debuggin movement speed
+	float _speed;
+	
 public:
 	/** 
 	* VCamera constructor 
@@ -88,8 +91,19 @@ public:
 	*/
 	void OnDestroy();
 
+	/**
+	* Inline function to access the renderer
+	* @return Pointer to the scene renderer
+	*/
+	inline OpenGLRenderer* GetRenderer()
+	{
+		return _renderer;
+	}
+	
 	static DerivedRegister<VCamera> reg; /**< Static registration member var used to register this component with the ComponentFactory */
 
+	// debug
+	void Update();
 };
 
 
