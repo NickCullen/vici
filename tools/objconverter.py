@@ -137,7 +137,7 @@ class Mesh:
 		if this_material:
 			textures = this_material.GetTextures()
 			for k,v in textures.items():
-				out.write("\t\t\t<texture uniform=\"" + str(k) + "\">"+str(this_material.id)+"</texture>\n")
+				out.write("\t\t\t<texture uniform=\"" + str(k) + "\">"+name+"_"+str(k)+"_Texture</texture>\n")
 		else:
 			print("Could not find material for " + self.id)
 

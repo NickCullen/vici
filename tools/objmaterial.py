@@ -191,6 +191,9 @@ class ObjMaterial:
 		'''
 
 		#construct textures
+		textures = dict()
+
+		#for k,v in self.materials.items():
 
 		#write textures
 		out.write("<!-- Textures -->\n")
