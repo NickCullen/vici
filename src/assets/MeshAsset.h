@@ -12,15 +12,21 @@ private:
 	uint32 _vertex_buffer;	/**< The integer representing the vertex buffer */
 	uint32 _uv_buffer;		/**< The integer representing the vertex buffer */
 	uint32 _normal_buffer;	/**< The integer representing the vertex buffer */
+	uint32 _tangent_buffer; /**< The integer representing the vertex buffer */
+	uint32 _binormal_buffer;/**< The integer representing the vertex buffer */
 	uint32* _index_buffers;	/**< The index buffers array */
 
 	float* _vertex_array;	/**< The array of vertices */
 	float* _uv_array;		/**< The array of uvs */
 	float* _normal_array;	/**< The array of normals */
+	float* _tangent_array;	/**< The array of tangents */
+	float* _binormal_array;	/**< The array of binormals */
 
 	int32 _vertex_count;	/**< Number of vertices in _vertex_array */
 	int32 _uv_count;		/**< Number of vertices in _uv_array */
 	int32 _normal_count;	/**< Number of vertices in _normal_array */
+	int32 _tangent_count;   /**< Number of vertices in _tangent_array */
+	int32 _binormal_count;	/**< Number of vertices in _binormal_array */
 
 	uint32** _index_arrays;	/**< The array of index arrays describing faces */
 	int32* _index_count;	/**< Number of indices in its relevant index array */

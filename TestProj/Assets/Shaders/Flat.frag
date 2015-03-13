@@ -33,6 +33,7 @@ uniform Light uLights[MAX_LIGHTS];
 uniform int uLightCount;
 
 uniform Material uMaterial;
+uniform sampler2D uDiffuse;
 uniform vec4 uSceneAmbience;
 
 void DirectionalLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 diff, inout vec4 spec)
@@ -106,7 +107,6 @@ void main()
 	vec4 ambient = vec4(0,0,0,0);
 	vec4 diffuse = vec4(0,0,0,0);
 	vec4 specular = vec4(0,0,0,0);
-
 	for(int i =0 ; i < uLightCount; i++)
 	{	
 		//directional

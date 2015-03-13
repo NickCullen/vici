@@ -92,6 +92,8 @@ void ShaderAsset::Load(XmlNode& node)
 	_normal_matrix_loc = glGetUniformLocation(_program, "uNormalMatrix");
 	_vertex_location = glGetAttribLocation(_program, "aVertex");
 	_normal_location = glGetAttribLocation(_program, "aNormal");
+	_tangent_location = glGetAttribLocation(_program, "aTangent");
+	_binormal_location = glGetAttribLocation(_program, "aBinormal");
 	_uv_location = glGetAttribLocation(_program, "aUV");
 	_time_location = glGetUniformLocation(_program, "uTime");
 	_scene_ambience_location = glGetUniformLocation(_program, "uSceneAmbience");

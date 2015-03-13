@@ -105,6 +105,46 @@ void MeshAsset::Load(XmlNode& node)
 			glBufferData(GL_ARRAY_BUFFER, _normal_count * sizeof(float)* 3, _normal_array, GL_STATIC_DRAW);
 		}
 
+		//read the number of norms
+		fread(&_tangent_count, sizeof(int32), 1, f);
+		//if not 0 copy them of
+		if (_tangent_count != 0)
+		{
+			//allocate
+			_tangent_array = new float[_tangent_count * 3];
+			//cpy
+			fread(_tangent_array, _tangent_count * sizeof(float) * 3, 1, f);
+
+			//generate vertex buffer
+			glGenBuffers(1, &_tangent_buffer);
+
+			// The following commands will talk about our 'vertexbuffer' buffer
+			glBindBuffer(GL_ARRAY_BUFFER, _tangent_buffer);
+
+			// Give our vertices to OpenGL.
+			glBufferData(GL_ARRAY_BUFFER, _tangent_count * sizeof(float) * 3, _tangent_array, GL_STATIC_DRAW);
+		}
+
+		//read the number of norms
+		fread(&_binormal_count, sizeof(int32), 1, f);
+		//if not 0 copy them of
+		if (_binormal_count != 0)
+		{
+			//allocate
+			_binormal_array = new float[_binormal_count * 3];
+			//cpy
+			fread(_binormal_array, _binormal_count * sizeof(float) * 3, 1, f);
+
+			//generate vertex buffer
+			glGenBuffers(1, &_binormal_buffer);
+
+			// The following commands will talk about our 'vertexbuffer' buffer
+			glBindBuffer(GL_ARRAY_BUFFER, _binormal_buffer);
+
+			// Give our vertices to OpenGL.
+			glBufferData(GL_ARRAY_BUFFER, _binormal_count * sizeof(float) * 3, _binormal_array, GL_STATIC_DRAW);
+		}
+
 		//read how many index arrays this mesh holds
 		fread(&_num_arrays, sizeof(int32), 1, f);
 
@@ -158,6 +198,21 @@ void MeshAsset::SetArrays(ShaderAsset* shader)
 		glVertexAttribPointer(shader->NormalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
+	//tangent array
+	if (_tangent_count > 0)
+	{
+		glEnableVertexAttribArray(shader->TangentLocation());
+		glBindBuffer(GL_ARRAY_BUFFER, _tangent_buffer);
+		glVertexAttribPointer(shader->TangentLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+	//binormal array
+	if (_normal_count > 0)
+	{
+		glEnableVertexAttribArray(shader->BinormalLocation());
+		glBindBuffer(GL_ARRAY_BUFFER, _binormal_buffer);
+		glVertexAttribPointer(shader->BinormalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+
 	//uv array
 	if (_normal_count > 0)
 	{
@@ -165,6 +220,8 @@ void MeshAsset::SetArrays(ShaderAsset* shader)
 		glBindBuffer(GL_ARRAY_BUFFER, _uv_buffer);
 		glVertexAttribPointer(shader->UVLocation(), 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
+
+
 }
 
 

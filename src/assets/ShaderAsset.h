@@ -30,6 +30,8 @@ private:
 	GLint _vertex_location; /**< Location of vertex in attribute */
 	GLint _uv_location; /**< Location of uv in attribute */
 	GLint _normal_location; /**< Location of normal in attribute */
+	GLint _tangent_location; /**< Location of tangent in attribute */
+	GLint _binormal_location; /**< Location of binormal in attribute */
 
 	bool _is_loaded; /**< Flag to show if the shader has been loaded */
 public:
@@ -102,6 +104,18 @@ public:
 	* @return int
 	*/
 	inline GLint NormalLocation(){ return _normal_location; }
+
+	/**
+	* Returns the in normal attribute location
+	* @return int
+	*/
+	inline GLint BinormalLocation(){ return _binormal_location; }
+
+	/**
+	* Returns the in normal attribute location
+	* @return int
+	*/
+	inline GLint TangentLocation(){ return _tangent_location; }
 
 	/**
 	* Returns the location of the time uniform

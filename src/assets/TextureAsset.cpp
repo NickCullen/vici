@@ -16,6 +16,7 @@ TextureAsset::~TextureAsset()
 
 void TextureAsset::Load(XmlNode& node)
 {
+	
 	//get node values
 	char* path = node.GetString("path");
 	char* format = node.GetString("format");
