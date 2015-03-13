@@ -45,7 +45,7 @@
 				<mesh>Bowl_Mesh</mesh>
 			</component>
 			<component type="Material">
-				<shader>FlatShader</shader>
+				<shader>DiffuseShader</shader>
 				<material>Stone_material</material>
 				<texture uniform="uAmbient">Stone_Texture</texture>
 				<texture uniform="uDiffuse">Stone_Texture</texture>

@@ -5,11 +5,11 @@
 		<frag>Assets/Shaders/Diffuse.frag</frag>
 	</asset>
 
-	<asset type="ShaderAsset" id="FlatShader">
+<!--	<asset type="ShaderAsset" id="FlatShader">
 		<vert>Assets/Shaders/Flat.vert</vert>
 		<frag>Assets/Shaders/Flat.frag</frag>
 	</asset>
-
+-->
 	<!-- Textures -->
 	<asset type="TextureAsset" id="Stone_Texture">
 		<path>Assets/Textures/Stone.jpg</path>

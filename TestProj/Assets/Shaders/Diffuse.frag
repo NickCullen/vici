@@ -90,21 +90,21 @@ void PointLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 di
 
 void main()
 {
-	vec3 eye = -normalize(vertexEye);
+	//vec3 eye = -normalize(vertexEye);
 
-	vec4 ambient = vec4(0,0,0,0);
-	vec4 diffuse = vec4(0,0,0,0);
-	vec4 specular = vec4(0,0,0,0);
+	//vec4 ambient = vec4(0,0,0,0);
+	//vec4 diffuse = vec4(0,0,0,0);
+	//vec4 specular = vec4(0,0,0,0);
 
-	for(int i =0 ; i < uLightCount; i++)
-	{	
+	//for(int i =0 ; i < uLightCount; i++)
+//	{	
 		//directional
-		if(uLights[i].type == 0)
-			DirectionalLight(uLights[i], eye, ambient, diffuse, specular);
+	//	if(uLights[i].type == 0)
+	//		DirectionalLight(uLights[i], eye, ambient, diffuse, specular);
 		//point
-		else if(uLights[i].type == 1)
-			PointLight(uLights[i], eye, ambient, diffuse, specular);
-	}
+//		else if(uLights[i].type == 1)
+	//		PointLight(uLights[i], eye, ambient, diffuse, specular);
+	//}
 
 	float intensity = max(0, dot(normal, vec3(0,0.8,0.2)));
 

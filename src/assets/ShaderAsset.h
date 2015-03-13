@@ -47,10 +47,11 @@ private:
 
 	GLuint _program; /**< The program as a whole */
 
+	bool _is_loaded; /**< Flag to show if the shader has been loaded */
+
 	//Generate members
 	_COMMON_SHADER_LOCATIONS(_GEN_MEMBERS)
 
-	bool _is_loaded; /**< Flag to show if the shader has been loaded */
 public:
 	/**
 	* Default ctor
