@@ -81,7 +81,7 @@ void PointLight(const in Light light, in vec3 eye, inout vec4 amb, inout vec4 di
 					(light.linearAttenuation * d) +
 					(light.quadraticAttenuation * d * d));
 
-	halfVector = normalize(VP + eye);
+	halfVector = normalize(VP + vertexEye);
 			
 	nDotVP = max(0.0, dot(normal, VP));
 	nDotHV = max(0.0, dot(normal, halfVector));
