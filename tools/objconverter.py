@@ -30,12 +30,21 @@ class Point:
 		self.y = y
 		self.z = z
 
+	def __sub__(self, other):
+		return Point(self.x - other.x, self.y - other.y, self.z - other.z)
+		
+	def __mul__(self, other):
+		return Point(self.x * other, self.y * other, self.z * other)
+		
 #structure holding the uv coordinates of a texture
 class TextureUV:
 	def __init__(self, u, v):
 		self.u = u
 		self.v = v
-
+		
+	def __sub__(self, other):
+		return TextureUV(self.u - other.u, self.v - other.v)
+		
 #structure holding the x,y,z coordinate of a normal
 class Normal:
 	def __init__(self, x,y,z):
@@ -49,7 +58,8 @@ class Vertex:
 		self.point = point
 		self.uv = uv
 		self.normal = norm
-
+		self.tangent = Point(0,0,0)
+		self.binormal = Point(0,0,0)
 	def __eq__(self, other):
 		if isinstance(other, Vertex):
 			return (self.point == other.point and self.uv == other.uv and self.normal == other.normal)
@@ -76,6 +86,24 @@ class Mesh:
 	#constructs the indices of the mesh (will also create the opengl friend arrays)
 	def ConstructIndices(self):
 
+		for face in self.faces:
+			#calculate the edge  directions
+			deltaPos1 = face.v2.point - face.v1.point
+			deltaPos2 = face.v3.point - face.v1.point
+			
+			#calculate the uv directions
+			deltaUV1 = face.v2.uv - face.v1.uv
+			deltaUV2 = face.v3.uv - face.v1.uv
+			
+			#compute the tangent and binormals
+			r = 1.0 / (deltaUV1.u * deltaUV2.v - deltaUV1.v * deltaUV2.u)
+			tangent = (deltaPos1 * deltaUV2.v - deltaPos2 * deltaUV1.v) * r
+			binormal = (deltaPos2 * deltaUV1.u - deltaPos1 * deltaUV2.u) * r
+			
+			#Set the face tangents and binormals
+			face.v1.tangent = face.v2.tangent = face.v3.tangent = tangent
+			face.v1.binormal = face.v2.binormal = face.v3.binormal = binormal
+			
 		#convert into friendly arrays
 		for face in self.faces:
 			
@@ -166,7 +194,7 @@ def ReadObj():
 		if not values: continue
 
 		#creating a new mesh
-		if values[0] == "o":
+		if values[0] == "o" or values[0] == "g":
 			#If there is already a current mesh add it to the meshes list
 			if current != 0:
 				meshes.append(current)
@@ -241,7 +269,7 @@ def ReadObj():
 		meshes.append(current)
 
 def WriteArrays(out):
-	m = dict(verts = [], uvs = [], norms = [])
+	m = dict(verts = [], uvs = [], norms = [], tangents = [], binormal = [])
 
 	#add them to the mesh construct
 	for v in o_verts:
@@ -253,7 +281,13 @@ def WriteArrays(out):
 		m['norms'].append(v.normal.x)
 		m['norms'].append(v.normal.y)
 		m['norms'].append(v.normal.z)
-
+		m['tangents'].append(v.tangent.x)
+		m['tangents'].append(v.tangent.y)
+		m['tangents'].append(v.tangent.z)
+		m['binormal'].append(v.binormal.x)
+		m['binormal'].append(v.binormal.y)
+		m['binormal'].append(v.binormal.z)
+		
 	if(out):
 		#write len of vert array
 		out.write(struct.pack('i',(int(len(m['verts'])/3))))
@@ -269,6 +303,16 @@ def WriteArrays(out):
 		out.write(struct.pack('i',(int(len(m['norms'])/3))))
 		#write norms
 		array("f",m['norms']).tofile(out)
+		
+		#write len of tangents array
+		out.write(struct.pack('i',(int(len(m['tangents'])/3))))
+		#write norms
+		array("f",m['tangents']).tofile(out)
+		
+		#write len of binorms array
+		out.write(struct.pack('i',(int(len(m['binormal'])/3))))
+		#write norms
+		array("f",m['binormal']).tofile(out)
 
 def WriteExcerpt(out, name):
 	#example

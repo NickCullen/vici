@@ -1,10 +1,5 @@
-<gameobject id="bulb" indestructable="false" enabled="true" layer="0">
-	<transform>
-		<position>0 0 0</position>
-		<rotation>0 0 0</rotation>
-		<scale>1 1 1</scale>
-	</transform>
-	<gameobject id="bulb-inside_Untitled.003" indestructable="false" enabled="true" layer="0">
+<gameobject id="MyBowl" indestructable="false" enabled="true" layer="0">
+	<gameobject id="default" indestructable="false" enabled="true" layer="0">
 		<transform>
 			<position>0 0 0</position>
 			<rotation>0 0 0</rotation>
@@ -12,57 +7,7 @@
 		</transform>
 		<component type="MeshRenderer">
 			<indices>0</indices>
-			<mesh>bulb-inside_Untitled.003</mesh>
+			<mesh>default</mesh>
 		</component>
 		<component type="Material">
 			<shader>DiffuseShader</shader>
-			<material>Material_#15</material>
-		</component>
-	</gameobject>
-	<gameobject id="Child" indestructable="false" enabled="true" layer="0">
-		<transform>
-			<position>0 0 0</position>
-			<rotation>0 0 0</rotation>
-			<scale>1 1 1</scale>
-		</transform>
-		<component type="MeshRenderer">
-			<indices>1</indices>
-			<mesh>Child</mesh>
-		</component>
-		<component type="Material">
-			<shader>DiffuseShader</shader>
-			<material>Material_#16</material>
-		</component>
-	</gameobject>
-	<gameobject id="Bottom_Untitled" indestructable="false" enabled="true" layer="0">
-		<transform>
-			<position>0 0 0</position>
-			<rotation>0 0 0</rotation>
-			<scale>1 1 1</scale>
-		</transform>
-		<component type="MeshRenderer">
-			<indices>2</indices>
-			<mesh>Bottom_Untitled</mesh>
-		</component>
-		<component type="Material">
-			<shader>DiffuseShader</shader>
-			<material>Bottom</material>
-		</component>
-	</gameobject>
-	<gameobject id="Child" indestructable="false" enabled="true" layer="0">
-		<transform>
-			<position>0 0 0</position>
-			<rotation>0 0 0</rotation>
-			<scale>1 1 1</scale>
-		</transform>
-		<component type="MeshRenderer">
-			<indices>3</indices>
-			<mesh>Child</mesh>
-		</component>
-		<component type="Material">
-			<shader>DiffuseShader</shader>
-			<material>Material_#4</material>
-			<texture uniform="Diffuse">bulb_Diffuse_Texture</texture>
-		</component>
-	</gameobject>
-</gameobject>

@@ -22,6 +22,9 @@
 		<path>Assets/Models/monkey.mesh</path>
 	</asset>
 	
+	<asset type="MeshAsset" id="Bowl_Mesh">
+		<path>Assets/Models/MyBowl.mesh</path>
+	</asset>
 	
 	<!-- Materials -->
 	<asset type="MaterialAsset" id="Stone_material">
