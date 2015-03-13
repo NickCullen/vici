@@ -3,6 +3,33 @@
 
 #include "Asset.h"
 
+/* Macro for unrolling common shader uniform + attribute locations */
+#define _COMMON_SHADER_LOCATIONS(_GEN_) \
+	_GEN_(mvp, "uModelViewProjectionMatrix", glGetUniformLocation) \
+	_GEN_(mv, "uModelViewMatrix", glGetUniformLocation) \
+	_GEN_(model_matrix, "uModelMatrix", glGetUniformLocation) \
+	_GEN_(normal_matrix, "uNormalMatrix", glGetUniformLocation) \
+	_GEN_(time, "uTime", glGetUniformLocation) \
+	_GEN_(scene_ambience, "uSceneAmbience", glGetUniformLocation) \
+	_GEN_(vertex, "aVertex", glGetAttribLocation) \
+	_GEN_(uv, "aUV", glGetAttribLocation) \
+	_GEN_(normal, "aNormal", glGetAttribLocation) \
+	_GEN_(tangent, "aTangent", glGetAttribLocation) \
+	_GEN_(binormal, "aBinormal", glGetAttribLocation)
+	
+
+/* Sets all locations to intial -1 */
+#define _GEN_DEFAULT_VAL(variable, a ,b) _##variable##_loc = -1;
+
+/* Unrolls the input to generate member variables */
+#define _GEN_MEMBERS(name, a, b) GLint _##name##_loc;
+
+/* Unrolls the input to generate getters */
+#define _GEN_GETTERS(name, a, b) inline GLint name##Location(){return _##name##_loc;}
+
+/* Unrolls the input to get the location */
+#define _GEN_LOCATIONS(name, id, function) _##name##_loc = function(_program, id);
+
 /**
 * Class used to load shader files and acess
 * locations of uniforms/attribues etc.
@@ -20,18 +47,8 @@ private:
 
 	GLuint _program; /**< The program as a whole */
 
-	GLint _mvp_loc; /**< Location of mvp matrix uniform location */
-	GLint _mv_loc;	/**< Location of the model view matrix location */
-	GLint _model_matrix_loc;	/**< Location of the model matrix location */
-	GLint _normal_matrix_loc; /**< Location of normal matrix uniform location */
-	GLint _time_location; /**< Location of the time uniform in the shader */
-	GLint _scene_ambience_location; /**< Location of the scene ambience location*/
-
-	GLint _vertex_location; /**< Location of vertex in attribute */
-	GLint _uv_location; /**< Location of uv in attribute */
-	GLint _normal_location; /**< Location of normal in attribute */
-	GLint _tangent_location; /**< Location of tangent in attribute */
-	GLint _binormal_location; /**< Location of binormal in attribute */
+	//Generate members
+	_COMMON_SHADER_LOCATIONS(_GEN_MEMBERS)
 
 	bool _is_loaded; /**< Flag to show if the shader has been loaded */
 public:
@@ -62,72 +79,6 @@ public:
 	* @return uint32 representing the shader program internally
 	*/
 	inline GLuint	Program(){ return _program; }
-
-	/**
-	* Returns the model-view-projection matrix location
-	* @return int
-	*/
-	inline GLint MVPLocation(){ return _mvp_loc; }
-
-	/**
-	* Returns the model-view-projection matrix location
-	* @return int
-	*/
-	inline GLint MVLocation(){ return _mv_loc; }
-
-	/**
-	* Returns the model matrix location
-	* @return int
-	*/
-	inline GLint ModelMatrixLocation(){ return _model_matrix_loc; }
-	
-	/**
-	* Returns the normal matrix location
-	* @return int
-	*/
-	inline GLint NormalMatrixLocation(void){ return _normal_matrix_loc; }
-
-	/**
-	* Returns the in vertex attribute location
-	* @return int
-	*/
-	inline GLint VertexLocation(){ return _vertex_location; }
-
-	/**
-	* Returns the int uv attribute location
-	* @return int
-	*/
-	inline GLint UVLocation(){ return _uv_location; }
-
-	/**
-	* Returns the in normal attribute location
-	* @return int
-	*/
-	inline GLint NormalLocation(){ return _normal_location; }
-
-	/**
-	* Returns the in normal attribute location
-	* @return int
-	*/
-	inline GLint BinormalLocation(){ return _binormal_location; }
-
-	/**
-	* Returns the in normal attribute location
-	* @return int
-	*/
-	inline GLint TangentLocation(){ return _tangent_location; }
-
-	/**
-	* Returns the location of the time uniform
-	* @return int containing the uniformlocation for the time variable
-	*/
-	inline GLint TimeLocation(){ return _time_location; }
-
-	/**
-	* Returns the location of the scene ambience uniform
-	* @return int containing the uniform location
-	*/
-	inline GLint SceneAmbienceLocation(){ return _scene_ambience_location; }
 
 	/**
 	* Returns the location of the specified sample
@@ -175,6 +126,9 @@ public:
 	* @param checkType the type of check to carry out on the shader
 	*/
 	void DebugProgram(GLuint program, GLenum checkType);
+
+	/* Create the member functions for getting locations */
+	_COMMON_SHADER_LOCATIONS(_GEN_GETTERS)
 
 	static AssetRegister<ShaderAsset> reg; /**< Used to register the asset to the asset factory */
 };

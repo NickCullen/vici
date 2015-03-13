@@ -11,11 +11,10 @@ ShaderAsset::ShaderAsset() : Asset()
 
 	_program = 0;
 
-	_mvp_loc = -1;
-	_normal_matrix_loc = -1;
-	_normal_location = _vertex_location = _uv_location = -1;
-
 	_is_loaded = false;
+
+	//set all locations to -1
+	_COMMON_SHADER_LOCATIONS(_GEN_DEFAULT_VAL)
 
 }
 
@@ -86,17 +85,8 @@ void ShaderAsset::Load(XmlNode& node)
 
 	DebugProgram(_program, GL_LINK_STATUS);
 
-	_mvp_loc = glGetUniformLocation(_program, "uMVP");
-	_mv_loc = glGetUniformLocation(_program, "uMV");
-	_model_matrix_loc = glGetUniformLocation(_program, "uModelMatrix");
-	_normal_matrix_loc = glGetUniformLocation(_program, "uNormalMatrix");
-	_vertex_location = glGetAttribLocation(_program, "aVertex");
-	_normal_location = glGetAttribLocation(_program, "aNormal");
-	_tangent_location = glGetAttribLocation(_program, "aTangent");
-	_binormal_location = glGetAttribLocation(_program, "aBinormal");
-	_uv_location = glGetAttribLocation(_program, "aUV");
-	_time_location = glGetUniformLocation(_program, "uTime");
-	_scene_ambience_location = glGetUniformLocation(_program, "uSceneAmbience");
+	//get the locations
+	_COMMON_SHADER_LOCATIONS(_GEN_LOCATIONS)
 
 	_is_loaded = true;
 }

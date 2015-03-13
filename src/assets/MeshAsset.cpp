@@ -185,40 +185,41 @@ void MeshAsset::SetArrays(ShaderAsset* shader)
 	//Vertex Array
 	if (_vertex_count > 0)
 	{
-		glEnableVertexAttribArray(shader->VertexLocation());
+		glEnableVertexAttribArray(shader->vertexLocation());
 		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
-		glVertexAttribPointer(shader->VertexLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(shader->vertexLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
 	//normal array
 	if (_normal_count > 0)
 	{
-		glEnableVertexAttribArray(shader->NormalLocation());
+		glEnableVertexAttribArray(shader->normalLocation());
 		glBindBuffer(GL_ARRAY_BUFFER, _normal_buffer);
-		glVertexAttribPointer(shader->NormalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(shader->normalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
 	//tangent array
 	if (_tangent_count > 0)
 	{
-		glEnableVertexAttribArray(shader->TangentLocation());
+		glEnableVertexAttribArray(shader->tangentLocation());
 		glBindBuffer(GL_ARRAY_BUFFER, _tangent_buffer);
-		glVertexAttribPointer(shader->TangentLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(shader->tangentLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 	//binormal array
-	if (_normal_count > 0)
+	if (_binormal_count > 0)
 	{
-		glEnableVertexAttribArray(shader->BinormalLocation());
+	
+		glEnableVertexAttribArray(shader->binormalLocation());
 		glBindBuffer(GL_ARRAY_BUFFER, _binormal_buffer);
-		glVertexAttribPointer(shader->BinormalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(shader->binormalLocation(), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
 	//uv array
-	if (_normal_count > 0)
+	if (_uv_count > 0)
 	{
-		glEnableVertexAttribArray(shader->UVLocation());
+		glEnableVertexAttribArray(shader->uvLocation());
 		glBindBuffer(GL_ARRAY_BUFFER, _uv_buffer);
-		glVertexAttribPointer(shader->UVLocation(), 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(shader->uvLocation(), 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
 

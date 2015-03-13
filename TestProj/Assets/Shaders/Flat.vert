@@ -4,8 +4,8 @@ attribute vec3 aVertex;
 attribute vec2 aUV;
 attribute vec3 aNormal;
 
-uniform mat4 uMVP;
-uniform mat4 uMV;
+uniform mat4 uModelViewProjectionMatrix;
+uniform mat4 UModelViewMatrix;
 uniform mat4 uModelMatrix;
 uniform mat3 uNormalMatrix;
 
@@ -18,10 +18,10 @@ void main()
 { 
 	modelVertex = vec3(uModelMatrix * vec4(aVertex,1.0));
 
-    gl_Position = uMVP * vec4(aVertex,1.0);
+    gl_Position = uModelViewProjectionMatrix * vec4(aVertex,1.0);
     normal = normalize(uNormalMatrix * aNormal);
     uv = aUV;
 
     //eye space
-    vertexEye = vec3(uMV * vec4(aVertex, 1.0));
+    vertexEye = vec3(UModelViewMatrix * vec4(aVertex, 1.0));
 }	
