@@ -5,5 +5,6 @@ varying vec3 binormal;
 
 void main()
 {
-	gl_FragColor = normalize(vec4(binormal,1));
+	vec3 normal = normalize(binormal);
+	gl_FragColor = normalize(vec4((normal + vec3(1.0, 1.0, 1.0)) / 2.0, 1.0));
 }

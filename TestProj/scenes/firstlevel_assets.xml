@@ -26,6 +26,11 @@
 	<asset type="MeshAsset" id="Monkey_Mesh">
 		<path>Assets/Models/NewMonkey.mesh</path>
 	</asset>
+	
+	<asset type="MeshAsset" id="Sphere_Mesh">
+		<path>Assets/Models/Sphere.mesh</path>
+	</asset>
+	
 	<!--
 	<asset type="MeshAsset" id="Bowl_Mesh">
 		<path>Assets/Models/MyBowl.mesh</path>

@@ -1,6 +1,6 @@
 <!-- Mesh -->
-<asset type="MeshAsset" id="NewMonkey">
-	<path>Assets/Models/NewMonkey.mesh
+<asset type="MeshAsset" id="Sphere">
+	<path>Assets/Models/Sphere.mesh
 </asset>
 <!-- Materials -->
 <asset type="MaterialAsset" id="None">
