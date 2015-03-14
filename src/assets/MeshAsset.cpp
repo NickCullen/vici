@@ -38,7 +38,7 @@ void MeshAsset::Load(XmlNode& node)
 	char* file = node.GetString("path");
 
 	//set the full path to the file
-	sprintf(_file_path, "%s/%s", _vici->GetCwd(), file);
+	sprintf(_file_path, "%s/%s", _Vici->GetCwd(), file);
 	//make the path sensible for platform
 	strcpy(_file_path, Platform_Pathify(_file_path));
 

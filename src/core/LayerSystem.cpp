@@ -4,9 +4,12 @@
 #include "TextFile.h"
 #include "Platform.h"
 
-//static init
-LayerInfo* LayerSystem::_layers = NULL;
-unsigned int LayerSystem::_num_of_layers = 0;
+
+LayerSystem::LayerSystem() : Singleton<LayerSystem>(this)
+{
+	_layers = NULL;
+	_num_of_layers = 0;
+}
 
 void LayerSystem::Init(const char* cwd)
 {

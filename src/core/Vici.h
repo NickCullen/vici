@@ -12,9 +12,15 @@ class VCamera;
 #include "GameObjectTree.h"
 #include "AssetLoader.h"
 
-/*Macros for vici access and some components*/
-#define _vici Vici::Instance()
-#define _Assets _vici->GetAssetLoader()
+/* Singleton Classes */
+#include "SceneLoader.h"
+#include "LayerSystem.h"
+
+/* Macros for vici access and some singleton classes*/
+#define _Vici Vici::Instance()
+#define _Assets _Vici->GetAssetLoader()
+#define _SceneLoader Singleton<SceneLoader>::Instance()
+#define _Layers Singleton<LayerSystem>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -39,6 +45,9 @@ private:
 	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
 
 	AssetLoader _asset_loader; /**< The asset Loader for assets */
+
+	SceneLoader _scene_loader; /**< The scene loader */
+	LayerSystem _layer_system; /**< Class responsible for loading layers */
 
 	/**
 	* Called to register all components of the engine by setting their static

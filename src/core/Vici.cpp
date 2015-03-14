@@ -36,10 +36,10 @@ void Vici::Init()
 	Platform_LogString("Running Directory = %s\n", _cwd);
 	
 	//initialize stuff
-	ShaderAsset::LoadSharedCode(_cwd);
-	LayerSystem::Init(_cwd);
 	Display::Init(_cwd);
-	SceneLoader::Init(this);
+    _SceneLoader->Init();
+	_Layers->Init(_cwd);
+	ShaderAsset::LoadSharedCode(_cwd);
 
 	/* Register Asset Types */
 	_asset_loader.RegisterAssets();
@@ -54,7 +54,7 @@ void Vici::Begin()
 	if (!_started)
 	{
 		//load first scene (for some reason it wont let me put 0 here without casting it to unsigned in...)
-		SceneLoader::LoadScene((unsigned int)0);
+		_SceneLoader->LoadScene((unsigned int)0);
 
 		//dispatch start to all objects
 		TTREE_foreach(GameObject*, object, _objects)

@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include "GLFW/glfw3.h"
 #include <stdint.h>
+#include <assert.h>
 
 //windows typedefs
 typedef GLFWwindow VWindow;
@@ -18,6 +19,7 @@ typedef GLFWwindow VWindow;
 //#include <OpenGL/glu.h>
 #include "GLFW/glfw3.h"
 #include <stdint.h>
+#include <assert.h>
 
 //mac typedefs
 typedef GLFWwindow VWindow;

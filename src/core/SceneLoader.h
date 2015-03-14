@@ -1,6 +1,7 @@
 #ifndef V_SCENELOADER
 #define V_SCENELOADER
 
+#include "Singleton.h"
 #include "VHash.h"
 #include <vector>
 
@@ -24,25 +25,23 @@ struct SceneData
 * status (ongoing) 
 */
 
-class SceneLoader
+class SceneLoader : public Singleton<SceneLoader>
 {
 friend class Vici;
 private:
-	static Vici* _v;	/**< Static pointer to the Vici engine although this may change to the macro soon */
-	static int _current_level;	/**< integer containing the index into the _scenes list for the currently loaded scene */
-	static std::vector<SceneData> _scenes; /**< list of SceneData nodes */
+	int _current_level;	/**< integer containing the index into the _scenes list for the currently loaded scene */
+	std::vector<SceneData> _scenes; /**< list of SceneData nodes */
 
 	/** 
 	* initialized when the engine starts. Can only be called from Vici class
-	* @param v pointer to the vici engine (this may be removed if I decide to use the _vici macro to reference engine)
 	*/
-	static void Init(Vici* v);
+	void Init();
 
 	/**
 	* Only callable by SceneLoader and will unload all destructable objects in the current scene
 	* upon transitioning to the new scene
 	*/
-	static void UnloadCurrentScene();
+	void UnloadCurrentScene();
 public:
 
 	/**
@@ -56,10 +55,10 @@ public:
 	virtual ~SceneLoader();
 
 	/**
-	* Static function to load the scene by its index into the _scenes array
+	* function to load the scene by its index into the _scenes array
 	* @param index unsigned integer index into the _scenes array 
 	*/
-	static void LoadScene(unsigned int index);
+	void LoadScene(unsigned int index);
 
 	/**
 	* Overloaded LoadScene function to load scene by string instead of by index
@@ -67,7 +66,7 @@ public:
 	* if found it will get its index and call LoadScene(int)
 	* @param scene string containing the id of the required scene to load
 	*/
-	static void LoadScene(char* scene);
+	void LoadScene(char* scene);
 };
 
 #endif

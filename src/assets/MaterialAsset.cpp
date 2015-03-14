@@ -19,7 +19,7 @@ void MaterialAsset::Load(XmlNode& node)
 	
 	//material path
 	char* path = node.GetString("path");
-	sprintf(buff, "%s/%s", _vici->GetCwd(), path);
+	sprintf(buff, "%s/%s", _Vici->GetCwd(), path);
 	strcpy(buff, Platform_Pathify(buff));
 
 	//load the material file

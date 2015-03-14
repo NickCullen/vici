@@ -53,14 +53,14 @@ void MeshRenderer::OnStart()
 void MeshRenderer::OnEnable()
 {
 	/*make sure camera will render this object*/
-	VCamera* cam = LayerSystem::GetCameraForLayer(_go->GetLayer());
+	VCamera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
 	if (cam)
 		cam->AddGameObject(_go);
 }
 void MeshRenderer::OnDisable()
 {
 	/*make sure camera will not render this object*/
-	VCamera* cam = LayerSystem::GetCameraForLayer(_go->GetLayer());
+	VCamera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
 	if (cam)
 		cam->RemoveGameObject(_go);
 }

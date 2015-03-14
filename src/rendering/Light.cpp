@@ -130,7 +130,7 @@ bool Light::InRange(Transform* transform)
 void Light::OnEnabled()
 {
 	//add this light to the relevant camera
-	VCamera* cam = LayerSystem::GetCameraForLayer(_go->GetLayer());
+	VCamera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
 	if (cam)
 		cam->GetRenderer()->AddLight(this);
 }
@@ -138,7 +138,7 @@ void Light::OnEnabled()
 void Light::OnDisabled()
 {
 	//remove this light from the relevant camera
-	VCamera* cam = LayerSystem::GetCameraForLayer(_go->GetLayer());
+	VCamera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
 	if (cam)
 		cam->GetRenderer()->RemoveLight(this);
 }

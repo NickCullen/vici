@@ -2,14 +2,10 @@
 #include "core.h"
 #include <iterator>
 
-/*static defaults*/
-Vici* SceneLoader::_v = NULL;
-int SceneLoader::_current_level = -1;
-std::vector<SceneData> SceneLoader::_scenes = std::vector<SceneData>(0);
-
-SceneLoader::SceneLoader()
+SceneLoader::SceneLoader() : Singleton<SceneLoader>(this)
 {
-
+	_current_level = -1;
+	_scenes = std::vector<SceneData>(0);
 }
 
 SceneLoader::~SceneLoader()
@@ -17,54 +13,49 @@ SceneLoader::~SceneLoader()
 
 }
 
-void SceneLoader::Init(Vici* v)
+void SceneLoader::Init()
 {
-	if (_v == NULL)
+	char buff[758];
+
+	//set the file path
+	strcpy(buff, _Vici->GetCwd());
+	strcat(buff, "\\settings\\scenes.xml");
+
+	//convert slash to correct os filesytem
+	strcpy(buff,Platform_Pathify(buff));
+
+	//instantiate doc and load file
+	XmlDocument doc;
+
+	if (doc.Load(buff))
 	{
-		_v = v;
+		XmlNode root = doc.Root();
 
-		char buff[758];
-
-		//set the file path
-		strcpy(buff, _v->_cwd);
-		strcat(buff, "\\settings\\scenes.xml");
-
-		//convert slash to correct os filesytem
-		strcpy(buff,Platform_Pathify(buff));
-
-		//instantiate doc and load file
-		XmlDocument doc;
-
-		if (doc.Load(buff))
+		//current scene
+		XmlNode cur = root.FirstChild();
+		while (!cur.IsNull())
 		{
-			XmlNode root = doc.Root();
+			//construct scene data
+			SceneData data = SceneData();
 
-			//current scene
-			XmlNode cur = root.FirstChild();
-			while (!cur.IsNull())
-			{
-				//construct scene data
-				SceneData data = SceneData();
+			//create its hash id
+			data._id = cur.ValueString();
 
-				//create its hash id
-				data._id = cur.ValueString();
+			//set its file and asset dir
+			sprintf(data._scene_file, "%s\\scenes\\%s.xml", _Vici->GetCwd(), cur.ValueString());
+			sprintf(data._scene_assets, "%s\\scenes\\%s_assets.xml", _Vici->GetCwd(), cur.ValueString());
 
-				//set its file and asset dir
-				sprintf(data._scene_file, "%s\\scenes\\%s.xml", _v->_cwd, cur.ValueString());
-				sprintf(data._scene_assets, "%s\\scenes\\%s_assets.xml", _v->_cwd, cur.ValueString());
+            //make them sensible to current platform file system
+            strcpy(data._scene_file, Platform_Pathify(data._scene_file));
+            strcpy(data._scene_assets, Platform_Pathify(data._scene_assets));
+            
+			//add to scene data
+			_scenes.push_back(data);
 
-                //make them sensible to current platform file system
-                strcpy(data._scene_file, Platform_Pathify(data._scene_file));
-                strcpy(data._scene_assets, Platform_Pathify(data._scene_assets));
-                
-				//add to scene data
-				_scenes.push_back(data);
-
-				//next
-				cur = cur.NextSibling();
-			}
-			
+			//next
+			cur = cur.NextSibling();
 		}
+		
 	}
 }
 
@@ -129,7 +120,7 @@ void SceneLoader::LoadScene(unsigned int index)
 				go->Init(NULL, cur);
 
 				//add to scene list
-				_v->AddGameObject(go);
+				_Vici->AddGameObject(go);
 
 				cur = cur.NextSibling();
 			}

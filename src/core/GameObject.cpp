@@ -80,7 +80,7 @@ void GameObject::OnDestroy()
 {
 	//if this is the top most parent remove from update list
 	if (_parent == NULL)
-		_vici->RemoveGameObject(this);
+		_Vici->RemoveGameObject(this);
 	//else remove from parents _children list
 	else
 		_parent->_children.Remove(this);

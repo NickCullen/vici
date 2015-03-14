@@ -37,7 +37,7 @@ void VCamera::Init(XmlNode& node)
 		unsigned int render_layer = layer.ValueInt();
 
 		//set it up
-		LayerSystem::SetCameraForLayer(this, render_layer);
+		_Layers->SetCameraForLayer(this, render_layer);
 
 		layer = layer.NextSibling();
 	}
@@ -47,7 +47,7 @@ void VCamera::Init(XmlNode& node)
 void VCamera::OnStart()
 {
 	//add to vici camera list
-	_vici->_cameras.PushBack(this);
+	_Vici->_cameras.PushBack(this);
 
 	//get a scene renderer
 	_renderer = new OpenGLRenderer();
@@ -62,7 +62,7 @@ void VCamera::OnStart()
 void VCamera::OnDestroy()
 {
 	//remove from vici camera list
-	_vici->_cameras.Remove(this);
+	_Vici->_cameras.Remove(this);
 
 	//delete renderer
 	delete (_renderer);

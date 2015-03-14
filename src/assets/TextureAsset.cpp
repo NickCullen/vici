@@ -24,7 +24,7 @@ void TextureAsset::Load(XmlNode& node)
 
 	//convert path to releative platform friendly path
 	char buff[BUFFER_SIZE];
-	sprintf(buff, "%s/%s", _vici->GetCwd(), path);
+	sprintf(buff, "%s/%s", _Vici->GetCwd(), path);
 	strcpy(buff, Platform_Pathify(buff));
 
 	//load image

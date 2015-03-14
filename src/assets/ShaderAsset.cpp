@@ -45,11 +45,11 @@ void ShaderAsset::Load(XmlNode& node)
 	_f = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// store vertex path..
-	sprintf(_v_path, "%s/%s", _vici->GetCwd(), node.GetString("vert"));
+	sprintf(_v_path, "%s/%s", _Vici->GetCwd(), node.GetString("vert"));
 	strcpy(_v_path, Platform_Pathify(_v_path));
 
 	// store shader path..
-	sprintf(_f_path, "%s/%s", _vici->GetCwd(), node.GetString("frag"));
+	sprintf(_f_path, "%s/%s", _Vici->GetCwd(), node.GetString("frag"));
 	strcpy(_f_path, Platform_Pathify(_f_path));
 
 	TextFile vs = TextFile(_v_path);
