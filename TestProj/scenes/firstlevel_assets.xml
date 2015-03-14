@@ -1,8 +1,8 @@
 <root>
 	<!-- Shaders -->
 	<asset type="ShaderAsset" id="DiffuseShader">
-		<vert>Assets/Shaders/Diffuse.vert</vert>
-		<frag>Assets/Shaders/Diffuse.frag</frag>
+		<vert>Assets/Shaders/test.vert</vert>
+		<frag>Assets/Shaders/test.frag</frag>
 	</asset>
 
 <!--	<asset type="ShaderAsset" id="FlatShader">
@@ -21,11 +21,11 @@
 	<asset type="MeshAsset" id="Monkey_Mesh">
 		<path>Assets/Models/monkey.mesh</path>
 	</asset>
-	
+	<!--
 	<asset type="MeshAsset" id="Bowl_Mesh">
 		<path>Assets/Models/MyBowl.mesh</path>
 	</asset>
-	
+	-->
 	<!-- Materials -->
 	<asset type="MaterialAsset" id="Stone_material">
 		<path>Assets/Materials/None.material</path>

@@ -49,6 +49,9 @@ private:
 
 	bool _is_loaded; /**< Flag to show if the shader has been loaded */
 
+	//the common shader code
+	static char* _common_code;
+
 	//Generate members
 	_COMMON_SHADER_LOCATIONS(_GEN_MEMBERS)
 
@@ -127,6 +130,11 @@ public:
 	* @param checkType the type of check to carry out on the shader
 	*/
 	void DebugProgram(GLuint program, GLenum checkType);
+
+	/**
+	* Loads the shader common shader code into memory 
+	*/
+	static void LoadSharedCode(std::string cwd);
 
 	/* Create the member functions for getting locations */
 	_COMMON_SHADER_LOCATIONS(_GEN_GETTERS)

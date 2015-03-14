@@ -4,6 +4,9 @@
 #include <string>
 #include "TextFile.h"
 
+// init statics
+char* ShaderAsset::_common_code = NULL;
+
 ShaderAsset::ShaderAsset() : Asset()
 {
 	_v = 0;
@@ -63,8 +66,66 @@ void ShaderAsset::Load(XmlNode& node)
 		return;
 	}
 
-	const char *vv = vs;
-	const char *ff = fs;
+	char *vv = NULL;
+	char *ff = NULL;
+
+	//check if vertex shader requires common code
+	char* vertex_common = strstr((char*)vs, "#include common");
+	if (vertex_common != NULL)
+	{
+		//number of characters to copy before splitting code
+		int pre_text_size = vertex_common - (char*)vs;
+
+		//cycle until new line
+		while (*vertex_common != '\n')
+			vertex_common++;
+
+		//++ 1 more to get rid of new line
+		vertex_common++;
+
+		//allocate enough space in vv
+		vv = new char[pre_text_size + strlen(_common_code) + strlen(vertex_common) + 1];
+		
+		//copy over a number of chars frm original string
+		strncpy(vv, (char*)fs, pre_text_size);
+		ff[pre_text_size] = '\0';
+		strcat(vv, _common_code);
+		strcat(vv, vertex_common);
+	}
+	else
+	{
+		vv = vs;
+	}
+
+	//check if frag shader requires common code
+	char* frag_common = strstr((char*)fs, "#include common");
+	if (frag_common != NULL)
+	{
+		//number of characters to copy before splitting code
+		int pre_text_size = frag_common - (char*)fs;
+
+		//cycle until new line
+		while (*frag_common != '\n')
+			frag_common++;
+
+		//++ 1 more to get rid of new line
+		frag_common++;
+
+		//allocate enough space in vv
+		ff = new char[pre_text_size + strlen(_common_code) + strlen(frag_common) + 1];
+
+		//copy over a number of chars frm original string
+		strncpy(ff, (char*)fs, pre_text_size);
+		ff[pre_text_size] = '\0';
+		strcat(ff, _common_code);
+		strcat(ff, frag_common);
+
+	}
+	else
+	{
+		ff = fs;
+	}
+
 
 	glShaderSource(_v, 1, &vv, NULL);
 	glShaderSource(_f, 1, &ff, NULL);
@@ -138,4 +199,22 @@ GLint ShaderAsset::SamplerLocation(const char* id)
 GLint ShaderAsset::UniformLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id);
+}
+
+void ShaderAsset::LoadSharedCode(std::string cwd)
+{
+	if (_common_code == NULL)
+	{
+		cwd += "/Assets/Common.shaders";
+		char buff[256];
+		strcpy(buff, Platform_Pathify(cwd.c_str()));
+
+		TextFile tf(buff);
+
+		if (tf.IsLoaded())
+		{
+			_common_code = new char[strlen(tf) + 1];
+			strcpy(_common_code, tf);
+		}
+	}
 }

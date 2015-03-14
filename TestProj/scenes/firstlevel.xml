@@ -42,7 +42,7 @@
 				<scale>1 1 1</scale>
 			</transform>
 			<component type="MeshRenderer">
-				<mesh>Bowl_Mesh</mesh>
+				<mesh>Monkey_Mesh</mesh>
 			</component>
 			<component type="Material">
 				<shader>DiffuseShader</shader>

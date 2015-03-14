@@ -36,6 +36,7 @@ void Vici::Init()
 	Platform_LogString("Running Directory = %s\n", _cwd);
 	
 	//initialize stuff
+	ShaderAsset::LoadSharedCode(_cwd);
 	LayerSystem::Init(_cwd);
 	Display::Init(_cwd);
 	SceneLoader::Init(this);

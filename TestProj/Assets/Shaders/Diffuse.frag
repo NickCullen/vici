@@ -1,5 +1,7 @@
 #version 120
 
+#include common
+
 varying vec3 normal;
 varying vec2 uv;
 
