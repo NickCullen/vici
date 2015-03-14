@@ -183,6 +183,7 @@ void MeshAsset::Load(XmlNode& node)
 	}
 }
 
+
 void MeshAsset::SetArrays(ShaderAsset* shader)
 {
 	//Vertex Array
