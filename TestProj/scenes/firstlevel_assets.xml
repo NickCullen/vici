@@ -1,10 +1,15 @@
 <root>
 	<!-- Shaders -->
-	<asset type="ShaderAsset" id="DiffuseShader">
-		<vert>Assets/Shaders/test.vert</vert>
-		<frag>Assets/Shaders/test.frag</frag>
+	<asset type="ShaderAsset" id="TangentShader">
+		<vert>Assets/Shaders/Tangents.vert</vert>
+		<frag>Assets/Shaders/Tangents.frag</frag>
 	</asset>
 
+	<asset type="ShaderAsset" id="BinormalShader">
+		<vert>Assets/Shaders/Binormals.vert</vert>
+		<frag>Assets/Shaders/Binormals.frag</frag>
+	</asset>
+	
 <!--	<asset type="ShaderAsset" id="FlatShader">
 		<vert>Assets/Shaders/Flat.vert</vert>
 		<frag>Assets/Shaders/Flat.frag</frag>
@@ -19,7 +24,7 @@
 
 	<!-- Meshes -->
 	<asset type="MeshAsset" id="Monkey_Mesh">
-		<path>Assets/Models/monkey.mesh</path>
+		<path>Assets/Models/NewMonkey.mesh</path>
 	</asset>
 	<!--
 	<asset type="MeshAsset" id="Bowl_Mesh">

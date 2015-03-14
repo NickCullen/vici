@@ -1,15 +1,8 @@
 #!/usr/bin/python
 
 from Paths import *
+from Geometry import *
 import shutil
-
-#vector for colors
-class Vector:
-	def __init__(self, r,g,b,a):
-		self.r = r
-		self.g = g
-		self.b = b
-		self.a = a
 
 class Texture:
 	def __init__(self, id, path):
@@ -20,9 +13,9 @@ class Texture:
 class Material:
 	def __init__(self):
 		self.ns = 0
-		self.ka = Vector(0,0,0,0)
-		self.kd = Vector(0,0,0,0)
-		self.ks = Vector(0,0,0,0)
+		self.ka = Colour(0,0,0,0)
+		self.kd = Colour(0,0,0,0)
+		self.ks = Colour(0,0,0,0)
 		self.d = 0
 		self.illum = 1
 		self.textures = dict()
@@ -53,7 +46,7 @@ class ObjMaterial:
 		self.materials = dict()
 
 		#open the obj material file
-		self.file = open(obj_mat_file, "r")
+		self.file = open(self.paths.PlatformURL(self.paths.Path("tools") + "/" + obj_mat_file),"r")
 
 		#parse the file
 		self.Parse()
@@ -89,23 +82,23 @@ class ObjMaterial:
 				#determine if its a 4 component (rgba) or just rgb
 				no_comp = len(split)-1 #(minus 1 to ignore the line identifier)
 				if no_comp == 3:
-					current.ka = Vector(float(split[1]), float(split[2]), float(split[3]), 0)
+					current.ka = Colour(float(split[1]), float(split[2]), float(split[3]), 0)
 				else:
-					current.ka = Vector(float(split[1]), float(split[2]), float(split[3]), float(split[4]))
+					current.ka = Colour(float(split[1]), float(split[2]), float(split[3]), float(split[4]))
 			elif split[0] == "Kd":
 				#determine if its a 4 component (rgba) or just rgb
 				no_comp = len(split)-1 #(minus 1 to ignore the line identifier)
 				if no_comp == 3:
-					current.kd = Vector(float(split[1]), float(split[2]), float(split[3]), 0)
+					current.kd = Colour(float(split[1]), float(split[2]), float(split[3]), 0)
 				else:
-					current.kd = Vector(float(split[1]), float(split[2]), float(split[3]), float(split[4]))
+					current.kd = Colour(float(split[1]), float(split[2]), float(split[3]), float(split[4]))
 			elif split[0] == "Ks":
 				#determine if its a 4 component (rgba) or just rgb
 				no_comp = len(split)-1 #(minus 1 to ignore the line identifier)
 				if no_comp == 3:
-					current.ks = Vector(float(split[1]), float(split[2]), float(split[3]), 0)
+					current.ks = Colour(float(split[1]), float(split[2]), float(split[3]), 0)
 				else:
-					current.ks = Vector(float(split[1]), float(split[2]), float(split[3]), float(split[4]))
+					current.ks = Colour(float(split[1]), float(split[2]), float(split[3]), float(split[4]))
 			elif split[0] == "d":
 				current.d = float(split[1])
 			elif split[0] == "illum":

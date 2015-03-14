@@ -7,7 +7,7 @@ MeshAsset::MeshAsset() : Asset()
 {
 	//default all to NULL
 	//_vertex_buffer = _uv_buffer = _normal_buffer = NULL;
-	_vertex_array = _uv_array = _normal_array = NULL;
+	_tangent_array = _binormal_array = _vertex_array = _uv_array = _normal_array = NULL;
 	_tangent_count = _binormal_count = _vertex_count = _uv_count = _normal_count = 0;
 	_num_arrays = 0;
 }
@@ -18,6 +18,8 @@ MeshAsset::~MeshAsset()
 	if (_vertex_array != NULL) delete(_vertex_array);
 	if (_uv_array != NULL) delete(_uv_array);
 	if (_normal_array != NULL) delete(_normal_array);
+	if (_tangent_array != NULL) delete(_tangent_array);
+	if (_binormal_array != NULL) delete(_binormal_array);
 
 	for (int i = 0; i < _num_arrays; i++)
 	{
@@ -105,45 +107,45 @@ void MeshAsset::Load(XmlNode& node)
 			glBufferData(GL_ARRAY_BUFFER, _normal_count * sizeof(float)* 3, _normal_array, GL_STATIC_DRAW);
 		}
 
-		////read the number of norms
-		//fread(&_tangent_count, sizeof(int32), 1, f);
-		////if not 0 copy them of
-		//if (_tangent_count != 0)
-		//{
-		//	//allocate
-		//	_tangent_array = new float[_tangent_count * 3];
-		//	//cpy
-		//	fread(_tangent_array, _tangent_count * sizeof(float) * 3, 1, f);
+		//read the number of norms
+		fread(&_tangent_count, sizeof(int32), 1, f);
+		//if not 0 copy them of
+		if (_tangent_count != 0)
+		{
+			//allocate
+			_tangent_array = new float[_tangent_count * 3];
+			//cpy
+			fread(_tangent_array, _tangent_count * sizeof(float)* 3, 1, f);
 
-		//	//generate vertex buffer
-		//	glGenBuffers(1, &_tangent_buffer);
+			//generate vertex buffer
+			glGenBuffers(1, &_tangent_buffer);
 
-		//	// The following commands will talk about our 'vertexbuffer' buffer
-		//	glBindBuffer(GL_ARRAY_BUFFER, _tangent_buffer);
+			// The following commands will talk about our 'vertexbuffer' buffer
+			glBindBuffer(GL_ARRAY_BUFFER, _tangent_buffer);
 
-		//	// Give our vertices to OpenGL.
-		//	glBufferData(GL_ARRAY_BUFFER, _tangent_count * sizeof(float) * 3, _tangent_array, GL_STATIC_DRAW);
-		//}
+			// Give our vertices to OpenGL.
+			glBufferData(GL_ARRAY_BUFFER, _tangent_count * sizeof(float)* 3, _tangent_array, GL_STATIC_DRAW);
+		}
 
-		////read the number of norms
-		//fread(&_binormal_count, sizeof(int32), 1, f);
-		////if not 0 copy them of
-		//if (_binormal_count != 0)
-		//{
-		//	//allocate
-		//	_binormal_array = new float[_binormal_count * 3];
-		//	//cpy
-		//	fread(_binormal_array, _binormal_count * sizeof(float) * 3, 1, f);
+		//read the number of norms
+		fread(&_binormal_count, sizeof(int32), 1, f);
+		//if not 0 copy them of
+		if (_binormal_count != 0)
+		{
+			//allocate
+			_binormal_array = new float[_binormal_count * 3];
+			//cpy
+			fread(_binormal_array, _binormal_count * sizeof(float)* 3, 1, f);
 
-		//	//generate vertex buffer
-		//	glGenBuffers(1, &_binormal_buffer);
+			//generate vertex buffer
+			glGenBuffers(1, &_binormal_buffer);
 
-		//	// The following commands will talk about our 'vertexbuffer' buffer
-		//	glBindBuffer(GL_ARRAY_BUFFER, _binormal_buffer);
+			// The following commands will talk about our 'vertexbuffer' buffer
+			glBindBuffer(GL_ARRAY_BUFFER, _binormal_buffer);
 
-		//	// Give our vertices to OpenGL.
-		//	glBufferData(GL_ARRAY_BUFFER, _binormal_count * sizeof(float) * 3, _binormal_array, GL_STATIC_DRAW);
-		//}
+			// Give our vertices to OpenGL.
+			glBufferData(GL_ARRAY_BUFFER, _binormal_count * sizeof(float)* 3, _binormal_array, GL_STATIC_DRAW);
+		}
 
 		//read how many index arrays this mesh holds
 		fread(&_num_arrays, sizeof(int32), 1, f);
@@ -233,4 +235,3 @@ void MeshAsset::DrawElements(int32 index)
 	glDrawElements(GL_TRIANGLES, _index_count[index], GL_UNSIGNED_INT, (void*)0);
 
 }
-

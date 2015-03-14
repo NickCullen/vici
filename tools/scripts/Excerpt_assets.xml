@@ -1,0 +1,12 @@
+<!-- Mesh -->
+<asset type="MeshAsset" id="NewMonkey">
+	<path>Assets/Models/NewMonkey.mesh
+</asset>
+<!-- Materials -->
+<asset type="MaterialAsset" id="None">
+	<path>Assets/Materials/None.material</path>
+</asset>
+<!-- Textures -->
+<asset type="TextureAsset" id="None">
+	<path>Assets/Materials/None.material
+</asset>
