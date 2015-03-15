@@ -18,6 +18,8 @@ class VCamera;
 #include "SceneLoader.h"
 #include "LayerSystem.h"
 #include "Display.h"
+#include "Input.h"
+#include "VTime.h"
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -25,6 +27,8 @@ class VCamera;
 #define _SceneLoader Singleton<SceneLoader>::Instance()
 #define _Layers Singleton<LayerSystem>::Instance()
 #define _Display Singleton<Display>::Instance()
+#define _Input Singleton<Input>::Instance()
+#define _Time Singleton<VTime>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -54,6 +58,10 @@ private:
 
 	Display _display;	/**< Class responsible for window presentation and sizes etc. - Singleton class accessed via the _Display macro */
 
+	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
+
+	VTime _time;	/**< Class representing time - Singleton class accessed via the _Time macro */
+	
 	/**
 	* Called to register all components of the engine by setting their static
 	* reg member variables with the ComponentRegister<T> class (See ComponentFactory.h)

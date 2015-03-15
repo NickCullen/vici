@@ -1,6 +1,16 @@
 #include "Input.h"
 #include "Vici.h"
 
+Input::Input() : Singleton<Input>(this)
+{
+
+}
+
+Input::~Input()
+{
+
+}
+
 bool Input::KeyDown(uint32 key)
 {
 	glfwSetInputMode(_Display->Window(), GLFW_STICKY_KEYS, 1);

@@ -57,8 +57,8 @@ void Platform_EnterLoop(Vici* v)
 			if (current - last >= fps)
 			{
 				//update time
-				VTime::_time = current - start;
-				VTime::_delta_time = (current - last) * VTime::_time_scale;
+				_Time->SetTime(current - start);
+				_Time->SetDeltaTime((current - last) * _Time->TimeScale());
 
 				//update engine
 				v->Update();

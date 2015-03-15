@@ -127,11 +127,11 @@ void VCamera::Update()
 {
 	//rotate
 	static float rot = _transform->GetRotation().y;
-	if(Input::KeyDown(GLFW_KEY_A))
+	if(_Input->KeyDown(GLFW_KEY_A))
 	{
 		rot -=2;
 	}
-	else if(Input::KeyDown(GLFW_KEY_D))
+	else if (_Input->KeyDown(GLFW_KEY_D))
 	{
 		rot +=2;
 	}
@@ -139,12 +139,12 @@ void VCamera::Update()
 	_transform->Rotate(rot, 0, 1, 0);
 
 	//forward back
-	if(Input::KeyDown(GLFW_KEY_W))
+	if (_Input->KeyDown(GLFW_KEY_W))
 	{
 		_transform->Translate(glm::vec3(_transform->ForwardDirection()) * _speed);
 		_speed += 0.005f;
 	}
-	else if(Input::KeyDown(GLFW_KEY_S))
+	else if (_Input->KeyDown(GLFW_KEY_S))
 	{
 		_transform->Translate(glm::vec3(-_transform->ForwardDirection()) * _speed);
 		_speed += 0.005f;
@@ -155,12 +155,12 @@ void VCamera::Update()
 	}
 
 	//up down
-	if (Input::KeyDown(GLFW_KEY_R))
+	if (_Input->KeyDown(GLFW_KEY_R))
 	{
 		_transform->Translate(0, 1 * _speed, 0);
 		_speed += 0.005f;
 	}
-	else if (Input::KeyDown(GLFW_KEY_F))
+	else if (_Input->KeyDown(GLFW_KEY_F))
 	{
 		_transform->Translate(0, -1 * _speed, 0);
 		_speed += 0.005f;

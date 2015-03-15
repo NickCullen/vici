@@ -1,6 +1,12 @@
 #include "VTime.h"
 
-// Static initializers
-float VTime::_time = 0.0f;
-float VTime::_delta_time = 0.0f;
-float VTime::_time_scale = 1.0f;
+VTime::VTime() : Singleton<VTime>(this)
+{
+	_time = _delta_time = 0.0f;
+	_time_scale = 1.0f;
+}
+
+VTime::~VTime()
+{
+
+}

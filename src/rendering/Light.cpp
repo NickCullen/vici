@@ -148,11 +148,11 @@ void Light::Update()
 	static float rot = 0.0f;
 
 	//forward back
-	if(Input::KeyDown(GLFW_KEY_O))
+	if (_Input->KeyDown(GLFW_KEY_O))
 	{
 		_transform->Translate(glm::vec3(0,0,-1) * 0.02f);
 	}
-	else if(Input::KeyDown(GLFW_KEY_L))
+	else if (_Input->KeyDown(GLFW_KEY_L))
 	{
 		_transform->Translate(glm::vec3(0,0,1) * 0.02f);
 	}

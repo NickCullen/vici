@@ -66,7 +66,7 @@ void OpenGLRenderer::SetUniforms(ShaderAsset* shader)
 	glUniformMatrix3fv(shader->normal_matrixLocation(), 1, GL_FALSE, glm::value_ptr<float>(normal_matrix));
 
 	//push globals
-	glUniform1f(shader->timeLocation(), VTime::_time);
+	glUniform1f(shader->timeLocation(), _Time->Time());
 	glUniform4fv(shader->scene_ambienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
 }
 
