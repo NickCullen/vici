@@ -9,5 +9,9 @@ MatrixStack::MatrixStack(void)
 
 MatrixStack::~MatrixStack(void)
 {
-
+	while (!_stack.IsEmpty())
+	{
+		_current_matrix = _stack.Pop();
+		delete(_current_matrix);
+	}
 }

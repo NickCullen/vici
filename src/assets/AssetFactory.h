@@ -61,6 +61,10 @@ public:
 	*/
 	static Asset* CreateAsset(std::string id);
 
+	/**
+	* Called to cleanup the types when program closes
+	*/
+	static void CleanUp();
 };
 
 /**

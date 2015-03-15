@@ -2,15 +2,14 @@
 #include "core.h"
 #include <string>
 
-int Display::_w = 0;
-int Display::_h = 0;
-int Display::_refresh_rate = 60;
-VWindow* Display::_window = NULL;
 
-Display::Display()
+Display::Display() : Singleton<Display>(this)
 {
-
+	_screen_width = _screen_height = _window_width = _window_height = 0;
+	_refresh_rate = 60;
+	_window = NULL;
 }
+
 Display::~Display()
 {
 
@@ -21,12 +20,10 @@ void Display::Init(char* cwd)
 	char title[256];
 	char buff[758];
 
-
 	//set the file path
 	strcpy(buff, cwd);
 	strcat(buff, "\\settings\\display.xml");
-	strcpy(buff, Platform_Pathify(buff));
-	
+
 	//instantiate doc and load file
 	XmlDocument doc;
 
@@ -43,23 +40,58 @@ void Display::Init(char* cwd)
 		}
 
 		//width and height
-		_w = root.GetInt("width");
-		_h = root.GetInt("height");
+		_window_width = root.GetInt("width");
+		_window_height = root.GetInt("height");
 
 		//title
 		strcpy(title, root.GetString("title"));
-		
-		//open window
-		_window = Platform_OpenWindow(&_w, &_h, title, fullscreen);
 
-		//get refresh rate
-#ifdef VICI_DESKTOP
+		/* Initialize the library */
+		if (!glfwInit())
+		{
+			Platform_LogString("Cannot init glfw\n");
+			return;
+		}
+
+		/* If fullscreen we need to set the width and height to the monitor width and height */
+		if (fullscreen)
+		{
+			//get the monitor info
+			const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+			//get hints
+			glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+			glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+			glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+			glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+			//set w and h
+			_window_width = mode->width;
+			_window_height = mode->height;
+		}
+
+		/* Create a windowed mode window and its OpenGL context */
+		_window = glfwCreateWindow(_window_width, _window_height, title, fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+		if (!_window)
+		{
+			glfwTerminate();
+			Platform_LogString("Could not load window\n");
+			return;
+		}
+
+		/* Make the window's context current */
+		glfwMakeContextCurrent(_window);
+
+		/* Set callbacks */
+		glfwSetWindowSizeCallback(_window, Display::OnResize);
+
 		//get the monitor info
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
 		//set refresh rate
 		_refresh_rate = mode->refreshRate;
-#endif
+		_screen_width = mode->width;
+		_screen_height = mode->height;
 	}
 	else
 	{
@@ -69,19 +101,17 @@ void Display::Init(char* cwd)
 
 void Display::SetSize(int w, int h, bool force_window_resize)
 {
-	_w = w;
-	_h = h;
+	_window_width = w;
+	_window_height = h;
 
 	if (force_window_resize)
 	{
-#ifdef VICI_DESKTOP
-		glfwSetWindowSize(_window, _w, _h);
-#endif
+		glfwSetWindowSize(_window, _window_width, _window_height);
 	}
 }
 
 void Display::OnResize(VWindow* win, int w, int h)
 {
-	_w = w;
-	_h = h;
+	_Display->_window_width = w;
+	_Display->_window_height = h;
 }

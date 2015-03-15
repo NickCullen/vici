@@ -24,3 +24,13 @@ Asset* AssetFactory::CreateAsset(std::string id)
 {
 	return FindType(id);
 }
+
+void AssetFactory::CleanUp()
+{
+	if (_types != NULL)
+	{
+		_types->clear();
+		delete(_types);
+		_types = NULL;
+	}
+}

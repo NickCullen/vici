@@ -11,9 +11,28 @@ AssetLoader::AssetLoader() : Singleton<AssetLoader>(this)
 
 AssetLoader::~AssetLoader()
 {
-
+	UnloadAll();
 }
 
+void AssetLoader::UnloadAll()
+{
+	AssetMap::iterator iter;
+
+	for (iter = _asset_map.begin(); iter != _asset_map.end(); ++iter) 
+	{
+		//get asset
+		Asset* asset = iter->second;
+
+		//unload it
+		asset->Unload();
+
+		//destroy it
+		delete(asset);
+	}
+
+	//clear map
+	_asset_map.clear();
+}
 
 Asset* AssetLoader::GetAsset(std::string id)
 {

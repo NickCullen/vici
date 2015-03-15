@@ -18,6 +18,11 @@ class AssetLoader : public Singleton<AssetLoader>
 private:
 	AssetMap _asset_map; /**< All loaded assets */
 
+	/**
+	* Unloads all loaded assets (called when application quits)
+	*/
+	void UnloadAll();
+
 public:
 	/**
 	* Default constructor 

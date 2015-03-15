@@ -12,5 +12,7 @@ int main(int argc, char** argv)
 
 	Platform_EnterLoop(v);
 
+	delete(v);
+
 	return 0;
 }

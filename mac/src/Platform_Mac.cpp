@@ -31,46 +31,6 @@ double Platform_GetTime()
 	return glfwGetTime();
 }
 
-VWindow* Platform_OpenWindow(int* w, int* h, const char* title, bool fullscreen)
-{
-	/* Initialize the library */
-	if (!glfwInit())
-		return NULL;
-
-	/* If fullscreen we need to set the width and height to the monitor width and height */
-	if (fullscreen)
-	{
-		//get the monitor info
-		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-		//get hints
-		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-
-		//set w and h
-		*w = mode->width;
-		*h = mode->height;
-	}
-
-	/* Create a windowed mode window and its OpenGL context */
-	VWindow* window = glfwCreateWindow(*w, *h, title, fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		return NULL;
-	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	/* Set callbacks */
-	glfwSetWindowSizeCallback(window, Display::OnResize);
-
-	return window;
-}
-
 void Platform_EnterLoop(Vici* v)
 {
 	//for timing

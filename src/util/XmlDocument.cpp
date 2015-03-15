@@ -9,7 +9,8 @@ XmlDocument::XmlDocument()
 
 XmlDocument::~XmlDocument()
 {
-
+	if (_doc != NULL) delete(_doc);
+	if (_tf != NULL) delete(_tf);
 }
 
 //XmlDocument::XmlDocument(const XmlDocument& other)

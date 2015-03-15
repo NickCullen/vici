@@ -218,3 +218,11 @@ void ShaderAsset::LoadSharedCode(std::string cwd)
 		}
 	}
 }
+
+void ShaderAsset::UnloadSharedCode()
+{
+	if (_common_code != NULL)
+	{
+		delete(_common_code);
+	}
+}

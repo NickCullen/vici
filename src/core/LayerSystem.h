@@ -39,7 +39,7 @@ public:
 	/**
 	* destructor
 	*/
-	~LayerSystem(){}; 
+	~LayerSystem(); 
 
 	/**
 	* called at the beginning of each scene to load the current layers

@@ -1,3 +1,9 @@
+//defining release/debug builds
+#ifdef NDEBUG
+#define VICI_RELEASE 1
+#else
+#define VICI_DEBUG 1
+#endif
 
 /* Platform Specific Includes & typedefs*/
 
@@ -9,6 +15,9 @@
 #include <stdint.h>
 #include <assert.h>
 
+#ifdef VICI_DEBUG
+#include "vld.h"
+#endif
 //windows typedefs
 typedef GLFWwindow VWindow;
 
@@ -26,14 +35,6 @@ typedef GLFWwindow VWindow;
 
 #endif
 
-//defining release/debug builds
-#ifdef NDEBUG
-#define VICI_RELEASE 1
-#define VICI_DEBUG 0
-#else
-#define VICI_DEBUG 1
-#define VICI_RELEASE 0
-#endif
 
 /* Constants */
 #define BUFFER_SIZE 256

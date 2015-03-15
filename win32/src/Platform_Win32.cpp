@@ -27,62 +27,19 @@ double Platform_GetTime()
 	return glfwGetTime();
 }
 
-VWindow* Platform_OpenWindow(int* w, int* h, const char* title, bool fullscreen)
-{
-	/* Initialize the library */
-	if (!glfwInit())
-		return false;
-
-	/* If fullscreen we need to set the width and height to the monitor width and height */
-	if (fullscreen)
-	{
-		//get the monitor info
-		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-		//get hints
-		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-
-		//set w and h
-		*w = mode->width;
-		*h = mode->height;
-	}
-
-	/* Create a windowed mode window and its OpenGL context */
-	VWindow* window = glfwCreateWindow(*w, *h, title, fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		return false;
-	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	/* Set callbacks */
-	glfwSetWindowSizeCallback(window, Display::OnResize);
-
-	//init glew
-	glewInit();
-
-	return window;
-}
-
 void Platform_EnterLoop(Vici* v)
 {
 	//for timing
 	float last = 0.0f, start = 0.0f, current = 0.0f;
 
 	//the fps
-	float fps = 1.0f / Display::RefreshRate();
+	float fps = 1.0f / _Display->RefreshRate();
 
 	//cache last and start
 	start = last = (float)Platform_GetTime();
 
 	//get the window
-	VWindow* win = Display::Window();
+	VWindow* win = _Display->Window();
 
 	if (win != NULL)
 	{
@@ -116,8 +73,12 @@ void Platform_EnterLoop(Vici* v)
 		}
 
 		glfwTerminate();
-		return;
+
 	}
+
+
+	_Vici->OnExit();
+
 }
 
 const char* Platform_Pathify(const char* file)

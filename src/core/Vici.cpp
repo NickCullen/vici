@@ -18,7 +18,6 @@ Vici::~Vici()
 	_started = false;
 }
 
-
 //called once when program begins
 void Vici::Init()
 {
@@ -29,7 +28,7 @@ void Vici::Init()
 	Platform_LogString("Running Directory = %s\n", _cwd);
 	
 	//initialize stuff
-	Display::Init(_cwd);
+	_Display->Init(_cwd);
     _SceneLoader->Init();
 	_Layers->Init(_cwd);
 
@@ -108,8 +107,20 @@ void Vici::Render()
 
 void Vici::OnExit()
 {
+	//delete all objects left on tree
+	_objects.Lock();
+
+	TTREE_foreach(GameObject*, obj, _objects)
+	{
+		Object::Destroy(obj);
+	}
+
+	_objects.Unlock();
+
 	//cleanup components
 	ComponentFactory::CleanUp();
+	AssetFactory::CleanUp();
+	ShaderAsset::UnloadSharedCode();
 }
 
 /*Testing funcs*/

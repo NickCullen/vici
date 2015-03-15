@@ -11,7 +11,7 @@ OpenGLRenderer::OpenGLRenderer()
 
 OpenGLRenderer::~OpenGLRenderer()
 {
-
+	_lights.Empty();
 }
 
 /*if this is override please remember to call base.Init()*/

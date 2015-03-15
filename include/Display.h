@@ -1,6 +1,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+#include "Singleton.h"
 #include "PlatformDefinitions.h"
 
 /**
@@ -10,8 +11,8 @@
 
 struct DisplayInfo
 {
-	int _w; /**< The width of the display */
-	int _h; /**< The height of the display */
+	int _w;
+	int _h;
 
 	/**
 	* Constructor to take the width
@@ -25,28 +26,31 @@ struct DisplayInfo
 };
 
 /**
-* Static Display class containing the width and height
+* Display class singleton containing the width and height
 * of the display, also in charge of the VWindow reference. 
 */
 
-class Display
+class Display : public Singleton<Display>
 {
 private:
-	static int _w; /**< The width of the current window */
-	static int _h; /**< The height of the current window */
+	int _window_width; /**< The width of the current window (renderable area)*/
+	int _window_height; /**< The height of the current window (renderable area) */
 
-	static VWindow* _window; /**< The window that is used to render the engine */
+	int _screen_width; /**< The width of the screen (i.e. the physical monitor) */
+	int _screen_height; /**< The height of the screen (i.e. the physical monitor) */
 
-	static int _refresh_rate; /**< Refresh rate of the monitor */
+	VWindow* _window; /**< The window that is used to render the engine */
+
+	int _refresh_rate; /**< Refresh rate of the monitor */
 
 public:
 	/**
-	* Unused constructor (Static class)
+	* Default constructor 
 	*/
 	Display();
 
 	/** 
-	* Unused destructor (Static class)
+	* Default destructor
 	*/
 	~Display();
 
@@ -55,24 +59,24 @@ public:
 	* from the display xml file found in the 
 	* settings folder of the project
 	*/
-	static void Init(char* cwd);
+	void Init(char* cwd);
 
 	/**
 	* Creates a DisplayInfo structor and returns it
 	* @return DisplayInfo structure holding information about the current display 
 	*/
-	static inline DisplayInfo GetInfo()
+	inline DisplayInfo GetInfo()
 	{
-		return DisplayInfo(_w, _h);
+		return DisplayInfo(_window_width, _window_height);
 	}
 
 	/**
 	* Gets the height of the window
 	* @return integer representing the height of the window
 	*/
-	static inline int Height()
+	inline int Height()
 	{
-		return _h;
+		return _window_height;
 	}
 
 
@@ -80,34 +84,34 @@ public:
 	* Gets the width of the window
 	* @return integer representing the width of the window
 	*/
-	static inline int Width()
+	inline int Width()
 	{
-		return _w; 
+		return _window_width;
 	}
 
 	/**
 	* Calculates the aspect reation of the current window
 	* @return float containing aspect ratio
 	*/
-	static inline float AspectRatio()
+	inline float AspectRatio()
 	{
-		return (float)_w / (float)_h;
+		return (float)_window_width / (float)_window_height;
 	}
 
 	/**
 	* Sets the size of the display with an optional third paramter
 	* to resize the window. 
-	* @param w The width of the display
-	* @param h The height of the display
+	* @param w The width of the window
+	* @param h The height of the window
 	* @param force_window_resize set to true to resize the window
 	*/
-	static void SetSize(int w, int h, bool force_window_resize = false);
+	void SetSize(int w, int h, bool force_window_resize = false);
 
 	/**
 	* Gets the window (may be NULL)
 	* @return Pointer to the window that is open (May be null)
 	*/
-	static inline VWindow* Window()
+	inline VWindow* Window()
 	{
 		return _window;
 	}
@@ -124,7 +128,7 @@ public:
 	* gets the refresh rate of the monitor
 	* @return Integer specifying the refresh rate of the monitor
 	*/
-	inline static int RefreshRate(){ return _refresh_rate; }
+	inline int RefreshRate(){ return _refresh_rate; }
 };
 
 #endif

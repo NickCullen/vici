@@ -80,7 +80,7 @@ void VCamera::PrepareScene()
 	_renderer->_ms.Identity();
 
 	//set up projection matrices
-	_projection_mat = glm::perspective<float>(45.0f, Display::AspectRatio(), 0.1f, 100.0f);
+	_projection_mat = glm::perspective<float>(45.0f, _Display->AspectRatio(), 0.1f, 100.0f);
 
 	//_view_mat = glm::translate(_view_mat, glm::vec3(0, 0, 10));
 

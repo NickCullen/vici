@@ -136,6 +136,11 @@ public:
 	*/
 	static void LoadSharedCode(std::string cwd);
 
+	/**
+	* Unloads the shader common code from memory
+	*/
+	static void UnloadSharedCode();
+
 	/* Create the member functions for getting locations */
 	_COMMON_SHADER_LOCATIONS(_GEN_GETTERS)
 

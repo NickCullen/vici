@@ -11,6 +11,11 @@ LayerSystem::LayerSystem() : Singleton<LayerSystem>(this)
 	_num_of_layers = 0;
 }
 
+LayerSystem::~LayerSystem()
+{
+	delete[] _layers;
+}
+
 void LayerSystem::Init(const char* cwd)
 {
 	char buff[512];

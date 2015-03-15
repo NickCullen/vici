@@ -52,7 +52,8 @@ else()
 	add_executable(testing TestProj/main.cpp)
 
 	#link up librares
-	target_link_libraries(testing vlibrary platformlib ${EXTRA_LIBS})
+	target_link_libraries(testing debug vlibrary platformlib ${EXTRA_LIBS} ${EXTRA_LIBS_DEBUG})
+	target_link_libraries(testing optimized vlibrary platformlib ${EXTRA_LIBS})
 
 	#post build commands (copy dlls and their equivilant etc.)
 

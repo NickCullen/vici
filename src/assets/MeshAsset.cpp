@@ -14,24 +14,62 @@ MeshAsset::MeshAsset() : Asset()
 
 MeshAsset::~MeshAsset()
 {
-	//free memory
-	if (_vertex_array != NULL) delete(_vertex_array);
-	if (_uv_array != NULL) delete(_uv_array);
-	if (_normal_array != NULL) delete(_normal_array);
-	if (_tangent_array != NULL) delete(_tangent_array);
-	if (_binormal_array != NULL) delete(_binormal_array);
-
-	for (int i = 0; i < _num_arrays; i++)
-	{
-		delete(_index_arrays[i]);
-	}
-	delete(_index_arrays);
+	Unload();
 }
 
 void MeshAsset::Unload()
 {
+	//free memory
+	if (_vertex_array != NULL)
+	{
+		delete(_vertex_array);
+		glDeleteBuffers(1, &_vertex_buffer);
+	}
+	if (_uv_array != NULL)
+	{
+		delete(_uv_array);
+		glDeleteBuffers(1, &_uv_buffer);
+	}
+	if (_normal_array != NULL)
+	{
+		delete(_normal_array);
+		glDeleteBuffers(1, &_normal_buffer);
+	}
+	if (_tangent_array != NULL)
+	{
+		delete(_tangent_array);
+		glDeleteBuffers(1, &_tangent_buffer);
+	}
+	if (_binormal_array != NULL)
+	{
+		delete(_binormal_array);
+		glDeleteBuffers(1, &_binormal_buffer);
+	}
 
+	for (int i = 0; i < _num_arrays; i++)
+	{
+		if(_index_arrays[i] != NULL) delete(_index_arrays[i]);
+
+		//ensure null after delete
+		_index_arrays[i] = NULL;
+	}
+
+	if (_index_arrays != NULL)
+	{
+		delete(_index_arrays);
+		glDeleteBuffers(_num_arrays, _index_buffers);
+		delete(_index_buffers);
+		_index_buffers = NULL;
+		delete(_index_count);
+		_index_count = NULL;
+	}
+
+	//reset to null
+	_tangent_array = _binormal_array = _vertex_array = _uv_array = _normal_array = NULL;
+	_index_arrays = NULL;
+	_num_arrays = 0;
 }
+
 void MeshAsset::Load(XmlNode& node)
 {
 	//get the mesh file
