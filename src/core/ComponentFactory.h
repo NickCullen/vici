@@ -1,17 +1,17 @@
 #ifndef V_COMPONENT_FACTORY
 #define V_COMPONENT_FACTORY
 
-/*Forward Decl*/
+/* Forward Decl */
 class IComponent;
 
-/*for mapping of instances and creation functions*/
-#include<map>
-#include<string>
+/* for mapping of instances and creation functions */
+#include <map>
+#include <string>
 
-/*definition for the creation function of a component */
-template<typename T> IComponent* CreateInstance() { return new T; }
+/* definition for the creation function of a component */
+template<typename T> IComponent* Internal_Component_CreateInstance() { return new T; }
 
-/*the typedef for the hash table of mappings*/
+/* the typedef for the hash table of mappings */
 typedef std::map<std::string, IComponent*(*)()> MapType;
 
 /**
@@ -45,6 +45,7 @@ protected:
 	static IComponent* FindType(std::string id);
 
 public:
+
 	/**
 	* Not Used
 	*/
@@ -54,6 +55,11 @@ public:
 	*/
 	~ComponentFactory();
 	
+	/**
+	* Cleans up component creation functions on the list when the program ends
+	*/
+	static void CleanUp();
+
 	/**
 	* Function that instantiates a component given the id
 	* @param id string containing id of required component
@@ -77,27 +83,26 @@ public:
 };
 
 /**
-* The DerivedRegister class is instantiated by every component to register their creation function
+* The ComponentRegister class is instantiated by every component to register their creation function
 * so they can be instantiated later on (e.g. scene loading) via strings
 * Status(Complete)
 */
 
 template<typename T>
-class DerivedRegister : ComponentFactory
+class ComponentRegister : ComponentFactory
 {
 public:
-
 	/**
 	* The constructor used by the component to register its creation function
 	* for example, if I want to register a component called 'MyComponent' I would create a static 
-	* DerivedRegister member variable called 'reg' and in my projects "RegisterComponents" function I can register
+	* ComponentRegister member variable called 'reg' and in my projects "RegisterComponents" function I can register
 	* the class as follows:
-	* MyComponent::reg = DerivedRegister<MyComponent>("MyComponent");
+	* MyComponent::reg = ComponentRegister<MyComponent>("MyComponent");
 	* @param s string containing id of required component, this normally represents the class name
 	*/
-	DerivedRegister(std::string s) 
+	ComponentRegister(std::string s) 
 	{
-		GetTypes()->insert(std::make_pair(s, &CreateInstance<T>));
+		GetTypes()->insert(std::make_pair(s, &Internal_Component_CreateInstance<T>));
 	}
 };
 

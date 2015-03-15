@@ -85,7 +85,7 @@ public:
 	*/
 	bool InRange(Transform* transform);
 
-	static DerivedRegister<Light> reg; /**< Used to register this class with ComponetFactory */
+	static ComponentRegister<Light> reg; /**< Used to register this class with ComponetFactory */
 
 	/**
 	* Testing 

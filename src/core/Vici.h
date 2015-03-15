@@ -1,13 +1,14 @@
 #ifndef VICI_H
 #define VICI_H
 
-//length of cwd
+/* Length of buffers */
 const int BUFF_LEN = 512;
 
-/*Forward decl */
+/* Forward decl */
 class GameObject;
 class VCamera;
 
+/* Required Includes */
 #include "tds.h"
 #include "GameObjectTree.h"
 #include "AssetLoader.h"
@@ -16,27 +17,25 @@ class VCamera;
 #include "SceneLoader.h"
 #include "LayerSystem.h"
 
-/* Macros for vici access and some singleton classes*/
-#define _Vici Vici::Instance()
-#define _Assets _Vici->GetAssetLoader()
+/* Macros for vici access and some singleton classes */
+#define _Vici Singleton<Vici>::Instance()
+#define _Assets Singleton<AssetLoader>::Instance()
 #define _SceneLoader Singleton<SceneLoader>::Instance()
 #define _Layers Singleton<LayerSystem>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
-* _vici-> macro or directly by certain built in components and classes. It is responsible for the flow
-* of logic in the engine and contains the last of currently loaded game objects
+* _Vici-> macro or directly by certain built in components and classes. It is responsible for the flow
+* of logic in the engine and contains the list of currently loaded game objects
 * Status (very much on going)
 */
 
-class Vici
+class Vici : public Singleton<Vici>
 {
 	friend class SceneLoader;
 	friend class VCamera;
 private:
-	static Vici* _instance; /**< The only allowed running instance of the engine */
-
-	GameObjectTree _objects; /**< Tree of Game Objects */
+	GameObjectTree _objects; /**< Tree of Game Objects in the current scene*/
 
 	TList<VCamera*> _cameras;	/**< List containing all active cameras */
 
@@ -44,14 +43,15 @@ private:
 
 	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
 
-	AssetLoader _asset_loader; /**< The asset Loader for assets */
+	AssetLoader _asset_loader; /**< The asset Loader for maintaining assets throughout scenes  - Singleton class accessed via the _Assets macro */
 
-	SceneLoader _scene_loader; /**< The scene loader */
-	LayerSystem _layer_system; /**< Class responsible for loading layers */
+	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
+
+	LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
 
 	/**
 	* Called to register all components of the engine by setting their static
-	* reg member variables with the DerivedRegister<T> class (See ComponentFactory.h)
+	* reg member variables with the ComponentRegister<T> class (See ComponentFactory.h)
 	*/
 	void RegisterComponents();
 public:
@@ -72,11 +72,10 @@ public:
 	*/
 	void Init();
 
-
 	/**
 	* Called once by main - this should be called anytime after Init() and will start 
 	* the first scene and set _started to true.
-	* will also call all the required Awake and Start logic functions etc.
+	* It will also call all the required Awake and Start logic functions etc.
 	*/
 	void Begin();
 
@@ -91,41 +90,30 @@ public:
 	void Render();
 
 	/**
-	* Returns the current working directory - note that classes calling this function
-	* should not attempt to delete this pointer
-	* @return a char pointer containing the current working directory
+	* Called when the program or game is being ended (closed)
 	*/
-	char* GetCwd();
-
+	void OnExit();
+	
 	/**
-	* Temporary convenience method just to quickly adda game object for testing
+	* Temporary convenience method just to quickly add a game object for testing
 	* will be removed when things become more solid
 	* @param go pointer to the game object to add to the list
 	*/
 	void AddGameObject(GameObject* go);
 
 	/**
-	* Removes the game object from the update lists (Yet to be implemented)
+	* Removes the game object from the update list
 	* @param go The game object to remove from list
 	*/
 	void RemoveGameObject(GameObject* go);
 
 	/**
-	* Static getter to return the running instance of Vici (may be NULL)
+	* Returns the current working directory - note that classes calling this function
+	* should not attempt to delete or modify this pointer
+	* @return A char pointer (C String) containing the current working directory
 	*/
-	static inline Vici* Instance()
-	{
-		return _instance;
-	}
+	inline char* GetCwd() { return _cwd; }
 
-	/**
-	* Gets the asset Loader
-	* @return Pointer to the asset loader class
-	*/
-	AssetLoader* GetAssetLoader()
-	{
-		return &_asset_loader;
-	}
 };
 
 #endif

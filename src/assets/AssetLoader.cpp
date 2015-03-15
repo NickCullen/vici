@@ -4,7 +4,7 @@
 #include "AssetFactory.h"
 #include <memory>
 
-AssetLoader::AssetLoader()
+AssetLoader::AssetLoader() : Singleton<AssetLoader>(this)
 {
 	
 }

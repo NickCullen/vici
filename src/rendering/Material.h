@@ -78,7 +78,7 @@ public:
 	*/
 	void SetUniforms();
 
-	static DerivedRegister<Material> reg; /**< Used to register this class with ComponetFactory */
+	static ComponentRegister<Material> reg; /**< Used to register this class with ComponetFactory */
 };
 
 #endif

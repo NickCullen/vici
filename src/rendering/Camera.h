@@ -100,7 +100,7 @@ public:
 		return _renderer;
 	}
 	
-	static DerivedRegister<VCamera> reg; /**< Static registration member var used to register this component with the ComponentFactory */
+	static ComponentRegister<VCamera> reg; /**< Static registration member var used to register this component with the ComponentFactory */
 
 	// debug
 	void Update();

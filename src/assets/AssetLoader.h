@@ -2,6 +2,7 @@
 #define V_ASSET_LOADER
 
 /* Includes */
+#include "Singleton.h"
 #include <map>
 #include <string>
 #include "Xml.h"
@@ -12,7 +13,7 @@ class Asset;
 /* definitions */
 typedef std::map<std::string, Asset*> AssetMap;
 
-class AssetLoader
+class AssetLoader : public Singleton<AssetLoader>
 {
 private:
 	AssetMap _asset_map; /**< All loaded assets */

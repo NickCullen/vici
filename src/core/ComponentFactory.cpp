@@ -24,3 +24,13 @@ IComponent* ComponentFactory::CreateComponent(std::string id)
 {
 	return FindType(id);
 }
+
+void ComponentFactory::CleanUp()
+{
+	if(_types != NULL)
+	{
+		_types->clear();
+		delete(_types);
+		_types = NULL;
+	}
+}

@@ -64,7 +64,7 @@ public:
 };
 
 /**
-* The DerivedRegister class is instantiated by every asset to register their creation function
+* The AssetRegister class is instantiated by every asset to register their creation function
 * so they can be instantiated later on (e.g. asset loading) via strings
 * Status(Complete)
 */

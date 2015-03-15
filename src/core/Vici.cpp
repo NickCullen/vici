@@ -9,16 +9,9 @@
 #include "Components.h"
 #include "ComponentFactory.h"
 
-/*Static decl*/
-Vici* Vici::_instance = NULL;
-
-Vici::Vici()
+Vici::Vici() : Singleton<Vici>(this)
 {
-	if (_instance == NULL)
-	{
-		_started = false;
-		_instance = this;
-	}
+	_started = false;
 }
 Vici::~Vici()
 {
@@ -39,6 +32,8 @@ void Vici::Init()
 	Display::Init(_cwd);
     _SceneLoader->Init();
 	_Layers->Init(_cwd);
+
+	//call some required static methods on classes
 	ShaderAsset::LoadSharedCode(_cwd);
 
 	/* Register Asset Types */
@@ -76,6 +71,10 @@ void Vici::Begin()
 
 		_started = true;
 	}
+	else
+	{
+		Platform_LogString("Cannot begin engine as _started is already set to true\n");
+	}
 }
 
 /* Update and render funcs */
@@ -107,9 +106,10 @@ void Vici::Render()
 	}
 }
 
-char* Vici::GetCwd()
+void Vici::OnExit()
 {
-	return _cwd;
+	//cleanup components
+	ComponentFactory::CleanUp();
 }
 
 /*Testing funcs*/
@@ -123,11 +123,12 @@ void Vici::RemoveGameObject(GameObject* go)
 	//remove from list
 	_objects.Remove(go);
 }
-/*Component registrations*/
+
+/* Component registrations */
 void Vici::RegisterComponents()
 {
-	VCamera::reg = DerivedRegister<VCamera>("VCamera");
-	MeshRenderer::reg = DerivedRegister<MeshRenderer>("MeshRenderer");
-	Material::reg = DerivedRegister<Material>("Material");
-	Light::reg = DerivedRegister<Light>("Light");
+	VCamera::reg = ComponentRegister<VCamera>("VCamera");
+	MeshRenderer::reg = ComponentRegister<MeshRenderer>("MeshRenderer");
+	Material::reg = ComponentRegister<Material>("Material");
+	Light::reg = ComponentRegister<Light>("Light");
 }

@@ -34,7 +34,7 @@ public:
 	/**
 	* Default destructor
 	*/
-	~Singleton(){};
+	virtual ~Singleton(){};
 
 	/**
 	* Method for accessing the instance

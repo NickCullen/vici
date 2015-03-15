@@ -44,7 +44,7 @@ public:
 	virtual void PostRender(OpenGLRenderer* renderer);
 
 	//register functions
-	static DerivedRegister<MeshRenderer> reg;
+	static ComponentRegister<MeshRenderer> reg;
 
 
 	//for testing
