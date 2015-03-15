@@ -37,13 +37,13 @@ void Platform_EnterLoop(Vici* v)
 	float last = 0.0f, start = 0.0f, current = 0.0f;
 
 	//the fps
-	float fps = 1.0f / Display::RefreshRate();
+	float fps = 1.0f / _Display->RefreshRate();
 
 	//cache last and start
 	start = last = (float)Platform_GetTime();
 
 	//get the window
-	VWindow* win = Display::Window();
+	VWindow* win = _Display->Window();
 
 	if (win != NULL)
 	{
@@ -64,10 +64,13 @@ void Platform_EnterLoop(Vici* v)
 				v->Update();
 
 				//render frame
-				v->Render();
+				if (_Display->HasFocus())
+				{
+					v->Render();
 
-				/* Swap front and back buffers */
-				glfwSwapBuffers(win);
+					/* Swap front and back buffers */
+					glfwSwapBuffers(win);
+				}
 
 				last = (float)Platform_GetTime();
 			}
@@ -77,8 +80,12 @@ void Platform_EnterLoop(Vici* v)
 		}
 
 		glfwTerminate();
-		return;
+
 	}
+
+
+	_Vici->OnExit();
+
 }
 
 const char* Platform_Pathify(const char* file)

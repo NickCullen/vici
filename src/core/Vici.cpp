@@ -15,7 +15,12 @@ Vici::Vici() : Singleton<Vici>(this)
 }
 Vici::~Vici()
 {
-	_started = false;
+	//if started is strill true then that means we havnt had time to clean up so do it!
+	if (_started)
+	{
+		OnExit();
+		_started = false;
+	}
 }
 
 //called once when program begins
@@ -121,6 +126,19 @@ void Vici::OnExit()
 	ComponentFactory::CleanUp();
 	AssetFactory::CleanUp();
 	ShaderAsset::UnloadSharedCode();
+
+	//set back to false
+	_started = false;
+}
+
+void Vici::OnEnteredBackground()
+{
+	
+}
+
+void Vici::OnEnteredFocus()
+{
+	
 }
 
 /*Testing funcs*/

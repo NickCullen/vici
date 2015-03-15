@@ -8,11 +8,29 @@ Display::Display() : Singleton<Display>(this)
 	_screen_width = _screen_height = _window_width = _window_height = 0;
 	_refresh_rate = 60;
 	_window = NULL;
+	_has_focus = true;
 }
 
 Display::~Display()
 {
 
+}
+
+//called when focus to window has changed (minimized / opened)
+void OnFocusChanged(VWindow* window, int focus)
+{
+	//focus = `GL_TRUE` if the window was iconified, or `GL_FALSE` if it was restored.
+	if (focus != GL_TRUE)
+	{
+		_Display->SetHasFocus(false);
+		_Vici->OnEnteredBackground();
+	}
+	else
+	{
+		_Display->SetHasFocus(true);
+		_Vici->OnEnteredFocus();
+	}
+		
 }
 
 void Display::Init(char* cwd)
@@ -84,6 +102,8 @@ void Display::Init(char* cwd)
 
 		/* Set callbacks */
 		glfwSetWindowSizeCallback(_window, Display::OnResize);
+
+		glfwSetWindowFocusCallback(_window, OnFocusChanged);
 
 		//init glew
 		if (glewInit() != GLEW_OK)

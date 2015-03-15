@@ -119,6 +119,15 @@ public:
 	*/
 	inline char* GetCwd() { return _cwd; }
 
+	/**
+	* Called when application has been put in the background 
+	*/
+	void OnEnteredBackground();
+
+	/**
+	* Called when the application has resumed focus
+	*/
+	void OnEnteredFocus();
 };
 
 #endif

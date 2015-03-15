@@ -47,6 +47,14 @@ public:
 		_current_matrix = tmp;
 		//add it to the stack
 		_stack.Push(_current_matrix);
+
+#ifdef VICI_DEBUG
+		//if about 50 then maybe you are not popping?
+		if (_stack.Count() >= 50)
+		{
+			Platform_LogString("Matrix stack is greater than 50 - Are you sure you haven't left out a matrixstack.pop()?\n");
+		}
+#endif
 	}
 	inline void PopMatrix(void)
 	{

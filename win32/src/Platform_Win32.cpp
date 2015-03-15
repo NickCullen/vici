@@ -60,10 +60,13 @@ void Platform_EnterLoop(Vici* v)
 				v->Update();
 
 				//render frame
-				v->Render();
+				if (_Display->HasFocus())
+				{
+					v->Render();
 
-				/* Swap front and back buffers */
-				glfwSwapBuffers(win);
+					/* Swap front and back buffers */
+					glfwSwapBuffers(win);
+				}
 
 				last = (float)Platform_GetTime();
 			}

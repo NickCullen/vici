@@ -3,6 +3,7 @@
 
 #include "Singleton.h"
 #include "PlatformDefinitions.h"
+#include "glm.h"
 
 /**
 * Structure containing info of the current 
@@ -43,6 +44,7 @@ private:
 
 	int _refresh_rate; /**< Refresh rate of the monitor */
 
+	bool _has_focus;	/**< Flag signifying if the window with the program running has focus or not */
 public:
 	/**
 	* Default constructor 
@@ -95,6 +97,8 @@ public:
 	*/
 	inline float AspectRatio()
 	{
+		//prevent division  by 0
+		if (glm::epsilon<float>() > (float)_window_height) return 1.0f;
 		return (float)_window_width / (float)_window_height;
 	}
 
@@ -129,6 +133,18 @@ public:
 	* @return Integer specifying the refresh rate of the monitor
 	*/
 	inline int RefreshRate(){ return _refresh_rate; }
+
+	/**
+	* Getter for has focus
+	* @return Returns true if window has focus false otherwise
+	*/
+	inline bool HasFocus(){ return _has_focus; }
+
+	/**
+	* Setter for has focus
+	* @param value sets _has_focus to value
+	*/
+	inline void SetHasFocus(bool value){ _has_focus = value; }
 };
 
 #endif

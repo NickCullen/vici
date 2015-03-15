@@ -4,7 +4,6 @@
 #include "TextFile.h"
 #include "Platform.h"
 
-
 LayerSystem::LayerSystem() : Singleton<LayerSystem>(this)
 {
 	_layers = NULL;
@@ -54,8 +53,6 @@ void LayerSystem::Init(const char* cwd)
 
 		}
 	}
-	
-
 }
 
 //sets the camera

@@ -1,5 +1,5 @@
 <root>
-	<fullscreen>false</fullscreen>
+	<fullscreen>true</fullscreen>
 	<width>800</width>
 	<height>512</height>
 	<title>Vici Engine</title>
