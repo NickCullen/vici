@@ -42,6 +42,8 @@ void Display::Init(char* cwd)
 	strcpy(buff, cwd);
 	strcat(buff, "\\settings\\display.xml");
 
+	strcpy(buff,Platform_Pathify(buff));
+	
 	//instantiate doc and load file
 	XmlDocument doc;
 

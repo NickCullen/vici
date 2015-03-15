@@ -98,6 +98,7 @@ void Vici::Update()
 	_objects.Unlock();
 }
 
+
 void Vici::Render()
 {
 	TLIST_foreach(VCamera*, camera, _cameras)
