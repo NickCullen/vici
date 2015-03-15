@@ -1,45 +1,37 @@
-//defining release/debug builds
 #ifdef NDEBUG
-#define VICI_RELEASE 1
+#define VICI_RELEASE 1	// release build
 #else
-#define VICI_DEBUG 1
+#define VICI_DEBUG 1	// debug build
 #endif
 
-/* Platform Specific Includes & typedefs*/
-
-//windows
-#ifdef VICI_WINDOWS
+#ifdef VICI_WINDOWS	// Windows specific includes
 #include "glew.h"
 #include <Windows.h>
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
 
-#ifdef VICI_DEBUG
+#ifdef VICI_DEBUG // Windows Debug includes
 #include "vld.h"
 #endif
-//windows typedefs
-typedef GLFWwindow VWindow;
 
-#endif
-//mac
-#ifdef VICI_MAC
-//#include <OpenGL/gl3.h>
-//#include <OpenGL/glu.h>
+typedef GLFWwindow VWindow; // Windows typedefs
+
+#endif // End Windows specific includes
+
+#ifdef VICI_MAC // Mac specific includes 
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
 
-//mac typedefs
-typedef GLFWwindow VWindow;
+typedef GLFWwindow VWindow; // mac typedefs
 
-#endif
+#endif // End Mac specific includes 
 
-
-/* Constants */
+// Constants
 #define BUFFER_SIZE 256
 
-/* Integer typedefs */
+// Common typedefs 
 typedef int64_t int64;
 typedef int32_t int32;
 typedef int16_t int16;
@@ -49,9 +41,7 @@ typedef uint32_t uint32;
 typedef uint16_t uint16;
 typedef uint8_t uint8;
 
-
-
-/* OpenGL Typedefs */
+// OpenGL Typedefs 
 #ifdef VICI_OPENGL
 #define VICI_COLOR_BUFFER_BIT GL_COLOR_BUFFER_BIT
 #define VICI_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
