@@ -57,17 +57,13 @@ void Platform_EnterLoop(Vici* v)
 				_Time->SetDeltaTime((current - last) * _Time->TimeScale());
 
 				//update engine
-				v->Update();
+				if (_Display->HasFocus()) v->Update();
 
-				//render frame
-				if (_Display->HasFocus())
-				{
-					v->Render();
+				v->Render();
 
-					/* Swap front and back buffers */
-					glfwSwapBuffers(win);
-				}
-
+				/* Swap front and back buffers */
+				glfwSwapBuffers(win);
+		
 				last = (float)Platform_GetTime();
 			}
 			
