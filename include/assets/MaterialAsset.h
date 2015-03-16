@@ -8,6 +8,13 @@ class TextureAsset;
 #include "Asset.h"
 #include "glm.h"
 
+/**
+* Material Asset class loads the vici specific .material files
+* generated from tools such as the objmaterial python file. 
+* Responsible for sending material data to the shader that will
+* render this material
+*/
+
 class MaterialAsset : public Asset
 {
 	friend class Material;
@@ -15,8 +22,8 @@ private:
 	glm::vec4 _ka;	/**< Material Ambience */
 	glm::vec4 _kd;	/**< Material Diffuse */
 	glm::vec4 _ks;	/**< Material Spec */
-	float _ns;	/**< Material Shininess */
-	float _d;	/**< Material dissolve */
+	float _ns;		/**< Material Shininess */
+	float _d;		/**< Material dissolve */
 	int32 _illum;	/**< Illumination Model */
 
 
@@ -26,8 +33,14 @@ private:
 
 	std::string _map_bump;	/**< Material Bump Map (asset id)*/
 public:
+	/**
+	* Default constructor
+	*/
 	MaterialAsset();
 
+	/**
+	* Default destructor
+	*/
 	~MaterialAsset();
 
 	/**

@@ -6,6 +6,14 @@ class ShaderAsset;
 
 #include "Asset.h"
 
+/**
+* MeshAsset is responsible for loading the Vici
+* specific .mesh files genereated from tools such as
+* the objconverter.py script. It will generate all the 
+* OpenGL vertex buffers and the indices that can be used
+* to render a mesh
+*/
+
 class MeshAsset : public Asset
 {
 private:
@@ -36,8 +44,14 @@ private:
 	char _file_path[BUFFER_SIZE]; /**< The full path to the mesh file */
 
 public:
+	/**
+	* Default constructor
+	*/
 	MeshAsset();
 
+	/**
+	* Default destructor
+	*/
 	~MeshAsset();
 
 	/**

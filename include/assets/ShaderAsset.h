@@ -16,7 +16,6 @@
 	_GEN_(normal, "aNormal", glGetAttribLocation) \
 	_GEN_(tangent, "aTangent", glGetAttribLocation) \
 	_GEN_(binormal, "aBinormal", glGetAttribLocation)
-	
 
 /* Sets all locations to intial -1 */
 #define _GEN_DEFAULT_VAL(variable, a ,b) _##variable##_loc = -1;
@@ -31,9 +30,8 @@
 #define _GEN_LOCATIONS(name, id, function) _##name##_loc = function(_program, id);
 
 /**
-* Class used to load shader files and acess
-* locations of uniforms/attribues etc.
-* Status (new - ongoing)
+* Class used to load shader files and store
+* locations of commonly uniforms/attribues etc.
 */
 
 class ShaderAsset : public Asset

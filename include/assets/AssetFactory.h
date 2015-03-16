@@ -1,17 +1,17 @@
 #ifndef V_ASSET_FACTORY
 #define V_ASSET_FACTORY
 
-/*Forward Decl*/
+/* Forward Decl */
 class Asset;
 
-/*for mapping of instances and creation functions*/
+/* For mapping of instances and creation functions */
 #include<map>
 #include<string>
 
-/*definition for the creation function of a asset */
+/* Definition for the creation function of a asset */
 template<typename T> Asset* CreateAssetInstance() { return new T; }
 
-/*the typedef for the hash table of mappings*/
+/* The typedef for the hash table of mappings */
 typedef std::map<std::string, Asset*(*)()> AssetMapType;
 
 /**

@@ -13,6 +13,13 @@ class Asset;
 /* definitions */
 typedef std::map<std::string, Asset*> AssetMap;
 
+/**
+* AssetLoader class instantiated in the Vici class and 
+* is a singleton. Responsible for maintaining (i.e. loading
+* and unloaded) assets between scenes. Can be accessed via the 
+* _Assets-> macro defined in Vici.h
+*/
+
 class AssetLoader : public Singleton<AssetLoader>
 {
 private:

@@ -55,7 +55,7 @@ if(BUILD_LIB)
 else()
 
 	#compile into a executable with the test project
-	add_executable(testing TestProj/main.cpp)
+	add_executable(testing TestProj/src/main.cpp)
 
 	#link up librares
 	target_link_libraries(testing debug vlibrary ${EXTRA_LIBS} ${EXTRA_LIBS_DEBUG})

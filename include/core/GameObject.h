@@ -20,8 +20,6 @@ class MatrixStack;
 enum EComponentCallback { eUpdate, eOnEnable, eOnDisable, eMAX_CALL_COUNT};
 
 /** 
-* The GameObject class is very much an on going process so methods and members here
-* are very likely to change dramastically.
 * This class is the building block for the engine as it holds the components which
 * Act upon the game object and others
 */

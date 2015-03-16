@@ -3,6 +3,12 @@
 
 #include "Asset.h"
 
+/**
+* TextureAsset is responsible for loading and unloading
+* texture assets for scenes. Will also generate the OpenGL 
+* TextureID
+*/
+
 class TextureAsset : public Asset
 {
 private:
@@ -31,8 +37,14 @@ private:
 	*/
 	uint32 GetType(char* type);
 public:
+	/**
+	* Default constructor
+	*/
 	TextureAsset();
 
+	/**
+	* Default destructor
+	*/
 	~TextureAsset();
 
 	/**
