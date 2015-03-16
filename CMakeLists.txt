@@ -83,7 +83,7 @@ else()
 	add_custom_command(TARGET testing POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_SOURCE_DIR}/TestProj"
-        "${CMAKE_CURRENT_BINARY_DIR}")
+        $<TARGET_FILE_DIR:testing>)
 endif()
 
 
