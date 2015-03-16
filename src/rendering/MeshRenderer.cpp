@@ -35,7 +35,6 @@ void MeshRenderer::OnStart()
 	//list for on enable and disable
 	RegisterCallback(eOnEnable, DELEGATE(MeshRenderer, OnEnable, this));
 	RegisterCallback(eOnDisable, DELEGATE(MeshRenderer, OnDisable, this));
-	RegisterCallback(eUpdate, DELEGATE(MeshRenderer, Update, this));
 
 	//get references
 	_material = _go->FindComponent<Material>("Material");
@@ -57,10 +56,6 @@ void MeshRenderer::OnDisable()
 		cam->RemoveGameObject(_go);
 }
 
-void MeshRenderer::PreRender(OpenGLRenderer* renderer)
-{
-
-}
 void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 {
 	//if no material - return!
@@ -87,16 +82,4 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 
 	//draw
 	_mesh->DrawElements(_indices);
-}
-void MeshRenderer::PostRender(OpenGLRenderer* renderer)
-{
-
-}
-
-//for testing
-void MeshRenderer::Update()
-{
-	static float rot = 0.0f;
-
-	//_transform->Rotate(glm::radians(rot++), glm::vec3(0, 1, 0));
 }

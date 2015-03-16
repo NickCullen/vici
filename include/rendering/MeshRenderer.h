@@ -7,7 +7,8 @@ class Material;
 #include "IDrawable.h"
 
 /** 
-* Renders a mesh given a material.
+* Renders a mesh using the material
+* that is attached to the same GameObject.
 */
 
 class MeshRenderer : public IDrawable
@@ -23,30 +24,47 @@ private:
 protected:
 
 public:
+	/**
+	* Default constructor
+	*/
 	MeshRenderer();
+
+	/** 
+	* Default destructor
+	*/
 	~MeshRenderer();
 
-	//init
+	/**
+	* Called to load MeshRenderer from xml node
+	* @param node The XmlNode containing the data for this MeshRenderer
+	*/
 	virtual void Init(XmlNode& node);
 
-	//required logic functions
+	/**
+	* Called when object becomes enabled to add
+	* itself to the camera render list
+	*/
 	virtual void OnEnable();
+
+	/**
+	* Called when object becomes disabled to 
+	* remove itself from the cameras render list
+	*/
 	virtual void OnDisable();
 
-	//implementation of SetupCallbacks
+	/**
+	* Called to register for callbacks
+	*/
 	void OnStart();
 
-	//render functions
-	virtual void PreRender(OpenGLRenderer* renderer);
+	/**
+	* Called in the main render cycle to render 
+	* the mesh with the desired material
+	* @param renderer The OpenGLRenderer used to render this mesh
+	*/
 	virtual void OnRender(OpenGLRenderer* renderer);
-	virtual void PostRender(OpenGLRenderer* renderer);
 
-	//register functions
-	static ComponentRegister<MeshRenderer> reg;
-
-
-	//for testing
-	void Update();
+	static ComponentRegister<MeshRenderer> reg; /**< Static member var used to register this component with the ComponentFactory */
 };
 
 #endif
