@@ -36,9 +36,6 @@ if(${VICI_WINDOWS})
 
 	#link up win32 lib dir
 	link_directories("${THIRD_PARTY}/lib/win32")
-
-	#compile platform library for windows
-	#add_subdirectory(win32)
 elseif(${VICI_MAC})
 	message("MAC BUILD")
 	#include the apple frameworks dir
@@ -46,9 +43,6 @@ elseif(${VICI_MAC})
 
 	#link up mac lib dir
 	link_directories("${THIRD_PARTY}/lib/mac")
-
-	#compile platform library for mac
-	#add_subdirectory(mac)
 endif()
 
 #compile engine sources into vlibrary
