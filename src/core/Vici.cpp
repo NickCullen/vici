@@ -12,6 +12,7 @@
 Vici::Vici() : Singleton<Vici>(this)
 {
 	_started = false;
+	strcpy(_cwd, "\0");
 }
 Vici::~Vici()
 {

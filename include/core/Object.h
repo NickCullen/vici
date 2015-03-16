@@ -93,7 +93,7 @@ public:
 
 	/**
 	* virtual method that is called when an Object is destroyed
-	* Any class that inherits from Object must implement this method
+	* Any class that inherits from Object can implement this method
 	*/
 	virtual void OnDestroy(){};
 
