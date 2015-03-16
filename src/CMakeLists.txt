@@ -6,11 +6,11 @@ FILE(GLOB datastructures "datastructures/*.cpp")
 FILE(GLOB assets "assets/*.cpp")
 
 #get module headers
-FILE(GLOB core_h "core/*.h*")
-FILE(GLOB rendering_h "rendering/*.h*")
-FILE(GLOB util_h "util/*.h*")
-FILE(GLOB datastructures_h "datastructures/*.h*")
-FILE(GLOB assets_h "assets/*.h*")
+FILE(GLOB core_h "${VICI_INCLUDES}/core/*.h*")
+FILE(GLOB rendering_h "${VICI_INCLUDES}/rendering/*.h*")
+FILE(GLOB util_h "${VICI_INCLUDES}/util/*.h*")
+FILE(GLOB datastructures_h "${VICI_INCLUDES}/datastructures/*.h*")
+FILE(GLOB assets_h "${VICI_INCLUDES}/assets/*.h*")
 
 #group them so visual studio will organise them
 source_group("Source\\Core" FILES ${core})

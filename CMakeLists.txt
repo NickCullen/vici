@@ -13,21 +13,25 @@ elseif(APPLE)
 	add_definitions(-DVICI_MAC -DVICI_DESKTOP -DVICI_OPENGL)
 endif()
 
-#engine includes
-include_directories("${PROJECT_SOURCE_DIR}/include")
-include_directories("${PROJECT_SOURCE_DIR}/src/core")
-include_directories("${PROJECT_SOURCE_DIR}/src/rendering")
-include_directories("${PROJECT_SOURCE_DIR}/src/util")
-include_directories("${PROJECT_SOURCE_DIR}/src/datastructures")
-include_directories("${PROJECT_SOURCE_DIR}/src/assets")
+#set ThirdParty include path
+set(THIRD_PARTY "${PROJECT_SOURCE_DIR}/ThirdParty")
 
-#compile engine sources into vlibrary
-add_subdirectory(src)
+#add third party includes
+include_directories("${THIRD_PARTY}")
+
+#engine includes
+set(VICI_INCLUDES "${PROJECT_SOURCE_DIR}")
+include_directories("${VICI_INCLUDES}")
+include_directories("${VICI_INCLUDES}/core")
+include_directories("${VICI_INCLUDES}/rendering")
+include_directories("${VICI_INCLUDES}/util")
+include_directories("${VICI_INCLUDES}/datastructures")
+include_directories("${VICI_INCLUDES}/assets")
 
 #win32 build
 if(WIN32)
 	#link up win32 lib dir
-	link_directories("${PROJECT_SOURCE_DIR}/win32/lib")
+	link_directories("${THIRD_PARTY}/win32/lib")
 
 	#compile platform library for windows
 	add_subdirectory(win32)
@@ -36,11 +40,14 @@ elseif(APPLE)
 	include_directories("/System/Library/Frameworks")
 
 	#link up mac lib dir
-	link_directories("${PROJECT_SOURCE_DIR}/mac/lib")
+	link_directories("${THIRD_PARTY}/mac/lib")
 
 	#compile platform library for mac
 	add_subdirectory(mac)
 endif()
+
+#compile engine sources into vlibrary
+add_subdirectory(src)
 
 #if the program should compile into lib 
 if(BUILD_LIB)
