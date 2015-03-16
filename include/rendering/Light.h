@@ -18,7 +18,8 @@ enum LightType
 
 /**
 * Class containing information for lights 
-* In the scene. 
+* In the scene. Responsible for sending light
+* data to the glsl shader
 */
 
 class Light : public IComponent

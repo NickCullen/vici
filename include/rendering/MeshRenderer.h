@@ -7,7 +7,7 @@ class Material;
 #include "IDrawable.h"
 
 /** 
-* Placeholder class for now no comments to follow
+* Renders a mesh given a material.
 */
 
 class MeshRenderer : public IDrawable
@@ -16,8 +16,6 @@ private:
 	Material* _material; /** The material with the shader that will render this mesh */
 
 	MeshAsset* _mesh; /**< containing all the mesh data */
-
-	ShaderAsset* _shader; /**< The shader to render the mesh */
 
 	int32 _indices; /**< id of the index array to use in the mesh */
 

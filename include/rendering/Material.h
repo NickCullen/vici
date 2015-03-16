@@ -23,8 +23,10 @@ struct TextureReference
 };
 
 /** 
-* Material represents how a surface is made up
-* status (new - ongoing)
+* Material class containing a reference to the shader
+* that will render this material and a list of textures
+* to be sent to the shader. Will also get the location
+* of the material properties in the shader
 */
 
 class Material : public IComponent

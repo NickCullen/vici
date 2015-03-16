@@ -9,7 +9,6 @@ MeshRenderer::MeshRenderer()
 	
 	_material = NULL; 
 	_mesh = NULL; 
-	_shader = NULL; 
 	_indices = 0;
 	_recieve_lighting = true;
 }
@@ -40,13 +39,6 @@ void MeshRenderer::OnStart()
 
 	//get references
 	_material = _go->FindComponent<Material>("Material");
-
-	//set shader
-	if (_material)
-	{
-		_shader = _material->GetShader();
-	}
-
 }
 
 //required logic functions
@@ -71,20 +63,27 @@ void MeshRenderer::PreRender(OpenGLRenderer* renderer)
 }
 void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 {
+	//if no material - return!
+	if(!_material) return;
+
+	//dont try rendering with a null shader
+	ShaderAsset* shader = _material->GetShader();
+	if(!shader) return;
+
 	//use shader
-	glUseProgram(_shader->Program());
+	glUseProgram(shader->Program());
 
 	//set uniforms
-	renderer->SetUniforms(_shader);
+	renderer->SetUniforms(shader);
 
 	//if recieving lighting - set uniforms
-	if(_recieve_lighting) renderer->SetLightUniforms(_shader, _transform);
+	if(_recieve_lighting) renderer->SetLightUniforms(shader, _transform);
 
 	//set material uniforms
 	_material->SetUniforms();
 
 	//send vertices to shader
-	_mesh->SetArrays(_shader);
+	_mesh->SetArrays(shader);
 
 	//draw
 	_mesh->DrawElements(_indices);

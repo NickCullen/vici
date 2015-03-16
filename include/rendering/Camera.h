@@ -10,33 +10,25 @@ class OpenGLRenderer;
 * Component used to render a layer in the current scene
 * this component and renderering in general is still new to the engine
 * so not many detailed comments will be made here 
-* status (incomplete - new )
 */
 
 class VCamera : public IComponent
 {
 	friend class OpenGLRenderer;
 private:
-	//the renderer
-	OpenGLRenderer* _renderer;
+	OpenGLRenderer* _renderer; /**< Renderer used to draw the objects this camera will render */
 
-	//clear flags
-	unsigned int _clear_flags;
+	unsigned int _clear_flags; /**< OpenGL clear flags this camera will clear */
 
-	//clear color
-	glm::vec4 _clear_color;
+	glm::vec4 _clear_color; /**< Colour of empty scene */
 
-	//game objects to render
-	TList<GameObject*> _render_list;
+	TList<GameObject*> _render_list; /**< The objects to render */
 	
-	//the projection matrix
-	glm::mat4x4 _projection_mat;
+	glm::mat4x4 _projection_mat;	/**< The projection matrix for this camera */
 
-	//the view matrix
-	glm::mat4x4 _view_mat;
+	glm::mat4x4 _view_mat;	/**< The view matrix for this camera */
 
-	//internal debuggin movement speed
-	float _speed;
+	float _speed; /**< Movement speed (Debugging - temp) */
 	
 public:
 	/** 
@@ -102,8 +94,7 @@ public:
 	
 	static ComponentRegister<VCamera> reg; /**< Static registration member var used to register this component with the ComponentFactory */
 
-	// debug
-	void Update();
+	void Update(); /**< Debug purposes */
 };
 
 
