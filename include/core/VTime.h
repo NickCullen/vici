@@ -4,8 +4,8 @@
 #include "Singleton.h"
 
 /**
-* Static class used to store delta time
-* and keep track of certain time
+* Singleton class used to store delta time
+* and keep track of time
 */
 
 class VTime : public Singleton<VTime>

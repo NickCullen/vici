@@ -45,12 +45,12 @@ private:
 public:
 
 	/**
-	* Unused constructor
+	* Default constructor
 	*/
 	SceneLoader();
 
 	/** 
-	* Unused destructor 
+	* Default destructor 
 	*/
 	virtual ~SceneLoader();
 
