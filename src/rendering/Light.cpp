@@ -107,9 +107,6 @@ void Light::SetUniform(ShaderAsset* shader, int32 index)
 
 bool Light::InRange(Transform* transform)
 {
-	static float d = 0.0f;
-	static float max_reach = 0.0f;
-
 	switch(_type)
 	{
 		case eDirectional:
@@ -145,8 +142,7 @@ void Light::OnDisabled()
 void Light::Update()
 {
 	return;
-	static float rot = 0.0f;
-
+    
 	//forward back
 	if (_Input->KeyDown(GLFW_KEY_O))
 	{

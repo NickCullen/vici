@@ -11,6 +11,9 @@
 #include "Display.h"
 #include "Input.h"
 
+/*Debug + Logging methods*/
+#include "Logger.h"
+
 /*Engine core*/
 #include "Vici.h"
 #include "GameObject.h"

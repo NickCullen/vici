@@ -29,6 +29,7 @@ include_directories("${VICI_INCLUDES}/rendering")
 include_directories("${VICI_INCLUDES}/util")
 include_directories("${VICI_INCLUDES}/datastructures")
 include_directories("${VICI_INCLUDES}/assets")
+include_directories("${VICI_INCLUDES}/debugging")
 
 #win32 build
 if(${VICI_WINDOWS})

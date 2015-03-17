@@ -20,6 +20,7 @@ class VCamera;
 #include "Display.h"
 #include "Input.h"
 #include "VTime.h"
+#include "Logger.h"
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -29,6 +30,7 @@ class VCamera;
 #define _Display Singleton<Display>::Instance()
 #define _Input Singleton<Input>::Instance()
 #define _Time Singleton<VTime>::Instance()
+#define _Logger Singleton<Logger>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -61,6 +63,8 @@ private:
 	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
 
 	VTime _time;	/**< Class representing time - Singleton class accessed via the _Time macro */
+	
+	Logger _logger;	/**< Class used for logging strings in debug model - Singleton class accessed via the _Logger macro */
 	
 	/**
 	* Called to register all components of the engine by setting their static
