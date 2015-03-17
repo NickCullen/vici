@@ -10,7 +10,10 @@ import os
 build_platform = "NotSet"
 
 #build target(-32 -64 -all)
-build_target = "32"
+build_target = "-32"
+
+#optional generator for xml (Unix Makefiles / XCode etc)
+generator = "Unix Makefiles"	
 
 #builds for win32
 def BuildWin32():
@@ -28,6 +31,13 @@ def BuildWin64():
 #builds for mac
 def BuildMac():
 	print("Building for Mac")
+	os.system("rm -rf build/mac && mkdir build/mac")
+	os.system("cd build/mac && cmake ../..")
+	#os.system("cd build/mac && cmake -G \"" + generator + "\" ../..")
+
+	#if it was a make file run make!
+	if generator == "Unix Makefiles":
+		os.system("cd build/mac && make")
 
 def BuildLinux():
 	print("Building for linux")
@@ -52,6 +62,10 @@ if __name__ == '__main__':
 		if(len(sys.argv) >= 3):
 			build_target = sys.argv[2]
 			print("Build Target = " + build_target)
+
+		if(len(sys.argv) >= 4):
+			generator = sys.argv[3]
+			print("generator = " + generator)
 
 	#if we get here that means build_platform has been set and possibly build_target
 	if build_platform == "-windows":
