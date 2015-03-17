@@ -4,21 +4,26 @@
 
 #for input args
 import sys
+import os
 
 #build platform (-windows/-mac/-linux/-android/-ios)
 build_platform = "NotSet"
 
-#build target(-32 -64)
+#build target(-32 -64 -all)
 build_target = "32"
 
 #builds for win32
 def BuildWin32():
 	print("Building for Win32")
-	os.system("rm -rf build && mkdir build/win32 && cd build/win32")
-	
+	#refresh and make new win32 directory
+	os.system("rm -rf build\win32 && mkdir build\win32")
+	os.system("cd build\win32 && cmake -G \"Visual Studio 12 2013\" ..\..")
+
 #builds for win64
 def BuildWin64():
-	print("Building for Win64")
+	#refresh and make new win32 directory
+	os.system("rm -rf build\win64 && mkdir build\win64")
+	os.system("cd build\win64 && cmake -G \"Visual Studio 12 2013 Win64\" ..\..")
 
 #builds for mac
 def BuildMac():
@@ -39,7 +44,7 @@ def BuildIOS():
 if __name__ == '__main__':
 	#need at least 2 args - path and the type of build
 	#type of build can be -windows/-mac/-linux/-android/-ios
-	#third optional arg is target ie. -32 -64
+	#third optional arg is target ie. -32 -64 or -all for both
 	if(len(sys.argv) >= 2):
 		build_platform = sys.argv[1]
 		print("Build Platform = " + build_platform)
@@ -50,7 +55,10 @@ if __name__ == '__main__':
 
 	#if we get here that means build_platform has been set and possibly build_target
 	if build_platform == "-windows":
-		if build_target == "-32":
+		if build_target == "-all":
+			BuildWin32()
+			BuildWin64()
+		elif build_target == "-32":
 			BuildWin32()
 		elif build_target == "-64":
 			BuildWin64()
