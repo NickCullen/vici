@@ -29,7 +29,7 @@ typedef GLFWwindow VWindow; // mac typedefs
 #endif // End Mac specific includes 
 
 // Constants
-#define BUFFER_SIZE 256
+#define BUFF_LEN 512
 
 // Common typedefs 
 typedef int64_t int64;

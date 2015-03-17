@@ -15,12 +15,12 @@ MaterialAsset::~MaterialAsset()
 
 void MaterialAsset::Load(XmlNode& node)
 {
-	char buff[BUFFER_SIZE];
+	char buff[BUFF_LEN];
 	
 	//material path
 	char* path = node.GetString("path");
-	sprintf(buff, "%s/%s", _Vici->GetCwd(), path);
-	strcpy(buff, Platform_Pathify(buff));
+	sprintf(buff, "%s/%s", _Platform->GetCwd(), path);
+	strcpy(buff, _Platform->Pathify(buff));
 
 	//load the material file
 	XmlDocument doc;

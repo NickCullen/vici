@@ -6,20 +6,72 @@
 #endif
 
 #include "PlatformDefinitions.h"
+#include "Singleton.h"
 
-//logs a string to the output method per ssystem
-void Platform_LogString(const char* fmt, ...);
+/**
+* Singleton class containing platform specific functions
+* such as correcting path strings and logging strings
+* Can be accessed by the _Platform-> macro defined in Vici.h
+*/
 
-//gets the current working directory
-char* Platform_Getcwd(char* buff, int len);
+class Platform : public Singleton<Platform>
+{
+private:
+	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
 
-//gets the time in milliseconds
-double Platform_GetTime();
+public:
+	/**
+	* Default constructor
+	*/
+	Platform();
 
-//enters game loop
-void Platform_EnterLoop(class Vici* v);
+	/**
+	* Default destructor
+	*/
+	~Platform();
 
-//makes all the slashes the correct way
-const char* Platform_Pathify(const char* file);
+	/**
+	* Logs a string to the given output
+	* @param fmt Format of string like printf
+	*/
+	void LogString(const char* fmt, ...);
+
+	/**
+	* Returns the time in milliseconds
+	* @return double representing time in milliseconds
+	*/
+	double GetTime();
+
+	/**
+	* Enter the platforms game loop
+	* @param v Pointer to the vici instance
+	*/
+	void EnterLoop(class Vici* v);
+
+	/**
+	* Turns a path in c style string format into a platform
+	* corrent and sensible path (i.e. converts forward slashes
+	* to backslashes on windows machines)
+	* @param file The file path
+	* @return returns the same pointer 
+	*/
+	const char* Pathify(const char* file);
+
+	/**
+	* Returns the current working directory - note that classes calling this function
+	* should not attempt to delete or modify this pointer
+	* @return A char pointer (C String) containing the current working directory
+	*/
+	inline char* GetCwd() { return _cwd; }
+
+	/**
+	* Called before any vici function and set by the programs
+	* main function. Will take the argument argv[0] (the executable
+	* file path and construct it)
+	* @param executable_path The argument argv[0] passed into main
+	* @param trim_end Boolean to set to true to remove the executable name from the end of the executable_path
+	*/
+	void SetCwd(const char* executable_path, bool trim_end = false);
+};
 
 #endif

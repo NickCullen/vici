@@ -41,7 +41,7 @@ private:
 
 	int32 _num_arrays;	/**< Number of index arrays */
 
-	char _file_path[BUFFER_SIZE]; /**< The full path to the mesh file */
+	char _file_path[BUFF_LEN]; /**< The full path to the mesh file */
 
 public:
 	/**

@@ -67,25 +67,28 @@ if __name__ == '__main__':
 			generator = sys.argv[3]
 			print("generator = " + generator)
 
-	#if we get here that means build_platform has been set and possibly build_target
-	if build_platform == "-windows":
-		if build_target == "-all":
-			BuildWin32()
-			BuildWin64()
-		elif build_target == "-32":
-			BuildWin32()
-		elif build_target == "-64":
-			BuildWin64()
-	#build targets dont matter for mac
-	elif build_platform == "-mac":
-		BuildMac()
+		#if we get here that means build_platform has been set and possibly build_target
+		if build_platform == "-windows":
+			if build_target == "-all":
+				BuildWin32()
+				BuildWin64()
+			elif build_target == "-32":
+				BuildWin32()
+			elif build_target == "-64":
+				BuildWin64()
+		#build targets dont matter for mac
+		elif build_platform == "-mac":
+			BuildMac()
 
-	#build targets dont matter for linux either (for now?)
-	elif build_platform == "-linux":
-		BuildLinux()
+		#build targets dont matter for linux either (for now?)
+		elif build_platform == "-linux":
+			BuildLinux()
 
-	elif build_platform == "-android":
-		BuildAndroid()
+		elif build_platform == "-android":
+			BuildAndroid()
 
-	elif build_platform == "-ios":
-		BuildIOS()
+		elif build_platform == "-ios":
+			BuildIOS()
+	#else no platform was specified so lets try and be smart and build
+	#for the given platform
+	#else:

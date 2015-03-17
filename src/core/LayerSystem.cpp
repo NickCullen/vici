@@ -2,7 +2,7 @@
 #include "Xml.h"
 #include <string>
 #include "TextFile.h"
-#include "Platform.h"
+#include "Vici.h"
 
 LayerSystem::LayerSystem() : Singleton<LayerSystem>(this)
 {
@@ -21,7 +21,7 @@ void LayerSystem::Init(const char* cwd)
 	sprintf(buff, "%s\\%s.xml", cwd, "settings\\layers");
 
 	//convert slash to correct os filesytem
-	strcpy(buff,Platform_Pathify(buff));
+	strcpy(buff,_Platform->Pathify(buff));
 
 	XmlDocument doc;
 

@@ -12,7 +12,6 @@
 Vici::Vici() : Singleton<Vici>(this)
 {
 	_started = false;
-	strcpy(_cwd, "\0");
 }
 Vici::~Vici()
 {
@@ -27,19 +26,16 @@ Vici::~Vici()
 //called once when program begins
 void Vici::Init()
 {
-	//set the cwd
-	Platform_Getcwd(_cwd, BUFF_LEN);
-
 	//print cwd
-	Platform_LogString("Running Directory = %s\n", _cwd);
+	_Platform->LogString("Running Directory = %s\n", _Platform->GetCwd());
 	
 	//initialize stuff
-	_Display->Init(_cwd);
+	_Display->Init(_Platform->GetCwd());
     _SceneLoader->Init();
-	_Layers->Init(_cwd);
+	_Layers->Init(_Platform->GetCwd());
 
 	//call some required static methods on classes
-	ShaderAsset::LoadSharedCode(_cwd);
+	ShaderAsset::LoadSharedCode(_Platform->GetCwd());
 
 	/* Register Asset Types */
 	_asset_loader.RegisterAssets();
@@ -78,7 +74,7 @@ void Vici::Begin()
 	}
 	else
 	{
-		Platform_LogString("Cannot begin engine as _started is already set to true\n");
+		_Platform->LogString("Cannot begin engine as _started is already set to true\n");
 	}
 }
 

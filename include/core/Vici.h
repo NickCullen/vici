@@ -1,9 +1,6 @@
 #ifndef VICI_H
 #define VICI_H
 
-/* Length of buffers */
-const int BUFF_LEN = 512;
-
 /* Forward decl */
 class GameObject;
 class VCamera;
@@ -21,6 +18,7 @@ class VCamera;
 #include "Input.h"
 #include "VTime.h"
 #include "Logger.h"
+#include "Platform.h"
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -31,6 +29,7 @@ class VCamera;
 #define _Input Singleton<Input>::Instance()
 #define _Time Singleton<VTime>::Instance()
 #define _Logger Singleton<Logger>::Instance()
+#define _Platform Singleton<Platform>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -50,8 +49,8 @@ private:
 
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
 
-	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
-
+	Platform _platform;	/**< The singleton class for platform functions - access via _Platform-> Macro */
+	
 	AssetLoader _asset_loader; /**< The asset Loader for maintaining assets throughout scenes  - Singleton class accessed via the _Assets macro */
 
 	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
@@ -123,13 +122,6 @@ public:
 	* @param go The game object to remove from list
 	*/
 	void RemoveGameObject(GameObject* go);
-
-	/**
-	* Returns the current working directory - note that classes calling this function
-	* should not attempt to delete or modify this pointer
-	* @return A char pointer (C String) containing the current working directory
-	*/
-	inline char* GetCwd() { return _cwd; }
 
 	/**
 	* Called when application has been put in the background 

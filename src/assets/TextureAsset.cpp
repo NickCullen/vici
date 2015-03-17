@@ -23,9 +23,9 @@ void TextureAsset::Load(XmlNode& node)
 	char* type = node.GetString("type");
 
 	//convert path to releative platform friendly path
-	char buff[BUFFER_SIZE];
-	sprintf(buff, "%s/%s", _Vici->GetCwd(), path);
-	strcpy(buff, Platform_Pathify(buff));
+	char buff[BUFF_LEN];
+	sprintf(buff, "%s/%s", _Platform->GetCwd(), path);
+	strcpy(buff, _Platform->Pathify(buff));
 
 	//load image
 	unsigned char* image = stbi_load(buff, &_width, &_height, &_comp, GetFormat(format));
