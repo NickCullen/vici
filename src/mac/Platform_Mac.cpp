@@ -106,13 +106,11 @@ void Platform::SetCwd(const char* executable_path, bool trim_end)
 		char* end = (char*)&executable_path[back];
 
 		//loop backwards
-		while(*end-- != '/')
+		while(*--end != '/')
 			;
 
 		//set zero-terminator
 		*end = '\0';
-
-		LogString("end = %s", executable_path);
 	}
 
 	//set cwd
