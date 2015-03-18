@@ -4,13 +4,13 @@ It is essential to first install Cmake and optional to install python to use the
 ####Without python 
  - cd Path/To/Vici/Root
  - mkdir build && cd build
- - Windows : cmake -DVICI_TARGET_32:BOOL=true -DVICI_WINDOWS:BOOL=true ..\..
- - Mac : cmake -DVICI_MAC:BOOL=true ..\.. && make
+ - Windows : cmake -DVICI_TARGET_32:BOOL=true -DVICI_WINDOWS:BOOL=true ..
+ - Mac : cmake -DVICI_MAC:BOOL=true .. && make
 
 ####With python
  - cd Path/To/Vici/Root
  - python build.py -h (for arguments to build script)
- - python build.py -p [windows/mac] -t[32/64/all] -b[release/debug] -g [Unix Makefiles/Xcode... (see cmake --help for list of genereators)]
+ - python build.py -p [windows/mac] -t [32/64/all] -b [release/debug] -g [Unix Makefiles/Xcode... (see cmake --help for list of genereators)]
 
 You can also simply run
  - python build.py 
