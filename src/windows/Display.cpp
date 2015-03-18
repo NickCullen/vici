@@ -121,7 +121,7 @@ void Display::Init(char* cwd)
 	}
 	else
 	{
-		Platform->LogString("Could not find display settings xml file!\n");
+		_Platform->LogString("Could not find display settings xml file!\n");
 	}
 }
 

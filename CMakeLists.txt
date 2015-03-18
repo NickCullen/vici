@@ -36,7 +36,14 @@ if(${VICI_WINDOWS})
 	message("WINDOWS BUILD")
 
 	#link up win32 lib dir
+if(${VICI_TARGET_32})
+	message("BUILDING FOR x86")
 	link_directories("${THIRD_PARTY}/lib/win32")
+else(${VICI_TARGET_64})
+	message("BUILDING FOR x64")
+	link_directories("${THIRD_PARTY}/lib/win64")
+endif()
+
 elseif(${VICI_MAC})
 	message("MAC BUILD")
 	#include the apple frameworks dir
@@ -65,11 +72,22 @@ else()
 	#post build commands (copy dlls and their equivilant etc.)
 
 	if(WIN32)
-		#copy contents of win32 bin folder 
+
+		if(${VICI_TARGET_32})
+			#copy contents of win32 bin folder 
 		add_custom_command(TARGET testing POST_BUILD
 		    COMMAND ${CMAKE_COMMAND} -E copy_directory
 		        "${THIRD_PARTY}/bin/win32"
 		        $<TARGET_FILE_DIR:testing>)
+		else(${VICI_TARGET_64})
+			#copy contents of win64 bin folder 
+		add_custom_command(TARGET testing POST_BUILD
+		    COMMAND ${CMAKE_COMMAND} -E copy_directory
+		        "${THIRD_PARTY}/bin/win64"
+		        $<TARGET_FILE_DIR:testing>)
+		endif()
+
+		
 
 	elseif(APPLE)
 		#copy contents of mac bin folder 

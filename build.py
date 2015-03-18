@@ -20,13 +20,13 @@ def BuildWin32():
 	print("Building for Win32")
 	#refresh and make new win32 directory
 	os.system("rm -rf build\win32 && mkdir build\win32")
-	os.system("cd build\win32 && cmake -G \"Visual Studio 12 2013\" ..\..")
+	os.system("cd build\win32 && cmake -DVICI_TARGET_32:BOOL=true -G \"Visual Studio 12 2013\" ..\..")
 
 #builds for win64
 def BuildWin64():
 	#refresh and make new win32 directory
 	os.system("rm -rf build\win64 && mkdir build\win64")
-	os.system("cd build\win64 && cmake -G \"Visual Studio 12 2013 Win64\" ..\..")
+	os.system("cd build\win64 && cmake -DVICI_TARGET_64:BOOL=true -G \"Visual Studio 12 2013 Win64\" ..\..")
 
 #builds for mac
 def BuildMac():
