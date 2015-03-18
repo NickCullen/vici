@@ -10,6 +10,7 @@
 
 class VTime : public Singleton<VTime>
 {
+	friend class Platform;
 private:
 	float _time; /**< The time since the program has started */
 
@@ -34,22 +35,10 @@ public:
 	inline float Time(){ return _time; }
 
 	/**
-	* Setter for time
-	* @param time The new time
-	*/
-	inline void SetTime(float time) { _time = time; }
-
-	/**
 	* Getter for delta time between frames
 	* @return Float representing delta time
 	*/
 	inline float DeltaTime(){ return _delta_time; }
-
-	/**
-	* Setter for delta time
-	* @param dt The new delta time
-	*/
-	inline void SetDeltaTime(float dt) { _delta_time = dt; }
 
 	/**
 	* Getter for time scale (default 1.0f)

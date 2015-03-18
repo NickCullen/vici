@@ -42,7 +42,7 @@ void Display::Init(char* cwd)
 	strcpy(buff, cwd);
 	strcat(buff, "\\settings\\display.xml");
 
-	strcpy(buff,Platform_Pathify(buff));
+	strcpy(buff,_Platform->Pathify(buff));
 	
 	//instantiate doc and load file
 	XmlDocument doc;
@@ -69,7 +69,7 @@ void Display::Init(char* cwd)
 		/* Initialize the library */
 		if (!glfwInit())
 		{
-			Platform_LogString("Cannot init glfw\n");
+			_Platform->LogString("Cannot init glfw\n");
 			return;
 		}
 
@@ -95,7 +95,7 @@ void Display::Init(char* cwd)
 		if (!_window)
 		{
 			glfwTerminate();
-			Platform_LogString("Could not load window\n");
+			_Platform->LogString("Could not load window\n");
 			return;
 		}
 
@@ -109,7 +109,7 @@ void Display::Init(char* cwd)
 
 		//init glew
 		if (glewInit() != GLEW_OK)
-			Platform_LogString("Could not init glew library\n");
+			_Platform->LogString("Could not init glew library\n");
 
 		//get the monitor info
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -121,7 +121,7 @@ void Display::Init(char* cwd)
 	}
 	else
 	{
-		printf("Could not find display settings xml file!\n");
+		Platform->LogString("Could not find display settings xml file!\n");
 	}
 }
 

@@ -6,8 +6,6 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-GLFWwindow* window = NULL;
-
 Platform::Platform() : Singleton<Platform>(this)
 {
 	_cwd[0] = '\0';
@@ -25,7 +23,6 @@ void Platform::LogString(const char* fmt, ...)
   	va_start (args, fmt);
   	vprintf (fmt, args);
   	va_end (args);
-
 }
 
 double Platform::GetTime()
@@ -59,11 +56,11 @@ void Platform::EnterLoop(Vici* v)
 			if (current - last >= fps)
 			{
 				//update time
-				_Time->SetTime(current - start);
-				_Time->SetDeltaTime((current - last) * _Time->TimeScale());
+				_Time->_time = current - start;
+				_Time->_delta_time = (current - last) * _Time->_time_scale;
 
 				//update engine
-				if (_Display->HasFocus())v->Update();
+				if (_Display->HasFocus()) v->Update();
 
 				//render frame
 				v->Render();

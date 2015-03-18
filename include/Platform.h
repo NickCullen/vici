@@ -19,6 +19,12 @@ class Platform : public Singleton<Platform>
 private:
 	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
 
+	/**
+	* Returns the time in milliseconds - not public anymore should use (_Time->GetTime())
+	* @return double representing time in milliseconds
+	*/
+	double GetTime();
+
 public:
 	/**
 	* Default constructor
@@ -35,12 +41,6 @@ public:
 	* @param fmt Format of string like printf
 	*/
 	void LogString(const char* fmt, ...);
-
-	/**
-	* Returns the time in milliseconds
-	* @return double representing time in milliseconds
-	*/
-	double GetTime();
 
 	/**
 	* Enter the platforms game loop

@@ -8,26 +8,32 @@
 #include "VTime.h"
 #include <stdarg.h>
 
-void Platform_LogString(const char* fmt, ...)
+
+Platform::Platform() : Singleton<Platform>(this)
 {
-	/* Write the error message */
+	_cwd[0] = '\0';
+}
+
+Platform::~Platform()
+{
+
+}
+
+void Platform::LogString(const char* fmt, ...)
+{
+	  /* Write the error message */
 	va_list args;
-	va_start(args, fmt);
-	vprintf(fmt, args);
-	va_end(args);
+  	va_start (args, fmt);
+  	vprintf (fmt, args);
+  	va_end (args);
 }
 
-char* Platform_Getcwd(char* buff, int len)
-{
-	return _getcwd(buff, len);
-}
-
-double Platform_GetTime()
+double Platform::GetTime()
 {
 	return glfwGetTime();
 }
 
-void Platform_EnterLoop(Vici* v)
+void Platform::EnterLoop(Vici* v)
 {
 	//for timing
 	float last = 0.0f, start = 0.0f, current = 0.0f;
@@ -36,7 +42,7 @@ void Platform_EnterLoop(Vici* v)
 	float fps = 1.0f / _Display->RefreshRate();
 
 	//cache last and start
-	start = last = (float)Platform_GetTime();
+	start = last = (float)GetTime();
 
 	//get the window
 	VWindow* win = _Display->Window();
@@ -47,24 +53,25 @@ void Platform_EnterLoop(Vici* v)
 		while (!glfwWindowShouldClose(win))
 		{
 			//get the current time
-			current = (float)Platform_GetTime();
+			current = (float)GetTime();
 
 			//loop at target fps
 			if (current - last >= fps)
 			{
 				//update time
-				_Time->SetTime(current - start);
-				_Time->SetDeltaTime((current - last) * _Time->TimeScale());
+				_Time->_time = current - start;
+				_Time->_delta_time = (current - last) * _Time->_time_scale;
 
 				//update engine
 				if (_Display->HasFocus()) v->Update();
 
+				//render frame
 				v->Render();
 
 				/* Swap front and back buffers */
 				glfwSwapBuffers(win);
-		
-				last = (float)Platform_GetTime();
+
+				last = (float)GetTime();
 			}
 			
 			/* Poll for and process events */
@@ -76,11 +83,11 @@ void Platform_EnterLoop(Vici* v)
 	}
 
 
-	_Vici->OnExit();
+	v->OnExit();
 
 }
 
-const char* Platform_Pathify(const char* file)
+const char* Platform::Pathify(const char* file)
 {
 	char* start = (char*)file;
 	while(*start != '\0')
@@ -89,4 +96,23 @@ const char* Platform_Pathify(const char* file)
 		start++;
 	}
 	return file;
+}
+
+void Platform::SetCwd(const char* executable_path, bool trim_end)
+{
+	if(trim_end)
+	{
+		int back = strlen(executable_path);
+		char* end = (char*)&executable_path[back];
+
+		//loop backwards
+		while(*--end != '\\')
+			;
+
+		//set zero-terminator
+		*end = '\0';
+	}
+
+	//set cwd
+	strcpy(_cwd, executable_path);
 }

@@ -9,7 +9,6 @@ int main(int argc, char** argv)
 	//print the path given into the program
 	_Platform->LogString("Main arg[0] = %s\n", argv[0]);
 
-
 	_Platform->SetCwd(argv[0], true);
 
 	v->Init();
