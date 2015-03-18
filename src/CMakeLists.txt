@@ -33,7 +33,7 @@ FILE(GLOB thirdparty_h "${THIRD_PARTY}/*.h*")
 source_group("ThirdParty" FILES ${thirdparty_h})
 
 #determine which platform to compile
-if(${VICI_WINDOWS})
+if(VICI_WINDOWS)
 	#find required libaries
 	find_package(OpenGL REQUIRED)
 
@@ -51,7 +51,7 @@ if(${VICI_WINDOWS})
 
 	#set the extra libs so that they will be compiled
 	set(EXTRA_LIBS_DEBUG vld PARENT_SCOPE)
-elseif(${VICI_MAC})
+elseif(VICI_MAC)
 	#find required libaries
 	find_package(OpenGL REQUIRED)
 

@@ -7,11 +7,9 @@ project(testing)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 #add preprocessor definitions
-if(WIN32)
-	set(VICI_WINDOWS 1)
+if(VICI_WINDOWS)
  	add_definitions(-DVICI_WINDOWS -DVICI_DESKTOP -DVICI_OPENGL -D_CRT_SECURE_NO_WARNINGS)
-elseif(APPLE)
-	set(VICI_MAC 1)
+elseif(VICI_MAC)
 	add_definitions(-DVICI_MAC -DVICI_DESKTOP -DVICI_OPENGL)
 endif()
 
@@ -31,20 +29,20 @@ include_directories("${VICI_INCLUDES}/datastructures")
 include_directories("${VICI_INCLUDES}/assets")
 include_directories("${VICI_INCLUDES}/debugging")
 
-#win32 build
-if(${VICI_WINDOWS})
+#windows build
+if(VICI_WINDOWS)
 	message("WINDOWS BUILD")
 
 	#link up win32 lib dir
-if(${VICI_TARGET_32})
-	message("BUILDING FOR x86")
-	link_directories("${THIRD_PARTY}/lib/win32")
-else(${VICI_TARGET_64})
-	message("BUILDING FOR x64")
-	link_directories("${THIRD_PARTY}/lib/win64")
-endif()
+	if(VICI_TARGET_32)
+		message("BUILDING FOR x86")
+		link_directories("${THIRD_PARTY}/lib/win32")
+	else(VICI_TARGET_64)
+		message("BUILDING FOR x64")
+		link_directories("${THIRD_PARTY}/lib/win64")
+	endif()
 
-elseif(${VICI_MAC})
+elseif(VICI_MAC)
 	message("MAC BUILD")
 	#include the apple frameworks dir
 	include_directories("/System/Library/Frameworks")
@@ -71,15 +69,15 @@ else()
 
 	#post build commands (copy dlls and their equivilant etc.)
 
-	if(WIN32)
+	if(VICI_WINDOWS)
 
-		if(${VICI_TARGET_32})
+		if(VICI_TARGET_32)
 			#copy contents of win32 bin folder 
 		add_custom_command(TARGET testing POST_BUILD
 		    COMMAND ${CMAKE_COMMAND} -E copy_directory
 		        "${THIRD_PARTY}/bin/win32"
 		        $<TARGET_FILE_DIR:testing>)
-		else(${VICI_TARGET_64})
+		else(VICI_TARGET_64)
 			#copy contents of win64 bin folder 
 		add_custom_command(TARGET testing POST_BUILD
 		    COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -89,7 +87,7 @@ else()
 
 		
 
-	elseif(APPLE)
+	elseif(VICI_MAC)
 		#copy contents of mac bin folder 
 		add_custom_command(TARGET testing POST_BUILD
 		    COMMAND ${CMAKE_COMMAND} -E copy_directory
