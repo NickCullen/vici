@@ -1,6 +1,6 @@
 <root>
 	<!-- Shaders -->
-	<asset type="ShaderAsset" id="TangentShader">
+	<!--<asset type="ShaderAsset" id="TangentShader">
 		<vert>Assets/Shaders/Tangents.vert</vert>
 		<frag>Assets/Shaders/Tangents.frag</frag>
 	</asset>
@@ -9,13 +9,19 @@
 		<vert>Assets/Shaders/Binormals.vert</vert>
 		<frag>Assets/Shaders/Binormals.frag</frag>
 	</asset>
-	
-<!--	<asset type="ShaderAsset" id="FlatShader">
-		<vert>Assets/Shaders/Flat.vert</vert>
-		<frag>Assets/Shaders/Flat.frag</frag>
+	-->
+	<asset type="ShaderAsset" id="DiffuseShader">
+		<vert>Assets/Shaders/Diffuse.vert</vert>
+		<frag>Assets/Shaders/Diffuse.frag</frag>
 	</asset>
--->
+
 	<!-- Textures -->
+	<asset type="TextureAsset" id="Barbarian_Texture">
+		<path>Assets/Textures/barbarian_diffuse.png</path>
+		<format>rgb</format>
+		<type>2d</type>
+	</asset>
+
 	<asset type="TextureAsset" id="Stone_Texture">
 		<path>Assets/Textures/Stone.jpg</path>
 		<format>rgb</format>
@@ -26,6 +32,7 @@
 	<asset type="MeshAsset" id="Barbarian_Mesh">
 		<path>Assets/Models/barbarianHead.mesh</path>
 	</asset>
+	
 	
 	<asset type="MeshAsset" id="Sphere_Mesh">
 		<path>Assets/Models/Sphere.mesh</path>

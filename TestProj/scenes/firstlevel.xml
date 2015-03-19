@@ -35,9 +35,9 @@
 			</component>
 		</gameobject>
 
-		<gameobject id="Left_Object" indestructable="false" enabled="true" layer="0">
+		<gameobject id="BarbarianHead" indestructable="false" enabled="true" layer="0">
 			<transform>
-				<position>-1.5 0 -3</position>
+				<position>0 0 -3</position>
 				<rotation>0 0 0</rotation>
 				<scale>1 1 1</scale>
 			</transform>
@@ -45,29 +45,12 @@
 				<mesh>Barbarian_Mesh</mesh>
 			</component>
 			<component type="Material">
-				<shader>TangentShader</shader>
+				<shader>DiffuseShader</shader>
 				<material>Stone_material</material>
-				<texture uniform="uAmbient">Stone_Texture</texture>
-				<texture uniform="uDiffuse">Stone_Texture</texture>
+				<texture uniform="uDiffuse">Barbarian_Texture</texture>
 			</component>
 		</gameobject>
 	
-		<gameobject id="Right_Object" indestructable="false" enabled="true" layer="0">
-			<transform>
-				<position>1.5 0 -3</position>
-				<rotation>0 0 0</rotation>
-				<scale>1 1 1</scale>
-			</transform>
-			<component type="MeshRenderer">
-				<mesh>Barbarian_Mesh</mesh>
-			</component>
-			<component type="Material">
-				<shader>BinormalShader</shader>
-				<material>Stone_material</material>
-				<texture uniform="uAmbient">Stone_Texture</texture>
-				<texture uniform="uDiffuse">Stone_Texture</texture>
-			</component>
-		</gameobject>
 	</objects>
 
 </root>

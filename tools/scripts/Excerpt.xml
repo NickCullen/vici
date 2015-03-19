@@ -11,3 +11,7 @@
 		</component>
 		<component type="Material">
 			<shader>DiffuseShader</shader>
+			<texture uniform="Diffuse">barbarianHead_Diffuse_Texture</texture>
+		</component>
+	</gameobject>
+</gameobject>

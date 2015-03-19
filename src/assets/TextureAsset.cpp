@@ -33,8 +33,14 @@ void TextureAsset::Load(XmlNode& node)
 	//check if image was loaded
 	if (image == NULL)
 	{
-		printf("Could not load texture at %s\n", _id.c_str());
+		_Platform->LogString("Could not load texture at %s\n", _id.c_str());
 		return;
+	}
+	else
+	{
+		#ifdef VICI_DEBUG
+		_Platform->LogString("Loaded image %s : w = %d h = %d components = %d", path, _width, _height, _comp);
+		#endif
 	}
 
 	//set the texture type
@@ -71,10 +77,8 @@ void TextureAsset::Load(XmlNode& node)
 	glTexImage2D(_type, 0, glformat, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, image);
 
 	// Nice trilinear filtering.
-	glTexParameteri(_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	//glGenerateMipmap(_type);
 
 	//bind default texture again
@@ -87,7 +91,6 @@ void TextureAsset::Unload()
 {
 
 }
-
 
 uint32 TextureAsset::GetFormat(char* format)
 {
