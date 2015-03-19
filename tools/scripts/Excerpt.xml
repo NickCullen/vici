@@ -1,5 +1,5 @@
-<gameobject id="Sphere" indestructable="false" enabled="true" layer="0">
-	<gameobject id="Sphere" indestructable="false" enabled="true" layer="0">
+<gameobject id="barbarianHead" indestructable="false" enabled="true" layer="0">
+	<gameobject id="default" indestructable="false" enabled="true" layer="0">
 		<transform>
 			<position>0 0 0</position>
 			<rotation>0 0 0</rotation>
@@ -7,11 +7,7 @@
 		</transform>
 		<component type="MeshRenderer">
 			<indices>0</indices>
-			<mesh>Sphere</mesh>
+			<mesh>default</mesh>
 		</component>
 		<component type="Material">
 			<shader>DiffuseShader</shader>
-			<material>None</material>
-		</component>
-	</gameobject>
-</gameobject>

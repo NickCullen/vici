@@ -23,8 +23,8 @@
 	</asset>
 
 	<!-- Meshes -->
-	<asset type="MeshAsset" id="Monkey_Mesh">
-		<path>Assets/Models/NewMonkey.mesh</path>
+	<asset type="MeshAsset" id="Barbarian_Mesh">
+		<path>Assets/Models/barbarianHead.mesh</path>
 	</asset>
 	
 	<asset type="MeshAsset" id="Sphere_Mesh">

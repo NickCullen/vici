@@ -151,7 +151,7 @@ class Mesh:
 		#material
 		out.write("\t\t<component type=\"Material\">\n")
 		out.write("\t\t\t<shader>DiffuseShader</shader>\n")
-		out.write("\t\t\t<material>" + self.material + "</material>\n")
+		#out.write("\t\t\t<material>" + self.material + "</material>\n")
 
 		#write material textures
 		this_material = materials.GetMaterial(self.material)
