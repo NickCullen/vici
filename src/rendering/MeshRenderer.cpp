@@ -8,7 +8,6 @@ MeshRenderer::MeshRenderer()
 	_hash = "MeshRenderer";
 	
 	_material = NULL; 
-	_mesh = NULL; 
 	_indices = 0;
 	_recieve_lighting = true;
 }

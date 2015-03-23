@@ -17,7 +17,6 @@ struct TextureReference
 	*/
 	TextureReference()
 	{
-		_tex = NULL;
 		_location = -1;
 	}
 };
@@ -71,7 +70,7 @@ public:
 	*/
 	inline AssetPointer<ShaderAsset> GetShader()
 	{
-		return _shader ? _shader->IsLoaded() ? _shader : NULL : NULL;
+		return _shader ? _shader->IsLoaded() ? _shader : AssetPointer<ShaderAsset>(NULL) : AssetPointer<ShaderAsset>(NULL);
 	}
 
 	/**

@@ -35,7 +35,7 @@ AssetPointer<Asset> AssetLoader::GetAsset(std::string id)
 {
 	AssetMap::iterator it = _asset_map.find(id);
 	if (it == _asset_map.end())
-		return NULL;
+		return AssetPointer<Asset>(NULL);
 
 	return it->second;
 }

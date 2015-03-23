@@ -4,7 +4,6 @@
 Material::Material()
 {
 	_hash = "Material";
-	_material_asset = NULL;
 
 	//set defaults
 	_material_ka_location = _material_kd_location = _material_ks_location = _material_ns_location = _material_d_location = _material_illum_location = -1;
