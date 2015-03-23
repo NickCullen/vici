@@ -120,6 +120,9 @@ void Vici::OnExit()
 
 	_objects.Unlock();
 
+	//unload assets
+	_Assets->UnloadAll();
+
 	//cleanup components
 	ComponentFactory::CleanUp();
 	AssetFactory::CleanUp();

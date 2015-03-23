@@ -19,10 +19,10 @@ void Material::Init(XmlNode& node)
 {
 	//get the shader
 	char* shader = node.GetChild("shader").ValueString();
-	_shader = (ShaderAsset*)_Assets->GetAsset(shader);
+	_shader = _Assets->GetAsset<ShaderAsset>(shader);
 
 	//get locations
-	if (_shader != NULL)
+	if (_shader)
 	{
 		_material_ka_location = _shader->UniformLocation("uMaterial.ka");
 		_material_kd_location = _shader->UniformLocation("uMaterial.kd");
@@ -37,7 +37,7 @@ void Material::Init(XmlNode& node)
 	while (!cur_texture.IsNull())
 	{
 		//get the texture
-		TextureAsset* texture = (TextureAsset*)_Assets->GetAsset(cur_texture.ValueString());
+		AssetPointer<TextureAsset> texture = _Assets->GetAsset<TextureAsset>(cur_texture.ValueString());
 
 		//create a texture reference
 		TextureReference ref;
@@ -60,7 +60,7 @@ void Material::Init(XmlNode& node)
 	XmlNode material_node = node.GetChild("material");
 	if (!material_node.IsNull())
 	{
-		_material_asset = (MaterialAsset*)_Assets->GetAsset(material_node.ValueString());
+		_material_asset = _Assets->GetAsset<MaterialAsset>(material_node.ValueString());
 	}
 }
 
@@ -84,7 +84,7 @@ void Material::SetUniforms()
 	}
 
 	//set materials
-	if (_material_asset != NULL)
+	if (_material_asset)
 	{
 		if (_material_ka_location != -1) glUniform4fv(_material_ka_location, 1, glm::value_ptr<float>(_material_asset->_ka));
 		if (_material_kd_location != -1) glUniform4fv(_material_kd_location, 1, glm::value_ptr<float>(_material_asset->_kd));

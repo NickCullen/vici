@@ -16,7 +16,7 @@ class MeshRenderer : public IDrawable
 private:
 	Material* _material; /** The material with the shader that will render this mesh */
 
-	MeshAsset* _mesh; /**< containing all the mesh data */
+	AssetPointer<MeshAsset> _mesh; /**< containing all the mesh data */
 
 	int32 _indices; /**< id of the index array to use in the mesh */
 

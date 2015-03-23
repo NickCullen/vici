@@ -9,7 +9,7 @@
 */
 struct TextureReference
 {
-	TextureAsset* _tex; /**< The texture */
+	AssetPointer<TextureAsset> _tex; /**< The texture */
 	int32 _location; /**< The location of the texture sampler in the shader*/
 
 	/**
@@ -32,11 +32,11 @@ struct TextureReference
 class Material : public IComponent
 {
 private:
-	ShaderAsset* _shader; /**< The shader used to render this material */
+	AssetPointer<ShaderAsset> _shader; /**< The shader used to render this material */
 
 	TList<TextureReference> _textures; /**< List of texture references so we can send them to the shader later */
 
-	MaterialAsset* _material_asset; /**< The asset file containing default material properties */
+	AssetPointer<MaterialAsset> _material_asset; /**< The asset file containing default material properties */
 
 
 	int32 _material_ka_location; /**< Location of material ambience */
@@ -69,9 +69,9 @@ public:
 	* this material
 	* @return Pointer to shader (note can be NULL if shader isnt loaded)
 	*/
-	inline ShaderAsset* GetShader()
+	inline AssetPointer<ShaderAsset> GetShader()
 	{
-		return _shader->IsLoaded() ? _shader : NULL;
+		return _shader ? _shader->IsLoaded() ? _shader : NULL : NULL;
 	}
 
 	/**

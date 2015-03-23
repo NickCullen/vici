@@ -26,7 +26,7 @@ void MeshRenderer::Init(XmlNode& node)
 	_indices = node.GetInt("indices");
 
 	//get the mesh asset
-	_mesh = (MeshAsset*)_Assets->GetAsset(node.GetString("mesh"));
+	_mesh = _Assets->GetAsset<MeshAsset>(node.GetString("mesh"));
 }
 
 //implementation of SetupCallbacks
@@ -62,23 +62,23 @@ void MeshRenderer::OnRender(OpenGLRenderer* renderer)
 	if(!_material) return;
 
 	//dont try rendering with a null shader
-	ShaderAsset* shader = _material->GetShader();
+	AssetPointer<ShaderAsset> shader = _material->GetShader();
 	if(!shader) return;
 
 	//use shader
 	glUseProgram(shader->Program());
 
 	//set uniforms
-	renderer->SetUniforms(shader);
+	renderer->SetUniforms(shader.get());
 
 	//if recieving lighting - set uniforms
-	if(_recieve_lighting) renderer->SetLightUniforms(shader, _transform);
+	if(_recieve_lighting) renderer->SetLightUniforms(shader.get(), _transform);
 
 	//set material uniforms
 	_material->SetUniforms();
 
 	//send vertices to shader
-	_mesh->SetArrays(shader);
+	_mesh->SetArrays(shader.get());
 
 	//draw
 	_mesh->DrawElements(_indices);

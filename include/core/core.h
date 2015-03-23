@@ -31,6 +31,7 @@
 /*Util*/
 #include "TextFile.h"
 #include "Xml.h"
+#include "SmartPtr.h"
 
 /*Renderering*/
 #include "OpenGLRenderer.h"
@@ -42,3 +43,7 @@
 
 /*Data structures*/
 #include "tds.h"
+
+/*Assets*/
+#include "AssetLoader.h"
+#include "Asset.h"

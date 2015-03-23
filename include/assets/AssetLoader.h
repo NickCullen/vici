@@ -2,6 +2,7 @@
 #define V_ASSET_LOADER
 
 /* Includes */
+#include "SmartPtr.h"
 #include "Singleton.h"
 #include <map>
 #include <string>
@@ -11,7 +12,7 @@
 class Asset;
 
 /* definitions */
-typedef std::map<std::string, Asset*> AssetMap;
+typedef std::map<std::string, AssetPointer<Asset> > AssetMap;
 
 /**
 * AssetLoader class instantiated in the Vici class and 
@@ -22,6 +23,8 @@ typedef std::map<std::string, Asset*> AssetMap;
 
 class AssetLoader : public Singleton<AssetLoader>
 {
+	friend class Vici;
+
 private:
 	AssetMap _asset_map; /**< All loaded assets */
 
@@ -47,18 +50,24 @@ public:
 	void RegisterAssets();
 
 	/**
-	* Gets the asset of given id - will incrememnt
-	* assets reference count by one
+	* Gets the asset of given id
 	* @param id The id of the asset
 	* @return The Asset pointer (if found - else NULL)
 	*/
-	Asset* GetAsset(std::string id);
+	AssetPointer<Asset> GetAsset(std::string id);
 
 	/**
-	* Deducts 1 for the given asset
-	* @param asset The asset who we are releasing a reference to
+	* Gets the asset of given id
+	* @param id The id of the asset
+	* @return The Asset pointer (if found - else NULL)
 	*/
-	void ReleaseAsset(Asset* asset);
+	template<typename T>
+	AssetPointer<T> GetAsset(std::string id)
+	{
+		AssetPointer<Asset> asset = GetAsset(id);
+		return std::static_pointer_cast<T>(asset);
+		//return NULL;
+	}
 
 	/**
 	* Called by SceneLoader to load the asset from a node

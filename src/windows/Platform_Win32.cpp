@@ -102,7 +102,7 @@ void Platform::SetCwd(const char* executable_path, bool trim_end)
 {
 	if(trim_end)
 	{
-		int back = strlen(executable_path);
+		size_t back = strlen(executable_path);
 		char* end = (char*)&executable_path[back];
 
 		//loop backwards

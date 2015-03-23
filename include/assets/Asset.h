@@ -15,7 +15,6 @@ class Asset
 {
 	friend class AssetLoader;
 private:
-	int16 _reference_count;	/**< Number of components that reference this asset */
 
 protected:
 	std::string _id; /**< The id of the asset - Used to retrieve asset from the asset database*/

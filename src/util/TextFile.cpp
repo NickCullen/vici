@@ -22,7 +22,7 @@ TextFile::TextFile(const char* path)
 		_text = new char[size + 1];
 
 		//read it all in one operation
-		int read_size = fread(_text, sizeof(char), size, f);
+		size_t read_size = fread(_text, sizeof(char), size, f);
 		//fread doesnt set it so put a \0 in the last position
 		//and buffer is now officialy a string
 		_text[size] = '\0';

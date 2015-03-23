@@ -69,12 +69,16 @@ void ShaderAsset::Load(XmlNode& node)
 	char *vv = NULL;
 	char *ff = NULL;
 
+	//flags to check to see if we need to manage deleteion of vv or ff
+	bool delete_vv = false;
+	bool delete_ff = false;
+
 	//check if vertex shader requires common code
 	char* vertex_common = strstr((char*)vs, "#include common");
 	if (vertex_common != NULL)
 	{
 		//number of characters to copy before splitting code
-		int pre_text_size = vertex_common - (char*)vs;
+		int32 pre_text_size = (int32)(vertex_common - (char*)vs);
 
 		//cycle until new line
 		while (*vertex_common != '\n')
@@ -91,6 +95,9 @@ void ShaderAsset::Load(XmlNode& node)
 		ff[pre_text_size] = '\0';
 		strcat(vv, _common_code);
 		strcat(vv, vertex_common);
+
+		//set to true
+		delete_vv = true;
 	}
 	else
 	{
@@ -102,7 +109,7 @@ void ShaderAsset::Load(XmlNode& node)
 	if (frag_common != NULL)
 	{
 		//number of characters to copy before splitting code
-		int pre_text_size = frag_common - (char*)fs;
+		int32 pre_text_size = (int32)(frag_common - (char*)fs);
 
 		//cycle until new line
 		while (*frag_common != '\n')
@@ -120,13 +127,15 @@ void ShaderAsset::Load(XmlNode& node)
 		strcat(ff, _common_code);
 		strcat(ff, frag_common);
 
+		//set to true
+		delete_ff = true;
 	}
 	else
 	{
 		ff = fs;
 	}
 
-
+	//set shader source
 	glShaderSource(_v, 1, &vv, NULL);
 	glShaderSource(_f, 1, &ff, NULL);
 
@@ -136,6 +145,7 @@ void ShaderAsset::Load(XmlNode& node)
 	glCompileShader(_f);
 	DebugShader(_f, GL_COMPILE_STATUS);
 
+	//create program and attach shaders
 	_program = glCreateProgram();
 	glAttachShader(_program, _v);
 	glAttachShader(_program, _f);
@@ -143,12 +153,18 @@ void ShaderAsset::Load(XmlNode& node)
 	//link the shaders to program and check for error
 	glLinkProgram(_program);
 
+	//print any errors
 	DebugProgram(_program, GL_LINK_STATUS);
 
 	//get the locations
 	_COMMON_SHADER_LOCATIONS(_GEN_LOCATIONS)
 
+	//set true
 	_is_loaded = true;
+
+	//free up if needed
+	if (delete_vv) delete(vv);
+	if (delete_ff) delete(ff);
 }
 
 
