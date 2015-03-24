@@ -4,9 +4,10 @@
 #include "Thread.h"
 
 
-void* MyThreadFunc(void* args)
+THREAD_RETURN FUNCTION_CALL MyThreadFunc(THREAD_ARG args)
 {
 	_Platform->LogString("In MyThreadFunc\n");
+	return -1;
 }
 
 void Tests()
@@ -15,7 +16,6 @@ void Tests()
 
 	thread.Start(&MyThreadFunc, NULL);
 
-	thread.Stop();
 }
 
 

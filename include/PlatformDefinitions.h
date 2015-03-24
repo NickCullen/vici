@@ -16,7 +16,9 @@
 #endif
 
 typedef GLFWwindow VWindow; // Windows typedefs
-
+typedef HANDLE PlatformThreadType;
+typedef HANDLE PlatformMutexType;
+typedef DWORD ThreadID;
 #endif // End Windows specific includes
 
 #ifdef VICI_MAC // Mac specific includes 
@@ -28,6 +30,7 @@ typedef GLFWwindow VWindow; // Windows typedefs
 typedef GLFWwindow VWindow; // mac typedefs
 typedef pthread_t PlatformThreadType;
 typedef pthread_mutex_t PlatformMutexType;
+typedef int ThreadID;
 
 #endif // End Mac specific includes 
 
