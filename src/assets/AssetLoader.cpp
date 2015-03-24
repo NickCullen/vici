@@ -45,7 +45,6 @@ void AssetLoader::LoadAsset(XmlNode& node)
 	char* type = node.GetAttributeString("type");
 	char* id = node.GetAttributeString("id");
 
-	_Platform->LogString("Loading asset (%s) id: %s\n", type, id);
 	//dont load if any params are NULL
 	if (id == NULL || type == NULL)
 	{

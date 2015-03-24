@@ -11,7 +11,7 @@ TextureAsset::TextureAsset()
 
 TextureAsset::~TextureAsset()
 {
-
+	
 }
 
 void TextureAsset::Load(XmlNode& node)

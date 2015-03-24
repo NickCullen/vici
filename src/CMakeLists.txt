@@ -70,7 +70,7 @@ elseif(VICI_MAC)
 	FILE(GLOB platform_sources "mac/*.cpp")
 
 	#set the extra libs so that they will be compiled
-	set(EXTRA_LIBS ${COCOA_LIB} ${IOKIT_LIB} ${COREVIDEO_LIB} ${OPENGL_LIBRARIES} glfw3 PARENT_SCOPE)
+	set(EXTRA_LIBS ${COCOA_LIB} ${IOKIT_LIB} ${COREVIDEO_LIB} ${OPENGL_LIBRARIES} glfw3 pthread PARENT_SCOPE)
 endif()
 
 #compile engine sources

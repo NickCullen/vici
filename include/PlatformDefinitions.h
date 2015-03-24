@@ -23,8 +23,11 @@ typedef GLFWwindow VWindow; // Windows typedefs
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
+#include <pthread.h>
 
 typedef GLFWwindow VWindow; // mac typedefs
+typedef pthread_t PlatformThreadType;
+typedef pthread_mutex_t PlatformMutexType;
 
 #endif // End Mac specific includes 
 
