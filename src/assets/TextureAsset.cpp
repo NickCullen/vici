@@ -36,12 +36,6 @@ void TextureAsset::Load(XmlNode& node)
 		_Platform->LogString("Could not load texture at %s\n", _id.c_str());
 		return;
 	}
-	else
-	{
-		#ifdef VICI_DEBUG
-		_Platform->LogString("Loaded image %s : w = %d h = %d components = %d", path, _width, _height, _comp);
-		#endif
-	}
 
 	//set the texture type
 	_type = GetType(type);

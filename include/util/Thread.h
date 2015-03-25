@@ -40,7 +40,20 @@ public:
 	/**
 	* Waits for the thread to stop executing
 	* either by exitting or being cancelled
-	* @param void**
+	* @param ret pointer to the Return value of thread
+	*/
+	void WaitToEnd(void** ret);
+
+	/**
+	* Cancels the thread
+	*/
+	void Cancel();
+
+	/**
+	* Marks the thread for deletion
+	*/
+	void MarkForDeletion();
+	
 	/**
 	* Lock the mutex
 	*/
@@ -51,7 +64,12 @@ public:
 	*/
 	void UnlockMutex();
 
-
+	/**
+	* Overrides the == operator to check if threads are the same
+	* @param rhs The right hand side parameter of ==
+	* @return bool True if equal
+	*/
+	bool operator==(const VThread& rhs);
 };
 
 

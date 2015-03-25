@@ -6,6 +6,8 @@
 
 void* MyThreadFunc(void* args)
 {
+	for(int i = 0; i < 23242352352; i++)
+		;
 	_Platform->LogString("In MyThreadFunc\n");
 }
 
@@ -15,7 +17,7 @@ void Tests()
 
 	thread.Start(&MyThreadFunc, NULL);
 
-	thread.Stop();
+	//thread.Cancel();
 }
 
 
