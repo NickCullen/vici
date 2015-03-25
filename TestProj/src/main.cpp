@@ -4,10 +4,11 @@
 #include "Thread.h"
 
 
-THREAD_RETURN FUNCTION_CALL MyThreadFunc(THREAD_ARG args)
+void* MyThreadFunc(void* args)
 {
 	_Platform->LogString("In MyThreadFunc\n");
-	return -1;
+
+	return NULL;
 }
 
 void Tests()

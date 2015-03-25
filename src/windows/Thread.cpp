@@ -11,18 +11,17 @@ VThread::~VThread()
 {
 }
 
-void VThread::Start(THREAD_RETURN(FUNCTION_CALL*start_routine) (THREAD_ARG), THREAD_ARG arg)
+void VThread::Start(void * (*start_routine) (void *), void* arg)
 {
-	_thread = CreateThread(NULL, NULL, start_routine,arg, NULL,&_id);
-
+	_id = pthread_create(&_thread, NULL, start_routine, arg);
 }
 
 void VThread::LockMutex()
 {
-	//pthread_mutex_lock(&_mutex);
+	pthread_mutex_lock(&_mutex);
 }
 
 void VThread::UnlockMutex()
 {
-	//pthread_mutex_unlock(&_mutex);
+	pthread_mutex_unlock(&_mutex);
 }

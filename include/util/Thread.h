@@ -3,16 +3,6 @@
 
 #include "PlatformDefinitions.h"
 
-#ifdef VICI_WINDOWS
-#define THREAD_RETURN DWORD 
-#define THREAD_ARG LPVOID
-#define FUNCTION_CALL WINAPI
-#else
-#define THREAD_RETURN void*
-#define THREAD_ARG void*
-#define FUNCTION_CALL
-#endif
-
 /**
 * Class responsible for creating, running and stopping threads
 * acts as a wrapper around the actual underlying OS threading
@@ -45,7 +35,7 @@ public:
 	* @param arg void* arguments to the thread
 	* @return Integer representing the return value of the thread
 	*/
-	void Start(THREAD_RETURN(FUNCTION_CALL *start_routine) (THREAD_ARG), THREAD_ARG arg);
+	void Start(void*(*start_routine) (void*), void* arg);
 
 	/**
 	* Waits for the thread to stop executing

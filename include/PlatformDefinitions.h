@@ -10,15 +10,16 @@
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
+#include "pthread\pthread.h"
 
 #ifdef VICI_DEBUG // Windows Debug includes
 #include "vld.h"
 #endif
 
 typedef GLFWwindow VWindow; // Windows typedefs
-typedef HANDLE PlatformThreadType;
-typedef HANDLE PlatformMutexType;
-typedef DWORD ThreadID;
+typedef pthread_t PlatformThreadType;
+typedef pthread_mutex_t PlatformMutexType;
+typedef int ThreadID;
 #endif // End Windows specific includes
 
 #ifdef VICI_MAC // Mac specific includes 
