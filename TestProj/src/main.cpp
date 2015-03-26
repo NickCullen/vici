@@ -2,19 +2,12 @@
 #include "Vici.h"
 #include "Platform.h"
 #include "Thread.h"
-
-void Tests()
-{
-	
-}
-
+#include "TestProj.h"
 
 int main(int argc, char** argv)
 {
 	Vici* v = new Vici();
-
-	//execute tests
-	Tests();
+	TestProj* proj = new TestProj();
 
 	//print the path given into the program
 	_Platform->LogString("Main arg[0] = %s\n", argv[0]);

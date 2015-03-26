@@ -10,16 +10,20 @@
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
+#include "pthread\pthread.h"
 
 #ifdef VICI_DEBUG // Windows Debug includes
 #include "vld.h"
 #endif
 
 typedef GLFWwindow VWindow; // Windows typedefs
-
+typedef pthread_t PlatformThreadType;
+typedef pthread_mutex_t PlatformMutexType;
+typedef int ThreadID;
 #endif // End Windows specific includes
 
 #ifdef VICI_MAC // Mac specific includes 
+
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
@@ -28,6 +32,7 @@ typedef GLFWwindow VWindow; // Windows typedefs
 typedef GLFWwindow VWindow; // mac typedefs
 typedef pthread_t PlatformThreadType;
 typedef pthread_mutex_t PlatformMutexType;
+typedef int ThreadID;
 
 #endif // End Mac specific includes 
 
@@ -44,10 +49,3 @@ typedef uint32_t uint32;
 typedef uint16_t uint16;
 typedef uint8_t uint8;
 
-// OpenGL Typedefs 
-#ifdef VICI_OPENGL
-#define VICI_COLOR_BUFFER_BIT GL_COLOR_BUFFER_BIT
-#define VICI_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
-#define VICI_ACCUM_BUFFER_BIT GL_ACCUM_BUFFER_BIT
-#define VICI_STENCIL_BUFFER_BIT GL_STENCIL_BUFFER_BIT
-#endif

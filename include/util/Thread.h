@@ -16,7 +16,7 @@ private:
 
 	PlatformMutexType _mutex;	/**> Mutex associated with this thread */
 
-	int _id;	/**< Thread id - set when thread is created */
+	ThreadID _id;	/**< Thread id - set when thread is created */
 public:
 
 	/**
@@ -35,7 +35,7 @@ public:
 	* @param arg void* arguments to the thread
 	* @return Integer representing the return value of the thread
 	*/
-	void Start(void * (*start_routine) (void *), void* arg);
+	void Start(void*(*start_routine) (void*), void* arg);
 
 	/**
 	* Waits for the thread to stop executing

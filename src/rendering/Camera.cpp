@@ -24,10 +24,10 @@ void VCamera::Init(XmlNode& node)
 	IComponent::Init(node);
 
 	//get and set the clear flags
-	_clear_flags = node.GetChild("clear_color_buffer").ValueBool() ? VICI_COLOR_BUFFER_BIT : 0;
-	_clear_flags |= node.GetChild("clear_depth_buffer").ValueBool() ? VICI_DEPTH_BUFFER_BIT : 0;
-	_clear_flags |= node.GetChild("clear_accum_buffer").ValueBool() ? VICI_ACCUM_BUFFER_BIT : 0;
-	_clear_flags |= node.GetChild("clear_stencil_buffer").ValueBool() ? VICI_STENCIL_BUFFER_BIT : 0;
+	_clear_flags = node.GetChild("clear_color_buffer").ValueBool() ? GL_COLOR_BUFFER_BIT : 0;
+	_clear_flags |= node.GetChild("clear_depth_buffer").ValueBool() ? GL_DEPTH_BUFFER_BIT : 0;
+	_clear_flags |= node.GetChild("clear_accum_buffer").ValueBool() ? GL_ACCUM_BUFFER_BIT : 0;
+	_clear_flags |= node.GetChild("clear_stencil_buffer").ValueBool() ? GL_STENCIL_BUFFER_BIT : 0;
 
 	//setup all the layers this camera will render
 	XmlNode layer = node.GetChild("renderlayers").FirstChild();

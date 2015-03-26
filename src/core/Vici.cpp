@@ -37,11 +37,17 @@ void Vici::Init()
 	//call some required static methods on classes
 	ShaderAsset::LoadSharedCode(_Platform->GetCwd());
 
-	/* Register Asset Types */
+	//Register Vici Asset Types
 	_asset_loader.RegisterAssets();
 
-	/*register components*/
+	//register Vici components
 	RegisterComponents();
+
+	//Register Project specific assets
+	_Project->RegisterAssetImporters();
+
+	//Register project specific components
+	_Project->RegisterComponents();
 }
 
 //starts the game

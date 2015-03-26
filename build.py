@@ -90,17 +90,17 @@ if __name__ == '__main__':
 	try:
 		opts, args = getopt.getopt(arg_list,"hp:t:b:g:",["platform=","target=","build=","generator="])
 	except getopt.GetoptError:
-		print "test.py -p [windows/mac/linux/android/ios] -t [32/64] -b [Release/Debug] -g [Xcode/Unix Makefiles etc. etc.]"
+		print ("test.py -p [windows/mac/linux/android/ios] -t [32/64] -b [Release/Debug] -g [Xcode/Unix Makefiles etc. etc.]")
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt == '-h':
-			print "test.py -p [windows/mac/linux/android/ios] -t [32/64/all] -b [Release/Debug] -g [Xcode/Unix Makefiles etc. etc.]"
-	 		sys.exit()
+			print ("test.py -p [windows/mac/linux/android/ios] -t [32/64/all] -b [Release/Debug] -g [Xcode/Unix Makefiles etc. etc.]")
+			sys.exit()
 		elif opt in ("-p", "--platform"):
 	 		build_platform = arg
 		elif opt in ("-t", "--target"):
 	 		build_target = arg
- 		elif opt in ("-b", "--build"):
+		elif opt in ("-b", "--build"):
  			build_type = arg
 		elif opt in ("-g", "--generator"):
 			generator = arg

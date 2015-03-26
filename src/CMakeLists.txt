@@ -47,7 +47,7 @@ if(VICI_WINDOWS)
 	FILE(GLOB platform_sources "windows/*.cpp")
 
 	#set the extra libs so that they will be compiled
-	set(EXTRA_LIBS glfw3 glew32 ${OPENGL_LIBRARIES} PARENT_SCOPE)
+	set(EXTRA_LIBS glfw3 glew32 pthreadVC2 ${OPENGL_LIBRARIES} PARENT_SCOPE)
 
 	#set the extra libs so that they will be compiled
 	set(EXTRA_LIBS_DEBUG vld PARENT_SCOPE)
