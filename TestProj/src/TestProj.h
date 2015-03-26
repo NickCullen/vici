@@ -12,9 +12,9 @@ public:
 
 	~TestProj();
 
-	void Project_RegisterAssetImporters();
+	void RegisterAssetImporters();
 
-	void Project_RegisterComponents();
+	void RegisterComponents();
 };
 
 #endif

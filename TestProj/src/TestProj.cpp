@@ -11,12 +11,12 @@ TestProj::~TestProj()
 	_Platform->LogString("TestProj destructor\n");
 }
 
-void TestProj::Project_RegisterAssetImporters()
+void TestProj::RegisterAssetImporters()
 {
 	_Platform->LogString("TestProj register asset importers\n");
 }
 
-void TestProj::Project_RegisterComponents()
+void TestProj::RegisterComponents()
 {
 	_Platform->LogString("TestProj register components\n");
 }

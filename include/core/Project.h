@@ -13,19 +13,6 @@
 
 class Project : public Singleton<Project>
 {
-private:
-
-	/**
-	* Instance implementation of register component function
-	*/
-	virtual void Project_RegisterComponents() = 0;
-
-	/**
-	* Instance implementation of register asset importers
-	*/
-	virtual void Project_RegisterAssetImporters() = 0;
-
-protected:
 
 public:
 	
@@ -40,22 +27,14 @@ public:
 	virtual ~Project();
 
 	/**
-	* Static method to call the project implementation method
-	* for registering components
+	* Instance implementation of register component function
 	*/
-	inline static void RegisterComponents()
-	{ 
-		Instance()->Project_RegisterComponents(); 
-	}
+	virtual void RegisterComponents() = 0;
 
 	/**
-	* Static method to call the project implementation method
-	* for registering asset importers
+	* Instance implementation of register asset importers
 	*/
-	inline static void RegisterAssetImporters()
-	{
-		Instance()->Project_RegisterAssetImporters();
-	}
+	virtual void RegisterAssetImporters() = 0;
 };
 
 #endif
