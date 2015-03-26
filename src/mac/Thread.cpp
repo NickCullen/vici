@@ -4,13 +4,11 @@
 VThread::VThread()
 {
 	int created = pthread_mutex_init(&_mutex, NULL);
-	_Platform->LogString("Created = %d\n", created);
 }
 
 
 VThread::~VThread()
 {
-	_Platform->LogString("Being deleted\n");
 	MarkForDeletion();
 }
 

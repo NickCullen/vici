@@ -3,21 +3,9 @@
 #include "Platform.h"
 #include "Thread.h"
 
-
-void* MyThreadFunc(void* args)
-{
-	for(int i = 0; i < 23242352352; i++)
-		;
-	_Platform->LogString("In MyThreadFunc\n");
-}
-
 void Tests()
 {
-	VThread thread;
-
-	thread.Start(&MyThreadFunc, NULL);
-
-	//thread.Cancel();
+	
 }
 
 

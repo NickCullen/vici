@@ -1,6 +1,7 @@
 #include "SceneLoader.h"
 #include "core.h"
 #include <iterator>
+#include "Thread.h"
 
 SceneLoader::SceneLoader() : Singleton<SceneLoader>(this)
 {
@@ -75,58 +76,84 @@ void SceneLoader::UnloadCurrentScene()
 	}*/
 }
 
+/**
+* Static thread function to load assets
+*/
+void* SceneLoader::LoadAssets(void* args)
+{
+	//get index from args
+	int index = *(int*)args;
+
+	//load assets
+	XmlDocument doc;
+
+	if (doc.Load(_SceneLoader->_scenes[index]._scene_assets))
+	{
+		XmlNode root = doc.Root();
+
+		XmlNode cur = root.GetChild("asset");
+		while (!cur.IsNull())
+		{
+			//load the current asset
+			_Assets->LoadAsset(cur);
+
+			//get the next asset
+			cur = cur.NextSibling();
+		}
+	}
+}
+
+/**
+* Static thread function to load game objects
+*/
+void* SceneLoader::LoadObjects(void* args)
+{
+	//get index from args
+	int index = *(int*)args;
+
+	//load file
+	XmlDocument doc;
+
+	if (doc.Load(_SceneLoader->_scenes[index]._scene_file))
+	{
+		XmlNode root = doc.Root();
+
+		//unload current game objects
+		_SceneLoader->UnloadCurrentScene();
+
+		//load game objects
+		XmlNode cur = root.GetChild("objects").GetChild("gameobject");
+		while (!cur.IsNull())
+		{
+			//instantiate and init GO
+			GameObject* go = new GameObject();
+			go->Init(NULL, cur);
+
+			//add to scene list
+			_Vici->AddGameObject(go);
+
+			cur = cur.NextSibling();
+		}
+
+		_SceneLoader->_current_level = index;
+	}
+}
+
 void SceneLoader::LoadScene(unsigned int index)
 {
 	if (index < _scenes.size())
 	{
-		//load assets
-		XmlDocument asset_doc;
-		bool assets_loaded = false;
+		//create our thread objects
+		VThread asset_loading_thread;
+		VThread object_loading_thread;
 
-		if (asset_doc.Load(_scenes[index]._scene_assets))
-		{
-			XmlNode root = asset_doc.Root();
+		//start threads passing in the index
+		asset_loading_thread.Start(&SceneLoader::LoadAssets, (void*)&index);
+		object_loading_thread.Start(&SceneLoader::LoadObjects, (void*)&index);
 
-			XmlNode cur = root.GetChild("asset");
-			while (!cur.IsNull())
-			{
-				//load the current asset
-				_Assets->LoadAsset(cur);
-
-				//get the next asset
-				cur = cur.NextSibling();
-			}
-
-			//set true
-			assets_loaded = true;
-		}
-
-		//load file
-		XmlDocument doc;
-
-		if (assets_loaded && doc.Load(_scenes[index]._scene_file))
-		{
-			XmlNode root = doc.Root();
-
-			//unload current game objects
-			UnloadCurrentScene();
-
-			//load game objects
-			XmlNode cur = root.GetChild("objects").GetChild("gameobject");
-			while (!cur.IsNull())
-			{
-				//instantiate and init GO
-				GameObject* go = new GameObject();
-				go->Init(NULL, cur);
-
-				//add to scene list
-				_Vici->AddGameObject(go);
-
-				cur = cur.NextSibling();
-			}
-
-			_current_level = index;
-		}
+		//wait for both to end before anything
+		asset_loading_thread.WaitToEnd(NULL);
+		object_loading_thread.WaitToEnd(NULL);
 	}
 }
 void SceneLoader::LoadScene(char* scene)

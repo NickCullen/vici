@@ -42,6 +42,16 @@ private:
 	* upon transitioning to the new scene
 	*/
 	void UnloadCurrentScene();
+
+	/**
+	* Static thread function to load assets
+	*/
+	static void* LoadAssets(void* args);
+
+	/**
+	* Static thread function to load game objects
+	*/
+	static void* LoadObjects(void* args);
 public:
 
 	/**
