@@ -19,6 +19,7 @@ class VCamera;
 #include "VTime.h"
 #include "Logger.h"
 #include "Platform.h"
+#include "Project.h"
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -30,6 +31,7 @@ class VCamera;
 #define _Time Singleton<VTime>::Instance()
 #define _Logger Singleton<Logger>::Instance()
 #define _Platform Singleton<Platform>::Instance()
+#define _Project Singleton<Project>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
