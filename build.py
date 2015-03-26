@@ -8,6 +8,9 @@ import os
 import platform
 import glob
 
+#location of vici instal dir
+home = "NotSet"
+
 #build platform (windows/mac/linux/android/ios)
 build_platform = "NotSet"
 
@@ -79,6 +82,9 @@ def BuildIOS():
 #main function
 if __name__ == '__main__':
 
+	#set vici home
+	home = os.path.dirname(os.path.realpath(__file__))
+
 	#make sure build directory exists
 	if not os.path.isdir("build"):
 		os.system("mkdir build")
@@ -139,6 +145,13 @@ if __name__ == '__main__':
 			BuildMac()
 		#windows
 		elif platform.system() == "Windows":
+			#make sure VICI_HOME is set
+			if os.environ.get('VICI_HOME', 'NotSet') == "NotSet":
+				os.system("setx -m VICI_HOME " + home)
+				print("VICI_HOME Did not exist!")
+			else:
+				print("VICI_HOME exists! = " + str(os.environ.get('VICI_HOME', 'NotSet')))
+
 			BuildWin32()
 			BuildWin64()
 		elif platform.system() == "Linux":
