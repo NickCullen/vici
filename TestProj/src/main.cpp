@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	_Platform->EnterLoop(v);
 
 	delete(v);
-
+	delete(proj);
 
 	return 0;
 }

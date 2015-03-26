@@ -10,7 +10,7 @@
 #include "GLFW/glfw3.h"
 #include <stdint.h>
 #include <assert.h>
-#include "pthread\pthread.h"
+#include "pthread\include\pthread.h"
 
 #ifdef VICI_DEBUG // Windows Debug includes
 #include "vld.h"
