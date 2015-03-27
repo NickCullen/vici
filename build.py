@@ -82,8 +82,13 @@ def BuildIOS():
 #main function
 if __name__ == '__main__':
 
-	#set vici home
-	home = os.path.dirname(os.path.realpath(__file__))
+	home = os.environ.get('VICI_HOME', 'NotSet')
+
+	if home == "NotSet":
+		print("VICI_HOME has not been set! Please run setup.bat (windows) or setup.sh (Mac/Linux)")
+		sys.exit()
+	else:
+		print("VICI_HOME = " + home)
 
 	#make sure build directory exists
 	if not os.path.isdir("build"):
@@ -145,13 +150,6 @@ if __name__ == '__main__':
 			BuildMac()
 		#windows
 		elif platform.system() == "Windows":
-			#make sure VICI_HOME is set
-			if os.environ.get('VICI_HOME', 'NotSet') == "NotSet":
-				os.system("setx -m VICI_HOME " + home)
-				print("VICI_HOME Did not exist!")
-			else:
-				print("VICI_HOME exists! = " + str(os.environ.get('VICI_HOME', 'NotSet')))
-
 			BuildWin32()
 			BuildWin64()
 		elif platform.system() == "Linux":
