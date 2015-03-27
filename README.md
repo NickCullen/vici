@@ -5,7 +5,7 @@ First run the following setup script in the vici home directory
  - setup.bat (Windows)
  - setup.sh (Mac/Linux)
 
-This will setup the required environment variable 'VICI_HOME' which will point to the root directory of the vici root directory. Note if you move the Vici directory - please run this script again! It is required for the engine tools.
+This will setup the required environment variable 'VICI_HOME' which will point to the root directory of the engine. Note if you move the Vici directory - please run this script again! It is required for the engine tools.
 
 ####Without python 
  - cd Path/To/Vici/Root
