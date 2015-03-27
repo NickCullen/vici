@@ -68,13 +68,13 @@ if(VICI_WINDOWS)
 	message("WINDOWS BUILD")
 
 	#link up win32 lib dir
-	if(VICI_TARGET_32)
-		message("BUILDING FOR x86")
-		link_directories("${THIRD_PARTY}/lib/win32")
-	else(VICI_TARGET_64)
+	if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
 		message("BUILDING FOR x64")
 		link_directories("${THIRD_PARTY}/lib/win64")
-	endif()
+	else("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
+		message("BUILDING FOR x86")
+		link_directories("${THIRD_PARTY}/lib/win32")
+	endif("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
 
 	#find required libaries
 	find_package(OpenGL REQUIRED)
