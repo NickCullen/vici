@@ -85,7 +85,7 @@ if __name__ == '__main__':
 	home = os.environ.get('VICI_HOME', 'NotSet')
 
 	if home == "NotSet":
-		print("VICI_HOME has not been set! Please run setup.bat (windows) or setup.sh (Mac/Linux)")
+		print("VICI_HOME has not been set! Please run setup.bat (windows as admin) or setup.sh (Mac/Linux)")
 		sys.exit()
 	else:
 		print("VICI_HOME = " + home)

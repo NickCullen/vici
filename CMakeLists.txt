@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
-project(testing)
+project(Vici)
 
 # Turn on the ability to create folders to organize projects (.vcproj)
 # It creates "CMakePredefinedTargets" folder by default and adds CMake
@@ -121,56 +121,5 @@ endif()
 #compile engine sources into vici library
 add_library(vici STATIC ${core} ${rendering} ${util} ${datastructures} ${assets} ${debugging} ${platform_sources} 
 							${core_h} ${rendering_h} ${util_h} ${datastructures_h} ${assets_h} ${debugging_h} ${thirdparty_h})	#header files need to be included so they get added to the vs filters
-
-
-#if the program should compile into lib 
-if(BUILD_LIB)
-
-#or should build as an exec with TestProj and test files
-else()
-
-	#compile into a executable with the test project
-	add_executable(testing TestProj/src/main.cpp TestProj/src/TestProj.cpp)
-
-	#link up librares
-	target_link_libraries(testing debug vici ${EXTRA_LIBS} ${EXTRA_LIBS_DEBUG})
-	target_link_libraries(testing optimized vici ${EXTRA_LIBS})
-
-	#post build commands (copy dlls and their equivilant etc.)
-
-	if(VICI_WINDOWS)
-
-		if(VICI_TARGET_32)
-			#copy contents of win32 bin folder 
-		add_custom_command(TARGET testing POST_BUILD
-		    COMMAND ${CMAKE_COMMAND} -E copy_directory
-		        "${THIRD_PARTY}/bin/win32"
-		        $<TARGET_FILE_DIR:testing>)
-		else(VICI_TARGET_64)
-			#copy contents of win64 bin folder 
-		add_custom_command(TARGET testing POST_BUILD
-		    COMMAND ${CMAKE_COMMAND} -E copy_directory
-		        "${THIRD_PARTY}/bin/win64"
-		        $<TARGET_FILE_DIR:testing>)
-		endif()
-
-		
-
-	elseif(VICI_MAC)
-		#copy contents of mac bin folder 
-		add_custom_command(TARGET testing POST_BUILD
-		    COMMAND ${CMAKE_COMMAND} -E copy_directory
-		        "${THIRD_PARTY}/bin/mac"
-		        $<TARGET_FILE_DIR:testing>)
-
-	endif()
-
-	#copy contents of TestProj to output dir 
-	add_custom_command(TARGET testing POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${PROJECT_SOURCE_DIR}/TestProj"
-        $<TARGET_FILE_DIR:testing>)
-endif()
-
 
 
