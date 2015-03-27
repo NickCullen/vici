@@ -1,3 +1,2 @@
 setx -m VICI_HOME %~dp0
-
-echo %VICI_HOME%
+setx -m VICI_TOOLS %VICI_HOME%tools\scripts
