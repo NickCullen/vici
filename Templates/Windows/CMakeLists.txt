@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 project(WindowsProject)
 
 #set vici home
-set(VICI_HOME "$ENV{VICI_HOME}")
+string(REPLACE "\\" "/" VICI_HOME $ENV{VICI_HOME})
 
 # Turn on the ability to create folders to organize projects (.vcproj)
 # It creates "CMakePredefinedTargets" folder by default and adds CMake
@@ -49,11 +49,15 @@ set(LIBS glfw3 glew32 pthreadVC2 ${OPENGL_LIBRARIES})
 #set the extra libs so that they will be compiled
 set(LIBS_DEBUG vld)
 
-#get all project specific source files
-FILE(GLOB project_sources "src/*.cpp")
+#platform sources will move to here (when being copied)
+FILE(GLOB platform_sources "${VICI_HOME}Templates/Windows/src/*.cpp")
+
+#set and include project sources will be a relative path
+include_directories("../../src/")
+FILE(GLOB project_sources "../../src/*.cpp")
 
 #compile into a executable
-add_executable(WindowsProject ${project_sources})
+add_executable(WindowsProject ${platform_sources} ${project_sources})
 
 #link up librares
 target_link_libraries(WindowsProject debug vici ${LIBS} ${LIBS_DEBUG})
@@ -80,6 +84,15 @@ endif()
 #copy contents of WindowsProject to output dir 
 add_custom_command(TARGET WindowsProject POST_BUILD
 COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${PROJECT_SOURCE_DIR}/WindowsProject"
-    $<TARGET_FILE_DIR:WindowsProject>)
+    "../../Assets"
+    $<TARGET_FILE_DIR:WindowsProject>/Assets)
 
+add_custom_command(TARGET WindowsProject POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "../../scenes"
+    $<TARGET_FILE_DIR:WindowsProject>/scenes)
+
+add_custom_command(TARGET WindowsProject POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "../../settings"
+    $<TARGET_FILE_DIR:WindowsProject>/settings)

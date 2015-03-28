@@ -2,12 +2,12 @@
 #include "Vici.h"
 #include "Platform.h"
 #include "Thread.h"
-#include "TestProj.h"
+#include "ViciProject.h"
 
 int main(int argc, char** argv)
 {
 	Vici* v = new Vici();
-	TestProj* proj = new TestProj();
+	ViciProject* proj = new ViciProject();
 
 	//print the path given into the program
 	_Platform->LogString("Main arg[0] = %s\n", argv[0]);
