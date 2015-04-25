@@ -12,9 +12,11 @@
 Vici::Vici() : Singleton<Vici>(this)
 {
 	_started = false;
+
 }
 Vici::~Vici()
 {
+
 	//if started is strill true then that means we havnt had time to clean up so do it!
 	if (_started)
 	{
@@ -33,6 +35,7 @@ void Vici::Init()
 	_Display->Init(_Platform->GetCwd());
     _SceneLoader->Init();
 	_Layers->Init(_Platform->GetCwd());
+	_Squirrel->Init();
 
 	//call some required static methods on classes
 	ShaderAsset::LoadSharedCode(_Platform->GetCwd());
@@ -167,4 +170,5 @@ void Vici::RegisterComponents()
 	MeshRenderer::reg = ComponentRegister<MeshRenderer>("MeshRenderer");
 	Material::reg = ComponentRegister<Material>("Material");
 	Light::reg = ComponentRegister<Light>("Light");
+	ScriptableComponent::reg = ComponentRegister<ScriptableComponent>("ScriptableComponent");
 }

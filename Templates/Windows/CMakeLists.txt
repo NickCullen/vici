@@ -15,6 +15,7 @@ add_definitions(-DVICI_WINDOWS -DVICI_DESKTOP -DVICI_OPENGL -D_CRT_SECURE_NO_WAR
 #add third party includes
 set(THIRD_PARTY "${VICI_HOME}ThirdParty")
 include_directories("${THIRD_PARTY}")
+include_directories("${THIRD_PARTY}/squirrel")
 
 #engine includes
 set(VICI_INCLUDE "${VICI_HOME}include")

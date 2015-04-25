@@ -9,7 +9,6 @@ class VCamera;
 #include "tds.h"
 #include "GameObjectTree.h"
 
-
 /* Singleton Classes */
 #include "AssetLoader.h"
 #include "SceneLoader.h"
@@ -20,6 +19,7 @@ class VCamera;
 #include "Logger.h"
 #include "Platform.h"
 #include "Project.h"
+#include "VSquirrel.h"
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -32,6 +32,7 @@ class VCamera;
 #define _Logger Singleton<Logger>::Instance()
 #define _Platform Singleton<Platform>::Instance()
 #define _Project Singleton<Project>::Instance()
+#define _Squirrel Singleton<Squirrel>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -67,6 +68,8 @@ private:
 	
 	Logger _logger;	/**< Class used for logging strings in debug model - Singleton class accessed via the _Logger macro */
 	
+	Squirrel _squirrel;	/**< Class used for wrappings and handling squirrel script stuff - Singleton class accessed via the _Squirrel macro */
+
 	/**
 	* Called to register all components of the engine by setting their static
 	* reg member variables with the ComponentRegister<T> class (See ComponentFactory.h)
@@ -134,6 +137,7 @@ public:
 	* Called when the application has resumed focus
 	*/
 	void OnEnteredFocus();
+
 };
 
 #endif

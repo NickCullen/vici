@@ -5,6 +5,7 @@
 
 /*External libs*/
 #include "glm.h"
+#include "squirrel.h"
 
 /*Platform Includes*/
 #include "Platform.h"
@@ -47,3 +48,4 @@
 /*Assets*/
 #include "AssetLoader.h"
 #include "Asset.h"
+#include "SQScriptAsset.h"

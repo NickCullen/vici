@@ -16,8 +16,13 @@ endif()
 #set ThirdParty include path
 set(THIRD_PARTY "${PROJECT_SOURCE_DIR}/ThirdParty")
 
+##glob all common third party headers and sources
+FILE(GLOB squirrel_source "ThirdParty/squirrel/src/*.c*")
+FILE(GLOB squirrel_h "ThirdParty/squirrel/*.h*")
+
 #add third party includes
 include_directories("${THIRD_PARTY}")
+include_directories("${THIRD_PARTY}/squirrel")
 
 #engine includes
 set(VICI_INCLUDES "${PROJECT_SOURCE_DIR}/include")
@@ -28,6 +33,10 @@ include_directories("${VICI_INCLUDES}/util")
 include_directories("${VICI_INCLUDES}/datastructures")
 include_directories("${VICI_INCLUDES}/assets")
 include_directories("${VICI_INCLUDES}/debugging")
+
+#group them
+source_group("Header\\Squirrel" FILES ${squirrel_h})
+source_group("Source\\Squirrel" FILES ${squirrel_source})
 
 #get module sources
 FILE(GLOB core "src/core/*.cpp")
@@ -119,7 +128,7 @@ elseif(VICI_MAC)
 endif()
 
 #compile engine sources into vici library
-add_library(vici STATIC ${core} ${rendering} ${util} ${datastructures} ${assets} ${debugging} ${platform_sources} 
-							${core_h} ${rendering_h} ${util_h} ${datastructures_h} ${assets_h} ${debugging_h} ${thirdparty_h})	#header files need to be included so they get added to the vs filters
+add_library(vici STATIC ${core} ${rendering} ${util} ${datastructures} ${assets} ${debugging} ${platform_sources} ${squirrel_source}
+							${core_h} ${rendering_h} ${util_h} ${datastructures_h} ${assets_h} ${debugging_h} ${thirdparty_h} ${squirrel_h})	#header files need to be included so they get added to the vs filters
 
 

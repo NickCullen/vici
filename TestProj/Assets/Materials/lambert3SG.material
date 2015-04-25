@@ -1,9 +1,0 @@
-<root>
-	<id>lambert3SG</id>
-	<ns>0</ns>
-	<ka>0.0 0.0 0.0 0</ka>
-	<kd>0.0 0.0 0.0 0</kd>
-	<ks>0 0 0 0</ks>
-	<d>0</d>
-	<illum>4.0</illum>
-</root>

@@ -4,6 +4,7 @@
 #include "AssetFactory.h"
 #include <memory>
 #include "Vici.h"
+
 AssetLoader::AssetLoader() : Singleton<AssetLoader>(this)
 {
 	
@@ -78,5 +79,6 @@ void AssetLoader::RegisterAssets()
 	MeshAsset::reg = AssetRegister<MeshAsset>("MeshAsset");
 	ShaderAsset::reg = AssetRegister<ShaderAsset>("ShaderAsset");
 	MaterialAsset::reg = AssetRegister<MaterialAsset>("MaterialAsset");
+	SQScriptAsset::reg = AssetRegister<SQScriptAsset>("SQScriptAsset");
 }
 

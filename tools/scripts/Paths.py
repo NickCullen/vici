@@ -1,4 +1,5 @@
 import os
+import sys
 
 #class which loads up the paths.dirs file in the tools folder
 class Paths:
@@ -25,3 +26,8 @@ class Paths:
 	#converts specified path to a platform sensible path (i.e. sensible slashes)
 	def PlatformURL(self, path):
 		return os.path.normpath(path)
+
+def main():
+	print(len(sys.argv))
+	
+	print(str(sys.argv))

@@ -1,5 +1,0 @@
-void GetMyColour(inout vec4 col)
-{
-	col.x = 0;
-	col.z = 1;
-}
