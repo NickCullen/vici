@@ -2,7 +2,7 @@
 #define V_VHASH
 
 //the typedef for a hash
-typedef unsigned int vhash_int; 
+typedef size_t vhash_int; 
 
 /**
 * This class is used to optimize the comparison between 2 strings 
@@ -25,6 +25,15 @@ public:
 	* Default vhash constructor
 	*/
 	VHash();
+
+	// Typical overloads
+	bool operator <  (const VHash &other) const { return _hash <  other._hash; }
+	bool operator >	 (const VHash &other) const { return _hash >  other._hash; }
+	bool operator <= (const VHash &other) const { return _hash <= other._hash; }
+	bool operator >= (const VHash &other) const { return _hash >= other._hash; }
+	bool operator == (const VHash &other) const { return _hash == other._hash; }
+	bool operator != (const VHash &other) const { return _hash != other._hash; }
+
 	/**
 	* Copy constructor for VHash
 	* @param other The VHash being copied 
@@ -48,12 +57,7 @@ public:
 	* @return returns true if equal false if not
 	*/
 	bool operator==(vhash_int other);
-	/**
-	* equality comparison between this hash and another hash
-	* @param other hash
-	* @return returns true if equal false if not
-	*/
-	bool operator==(const VHash& other);
+
 	/**
 	* equality comparison between this hash and a string
 	* note that this will hashify the string first so it isnt quick
@@ -75,12 +79,7 @@ public:
 	* @return returns true if not equal false if so
 	*/
 	bool operator!=(vhash_int other);
-	/**
-	* !equality comparison between this hash and another hash
-	* @param other hash
-	* @return returns true if not equal false if so
-	*/
-	bool operator!=(const VHash& other);
+
 	/**
 	* !equality comparison between this hash and a string
 	* note that this will hashify the string first so it isnt quick
@@ -121,12 +120,7 @@ public:
 	* @return returns true if less then false if not
 	*/
 	bool operator<(vhash_int other);
-	/**
-	* checks if this hash is less than the other
-	* @param other Checks if this is less than another hash
-	* @return returns true if less then false if not
-	*/
-	bool operator<(const VHash& other);
+
 	/**
 	* checks if this hash is less than the other
 	* @param other Checks if this is less than an a string (note this string will
@@ -148,12 +142,7 @@ public:
 	* @return returns true if greater then false if not
 	*/
 	bool operator>(vhash_int other);
-	/**
-	* checks if this hash is greater than the other
-	* @param other Checks if this is greater than an integer
-	* @return returns true if greater then false if not
-	*/
-	bool operator>(const VHash& other);
+
 	/**
 	* checks if this hash is greater than the other
 	* @param other Checks if this is greater than an a string (note this string will
@@ -173,7 +162,7 @@ public:
 	* Get function to return the hash value
 	* @return returns the integer value of the hash
 	*/
-	inline vhash_int Value()
+	inline const vhash_int Value() const
 	{
 		return _hash;
 	}
@@ -197,5 +186,23 @@ public:
 		return hash;
 	}
 };
+
+namespace std
+{
+	// forward decl
+	template <class T>
+	struct hash;
+
+	template <> 
+	struct hash<VHash>
+	{
+		typedef VHash argument_type;
+
+		size_t operator()(VHash const & val) const
+		{
+			return val.Value();
+		}
+	};
+}
 
 #endif

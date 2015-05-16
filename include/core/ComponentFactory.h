@@ -6,13 +6,13 @@ class IComponent;
 
 /* for mapping of instances and creation functions */
 #include <map>
-#include <string>
+#include "VHash.h"
 
 /* definition for the creation function of a component */
 template<typename T> IComponent* Internal_Component_CreateInstance() { return new T; }
 
 /* the typedef for the hash table of mappings */
-typedef std::map<std::string, IComponent*(*)()> MapType;
+typedef std::map<VHash, IComponent*(*)()> MapType;
 
 /**
 * Static class holding a Hashtable of registered component creation functions
@@ -42,7 +42,7 @@ protected:
 	* @param id string containing id of required component
 	* @return The found component (NULL if not found)
 	*/
-	static IComponent* FindType(std::string id);
+	static IComponent* FindType(VHash id);
 
 public:
 
@@ -65,7 +65,7 @@ public:
 	* @param id string containing id of required component
 	* @return The created component pointer (NULL if not created)
 	*/
-	static IComponent* CreateComponent(std::string id);
+	static IComponent* CreateComponent(VHash id);
 
 	/**
 	* Same as the non-template CreateComponent function except it casts the output to the 
@@ -75,7 +75,7 @@ public:
 	* @return The created component pointer of specified type (NULL if not created)
 	*/
 	template<typename T>
-	static T* CreateComponent(std::string id)
+	static T* CreateComponent(VHash id)
 	{
 		IComponent* comp = CreateComponent(id);
 		return comp != NULL ? (T*)comp : NULL;
@@ -100,7 +100,7 @@ public:
 	* MyComponent::reg = ComponentRegister<MyComponent>("MyComponent");
 	* @param s string containing id of required component, this normally represents the class name
 	*/
-	ComponentRegister(std::string s) 
+	ComponentRegister(VHash s) 
 	{
 		GetTypes()->insert(std::make_pair(s, &Internal_Component_CreateInstance<T>));
 	}

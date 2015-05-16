@@ -12,7 +12,7 @@ AssetFactory::~AssetFactory()
 
 }
 
-Asset* AssetFactory::FindType(std::string id)
+Asset* AssetFactory::FindType(VHash id)
 {
 	AssetMapType::iterator it = GetTypes()->find(id);
 	if (it == GetTypes()->end())
@@ -20,7 +20,7 @@ Asset* AssetFactory::FindType(std::string id)
 	return it->second();
 }
 
-Asset* AssetFactory::CreateAsset(std::string id)
+Asset* AssetFactory::CreateAsset(VHash id)
 {
 	return FindType(id);
 }

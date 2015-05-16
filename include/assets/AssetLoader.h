@@ -4,15 +4,15 @@
 /* Includes */
 #include "SmartPtr.h"
 #include "Singleton.h"
+#include "VHash.h"
 #include <map>
-#include <string>
 #include "Xml.h"
 
 /* Forward Decl */
 class Asset;
 
 /* definitions */
-typedef std::map<std::string, AssetPointer<Asset> > AssetMap;
+typedef std::map<VHash, AssetPointer<Asset> > AssetMap;
 
 /**
 * AssetLoader class instantiated in the Vici class and 
@@ -54,7 +54,7 @@ public:
 	* @param id The id of the asset
 	* @return The Asset pointer (if found - else NULL)
 	*/
-	AssetPointer<Asset> GetAsset(std::string id);
+	AssetPointer<Asset> GetAsset(VHash id);
 
 	/**
 	* Gets the asset of given id
@@ -62,11 +62,10 @@ public:
 	* @return The Asset pointer (if found - else NULL)
 	*/
 	template<typename T>
-	AssetPointer<T> GetAsset(std::string id)
+	AssetPointer<T> GetAsset(VHash id)
 	{
 		AssetPointer<Asset> asset = GetAsset(id);
 		return std::static_pointer_cast<T>(asset);
-		//return NULL;
 	}
 
 	/**

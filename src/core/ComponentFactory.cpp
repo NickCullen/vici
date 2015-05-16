@@ -12,7 +12,7 @@ ComponentFactory::~ComponentFactory()
 
 }
 
-IComponent* ComponentFactory::FindType(std::string id)
+IComponent* ComponentFactory::FindType(VHash id)
 {
 	MapType::iterator it = GetTypes()->find(id);
 	if (it == GetTypes()->end())
@@ -20,7 +20,7 @@ IComponent* ComponentFactory::FindType(std::string id)
 	return it->second();
 }
 
-IComponent* ComponentFactory::CreateComponent(std::string id)
+IComponent* ComponentFactory::CreateComponent(VHash id)
 {
 	return FindType(id);
 }

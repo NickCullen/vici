@@ -32,7 +32,7 @@ void AssetLoader::UnloadAll()
 	_asset_map.clear();
 }
 
-AssetPointer<Asset> AssetLoader::GetAsset(std::string id)
+AssetPointer<Asset> AssetLoader::GetAsset(VHash id)
 {
 	AssetMap::iterator it = _asset_map.find(id);
 	if (it == _asset_map.end())

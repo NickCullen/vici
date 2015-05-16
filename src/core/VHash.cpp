@@ -27,10 +27,7 @@ bool VHash::operator==(vhash_int other)
 {
 	return(_hash == other);
 }
-bool VHash::operator==(const VHash& other)
-{
-	return(_hash == other._hash);
-}
+
 bool VHash::operator==(const char* other)
 {
 	return(_hash == Hashify(other));
@@ -44,10 +41,7 @@ bool VHash::operator!=(vhash_int other)
 {
 	return(_hash != other);
 }
-bool VHash::operator!=(const VHash& other)
-{
-	return(_hash != other._hash);
-}
+
 bool VHash::operator!=(const char* other)
 {
 	return (_hash != Hashify(other));
@@ -78,10 +72,7 @@ bool VHash::operator<(vhash_int other)
 {
 	return(_hash < other);
 }
-bool VHash::operator<(const VHash& other)
-{
-	return(_hash < other._hash);
-}
+
 bool VHash::operator<(const char* other)
 {
 	return (_hash < Hashify(other));
@@ -95,10 +86,7 @@ bool VHash::operator>(vhash_int other)
 {
 	return(_hash > other);
 }
-bool VHash::operator>(const VHash& other)
-{
-	return(_hash > other._hash);
-}
+
 bool VHash::operator>(const char* other)
 {
 	return (_hash > Hashify(other));
