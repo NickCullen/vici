@@ -1,0 +1,14 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Debugging" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=static
+Name="Debugging"
+

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "Vici.h"
 #include "Platform.h"
-#include "Thread.h"
 #include "ViciProject.h"
 
 int main(int argc, char** argv)

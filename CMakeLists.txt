@@ -1,134 +1,150 @@
 cmake_minimum_required (VERSION 2.6)
 project(Vici)
+set_property(GLOBAL PROPERTY USE_FOLDERS OFF)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set (INCLUDES "")
+set (SOURCES "")
+set (LIBS "")
+if(WIN32)
+add_definitions(-DVICI_WINDOWS)
 
-# Turn on the ability to create folders to organize projects (.vcproj)
-# It creates "CMakePredefinedTargets" folder by default and adds CMake
-# defined projects like INSTALL.vcproj and ZERO_CHECK.vcproj
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-#add preprocessor definitions
-if(VICI_WINDOWS)
- 	add_definitions(-DVICI_WINDOWS -DVICI_DESKTOP -DVICI_OPENGL -D_CRT_SECURE_NO_WARNINGS)
-elseif(VICI_MAC)
-	add_definitions(-DVICI_MAC -DVICI_DESKTOP -DVICI_OPENGL)
 endif()
+if(APPLE)
+add_definitions(-DVICI_MAC)
 
-#set ThirdParty include path
-set(THIRD_PARTY "${PROJECT_SOURCE_DIR}/ThirdParty")
-
-##glob all common third party headers and sources
-FILE(GLOB squirrel_source "ThirdParty/squirrel/src/*.c*")
-FILE(GLOB squirrel_h "ThirdParty/squirrel/*.h*")
-
-#add third party includes
-include_directories("${THIRD_PARTY}")
-include_directories("${THIRD_PARTY}/squirrel")
-
-#engine includes
-set(VICI_INCLUDES "${PROJECT_SOURCE_DIR}/include")
-include_directories("${VICI_INCLUDES}")
-include_directories("${VICI_INCLUDES}/core")
-include_directories("${VICI_INCLUDES}/rendering")
-include_directories("${VICI_INCLUDES}/util")
-include_directories("${VICI_INCLUDES}/datastructures")
-include_directories("${VICI_INCLUDES}/assets")
-include_directories("${VICI_INCLUDES}/debugging")
-
-#group them
-source_group("Header\\Squirrel" FILES ${squirrel_h})
-source_group("Source\\Squirrel" FILES ${squirrel_source})
-
-#get module sources
-FILE(GLOB core "src/core/*.cpp")
-FILE(GLOB rendering "src/rendering/*.cpp")
-FILE(GLOB util "src/util/*.cpp")
-FILE(GLOB datastructures "src/datastructures/*.cpp")
-FILE(GLOB assets "src/assets/*.cpp")
-FILE(GLOB debugging "src/debugging/*.cpp")
-
-#get module headers
-FILE(GLOB core_h "${VICI_INCLUDES}/core/*.h*")
-FILE(GLOB rendering_h "${VICI_INCLUDES}/rendering/*.h*")
-FILE(GLOB util_h "${VICI_INCLUDES}/util/*.h*")
-FILE(GLOB datastructures_h "${VICI_INCLUDES}/datastructures/*.h*")
-FILE(GLOB assets_h "${VICI_INCLUDES}/assets/*.h*")
-FILE(GLOB debugging_h "{VICI_INCLUDES}/debugging/*.h*")
-
-#group them so visual studio will organise them
-source_group("Source\\Core" FILES ${core})
-source_group("Header\\Core" FILES ${core_h})
-source_group("Source\\Rendering" FILES ${rendering})
-source_group("Header\\Rendering" FILES ${rendering_h})
-source_group("Source\\Util" FILES ${util})
-source_group("Header\\Util" FILES ${util_h})
-source_group("Source\\Datastructures" FILES ${datastructures})
-source_group("Header\\Datastructures" FILES ${datastructures_h})
-source_group("Source\\AssetLoading" FILES ${assets})
-source_group("Header\\AssetLoading" FILES ${assets_h})
-source_group("Source\\Debugging" FILES ${debugging})
-source_group("Header\\Debugging" FILES ${debugging_h})
-
-#do the same with the global engine includes for reference
-FILE(GLOB thirdparty_h "${THIRD_PARTY}/*.h*")
-source_group("ThirdParty" FILES ${thirdparty_h})
-
-#windows build
-if(VICI_WINDOWS)
-	message("WINDOWS BUILD")
-
-	#link up win32 lib dir
-	if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
-		message("BUILDING FOR x64")
-		link_directories("${THIRD_PARTY}/lib/win64")
-	else("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
-		message("BUILDING FOR x86")
-		link_directories("${THIRD_PARTY}/lib/win32")
-	endif("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
-
-	#find required libaries
-	find_package(OpenGL REQUIRED)
-
-	#include required libraries headers
-	include_directories(${OPENGL_INCLUDE_DIRS})
-
-	#get all windows specific source files
-	FILE(GLOB platform_sources "src/windows/*.cpp")
-
-	#set the extra libs so that they will be compiled
-	set(EXTRA_LIBS glfw3 glew32 pthreadVC2 ${OPENGL_LIBRARIES})
-
-	#set the extra libs so that they will be compiled
-	set(EXTRA_LIBS_DEBUG vld)
-elseif(VICI_MAC)
-	message("MAC BUILD")
-	#include the apple frameworks dir
-	include_directories("/System/Library/Frameworks")
-
-	#link up mac lib dir
-	link_directories("${THIRD_PARTY}/lib/mac")
-
-	#find required libaries
-	find_package(OpenGL REQUIRED)
-	find_library(COCOA_LIB cocoa)
-	find_library(IOKIT_LIB IOKit)
-	find_library(COREVIDEO_LIB CoreVideo)
-
-	MARK_AS_ADVANCED (COCOA_LIB
-	                 IOKIT_LIB
-	                 COREVIDEO_LIB)
-
-	#include required libraries headers
-	include_directories(${OPENGL_INCLUDE_DIRS})
-
-	#get all mac specific source files
-	FILE(GLOB platform_sources "src/mac/*.cpp")
-
-	#set the extra libs so that they will be compiled
-	set(EXTRA_LIBS ${COCOA_LIB} ${IOKIT_LIB} ${COREVIDEO_LIB} ${OPENGL_LIBRARIES} glfw3 pthread)
 endif()
+include_directories("/Users/nick/Desktop/vici/Engine/Assets/Include")
+FILE(GLOB _Engine_Assets_Include "/Users/nick/Desktop/vici/Engine/Assets/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Assets_Include})
+source_group("Header Files\\Engine\\Assets\\Include" FILES ${_Engine_Assets_Include})
+include_directories("/Users/nick/Desktop/vici/Engine/Core/Include")
+FILE(GLOB _Engine_Core_Include "/Users/nick/Desktop/vici/Engine/Core/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Core_Include})
+source_group("Header Files\\Engine\\Core\\Include" FILES ${_Engine_Core_Include})
+include_directories("/Users/nick/Desktop/vici/Engine/Datastructures/Include")
+FILE(GLOB _Engine_Datastructures_Include "/Users/nick/Desktop/vici/Engine/Datastructures/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Datastructures_Include})
+source_group("Header Files\\Engine\\Datastructures\\Include" FILES ${_Engine_Datastructures_Include})
+include_directories("/Users/nick/Desktop/vici/Engine/Debugging/Include")
+FILE(GLOB _Engine_Debugging_Include "/Users/nick/Desktop/vici/Engine/Debugging/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Debugging_Include})
+source_group("Header Files\\Engine\\Debugging\\Include" FILES ${_Engine_Debugging_Include})
+include_directories("/Users/nick/Desktop/vici/Engine/Rendering/Include")
+FILE(GLOB _Engine_Rendering_Include "/Users/nick/Desktop/vici/Engine/Rendering/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Rendering_Include})
+source_group("Header Files\\Engine\\Rendering\\Include" FILES ${_Engine_Rendering_Include})
+include_directories("/Users/nick/Desktop/vici/Engine/Util/Include")
+FILE(GLOB _Engine_Util_Include "/Users/nick/Desktop/vici/Engine/Util/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Util_Include})
+source_group("Header Files\\Engine\\Util\\Include" FILES ${_Engine_Util_Include})
+include_directories("/Users/nick/Desktop/vici/Engine/Vici/Include")
+FILE(GLOB _Engine_Vici_Include "/Users/nick/Desktop/vici/Engine/Vici/Include/*.h*")
+set( HEADERS ${HEADERS} ${_Engine_Vici_Include})
+source_group("Header Files\\Engine\\Vici\\Include" FILES ${_Engine_Vici_Include})
+include_directories("/Users/nick/Desktop/vici/ThirdParty/Include")
+FILE(GLOB _ThirdParty_Include "/Users/nick/Desktop/vici/ThirdParty/Include/*.h*")
+set( HEADERS ${HEADERS} ${_ThirdParty_Include})
+source_group("Header Files\\ThirdParty\\Include" FILES ${_ThirdParty_Include})
+if(APPLE)
+include_directories("/Users/nick/Desktop/vici/Engine/Mac/Include")
 
-#compile engine sources into vici library
-add_library(vici STATIC ${core} ${rendering} ${util} ${datastructures} ${assets} ${debugging} ${platform_sources} ${squirrel_source}
-							${core_h} ${rendering_h} ${util_h} ${datastructures_h} ${assets_h} ${debugging_h} ${thirdparty_h} ${squirrel_h})	#header files need to be included so they get added to the vs filters
+endif()
+if(APPLE)
+FILE(GLOB _Engine_Mac_Include "/Users/nick/Desktop/vici/Engine/Mac/Include/*.h*")
 
+endif()
+if(APPLE)
+set( HEADERS ${HEADERS} ${_Engine_Mac_Include})
 
+endif()
+if(APPLE)
+source_group("Header Files\\Engine\\Mac\\Include" FILES ${_Engine_Mac_Include})
+
+endif()
+if(WIN32)
+include_directories("/Users/nick/Desktop/vici/Engine/Windows/Include")
+
+endif()
+if(WIN32)
+FILE(GLOB _Engine_Windows_Include "/Users/nick/Desktop/vici/Engine/Windows/Include/*.h*")
+
+endif()
+if(WIN32)
+set( HEADERS ${HEADERS} ${_Engine_Windows_Include})
+
+endif()
+if(WIN32)
+source_group("Header Files\\Engine\\Windows\\Include" FILES ${_Engine_Windows_Include})
+
+endif()
+if(WIN32)
+include_directories("/Users/nick/Desktop/vici/ThirdParty/VLD")
+
+endif()
+if(WIN32)
+FILE(GLOB _ThirdParty_VLD "/Users/nick/Desktop/vici/ThirdParty/VLD/*.h*")
+
+endif()
+if(WIN32)
+set( HEADERS ${HEADERS} ${_ThirdParty_VLD})
+
+endif()
+if(WIN32)
+source_group("Header Files\\ThirdParty\\VLD" FILES ${_ThirdParty_VLD})
+
+endif()
+if(APPLE)
+link_directories("/Users/nick/Desktop/vici/lib/mac")
+
+endif()
+if(APPLE)
+link_directories("/Users/nick/Desktop/vici/ThirdParty/lib/mac")
+
+endif()
+if(WIN32)
+link_directories("/Users/nick/Desktop/vici/lib/win32")
+
+endif()
+if(WIN32)
+link_directories("/Users/nick/Desktop/vici/ThirdParty/lib/win32")
+
+endif()
+if(WIN32)
+set(RUNTIME_OUTPUT_DIRECTORY "/Users/nick/Desktop/vici/bin/win32")
+
+endif()
+if(WIN32)
+set(EXECUTABLE_OUTPUT_PATH "/Users/nick/Desktop/vici/bin/win32")
+
+endif()
+if(WIN32)
+set(LIBRARY_OUTPUT_PATH "/Users/nick/Desktop/vici/lib/win32")
+
+endif()
+if(APPLE)
+set(RUNTIME_OUTPUT_DIRECTORY "/Users/nick/Desktop/vici/bin/mac")
+
+endif()
+if(APPLE)
+set(EXECUTABLE_OUTPUT_PATH "/Users/nick/Desktop/vici/bin/mac")
+
+endif()
+if(APPLE)
+set(LIBRARY_OUTPUT_PATH "/Users/nick/Desktop/vici/lib/mac")
+
+endif()
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Assets)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Core)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Datastructures)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Debugging)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Rendering)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Util)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Vici)
+if(WIN32)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Windows)
+
+endif()
+if(APPLE)
+add_subdirectory(/Users/nick/Desktop/vici/Engine/Mac)
+
+endif()

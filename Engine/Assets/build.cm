@@ -1,0 +1,17 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Assets" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=static
+Name="Assets"
+
+[LinkLibs]
+Util
+Core

@@ -1,0 +1,14 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Vici" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=static
+Name="Vici"
+

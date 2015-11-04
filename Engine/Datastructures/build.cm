@@ -1,0 +1,16 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Datastructures" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=static
+Name="Datastructures"
+
+[LinkLibs]
+Core

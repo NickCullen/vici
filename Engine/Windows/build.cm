@@ -1,0 +1,14 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="WindowsRuntime" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=static
+Name="WindowsRuntime"
+
