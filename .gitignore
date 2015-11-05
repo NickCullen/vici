@@ -1,5 +1,5 @@
-build/
-doc/
+[bB]uild/
+[dD]oc/
 *.DS_Store
 *.pyc
 CMakeLists.txt

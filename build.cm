@@ -26,22 +26,22 @@ VICI_MAC
 /ThirdParty/VLD
 
 [WIN32:OutputSettings]
-Executable=/bin/win32
-Runtime=/bin/win32
-Libs=/lib/win32
+Executable=/Bin/Win32
+Runtime=/Bin/Win32
+Libs=/lLib/Win32
 
 [APPLE:OutputSettings]
-Executable=/bin/mac
-Runtime=/bin/mac
-Libs=/lib/mac
+Executable=/Bin/Mac
+Runtime=/Bin/Mac
+Libs=/Lib/Mac
 
 [APPLE:ProjectLibDirectories]
-/lib/mac
-/ThirdParty/lib/mac
+/Lib/Mac
+/ThirdParty/Lib/Mac
 
 [WIN32:ProjectLibDirectories]
-/lib/win32
-/ThirdParty/lib/win32
+/lib/Win32
+/ThirdParty/Lib/Win32
 
 [SubModules]
 /Engine/Assets
