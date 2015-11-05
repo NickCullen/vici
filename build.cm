@@ -9,6 +9,7 @@ VICI_WINDOWS
 VICI_MAC
 
 [ProjectIncludeDirectories]	
+/Engine/CommonInclude
 /Engine/Assets/Include
 /Engine/Core/Include
 /Engine/Datastructures/Include

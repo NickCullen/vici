@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!$VICI_PYTHON
 
 #for args
 import sys, getopt, struct

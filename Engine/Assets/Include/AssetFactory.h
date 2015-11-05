@@ -5,7 +5,7 @@
 class Asset;
 
 /* For mapping of instances and creation functions */
-#include<map>
+#include <map>
 #include "VHash.h"
 
 /* Definition for the creation function of a asset */

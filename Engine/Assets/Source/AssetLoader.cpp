@@ -3,7 +3,6 @@
 #include "AssetTypes.h"
 #include "AssetFactory.h"
 #include <memory>
-#include "Vici.h"
 
 AssetLoader::AssetLoader() : Singleton<AssetLoader>()
 {
