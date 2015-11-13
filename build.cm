@@ -4,6 +4,7 @@ Name="Vici"
 
 [WIN32:ProjectDefinitions]
 VICI_WINDOWS
+_CRT_SECURE_NO_WARNINGS
 
 [APPLE:ProjectDefinitions]
 VICI_MAC
@@ -13,10 +14,8 @@ VICI_MAC
 /Engine/Assets/Include
 /Engine/Core/Include
 /Engine/Datastructures/Include
-/Engine/Debugging/Include
 /Engine/Rendering/Include
 /Engine/Util/Include
-/Engine/Vici/Include
 /ThirdParty/Include
 
 [APPLE:ProjectIncludeDirectories]
@@ -24,12 +23,12 @@ VICI_MAC
 
 [WIN32:ProjectIncludeDirectories]	
 /Engine/Windows/Include
-/ThirdParty/VLD
+/ThirdParty/Include/VLD
 
 [WIN32:OutputSettings]
 Executable=/Bin/Win32
 Runtime=/Bin/Win32
-Libs=/lLib/Win32
+Libs=/Lib/Win32
 
 [APPLE:OutputSettings]
 Executable=/Bin/Mac
@@ -48,10 +47,8 @@ Libs=/Lib/Mac
 /Engine/Assets
 /Engine/Core
 /Engine/Datastructures
-/Engine/Debugging
 /Engine/Rendering
 /Engine/Util
-/Engine/Vici
 
 [WIN32:SubModules]
 /Engine/Windows

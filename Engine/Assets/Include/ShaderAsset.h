@@ -34,7 +34,7 @@
 * locations of commonly uniforms/attribues etc.
 */
 
-class ShaderAsset : public Asset
+class ASSETS_API ShaderAsset : public Asset
 {
 private:
 	char _v_path[256]; /**< path for vertex shader */

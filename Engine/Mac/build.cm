@@ -14,7 +14,7 @@ Name="MacRuntime"
 
 [LinkLibs]
 Util
-Vici
+Core
 glfw3
 -framework Cocoa
 -framework OpenGL

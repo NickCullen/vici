@@ -3,13 +3,14 @@
 
 #include "TStack.h"
 #include "glm.h"
+#include "RenderingAPI.h"
 
 /** 
 * Node to place on the matrix stack containing the current snapshot of the 
 * matrix at this time 
 */
 
-struct MatrixTransform
+struct RENDERING_API MatrixTransform
 {
 	glm::mat4x4 _current_transform;
 };
@@ -21,7 +22,7 @@ struct MatrixTransform
 * No comments to follow
 */
 
-class MatrixStack
+class RENDERING_API MatrixStack
 {
 	friend class VCamera;
 	friend class OpenGLRenderer;

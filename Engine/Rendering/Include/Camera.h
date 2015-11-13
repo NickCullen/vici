@@ -2,6 +2,7 @@
 #define V_CAMERA
 
 #include "IComponent.h"
+#include "RenderingAPI.h"
 
 /*Forward decl*/
 class OpenGLRenderer;
@@ -12,7 +13,7 @@ class OpenGLRenderer;
 * so not many detailed comments will be made here 
 */
 
-class VCamera : public IComponent
+class RENDERING_API VCamera : public IComponent
 {
 	friend class OpenGLRenderer;
 private:

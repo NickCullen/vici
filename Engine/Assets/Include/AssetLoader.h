@@ -2,6 +2,7 @@
 #define V_ASSET_LOADER
 
 /* Includes */
+#include "AssetsAPI.h"
 #include "SmartPtr.h"
 #include "Singleton.h"
 #include "VHash.h"
@@ -21,7 +22,7 @@ typedef std::map<VHash, AssetPointer<Asset> > AssetMap;
 * _Assets-> macro defined in Vici.h
 */
 
-class AssetLoader : public Singleton<AssetLoader>
+class ASSETS_API AssetLoader : public Singleton<AssetLoader>
 {
 	friend class Vici;
 

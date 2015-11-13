@@ -9,6 +9,11 @@ Name="WindowsRuntime"
 /Source
 
 [Module]
-Type=static
+Type=shared
 Name="WindowsRuntime"
 
+[LinkLibs]
+Core
+-system OpenGL
+glfw3
+glew32

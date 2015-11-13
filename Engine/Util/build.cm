@@ -9,6 +9,6 @@ Name="Util"
 /Source
 
 [Module]
-Type=static
+Type=shared
 Name="Util"
 

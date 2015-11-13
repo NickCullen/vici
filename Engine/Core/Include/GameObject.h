@@ -24,7 +24,7 @@ enum EComponentCallback { eUpdate, eOnEnable, eOnDisable, eMAX_CALL_COUNT};
 * Act upon the game object and others
 */
 
-class GameObject : public Object
+class CORE_API GameObject : public Object
 {
 	friend class Vici;
 private:

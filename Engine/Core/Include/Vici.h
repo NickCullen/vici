@@ -8,6 +8,7 @@ class VCamera;
 /* Required Includes */
 #include "tds.h"
 #include "GameObjectTree.h"
+#include "CoreAPI.h"
 
 /* Singleton Classes */
 #include "AssetLoader.h"
@@ -39,7 +40,7 @@ class VCamera;
 * Status (very much on going)
 */
 
-class Vici : public Singleton<Vici>
+class CORE_API Vici : public Singleton<Vici>
 {
 	friend class SceneLoader;
 	friend class VCamera;

@@ -9,10 +9,10 @@ Name="Core"
 /Source
 
 [Module]
-Type=static
+Type=shared
 Name="Core"
 
 [LinkLibs]
 Assets
 Util
-Vici
+Debugging

@@ -7,14 +7,14 @@ class IComponent;
 #include "TTree.h"
 #include "TList.h"
 #include "VHash.h"
-
+#include "CoreAPI.h"
 /**
 * Tree stored by game objects to store all their
 * components and make it easier and more efficent 
 * to find and return components
 */
 
-class ComponentTree : public TTree<IComponent*>
+class CORE_API ComponentTree : public TTree<IComponent*>
 {
 private:
 	int _lock; /**< Counter for locking the tree*/

@@ -62,6 +62,11 @@ TLinkFramework = Template("""find_library(${framework}_LIB ${framework})
 MARK_AS_ADVANCED(${framework}_LIB)
 set(LIBS $${LIBS} $${${framework}_LIB})""")
 
+#for linking a system library
+TLinkSystemLib = Template("""find_package(${framework} REQUIRED)
+include_directories($${${framework_upper}_INCLUDE_DIRS})
+set(LIBS $${LIBS} $${${framework_upper}_LIBRARIES})""")
+
 #template for exectuable output
 TExecutableOutput = Template('set(EXECUTABLE_OUTPUT_PATH "${dir}")\n')
 
@@ -224,16 +229,25 @@ def WriteLinkLibs(f, rootDir, sections):
 
 		output = ""
 		for l in libs:
-			if not "-framework" in l:
-				#add to LIBS cmake var
-				output = TAppendPythonVariable.substitute(dict(var="LIBS", appendedval=l))
-				WriteToFile(f,output, s.HasCondition(), s.condition)
-			else:
+			if "-framework" in l:
 				frameworkName = l.replace("-framework ", "")
 				frameworkName = frameworkName.strip()
 				
 				output = TLinkFramework.substitute(dict(framework=frameworkName)) +"\n"
 				WriteToFile(f,output, s.HasCondition(), s.condition)
+				
+			elif "-system" in l:
+				systemLibName = l.replace("-system ", "")
+				systemLibName = systemLibName.strip()
+				
+				output = TLinkSystemLib.substitute(dict(framework=systemLibName,framework_upper=systemLibName.upper())) +"\n"
+				WriteToFile(f,output, s.HasCondition(), s.condition)
+				
+			else:
+				#add to LIBS cmake var
+				output = TAppendPythonVariable.substitute(dict(var="LIBS", appendedval=l))
+				WriteToFile(f,output, s.HasCondition(), s.condition)
+			
 			
 			
 #Writes the cmake runtime/lib etc. outputs

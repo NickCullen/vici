@@ -5,13 +5,14 @@
 class Material;
 
 #include "IDrawable.h"
+#include "RenderingAPI.h"
 
 /** 
 * Renders a mesh using the material
 * that is attached to the same GameObject.
 */
 
-class MeshRenderer : public IDrawable
+class RENDERING_API MeshRenderer : public IDrawable
 {
 private:
 	Material* _material; /** The material with the shader that will render this mesh */

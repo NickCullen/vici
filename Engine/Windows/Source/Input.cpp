@@ -1,7 +1,7 @@
 #include "Input.h"
 #include "Vici.h"
 
-Input::Input() : Singleton<Input>(this)
+Input::Input() : Singleton<Input>()
 {
 
 }

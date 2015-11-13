@@ -3,6 +3,7 @@
 
 /*Forward decl*/
 
+#include "CoreAPI.h"
 #include "glm.h"
 #include "Xml.h"
 
@@ -11,7 +12,7 @@
 * the object in the world
 */
 
-class Transform
+class CORE_API Transform
 {
 private:
 	glm::vec3 _pos;	/**< Position of object */

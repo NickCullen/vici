@@ -1,6 +1,9 @@
 #ifndef V_DELEGATE
 #define V_DELEGATE
 
+/** Includes */
+#include "CoreAPI.h"
+
 /** Definition for the delegate macro which requires the class type, the method pointer and a pointer to the object */
 #define DELEGATE(Type, Method, This) Delegate::NoArgs<Type, &Type::Method>(This)
 
@@ -10,7 +13,7 @@
 * for a reference of the code and how it works can be found here : http://www.codeproject.com/Articles/11015/The-Impossibly-Fast-C-Delegates 
 */
 
-class Delegate
+class CORE_API Delegate
 {
 private:
 	/** The type def of the stub function which will call the delegate when required */

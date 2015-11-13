@@ -1,6 +1,7 @@
 #ifndef V_OBJECT
 #define V_OBJECT
 
+#include "CoreAPI.h"
 #include "VHash.h"
 
 /**
@@ -9,7 +10,7 @@
 * status (near complete?)
 */
 
-class Object
+class CORE_API Object
 {
 	friend class SceneLoader;
 private:

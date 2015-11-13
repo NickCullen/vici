@@ -1,6 +1,9 @@
 #ifndef TSTACK_H
 #define TSTACK_H
 
+/* Includes */
+#include "DatastructuresAPI.h"
+
 /* Definitions and macros */
 #ifndef NULL
 #define NULL 0
@@ -11,7 +14,7 @@
 */
 
 template<typename T>
-struct TStackNode
+struct DATASTRUCTURES_API TStackNode
 {
 	T _data; /**< The data this node is holding */
 
@@ -34,7 +37,7 @@ struct TStackNode
 */
 
 template<typename T>
-class TStack
+class DATASTRUCTURES_API TStack
 {
 private:
 	TStackNode<T>* _top; /**< Pointer to the top of the stack */

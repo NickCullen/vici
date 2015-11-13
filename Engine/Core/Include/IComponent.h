@@ -12,7 +12,7 @@
 * inherit from this class, otherwise IDrawable should be used. 
 */
 
-class IComponent : public Object
+class CORE_API IComponent : public Object
 {
 	/*friend classes to internal objects*/
 	friend class Vici;

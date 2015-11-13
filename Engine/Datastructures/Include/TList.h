@@ -1,6 +1,9 @@
 #ifndef TLIST_H
 #define TLIST_H
 
+/* Includes */
+#include "DatastructuresAPI.h"
+
 /* Forward Decl */
 template<typename T>
 class TList;
@@ -28,7 +31,7 @@ class TListIter;
 */
 
 template<typename T>
-struct TListNode
+struct DATASTRUCTURES_API TListNode
 {
 	T _data; /**< The data this node stored */
 
@@ -52,7 +55,7 @@ struct TListNode
 */
 
 template<typename T>
-class TList
+class DATASTRUCTURES_API TList
 {
 	friend class TListIter<T>;
 
@@ -277,7 +280,7 @@ public:
 */
 
 template<typename T>
-class TListIter
+class DATASTRUCTURES_API TListIter
 {
 	friend class TList<T>;
 private:

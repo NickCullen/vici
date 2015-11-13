@@ -14,7 +14,7 @@ class ShaderAsset;
 * to render a mesh
 */
 
-class MeshAsset : public Asset
+class ASSETS_API MeshAsset : public Asset
 {
 private:
 	uint32 _vertex_buffer;	/**< The integer representing the vertex buffer */

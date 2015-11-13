@@ -9,11 +9,10 @@ Name="Rendering"
 /Source
 
 [Module]
-Type=static
+Type=shared
 Name="Rendering"
 
 [LinkLibs]
 Core
 Assets
-Vici
 Util

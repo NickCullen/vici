@@ -12,7 +12,7 @@ class Vici;
 * structure used as a node in SceneLoader to hold scene file information and id 
 */
 
-struct SceneData
+struct CORE_API SceneData
 {
 	VHash _id; /**< the hash id of the scene */
 	char _scene_file[512]; /**< the full path to the scene xml file */
@@ -25,7 +25,7 @@ struct SceneData
 * status (ongoing) 
 */
 
-class SceneLoader : public Singleton<SceneLoader>
+class CORE_API SceneLoader : public Singleton<SceneLoader>
 {
 friend class Vici;
 private:

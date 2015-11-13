@@ -2,6 +2,8 @@
 #define V_VHASH
 
 #include "PlatformDefinitions.h"
+#include "UtilAPI.h"
+
 //the typedef for a hash
 typedef size_t vhash_int;
 
@@ -12,7 +14,7 @@ typedef size_t vhash_int;
 * status (complete)
 */
 
-class VHash
+class UTIL_API VHash
 {
 private:
 	vhash_int _hash; /**< the output of the hash string (representing a string as an integer */

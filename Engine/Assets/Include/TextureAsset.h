@@ -9,7 +9,7 @@
 * TextureID
 */
 
-class TextureAsset : public Asset
+class ASSETS_API TextureAsset : public Asset
 {
 private:
 	int _width; /**< Width of the texture */

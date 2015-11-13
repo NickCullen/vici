@@ -9,7 +9,7 @@ Name="Assets"
 /Source
 
 [Module]
-Type=static
+Type=shared
 Name="Assets"
 
 [LinkLibs]

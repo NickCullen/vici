@@ -6,7 +6,7 @@ class TextFile;
 
 /* Includes */
 #include "rapidxml/rapidxml.hpp"
-
+#include "UtilAPI.h"
 
 /**
 * Definition of the byte to parse xml
@@ -16,7 +16,7 @@ class TextFile;
 /**
 * Wrapper class for rapidxml xml_node
 */
-class XmlNode
+class UTIL_API XmlNode
 {
 private:
 	rapidxml::xml_node<XmlByte>* _current; /**<  The xml node this wrapper node is refering to */
@@ -158,7 +158,7 @@ public:
 * Wrapper classes for rapidxml xml_document
 */
 
-class XmlDocument
+class UTIL_API XmlDocument
 {
 private:
 	rapidxml::xml_document<XmlByte>* _doc; /**< The rapidxml xml document */

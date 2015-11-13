@@ -2,6 +2,7 @@
 #define V_GL_RENDERER
 
 #include "core.h"
+#include "RenderingAPI.h"
 
 /**
 * Constant representing the maximum number of dynamic
@@ -13,7 +14,7 @@ const int32 MAX_LIGHTS = 8;
 class VCamera;
 class Light;
 
-class OpenGLRenderer
+class RENDERING_API OpenGLRenderer
 {
 	friend class VCamera;
 

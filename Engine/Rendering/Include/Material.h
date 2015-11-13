@@ -2,12 +2,13 @@
 #define V_MATERIAL
 
 #include "IComponent.h"
+#include "RenderingAPI.h"
 
 /**
 * Structure to keep the id and texture
 * together so we can send it to the shader
 */
-struct TextureReference
+struct RENDERING_API TextureReference
 {
 	AssetPointer<TextureAsset> _tex; /**< The texture */
 	int32 _location; /**< The location of the texture sampler in the shader*/
@@ -28,7 +29,7 @@ struct TextureReference
 * of the material properties in the shader
 */
 
-class Material : public IComponent
+class RENDERING_API Material : public IComponent
 {
 private:
 	AssetPointer<ShaderAsset> _shader; /**< The shader used to render this material */

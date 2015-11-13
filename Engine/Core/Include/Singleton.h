@@ -2,6 +2,7 @@
 #define V_SINGLETON
 
 #include "PlatformDefinitions.h"
+#include "CoreAPI.h"
 
 /**
 * Class to derive from if you want it to
@@ -47,7 +48,7 @@ public:
 };
 
 //static init
-template<typename T> 
+template<typename T>
 T* Singleton<T>::_instance = NULL;
 
 #endif

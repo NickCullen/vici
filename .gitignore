@@ -4,3 +4,9 @@
 *.pyc
 CMakeLists.txt
 Tools/Mac/Python
+*.exp
+*.pdb
+*.ilk
+
+
+Lib/Win32

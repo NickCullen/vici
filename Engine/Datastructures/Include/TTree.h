@@ -2,6 +2,7 @@
 #define TTREE_H
 
 /* Include for TStack */
+#include "DatastructuresAPI.h"
 #include "TStack.h"
 
 /* Forward Decl */
@@ -35,7 +36,7 @@ template<typename T> class TTreeIter;
 */
 
 template<typename T>
-struct TTreeNode
+struct DATASTRUCTURES_API TTreeNode
 {
 	T _data; /**< The data that this node stores */
 
@@ -70,7 +71,7 @@ struct TTreeNode
 */
 
 template<typename T>
-class TTree
+class DATASTRUCTURES_API TTree
 {
 	friend class TTreeIter<T>;
 private:
@@ -396,7 +397,7 @@ public:
 */
 
 template<typename T>
-class TTreeIter
+class DATASTRUCTURES_API TTreeIter
 {
 	friend class TTree<T>;
 private:

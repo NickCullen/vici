@@ -8,9 +8,8 @@ Name="Datastructures"
 [ProjectSourceDirectories]
 /Source
 
-[Module]
-Type=static
-Name="Datastructures"
+;commented out for now
+;[Module]
+;Type=shared
+;Name="Datastructures"
 
-[LinkLibs]
-Core

@@ -11,7 +11,7 @@
 * and unload assets when required
 */
 
-class Asset
+class ASSETS_API Asset
 {
 	friend class AssetLoader;
 private:

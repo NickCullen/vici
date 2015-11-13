@@ -13,7 +13,7 @@ class VCamera;
 * rendered correctly
 */
 
-struct LayerInfo
+struct CORE_API LayerInfo
 {
 	int _layer;	/**< the id for this layer */
 	VCamera* _renderer;	/**< the camera that will render this layer */
@@ -24,7 +24,7 @@ struct LayerInfo
 * can be used for getting a reference to the camera that will render this layer
 * status(ongoing)
 */
-class LayerSystem : public Singleton<LayerSystem>
+class CORE_API LayerSystem : public Singleton<LayerSystem>
 {
 private:
 	LayerInfo* _layers;	/**< Array of all the layers for the current scene */

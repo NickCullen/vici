@@ -2,6 +2,7 @@
 #define V_LIGHT
 
 #include "IComponent.h"
+#include "RenderingAPI.h"
 
 /**
 * Enum specifying the type of the light
@@ -22,7 +23,7 @@ enum LightType
 * data to the glsl shader
 */
 
-class Light : public IComponent
+class RENDERING_API Light : public IComponent
 {
 private:
 	LightType _type;	/**< The type of light */

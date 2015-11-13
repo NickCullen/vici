@@ -2,6 +2,7 @@
 #define V_LOGGER
 
 /* Includes */
+#include "CoreAPI.h"
 #include "Singleton.h"
 
 /**
@@ -10,7 +11,7 @@
 * defined in vici.h
 */
 
-class Logger : public Singleton<Logger>
+class CORE_API Logger : public Singleton<Logger>
 {
 private:
 

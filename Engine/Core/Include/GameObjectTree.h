@@ -4,6 +4,7 @@
 /* Forward Decl */
 class GameObject;
 
+#include "CoreAPI.h"
 #include "TTree.h"
 #include "TList.h"
 
@@ -12,7 +13,7 @@ class GameObject;
 * Game Object tree in the engine
 */
 
-class GameObjectTree : public TTree<GameObject*>
+class CORE_API GameObjectTree : public TTree<GameObject*>
 {
 private:
 	int _lock; /**< Counter for locking the object list*/

@@ -12,7 +12,7 @@ class OpenGLRenderer;
 * will still be able to use all the functions as a normal IComponent.
 */
 
-class IDrawable : public IComponent
+class CORE_API IDrawable : public IComponent
 {
 private:
 

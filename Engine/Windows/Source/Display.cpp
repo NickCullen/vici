@@ -3,7 +3,7 @@
 #include <string>
 
 
-Display::Display() : Singleton<Display>(this)
+Display::Display() : Singleton<Display>()
 {
 	_screen_width = _screen_height = _window_width = _window_height = 0;
 	_refresh_rate = 60;

@@ -9,7 +9,7 @@
 #include <stdarg.h>
 
 
-Platform::Platform() : Singleton<Platform>(this)
+Platform::Platform() : Singleton<Platform>()
 {
 	_cwd[0] = '\0';
 }

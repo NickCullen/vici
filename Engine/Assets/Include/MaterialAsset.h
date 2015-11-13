@@ -15,7 +15,7 @@ class TextureAsset;
 * render this material
 */
 
-class MaterialAsset : public Asset
+class ASSETS_API MaterialAsset : public Asset
 {
 	friend class Material;
 private:

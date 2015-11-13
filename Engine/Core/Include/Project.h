@@ -2,6 +2,7 @@
 #define V_PROJECT
 
 #include "Singleton.h"
+#include "CoreAPI.h"
 
 /**
  * Singleton class that all projects will 
@@ -11,7 +12,7 @@
  * I know what they are...
  */
 
-class Project : public Singleton<Project>
+class CORE_API Project : public Singleton<Project>
 {
 
 public:

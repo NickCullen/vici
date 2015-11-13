@@ -8,7 +8,7 @@
 * and keep track of time
 */
 
-class VTime : public Singleton<VTime>
+class CORE_API VTime : public Singleton<VTime>
 {
 	friend class Platform;
 private:
