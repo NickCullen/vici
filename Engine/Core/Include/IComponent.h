@@ -2,7 +2,7 @@
 #define V_COMPONENT
 
 /*include the core engine */
-#include "core.h"
+#include "GameObject.h"
 
 /*Useful short hand macros*/
 #define _transform _go->GetTransform()

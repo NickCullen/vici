@@ -1,9 +1,12 @@
 #ifndef V_SCENELOADER
 #define V_SCENELOADER
 
+#include "CoreAPI.h"
 #include "Singleton.h"
 #include "VHash.h"
 #include <vector>
+
+#define _SceneLoader Singleton<SceneLoader>::Instance()
 
 /*Forward Decl*/
 class Vici;
@@ -62,7 +65,7 @@ public:
 	/** 
 	* Default destructor 
 	*/
-	virtual ~SceneLoader();
+	~SceneLoader();
 
 	/**
 	* function to load the scene by its index into the _scenes array

@@ -4,13 +4,12 @@
 #include "Object.h"
 #include "VHash.h"
 #include "Xml.h"
-#include "TList.h"
 #include "GameObjectTree.h"
 #include "ComponentTree.h"
 #include "Delegate.h"
 
 /*Forward Decls*/
-class OpenGLRenderer;
+class Renderer;
 class IComponent;
 class Transform;
 class IDrawable;
@@ -71,17 +70,17 @@ public:
 	* First call of the render process and called Before Render
 	* @param renderer A pointer to the Render class which controls the actual render process
 	*/
-	void PreRender(OpenGLRenderer* renderer);
+	void PreRender(Renderer* renderer);
 	/**
 	* Second call of the render process (after PreRender before PostRender)
 	* @param renderer A pointer to the Render class which controls the actual render process
 	*/
-	void Render(OpenGLRenderer* renderer);
+	void Render(Renderer* renderer);
 	/**
 	* Last call of the render process and called After Render
 	* @param renderer A pointer to the Render class which controls the actual render process
 	*/
-	void PostRender(OpenGLRenderer* renderer);
+	void PostRender(Renderer* renderer);
 
 	/**
 	* Apply the game objects transform (model matrix) to the matrix statck

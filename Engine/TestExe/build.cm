@@ -1,0 +1,16 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="TestExe" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=exe
+Name="TestExe"
+
+[LinkLibs]
+Core

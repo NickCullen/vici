@@ -4,6 +4,8 @@
 #include "Singleton.h"
 #include "CoreAPI.h"
 
+#define _Project Singleton<Project>::Instance()
+
 /**
  * Singleton class that all projects will 
  * derive from. Implement methods such as component

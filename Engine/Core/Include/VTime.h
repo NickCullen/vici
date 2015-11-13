@@ -2,6 +2,9 @@
 #define V_TIME
 
 #include "Singleton.h"
+#include "CoreAPI.h"
+
+#define _Time Singleton<VTime>::Instance()
 
 /**
 * Singleton class used to store delta time

@@ -1,0 +1,15 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Datastructures" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+;commented out for now
+;[Module]
+;Type=shared
+;Name="Datastructures"
+

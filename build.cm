@@ -11,18 +11,12 @@ VICI_MAC
 
 [ProjectIncludeDirectories]	
 /Engine/CommonInclude
-/Engine/Assets/Include
 /Engine/Core/Include
-/Engine/Datastructures/Include
-/Engine/Rendering/Include
 /Engine/Util/Include
+/Engine/Datastructures/Include
 /ThirdParty/Include
 
-[APPLE:ProjectIncludeDirectories]
-/Engine/Mac/Include
-
 [WIN32:ProjectIncludeDirectories]	
-/Engine/Windows/Include
 /ThirdParty/Include/VLD
 
 [WIN32:OutputSettings]
@@ -44,14 +38,7 @@ Libs=/Lib/Mac
 /ThirdParty/Lib/Win32
 
 [SubModules]
-/Engine/Assets
 /Engine/Core
-/Engine/Datastructures
-/Engine/Rendering
 /Engine/Util
+/Engine/TestExe
 
-[WIN32:SubModules]
-/Engine/Windows
-
-[APPLE:SubModules]
-/Engine/Mac

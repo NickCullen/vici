@@ -4,7 +4,7 @@
 #include "IComponent.h"
 
 /*Forward Decl*/
-class OpenGLRenderer;
+class Renderer;
 
 /**
 * Components that require callbacks to render functions should inherit from IDrawable
@@ -43,17 +43,17 @@ public:
 	* Called before rendering a frame
 	* @param renderer the renderer being used to render the scene
 	*/
-	virtual void PreRender(OpenGLRenderer* renderer){};
+	virtual void PreRender(Renderer* renderer){};
 	/**
 	* Called once per frame to render the current frame
 	* @param renderer the renderer being used to render the scene
 	*/
-	virtual void OnRender(OpenGLRenderer* renderer){};
+	virtual void OnRender(Renderer* renderer){};
 	/**
 	* Called after the scene has been rendered
 	* @param renderer the renderer being used to render the scene
 	*/
-	virtual void PostRender(OpenGLRenderer* renderer){};
+	virtual void PostRender(Renderer* renderer){};
 
 	/**
 	* Called when this IDrawable is destroyed

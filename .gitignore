@@ -8,5 +8,5 @@ Tools/Mac/Python
 *.pdb
 *.ilk
 
-
-Lib/Win32
+/Lib/Win32/*/*.dll
+/Lib/Win64/*/*.dll

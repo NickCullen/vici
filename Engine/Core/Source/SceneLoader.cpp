@@ -1,6 +1,9 @@
 #include "SceneLoader.h"
-#include "core.h"
+#include "Platform.h"
+#include "Xml.h"
 #include <iterator>
+#include "GameObject.h"
+#include "Vici.h"
 
 SceneLoader::SceneLoader() : Singleton<SceneLoader>()
 {
@@ -94,7 +97,7 @@ void* SceneLoader::LoadAssets(void* args)
 		while (!cur.IsNull())
 		{
 			//load the current asset
-			_Assets->LoadAsset(cur);
+			//_Assets->LoadAsset(cur);
 
 			//get the next asset
 			cur = cur.NextSibling();
@@ -158,7 +161,7 @@ void SceneLoader::LoadScene(unsigned int index)
 			while (!cur.IsNull())
 			{
 				//load the current asset
-				_Assets->LoadAsset(cur);
+				//_Assets->LoadAsset(cur);
 
 				//get the next asset
 				cur = cur.NextSibling();

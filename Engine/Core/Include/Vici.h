@@ -6,32 +6,33 @@ class GameObject;
 class VCamera;
 
 /* Required Includes */
-#include "tds.h"
-#include "GameObjectTree.h"
 #include "CoreAPI.h"
+#include "Singleton.h"
 
-/* Singleton Classes */
-#include "AssetLoader.h"
-#include "SceneLoader.h"
-#include "LayerSystem.h"
+#include "Platform.h"
 #include "Display.h"
 #include "Input.h"
-#include "VTime.h"
-#include "Logger.h"
-#include "Platform.h"
-#include "Project.h"
+
+#include "SceneLoader.h"
+#include "GameObjectTree.h"
+
+//#include "tds.h"
+
+
+
+/* Singleton Classes */
+//#include "AssetLoader.h"
+
+//#include "LayerSystem.h"
+
+//#include "VTime.h"
+//#include "Logger.h"
+
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
-#define _Assets Singleton<AssetLoader>::Instance()
-#define _SceneLoader Singleton<SceneLoader>::Instance()
-#define _Layers Singleton<LayerSystem>::Instance()
-#define _Display Singleton<Display>::Instance()
-#define _Input Singleton<Input>::Instance()
-#define _Time Singleton<VTime>::Instance()
-#define _Logger Singleton<Logger>::Instance()
-#define _Platform Singleton<Platform>::Instance()
-#define _Project Singleton<Project>::Instance()
+//#define _Layers Singleton<LayerSystem>::Instance()
+//#define _Logger Singleton<Logger>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -47,25 +48,21 @@ class CORE_API Vici : public Singleton<Vici>
 private:
 	GameObjectTree _objects; /**< Tree of Game Objects in the current scene*/
 
-	TList<VCamera*> _cameras;	/**< List containing all active cameras */
+	//TList<VCamera*> _cameras;	/**< List containing all active cameras */
 
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
 
 	Platform _platform;	/**< The singleton class for platform functions - access via _Platform-> Macro */
 	
-	AssetLoader _asset_loader; /**< The asset Loader for maintaining assets throughout scenes  - Singleton class accessed via the _Assets macro */
-
 	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
 
-	LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
+	//LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
 
 	Display _display;	/**< Class responsible for window presentation and sizes etc. - Singleton class accessed via the _Display macro */
 
 	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
 
-	VTime _time;	/**< Class representing time - Singleton class accessed via the _Time macro */
-	
-	Logger _logger;	/**< Class used for logging strings in debug model - Singleton class accessed via the _Logger macro */
+	//Logger _logger;	/**< Class used for logging strings in debug model - Singleton class accessed via the _Logger macro */
 	
 	/**
 	* Called to register all components of the engine by setting their static

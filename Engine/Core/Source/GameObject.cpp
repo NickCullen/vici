@@ -1,9 +1,10 @@
 #include "GameObject.h"
+#include "Vici.h"
 #include "IComponent.h"
-#include "ComponentFactory.h"
+//#include "ComponentFactory.h"
 #include "Transform.h"
 #include "IDrawable.h"
-#include "MatrixStack.h"
+//#include "MatrixStack.h"
 
 GameObject::GameObject()
 {
@@ -20,60 +21,60 @@ GameObject::~GameObject()
 
 void GameObject::Init(GameObject* parent, XmlNode& node)
 {
-	//set parent
-	_parent = parent;
+	////set parent
+	//_parent = parent;
 
-	if (!node.IsNull())
-	{
-		/*set initial vars*/
-		_hash = node.GetAttributeString("id");
-		if (node.GetAttributeBool("indestructable")) MakeIndestructable();
-		_enabled = node.GetAttributeBool("enabled");
-		_layer = node.GetAttributeBool("layer");
+	//if (!node.IsNull())
+	//{
+	//	/*set initial vars*/
+	//	_hash = node.GetAttributeString("id");
+	//	if (node.GetAttributeBool("indestructable")) MakeIndestructable();
+	//	_enabled = node.GetAttributeBool("enabled");
+	//	_layer = node.GetAttributeBool("layer");
 
-		/* If there is a transform node init the transform */
-		XmlNode transform = node.GetChild("transform");
-		if (!transform.IsNull())
-		{
-			_t->Init(transform);
-		}
+	//	/* If there is a transform node init the transform */
+	//	XmlNode transform = node.GetChild("transform");
+	//	if (!transform.IsNull())
+	//	{
+	//		_t->Init(transform);
+	//	}
 
-		/*Create components*/
-		XmlNode cur_component = node.GetChild("component");
-		while (!cur_component.IsNull())
-		{
-			//create the component
-			IComponent* component = ComponentFactory::CreateComponent(cur_component.GetAttributeString("type"));
+	//	/*Create components*/
+	//	XmlNode cur_component = node.GetChild("component");
+	//	while (!cur_component.IsNull())
+	//	{
+	//		//create the component
+	//		IComponent* component = ComponentFactory::CreateComponent(cur_component.GetAttributeString("type"));
 
-			//set its game object
-			component->SetGameObject(this);
+	//		//set its game object
+	//		component->SetGameObject(this);
 
-			//init the component from xml
-			component->Init(cur_component);
+	//		//init the component from xml
+	//		component->Init(cur_component);
 
-			//add it to the components list
-			_components.Insert(component);
+	//		//add it to the components list
+	//		_components.Insert(component);
 
-			//get next
-			cur_component = cur_component.NextSibling("component");
-		}
+	//		//get next
+	//		cur_component = cur_component.NextSibling("component");
+	//	}
 
-		/* create sub objects*/
-		XmlNode cur_object = node.GetChild("gameobject");
-		while (!cur_object.IsNull())
-		{
-			GameObject* go = new GameObject();
+	//	/* create sub objects*/
+	//	XmlNode cur_object = node.GetChild("gameobject");
+	//	while (!cur_object.IsNull())
+	//	{
+	//		GameObject* go = new GameObject();
 
-			//init this object
-			go->Init(this, cur_object);
+	//		//init this object
+	//		go->Init(this, cur_object);
 
-			//add to child node
-			_children.Insert(go);
+	//		//add to child node
+	//		_children.Insert(go);
 
-			//get next
-			cur_object = cur_object.NextSibling("gameobject");
-		}
-	}
+	//		//get next
+	//		cur_object = cur_object.NextSibling("gameobject");
+	//	}
+	//}
 }
 
 void GameObject::OnDestroy()
@@ -133,86 +134,86 @@ IComponent* GameObject::FindComponent(VHash type_id)
 
 void GameObject::ApplyModelMatrix(MatrixStack* stack)
 {
-	stack->ApplyMatrix(_t->GetModelMatrix());
+	//stack->ApplyMatrix(_t->GetModelMatrix());
 }
 
-void GameObject::PreRender(OpenGLRenderer* renderer)
+void GameObject::PreRender(Renderer* renderer)
 {
-	TLIST_foreach(IDrawable*, drw, _render_list)
-	{
-		drw->PreRender(renderer);
-	}
+	//TLIST_foreach(IDrawable*, drw, _render_list)
+	//{
+	//	drw->PreRender(renderer);
+	//}
 
-	//the matrix stack
-	MatrixStack* ms = renderer->GetMatrixStack();
+	////the matrix stack
+	//MatrixStack* ms = renderer->GetMatrixStack();
 
-	//apply to child objects
-	TTREE_foreach(GameObject*, child, _children)
-	{
-		//push
-		ms->PushMatrix();
+	////apply to child objects
+	//TTREE_foreach(GameObject*, child, _children)
+	//{
+	//	//push
+	//	ms->PushMatrix();
 
-		//apply
-		child->ApplyModelMatrix(ms);
+	//	//apply
+	//	child->ApplyModelMatrix(ms);
 
-		//render
-		child->PreRender(renderer);
+	//	//render
+	//	child->PreRender(renderer);
 
-		//pop
-		ms->PopMatrix();
-	}
+	//	//pop
+	//	ms->PopMatrix();
+	//}
 }
-void GameObject::Render(OpenGLRenderer* renderer)
+void GameObject::Render(Renderer* renderer)
 {
-	TLIST_foreach(IDrawable*, drw, _render_list)
-	{
-		drw->OnRender(renderer);
-	}
+	//TLIST_foreach(IDrawable*, drw, _render_list)
+	//{
+	//	drw->OnRender(renderer);
+	//}
 
-	//the matrix stack
-	MatrixStack* ms = renderer->GetMatrixStack();
+	////the matrix stack
+	//MatrixStack* ms = renderer->GetMatrixStack();
 
-	//apply to child objects
-	TTREE_foreach(GameObject*, child, _children)
-	{
-		//push
-		ms->PushMatrix();
+	////apply to child objects
+	//TTREE_foreach(GameObject*, child, _children)
+	//{
+	//	//push
+	//	ms->PushMatrix();
 
-		//apply
-		child->ApplyModelMatrix(ms);
+	//	//apply
+	//	child->ApplyModelMatrix(ms);
 
-		//render
-		child->Render(renderer);
+	//	//render
+	//	child->Render(renderer);
 
-		//pop
-		ms->PopMatrix();
-	}
+	//	//pop
+	//	ms->PopMatrix();
+	//}
 }
-void GameObject::PostRender(OpenGLRenderer* renderer)
+void GameObject::PostRender(Renderer* renderer)
 {
-	TLIST_foreach(IDrawable*, drw, _render_list)
-	{
-		drw->PostRender(renderer);
-	}
+	//TLIST_foreach(IDrawable*, drw, _render_list)
+	//{
+	//	drw->PostRender(renderer);
+	//}
 
-	//the matrix stack
-	MatrixStack* ms = renderer->GetMatrixStack();
+	////the matrix stack
+	//MatrixStack* ms = renderer->GetMatrixStack();
 
-	//apply to child objects
-	TTREE_foreach(GameObject*, child, _children)
-	{
-		//push
-		ms->PushMatrix();
+	////apply to child objects
+	//TTREE_foreach(GameObject*, child, _children)
+	//{
+	//	//push
+	//	ms->PushMatrix();
 
-		//apply
-		child->ApplyModelMatrix(ms);
+	//	//apply
+	//	child->ApplyModelMatrix(ms);
 
-		//render
-		child->PostRender(renderer);
+	//	//render
+	//	child->PostRender(renderer);
 
-		//pop
-		ms->PopMatrix();
-	}
+	//	//pop
+	//	ms->PopMatrix();
+	//}
 }
 
 void GameObject::RegisterCallback(EComponentCallback type, Delegate callback)

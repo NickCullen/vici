@@ -1,0 +1,17 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Factories" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=shared
+Name="Factories"
+
+[LinkLibs]
+Util
+

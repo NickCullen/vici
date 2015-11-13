@@ -1,0 +1,17 @@
+[ProjectSettings]  			
+MinCmakeVer=2.6				
+Name="Singletons" 		
+
+[ProjectIncludeDirectories]	
+/Include
+
+[ProjectSourceDirectories]
+/Source
+
+[Module]
+Type=shared
+Name="Singletons"
+
+;[LinkLibs]
+
+

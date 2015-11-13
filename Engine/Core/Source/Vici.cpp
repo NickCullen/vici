@@ -3,11 +3,11 @@
 #include "Platform.h"
 #include <string>
 #include "Display.h"
-#include "SceneLoader.h"
-#include "Camera.h"
-#include "LayerSystem.h"
-#include "Components.h"
-#include "ComponentFactory.h"
+#include "Project.h"
+//#include "Camera.h"
+//#include "LayerSystem.h"
+//#include "Components.h"
+//#include "ComponentFactory.h"
 
 Vici::Vici() : Singleton<Vici>()
 {
@@ -34,13 +34,13 @@ void Vici::Init()
 	//initialize stuff
 	_Display->Init(_Platform->GetCwd());
     _SceneLoader->Init();
-	_Layers->Init(_Platform->GetCwd());
+	//_Layers->Init(_Platform->GetCwd());
 
 	//call some required static methods on classes
-	ShaderAsset::LoadSharedCode(_Platform->GetCwd());
+	//ShaderAsset::LoadSharedCode(_Platform->GetCwd());
 
 	//Register Vici Asset Types
-	_asset_loader.RegisterAssets();
+	//_asset_loader.RegisterAssets();
 
 	//register Vici components
 	RegisterComponents();
@@ -106,14 +106,14 @@ void Vici::Update()
 
 void Vici::Render()
 {
-	TLIST_foreach(VCamera*, camera, _cameras)
-	{
-		//prepare the scene
-		camera->PrepareScene();
+	//TLIST_foreach(VCamera*, camera, _cameras)
+	//{
+	//	//prepare the scene
+	//	camera->PrepareScene();
 
-		//now do renderings
-		camera->Render();
-	}
+	//	//now do renderings
+	//	camera->Render();
+	//}
 }
 
 void Vici::OnExit()
@@ -129,12 +129,12 @@ void Vici::OnExit()
 	_objects.Unlock();
 
 	//unload assets
-	_Assets->UnloadAll();
+	//_Assets->UnloadAll();
 
 	//cleanup components
-	ComponentFactory::CleanUp();
-	AssetFactory::CleanUp();
-	ShaderAsset::UnloadSharedCode();
+	//ComponentFactory::CleanUp();
+	//AssetFactory::CleanUp();
+	//ShaderAsset::UnloadSharedCode();
 
 	//set back to false
 	_started = false;
@@ -165,8 +165,5 @@ void Vici::RemoveGameObject(GameObject* go)
 /* Component registrations */
 void Vici::RegisterComponents()
 {
-	VCamera::reg = ComponentRegister<VCamera>("VCamera");
-	MeshRenderer::reg = ComponentRegister<MeshRenderer>("MeshRenderer");
-	Material::reg = ComponentRegister<Material>("Material");
-	Light::reg = ComponentRegister<Light>("Light");
+	//VCamera::reg = ComponentRegister<VCamera>("VCamera");
 }
