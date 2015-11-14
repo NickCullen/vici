@@ -15,13 +15,15 @@ class Renderer;
 * so not many detailed comments will be made here 
 */
 
-class CORE_API VCamera : public IComponent
+class CORE_API Camera : public IComponent
 {
+	COMPONENT_REGISTER_DEF(Camera)
+
 	friend class Renderer;
 private:
 	Renderer* _renderer; /**< Renderer used to draw the objects this camera will render */
 
-	uint32 _clear_flags; /**< OpenGL clear flags this camera will clear */
+	ClearFlags _clear_flags; /**< OpenGL clear flags this camera will clear */
 
 	glm::vec4 _clear_color; /**< Colour of empty scene */
 
@@ -35,14 +37,14 @@ private:
 	
 public:
 	/** 
-	* VCamera constructor 
+	* Camera constructor 
 	*/
-	VCamera();
+	Camera();
 
 	/**
-	* VCamera destructor
+	* Camera destructor
 	*/
-	~VCamera();
+	~Camera();
 
 	/** 
 	* Adds this camera to the _vici camera list and lets it know what
@@ -94,8 +96,6 @@ public:
 	{
 		return _renderer;
 	}
-	
-	static ComponentRegister<VCamera> reg; /**< Static registration member var used to register this component with the ComponentFactory */
 
 	void Update(); /**< Debug purposes */
 };

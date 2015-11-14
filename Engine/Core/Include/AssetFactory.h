@@ -80,6 +80,7 @@ class CORE_API AssetRegister : AssetFactory
 {
 public:
 
+
 	/**
 	* The constructor used by the asset to register its creation function
 	* @param s The string id of the asset

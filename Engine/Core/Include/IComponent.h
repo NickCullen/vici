@@ -8,6 +8,15 @@
 /*Useful short hand macros*/
 #define _transform _go->GetTransform()
 
+// Definition for classes that inherit from IComponent to put at the
+// Top of their definition
+#define COMPONENT_REGISTER_DEF(Type) \
+	public: \
+		static ComponentRegister<Type> reg; \
+		static void Register() { \
+			reg = ComponentRegister<Type>(#Type); \
+		} \
+
 /**
 * The base class of all components. Components that do not require render callbacks should 
 * inherit from this class, otherwise IDrawable should be used. 

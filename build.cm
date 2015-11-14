@@ -16,6 +16,7 @@ VICI_OPENGL
 /Engine/Core/Include
 /Engine/Core/Include/Rendering
 /Engine/Util/Include
+/Engine/Registrar/Include
 /Engine/Datastructures/Include
 /ThirdParty/Include
 
@@ -43,5 +44,7 @@ Libs=/Lib/Mac
 [SubModules]
 /Engine/Core
 /Engine/Util
+/Engine/Registrar
 /Engine/TestExe
+
 

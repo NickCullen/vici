@@ -3,11 +3,13 @@
 #include "VTime.h"
 #include "ShaderAsset.h"
 #include "MatrixStack.h"
+#include "Light.h"
 
 Renderer::Renderer()
 {
 	_cam = NULL;
 	_scene_ambience = glm::vec4(0.1f,0.1f,0.1f,1.0f);
+	_ms = new MatrixStack();
 }
 
 Renderer::~Renderer()
@@ -15,7 +17,7 @@ Renderer::~Renderer()
 }
 
 /*if this is override please remember to call base.Init()*/
-void Renderer::Init(VCamera* cam)
+void Renderer::Init(Camera* cam)
 {
 	_cam = cam;
 }
@@ -40,7 +42,7 @@ void Renderer::PostSceneRender()
 
 
 
-void Renderer::ClearBuffer(int flags, const glm::vec4& col)
+void Renderer::ClearBuffer(ClearFlags flags, const glm::vec4& col)
 {
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -68,4 +70,42 @@ void Renderer::SetUniforms(ShaderAsset* shader)
 	//push globals
 	glUniform1f(shader->timeLocation(), _Time->Time());
 	glUniform4fv(shader->scene_ambienceLocation(), 1, glm::value_ptr<float>(_scene_ambience));
+}
+
+void Renderer::SetLightUniforms(ShaderAsset* shader, Transform* transform)
+{
+	int32 index = 0;
+	int32 light_count = 0;
+
+	//make sure we dont exceed max lights or the light count
+	TLIST_foreach(Light*, light, _lights)
+	{
+		if (index >= MAX_LIGHTS) break;
+
+		//check if the light will affect this position
+		if (light->InRange(transform))
+		{
+			//set the light in the lights array
+			light->SetUniform(shader, index);
+
+			//increment index
+			index++;
+
+			//increment light count
+			light_count++;
+		}
+	}
+
+	//set nnumber of lights
+	int32 loc = shader->UniformLocation("uLightCount");
+	if (loc != -1) glUniform1i(loc, light_count);
+}
+void Renderer::AddLight(Light* light)
+{
+	_lights.PushBack(light);
+}
+
+void Renderer::RemoveLight(Light* light)
+{
+	_lights.Remove(light);
 }

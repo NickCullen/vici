@@ -3,7 +3,7 @@
 
 /* Forward decl */
 class GameObject;
-class VCamera;
+class Camera;
 
 /* Required Includes */
 #include "CoreAPI.h"
@@ -12,6 +12,7 @@ class VCamera;
 #include "Platform.h"
 #include "Input.h"
 
+#include "AssetLoader.h"
 #include "SceneLoader.h"
 #include "GameObjectTree.h"
 #include "LayerSystem.h"
@@ -30,11 +31,11 @@ class VCamera;
 class CORE_API Vici : public Singleton<Vici>
 {
 	friend class SceneLoader;
-	friend class VCamera;
+	friend class Camera;
 private:
 	GameObjectTree _objects; /**< Tree of Game Objects in the current scene*/
 
-	TList<VCamera*> _cameras;	/**< List containing all active cameras */
+	TList<Camera*> _cameras;	/**< List containing all active cameras */
 
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
 
@@ -42,15 +43,12 @@ private:
 	
 	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
 
+	AssetLoader _asset_loader;	/**< The asset loader - singleton class accessed via the _Assets macro */
+
 	LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
 
 	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
 
-	/**
-	* Called to register all components of the engine by setting their static
-	* reg member variables with the ComponentRegister<T> class (See ComponentFactory.h)
-	*/
-	void RegisterComponents();
 public:
 
 	/**

@@ -38,6 +38,7 @@ void ShaderAsset::Unload()
 	_is_loaded = false;
 }
 
+
 void ShaderAsset::Load(XmlNode& node)
 {
 	_v = glCreateShader(GL_VERTEX_SHADER);
@@ -167,7 +168,7 @@ void ShaderAsset::Load(XmlNode& node)
 }
 
 
-void ShaderAsset::DebugShader(GLuint shader, GLenum checkType)
+void ShaderAsset::DebugShader(ShaderHandle shader, ShaderDebugFlags checkType)
 {
 	//check for errors
 	int noError;
@@ -187,7 +188,7 @@ void ShaderAsset::DebugShader(GLuint shader, GLenum checkType)
 }
 
 
-void ShaderAsset::DebugProgram(GLuint program, GLenum checkType)
+void ShaderAsset::DebugProgram(ShaderHandle program, ShaderDebugFlags checkType)
 {
 	//check for errors
 	int noError;
@@ -206,12 +207,12 @@ void ShaderAsset::DebugProgram(GLuint program, GLenum checkType)
 	}
 }
 
-GLint ShaderAsset::SamplerLocation(const char* id)
+SamplerHandle ShaderAsset::SamplerLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id); 
 }
 
-GLint ShaderAsset::UniformLocation(const char* id)
+UniformHandle ShaderAsset::UniformLocation(const char* id)
 {
 	return glGetUniformLocation(_program, id);
 }

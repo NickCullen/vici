@@ -4,9 +4,7 @@
 #include <string>
 #include "Project.h"
 #include "Camera.h"
-//#include "LayerSystem.h"
-//#include "Components.h"
-//#include "ComponentFactory.h"
+#include "ShaderAsset.h"
 
 Vici::Vici() : Singleton<Vici>()
 {
@@ -35,13 +33,7 @@ void Vici::Init()
 	_Layers->Init(_Platform->GetCwd());
 
 	//call some required static methods on classes
-	//ShaderAsset::LoadSharedCode(_Platform->GetCwd());
-
-	//Register Vici Asset Types
-	//_asset_loader.RegisterAssets();
-
-	//register Vici components
-	RegisterComponents();
+	ShaderAsset::LoadSharedCode(_Platform->GetCwd());
 
 	//Register Project specific assets
 	_Project->RegisterAssetImporters();
@@ -104,7 +96,7 @@ void Vici::Update()
 
 void Vici::Render()
 {
-	TLIST_foreach(VCamera*, camera, _cameras)
+	TLIST_foreach(Camera*, camera, _cameras)
 	{
 		//prepare the scene
 		camera->PrepareScene();
@@ -127,7 +119,7 @@ void Vici::OnExit()
 	_objects.Unlock();
 
 	//unload assets
-	//_Assets->UnloadAll();
+	_Assets->UnloadAll();
 
 	//cleanup components
 	//ComponentFactory::CleanUp();
@@ -158,10 +150,4 @@ void Vici::RemoveGameObject(GameObject* go)
 {
 	//remove from list
 	_objects.Remove(go);
-}
-
-/* Component registrations */
-void Vici::RegisterComponents()
-{
-	VCamera::reg = ComponentRegister<VCamera>("VCamera");
 }

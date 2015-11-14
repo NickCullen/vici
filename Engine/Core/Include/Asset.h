@@ -8,15 +8,13 @@
 
 // Definition for classes that inherit from Asset to put at the
 // Top of their definition
-#define ASSET_REGISTER_DEF(Asset) 	public: \
-			static AssetRegister<Asset> reg; \
-			static void Register() \
-			{ 						\
-				Asset::reg = AssetRegister<Asset>(#Asset); \
-			}
+#define ASSET_REGISTER_DEF(Type) \
+	public: \
+		static AssetRegister<Type> reg; \
+		static void Register() { \
+			reg = AssetRegister<Type>(#Type); \
+		} \
 
-// Macro to use to register an asset
-#define REG_ASSET(Asset) Asset::Register()
 
 /**
 * Base class that all asset types must derive from

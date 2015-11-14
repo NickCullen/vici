@@ -71,7 +71,7 @@ public:
 	/**
 	* Same as the non-template CreateComponent function except it casts the output to the 
 	* type specified in <>. e.g. to create a camera component would be to write:
-	* VCamera* cam = ComponentFactory::CreateComponent<VCamera>("VCamera");
+	* Camera* cam = ComponentFactory::CreateComponent<Camera>("Camera");
 	* @param id string containing id of required component
 	* @return The created component pointer of specified type (NULL if not created)
 	*/

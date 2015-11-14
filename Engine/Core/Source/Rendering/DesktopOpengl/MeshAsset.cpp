@@ -191,7 +191,7 @@ void MeshAsset::Load(XmlNode& node)
 		//allocate memory to size counters
 		_index_count = new int32[_num_arrays];
 		_index_arrays = new uint32*[_num_arrays];
-		_index_buffers = new uint32[_num_arrays];
+		_index_buffers = new BufferHandle[_num_arrays];
 
 		//generate the buffers
 		glGenBuffers(_num_arrays, _index_buffers);
@@ -267,7 +267,7 @@ void MeshAsset::SetArrays(ShaderAsset* shader)
 }
 
 
-void MeshAsset::DrawElements(int32 index)
+void MeshAsset::DrawElements(uint32 index)
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffers[index]);
 	glDrawElements(GL_TRIANGLES, _index_count[index], GL_UNSIGNED_INT, (void*)0);

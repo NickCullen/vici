@@ -4,14 +4,25 @@
 #include "ViciProject.h"
 #include "Display.h"
 
+#include "AssetRegistrar.h"
+#include "ComponentRegistrar.h"
+
+#include "ComponentFactory.h"
+#include "MeshRenderer.h"
+
 int main(int argc, char** argv)
 {
 	Vici* v = new Vici();
 	ViciProject* proj = new ViciProject();
 	
+	//Register assets and components
+	RegisterAssets();
+	RegisterComponents();
+
 	// Default values
 	char* runningDirectory = argv[0];
-	
+	bool trimEnd = true;
+
 	// Parse args
 	if (argc > 1)
 	{
@@ -24,28 +35,17 @@ int main(int argc, char** argv)
 			if(strcmp(param, "-rd") == 0)
 			{
 				runningDirectory = value;
+				trimEnd = false;
 			}
 		}
 	}
 	
 	// Set current working directory
-	_Platform->SetCwd(runningDirectory, true);
+	_Platform->SetCwd(runningDirectory, trimEnd);
 	
 	// Setup Display
-	
-	// For quickly debugging window
-	if (!glfwInit())
-	{
-		_Platform->LogString("Cannot init glfw\n");
-		return -1;
-	}
-	
-	// Initialise for quick running	
 	Display* display = new Display();
-	VWindow* win = glfwCreateWindow(800, 600, "Test", NULL, NULL);
-	printf("Window = %p\n", win);
-	
-	display->SetRenderContext(win);
+	display->Init(_Platform->GetCwd());
 	
 	v->Init();
 

@@ -15,14 +15,14 @@
 struct CORE_API TextureReference
 {
 	AssetPointer<TextureAsset> _tex; /**< The texture */
-	int32 _location; /**< The location of the texture sampler in the shader*/
+	SamplerHandle _sampler_location; /**< The location of the texture sampler in the shader*/
 
 	/**
 	* Default constructor
 	*/
 	TextureReference()
 	{
-		_location = -1;
+		_sampler_location = -1;
 	}
 };
 
@@ -35,6 +35,8 @@ struct CORE_API TextureReference
 
 class CORE_API Material : public IComponent
 {
+	COMPONENT_REGISTER_DEF(Material)
+
 private:
 	AssetPointer<ShaderAsset> _shader; /**< The shader used to render this material */
 
@@ -43,12 +45,12 @@ private:
 	AssetPointer<MaterialAsset> _material_asset; /**< The asset file containing default material properties */
 
 
-	int32 _material_ka_location; /**< Location of material ambience */
-	int32 _material_kd_location; /**< Location of material diffuse */
-	int32 _material_ks_location; /**< Location of material specular */
-	int32 _material_ns_location; /**< Location of material shininess */
-	int32 _material_d_location;	 /**< Location of material dissolve */
-	int32 _material_illum_location; /**< Location of material illumination model location */
+	UniformHandle _material_ka_location; /**< Location of material ambience */
+	UniformHandle _material_kd_location; /**< Location of material diffuse */
+	UniformHandle _material_ks_location; /**< Location of material specular */
+	UniformHandle _material_ns_location; /**< Location of material shininess */
+	UniformHandle _material_d_location;	 /**< Location of material dissolve */
+	UniformHandle _material_illum_location; /**< Location of material illumination model location */
 
 public:
 	/** 
@@ -84,7 +86,6 @@ public:
 	*/
 	void SetUniforms();
 
-	static ComponentRegister<Material> reg; /**< Used to register this class with ComponetFactory */
 };
 
 #endif

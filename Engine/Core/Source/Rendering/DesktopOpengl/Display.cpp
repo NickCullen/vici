@@ -119,6 +119,11 @@ void Display::Init(char* cwd)
 
 		glfwSetWindowFocusCallback(_render_context, OnFocusChanged);
 
+#ifdef VICI_WINDOWS
+		//init glew
+		if (glewInit() != GLEW_OK)
+			_Platform->LogString("Could not init glew library\n");
+#endif
 		//get the monitor info
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 

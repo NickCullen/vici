@@ -16,13 +16,14 @@ class ShaderAsset;
 
 class CORE_API MeshAsset : public Asset
 {
+	ASSET_REGISTER_DEF(MeshAsset)
 private:
-	uint32 _vertex_buffer;	/**< The integer representing the vertex buffer */
-	uint32 _uv_buffer;		/**< The integer representing the vertex buffer */
-	uint32 _normal_buffer;	/**< The integer representing the vertex buffer */
-	uint32 _tangent_buffer; /**< The integer representing the vertex buffer */
-	uint32 _binormal_buffer;/**< The integer representing the vertex buffer */
-	uint32* _index_buffers;	/**< The index buffers array */
+	BufferHandle _vertex_buffer;	/**< The integer representing the vertex buffer */
+	BufferHandle _uv_buffer;		/**< The integer representing the vertex buffer */
+	BufferHandle _normal_buffer;	/**< The integer representing the vertex buffer */
+	BufferHandle _tangent_buffer; /**< The integer representing the vertex buffer */
+	BufferHandle _binormal_buffer;/**< The integer representing the vertex buffer */
+	BufferHandle* _index_buffers;	/**< The index buffers array */
 
 	float* _vertex_array;	/**< The array of vertices */
 	float* _uv_array;		/**< The array of uvs */
@@ -75,9 +76,7 @@ public:
 	* Called to execute the draw elements functions. This is the Mesh
 	* job because it knows the topology of the mesh
 	*/
-	void DrawElements(int32 index);
-
-	static AssetRegister<MeshAsset> reg; /**< Static register for this asset type*/
+	void DrawElements(uint32 index);
 };
 
 

@@ -17,6 +17,8 @@ class TextureAsset;
 
 class CORE_API MaterialAsset : public Asset
 {
+	ASSET_REGISTER_DEF(MaterialAsset)
+
 	friend class Material;
 private:
 	glm::vec4 _ka;	/**< Material Ambience */
@@ -53,8 +55,6 @@ public:
 	* Unload the MaterialAsset from memory
 	*/
 	virtual void Unload();
-
-	static AssetRegister<MaterialAsset> reg; /**< Static register for this asset type*/
 };
 
 

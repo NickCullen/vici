@@ -46,7 +46,7 @@ void Material::Init(XmlNode& node)
 
 		//get the sampler uniform location
 		char* uniform_name = cur_texture.GetAttributeString("uniform");
-		ref._location = _shader->SamplerLocation(uniform_name);
+		ref._sampler_location = _shader->SamplerLocation(uniform_name);
 
 		//add the texture reference to the list
 		_textures.PushBack(ref);
@@ -71,7 +71,7 @@ void Material::SetUniforms()
 	TLIST_foreach(TextureReference, tex, _textures)
 	{
 		//set the texture this sampler will use
-		glUniform1i((*tex)._location, count); 
+		glUniform1i((*tex)._sampler_location, count); 
 
 		//bind the texture to that active texture location
 		glActiveTexture(GL_TEXTURE0 + count);

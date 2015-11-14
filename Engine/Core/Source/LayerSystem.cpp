@@ -56,7 +56,7 @@ void LayerSystem::Init(const char* cwd)
 }
 
 //sets the camera
-void LayerSystem::SetCameraForLayer(VCamera* cam, uint32 layer)
+void LayerSystem::SetCameraForLayer(Camera* cam, uint32 layer)
 {
 	if (_layers != NULL && layer < _num_of_layers)
 	{
@@ -68,7 +68,7 @@ void LayerSystem::SetCameraForLayer(VCamera* cam, uint32 layer)
 	}
 }
 
-VCamera* LayerSystem::GetCameraForLayer(uint32 layer)
+Camera* LayerSystem::GetCameraForLayer(uint32 layer)
 {
 	if (_layers != NULL && layer < _num_of_layers)
 	{

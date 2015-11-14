@@ -16,12 +16,14 @@ class Material;
 
 class CORE_API MeshRenderer : public IDrawable
 {
+	COMPONENT_REGISTER_DEF(MeshRenderer)
+
 private:
 	Material* _material; /** The material with the shader that will render this mesh */
 
 	AssetPointer<MeshAsset> _mesh; /**< containing all the mesh data */
 
-	int32 _indices; /**< id of the index array to use in the mesh */
+	uint32 _indices; /**< id of the index array to use in the mesh */
 
 	bool _recieve_lighting; /**< Flag specifying if this mesh will recieve lighting or not (default = true) */
 protected:
@@ -67,7 +69,6 @@ public:
 	*/
 	virtual void OnRender(Renderer* renderer);
 
-	static ComponentRegister<MeshRenderer> reg; /**< Static member var used to register this component with the ComponentFactory */
 };
 
 #endif

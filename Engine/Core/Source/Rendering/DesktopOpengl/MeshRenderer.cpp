@@ -45,14 +45,14 @@ void MeshRenderer::OnStart()
 void MeshRenderer::OnEnable()
 {
 	/*make sure camera will render this object*/
-	VCamera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
+	Camera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
 	if (cam)
 		cam->AddGameObject(_go);
 }
 void MeshRenderer::OnDisable()
 {
 	/*make sure camera will not render this object*/
-	VCamera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
+	Camera* cam = _Layers->GetCameraForLayer(_go->GetLayer());
 	if (cam)
 		cam->RemoveGameObject(_go);
 }
@@ -73,7 +73,7 @@ void MeshRenderer::OnRender(Renderer* renderer)
 	renderer->SetUniforms(shader.get());
 
 	//if recieving lighting - set uniforms
-	//if(_recieve_lighting) renderer->SetLightUniforms(shader.get(), _transform);
+	if(_recieve_lighting) renderer->SetLightUniforms(shader.get(), _transform);
 
 	//set material uniforms
 	_material->SetUniforms();

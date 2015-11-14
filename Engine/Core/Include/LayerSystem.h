@@ -8,7 +8,7 @@
 #define _Layers Singleton<LayerSystem>::Instance()
 
 /*Forward decl*/
-class VCamera;
+class Camera;
 
 #define MAX_LAYER_NAME 64
 
@@ -20,7 +20,7 @@ class VCamera;
 struct CORE_API LayerInfo
 {
 	int32 _layer;	/**< the id for this layer */
-	VCamera* _renderer;	/**< the camera that will render this layer */
+	Camera* _renderer;	/**< the camera that will render this layer */
 };
 
 /**
@@ -53,17 +53,17 @@ public:
 
 	/**
 	* sets the camera that will render the specified layer
-	* @param cam VCamera pointer to the layer renderer
+	* @param cam Camera pointer to the layer renderer
 	* @param layer the unsigned integer id for the layer
 	*/
-	void SetCameraForLayer(VCamera* cam, uint32 layer);
+	void SetCameraForLayer(Camera* cam, uint32 layer);
 
 	/**
 	* Returns the camera that renders the specified layer (can be NULL)
 	* @param layer unsigned integer id of the layer you want to get the camera for
-	* @return VCamera pointer for the camera that will render the layer (can be NULL)
+	* @return Camera pointer for the camera that will render the layer (can be NULL)
 	*/
-	VCamera* GetCameraForLayer(uint32 layer);
+	Camera* GetCameraForLayer(uint32 layer);
 };
 
 

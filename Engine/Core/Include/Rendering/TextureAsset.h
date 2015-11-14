@@ -18,9 +18,9 @@ private:
 	int32 _height; /**< Height of the texture */
 	int32 _comp; /**< Number of components the texture has i.e. grey = 1, greyalpha = 2, rgb = 3, rgba = 4 */
 
-	uint32 _texture; /**< Texture reference in opengl */
+	TextureHandle _texture; /**< Texture reference in opengl */
 
-	uint32 _type; /**< Type of texture (GL_TEXTURE_2D, GL_TEXTURE_3D etc. etc.) */
+	TextureMode _type; /**< Type of texture (GL_TEXTURE_2D, GL_TEXTURE_3D for opengl etc. etc.) */
 
 	/**
 	* Returns the format in enum type given the
@@ -37,7 +37,7 @@ private:
 	* @param type The string containing the type of texture (1d, 2d, 3d etc.)
 	* @return Unsigned integer containing the GL_TEXTURE_*D value
 	*/
-	uint32 GetType(char* type);
+	TextureMode GetType(char* type);
 public:
 	/**
 	* Default constructor
@@ -64,7 +64,7 @@ public:
 	* Returns the gl reference texture
 	* @return The integer used to reference the texture in opengl
 	*/
-	inline uint32 GetTextureID(){ return _texture; }
+	inline TextureHandle GetTextureHandle(){ return _texture; }
 
 	/**
 	* Binds the texture

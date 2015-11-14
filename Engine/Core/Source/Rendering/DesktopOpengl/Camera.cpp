@@ -5,22 +5,23 @@
 #include "Vici.h"
 #include "MatrixStack.h"
 
-VCamera::VCamera()
+Camera::Camera()
 {
 	//Important to set the hash if for this component
-	_hash = "VCamera";
+	_hash = "Camera";
 
 	//default
 	_clear_flags = 0;
+
 	//lovely bit of consants! :D
 	_clear_color = glm::vec4(0.36078431372549f,0.47843137254902f,1.0f, 1.0f);
 }
-VCamera::~VCamera()
+Camera::~Camera()
 {
 
 }
 
-void VCamera::Init(XmlNode& node)
+void Camera::Init(XmlNode& node)
 {
 	//remmeber to call parents init func
 	IComponent::Init(node);
@@ -46,7 +47,7 @@ void VCamera::Init(XmlNode& node)
 
 }
 
-void VCamera::OnStart()
+void Camera::OnStart()
 {
 	//add to vici camera list
 	_Vici->_cameras.PushBack(this);
@@ -58,10 +59,10 @@ void VCamera::OnStart()
 	_renderer->Init(this);
 
 	//register for callbaks
-	RegisterCallback(eUpdate, DELEGATE(VCamera, Update, this));
+	RegisterCallback(eUpdate, DELEGATE(Camera, Update, this));
 }
 
-void VCamera::OnDestroy()
+void Camera::OnDestroy()
 {
 	//remove from vici camera list
 	_Vici->_cameras.Remove(this);
@@ -73,7 +74,7 @@ void VCamera::OnDestroy()
 	IComponent::OnDestroy();
 }
 //set up before rendinger
-void VCamera::PrepareScene()
+void Camera::PrepareScene()
 {
 	//clear appropriate buffers
 	_renderer->ClearBuffer(_clear_flags, _clear_color);
@@ -96,7 +97,7 @@ void VCamera::PrepareScene()
 	_renderer->_ms->SetView(_view_mat);
 }
 
-void VCamera::Render()
+void Camera::Render()
 {
 	TLIST_foreach(GameObject*, obj, _render_list)
 	{
@@ -116,16 +117,16 @@ void VCamera::Render()
 	}
 }
 
-void VCamera::AddGameObject(GameObject* go)
+void Camera::AddGameObject(GameObject* go)
 {
 	_render_list.PushBack(go);
 }
-void VCamera::RemoveGameObject(GameObject* go)
+void Camera::RemoveGameObject(GameObject* go)
 {
 	_render_list.Remove(go);
 }
 
-void VCamera::Update()
+void Camera::Update()
 {
 	//rotate
 	static float rot = _transform->GetRotation().y;

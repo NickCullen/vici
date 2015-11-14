@@ -94,7 +94,7 @@ uint32 TextureAsset::GetFormat(char* format)
 	else return 0;	//return default
 }
 
-uint32 TextureAsset::GetType(char* type)
+TextureMode TextureAsset::GetType(char* type)
 {
 	if (strcmp("2d", type) == 0) return GL_TEXTURE_2D;
 	else if (strcmp("1d", type) == 0) return GL_TEXTURE_1D;

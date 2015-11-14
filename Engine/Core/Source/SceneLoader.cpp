@@ -161,7 +161,7 @@ void SceneLoader::LoadScene(int32 index)
 			while (!cur.IsNull())
 			{
 				//load the current asset
-				//_Assets->LoadAsset(cur);
+				_Assets->LoadAsset(cur);
 
 				//get the next asset
 				cur = cur.NextSibling();
