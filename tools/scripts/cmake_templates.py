@@ -39,6 +39,9 @@ TSharedLib = Template("add_library(${project} SHARED $${SOURCES} $${HEADERS})\n"
 #for outputting a static library
 TStaticLib = Template("add_library(${project} STATIC $${SOURCES} $${HEADERS})\n")
 
+#for outputting a collection of code files to an object file
+TObjectLib = Template("add_library(${project} OBJECT $${SOURCES}")
+
 #template for appending a cmake variable to another cmake variable
 TAppendVariable = Template("set( ${var} $${${var}} $${${appendedval}})\n")
 
@@ -66,6 +69,9 @@ set(LIBS $${LIBS} $${${framework}_LIB})""")
 TLinkSystemLib = Template("""find_package(${framework} REQUIRED)
 include_directories($${${framework_upper}_INCLUDE_DIRS})
 set(LIBS $${LIBS} $${${framework_upper}_LIBRARIES})""")
+
+#for linking objects into this module
+TLinkObject = Template("set(LIBS $${LIBS} $<TARGET_OBJECTS>:${object})")
 
 #template for exectuable output
 TExecutableOutput = Template('set(EXECUTABLE_OUTPUT_PATH "${dir}")\n')
@@ -242,7 +248,13 @@ def WriteLinkLibs(f, rootDir, sections):
 				
 				output = TLinkSystemLib.substitute(dict(framework=systemLibName,framework_upper=systemLibName.upper())) +"\n"
 				WriteToFile(f,output, s.HasCondition(), s.condition)
+			
+			elif "-object" in l:
+				objectLibName = l.replace("-object ", "")
+				objectLibName = objectLibName.strip()
 				
+				output = TLinkObject.substitute(dict(object=objectLibName)) +"\n"
+				WriteToFile(f,output, s.HasCondition(), s.condition)
 			else:
 				#add to LIBS cmake var
 				output = TAppendPythonVariable.substitute(dict(var="LIBS", appendedval=l))
@@ -301,7 +313,9 @@ def WriteModuleOutput(f, rootDir, m):
 	elif "static" in t:
 		f.write(TStaticLib.substitute(dict(project=name)))
 		f.write(TTargetLinkLibs.substitute(dict(name=name)))
-		
+	elif "object" in t:
+		f.write(TObjectLib.substitute(dict(project=name)))
+		f.write(TTargetLinkLibs.substitute(dict(name=name)))
 	return None
 	
 
