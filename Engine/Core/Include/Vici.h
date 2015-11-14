@@ -10,18 +10,12 @@ class VCamera;
 #include "Singleton.h"
 
 #include "Platform.h"
-#include "Display.h"
 #include "Input.h"
 
 #include "SceneLoader.h"
 #include "GameObjectTree.h"
 #include "LayerSystem.h"
 #include "TList.h"
-
-
-/* Singleton Classes */
-//#include "AssetLoader.h"
-
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -49,8 +43,6 @@ private:
 	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
 
 	LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
-
-	Display _display;	/**< Class responsible for window presentation and sizes etc. - Singleton class accessed via the _Display macro */
 
 	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
 

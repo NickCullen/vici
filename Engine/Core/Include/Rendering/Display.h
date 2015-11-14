@@ -9,41 +9,20 @@
 #define _Display Singleton<Display>::Instance()
 
 /**
-* Structure containing info of the current 
-* window. Returns the width and height.
-*/
-
-struct CORE_API DisplayInfo
-{
-	int32 _w;
-	int32 _h;
-
-	/**
-	* Constructor to take the width
-	* and height to set
-	*/
-	DisplayInfo(int32 w, int32 h)
-	{
-		_w = w; _h = h;
-	}
-
-};
-
-/**
-* Display class singleton containing the width and height
-* of the display, also in charge of the VWindow reference. 
+* Display class contains information of the surface that the engine
+* is being rendered on.
 */
 
 class CORE_API Display : public Singleton<Display>
 {
 private:
-	int32 _window_width; /**< The width of the current window (renderable area)*/
-	int32 _window_height; /**< The height of the current window (renderable area) */
+	int32 _context_width; /**< The width of the current window (renderable area)*/
+	int32 _context_height; /**< The height of the current window (renderable area) */
 
 	int32 _screen_width; /**< The width of the screen (i.e. the physical monitor) */
 	int32 _screen_height; /**< The height of the screen (i.e. the physical monitor) */
 
-	VWindow* _window; /**< The window that is used to render the engine */
+	VRenderContext* _render_context; /**< The window that is used to render the engine */
 
 	int32 _refresh_rate; /**< Refresh rate of the monitor */
 
@@ -65,23 +44,20 @@ public:
 	* settings folder of the project
 	*/
 	void Init(char* cwd);
-
+	
 	/**
-	* Creates a DisplayInfo structor and returns it
-	* @return DisplayInfo structure holding information about the current display 
+	* Used to set the context of the display
+	* @param context The new platform context object to be set
 	*/
-	inline DisplayInfo GetInfo()
-	{
-		return DisplayInfo(_window_width, _window_height);
-	}
-
+	void SetRenderContext(VRenderContext* context);
+	
 	/**
 	* Gets the height of the window
 	* @return integer representing the height of the window
 	*/
 	inline int32 Height()
 	{
-		return _window_height;
+		return _context_height;
 	}
 
 
@@ -91,7 +67,7 @@ public:
 	*/
 	inline int32 Width()
 	{
-		return _window_width;
+		return _context_width;
 	}
 
 	/**
@@ -101,8 +77,8 @@ public:
 	inline float AspectRatio()
 	{
 		//prevent division  by 0
-		if (glm::epsilon<float>() > (float)_window_height) return 1.0f;
-		return (float)_window_width / (float)_window_height;
+		if (glm::epsilon<float>() > (float)_context_height) return 1.0f;
+		return (float)_context_width / (float)_context_height;
 	}
 
 	/**
@@ -115,12 +91,12 @@ public:
 	void SetSize(int32 w, int32 h, bool force_window_resize = false);
 
 	/**
-	* Gets the window (may be NULL)
-	* @return Pointer to the window that is open (May be null)
+	* Gets the platform render context object (may be NULL)
+	* @return Pointer to the context that is in use (May be null)
 	*/
-	inline VWindow* Window()
+	inline VRenderContext* GetRenderContext()
 	{
-		return _window;
+		return _render_context;
 	}
 
 	/**
@@ -148,6 +124,16 @@ public:
 	* @param value sets _has_focus to value
 	*/
 	inline void SetHasFocus(bool value){ _has_focus = value; }
+	
+	/**
+	* Function to call to clear the renderable area on display
+	*/
+	void ClearRenderArea();
+	
+	/**
+	* Function to call to swap back render buffer 
+	*/
+	void SwapBuffers();
 };
 
 #endif

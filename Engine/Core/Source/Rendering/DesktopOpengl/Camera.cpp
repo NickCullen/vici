@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Platform.h"
+#include "Display.h"
 #include "Renderer.h"
 #include "Vici.h"
 #include "MatrixStack.h"

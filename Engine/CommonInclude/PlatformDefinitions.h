@@ -21,11 +21,13 @@ typedef GLFWwindow VWindow; // Windows typedefs
 
 #ifdef VICI_MAC // Mac specific includes 
 
+#ifdef VICI_OPENGL
 #include "GLFW/glfw3.h"
+#include "OpenGLDefinitions/OpenGLDefinitions.h"
+#endif
+
 #include <stdint.h>
 #include <assert.h>
-
-typedef GLFWwindow VWindow; // mac typedefs
 
 #endif // End Mac specific includes 
 

@@ -1,5 +1,5 @@
 #include "Input.h"
-#include "Vici.h"
+#include "Display.h"
 
 Input::Input() : Singleton<Input>()
 {

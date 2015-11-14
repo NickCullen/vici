@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include "Platform.h"
 #include <string>
-#include "Display.h"
 #include "Project.h"
 #include "Camera.h"
 //#include "LayerSystem.h"
@@ -32,7 +31,6 @@ void Vici::Init()
 	_Platform->LogString("Running Directory = %s\n", _Platform->GetCwd());
 	
 	//initialize stuff
-	_Display->Init(_Platform->GetCwd());
     _SceneLoader->Init();
 	_Layers->Init(_Platform->GetCwd());
 

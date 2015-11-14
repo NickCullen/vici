@@ -1,9 +1,8 @@
 #include "Platform.h"
-#include <windows.h>
-#include "glew.h"
-#include <stdio.h>
-//#include "Renderer.h"
 #include "Vici.h"
+#include "Display.h"
+#include <stdio.h>
+
 #include <direct.h>
 #include "VTime.h"
 #include <stdarg.h>

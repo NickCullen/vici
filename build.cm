@@ -4,10 +4,12 @@ Name="Vici"
 
 [WIN32:ProjectDefinitions]
 VICI_WINDOWS
+VICI_OPENGL
 _CRT_SECURE_NO_WARNINGS
 
 [APPLE:ProjectDefinitions]
 VICI_MAC
+VICI_OPENGL
 
 [ProjectIncludeDirectories]	
 /Engine/CommonInclude

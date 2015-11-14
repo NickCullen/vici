@@ -1,13 +1,14 @@
 #include "Display.h"
-#include "core.h"
+#include "Vici.h"
+#include "Xml.h"
 #include <string>
 
 
 Display::Display() : Singleton<Display>()
 {
-	_screen_width = _screen_height = _window_width = _window_height = 0;
+	_screen_width = _screen_height = _context_width = _context_height = 0;
 	_refresh_rate = 60;
-	_window = NULL;
+	_render_context = NULL;
 	_has_focus = true;
 }
 
@@ -31,6 +32,18 @@ void OnFocusChanged(VWindow* window, int focus)
 		_Vici->OnEnteredFocus();
 	}
 		
+}
+
+void Display::SetRenderContext(VRenderContext* context)
+{
+	_render_context = context;
+	
+	glfwGetWindowSize(_render_context, &_context_width, &_context_height);
+	
+	/* Make the window's context current */
+	glfwMakeContextCurrent(_render_context);
+	
+	ClearRenderArea();
 }
 
 void Display::Init(char* cwd)
@@ -60,8 +73,8 @@ void Display::Init(char* cwd)
 		}
 
 		//width and height
-		_window_width = root.GetInt("width");
-		_window_height = root.GetInt("height");
+		_context_width = root.GetInt("width");
+		_context_height = root.GetInt("height");
 
 		//title
 		strcpy(title, root.GetString("title"));
@@ -86,26 +99,25 @@ void Display::Init(char* cwd)
 			glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
 			//set w and h
-			_window_width = mode->width;
-			_window_height = mode->height;
+			_context_width = mode->width;
+			_context_height = mode->height;
 		}
 
 		/* Create a windowed mode window and its OpenGL context */
-		_window = glfwCreateWindow(_window_width, _window_height, title, fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
-		if (!_window)
+		_render_context = glfwCreateWindow(_context_width, _context_height, title, fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+		if (!_render_context)
 		{
 			glfwTerminate();
 			_Platform->LogString("Could not load window\n");
 			return;
 		}
-
-		/* Make the window's context current */
-		glfwMakeContextCurrent(_window);
+		
+		SetRenderContext(_render_context);
 
 		/* Set callbacks */
-		glfwSetWindowSizeCallback(_window, Display::OnResize);
+		glfwSetWindowSizeCallback(_render_context, Display::OnResize);
 
-		glfwSetWindowFocusCallback(_window, OnFocusChanged);
+		glfwSetWindowFocusCallback(_render_context, OnFocusChanged);
 
 		//get the monitor info
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -123,17 +135,27 @@ void Display::Init(char* cwd)
 
 void Display::SetSize(int w, int h, bool force_window_resize)
 {
-	_window_width = w;
-	_window_height = h;
+	_context_width = w;
+	_context_height = h;
 
 	if (force_window_resize)
 	{
-		glfwSetWindowSize(_window, _window_width, _window_height);
+		glfwSetWindowSize(_render_context, w, h);
 	}
 }
 
 void Display::OnResize(VWindow* win, int w, int h)
 {
-	_Display->_window_width = w;
-	_Display->_window_height = h;
+	_Display->_context_width = w;
+	_Display->_context_height = h;
+}
+
+void Display::ClearRenderArea()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Display::SwapBuffers()
+{
+	glfwSwapBuffers(_render_context);
 }

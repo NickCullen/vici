@@ -1,8 +1,8 @@
 #include "Platform.h"
-#include "GLFW/glfw3.h"
-#include <stdio.h>
-//#include "Renderer.h"
 #include "Vici.h"
+#include "Display.h"
+#include <stdio.h>
+
 #include "VTime.h"
 #include <unistd.h>
 #include <stdarg.h>
@@ -43,12 +43,13 @@ void Platform::EnterLoop(Vici* v)
 	start = last = (float)GetTime();
 
 	//get the window
-	VWindow* win = _Display->Window();
-
-	if (win != NULL)
+	VRenderContext* rc = _Display->GetRenderContext();
+	printf("Rc = %p\n", rc);
+	if (rc != NULL)
 	{
+		printf("Hello again");
 		/* Loop until the user closes the window */
-		while (!glfwWindowShouldClose(win))
+		while (!glfwWindowShouldClose(rc))
 		{
 			//get the current time
 			current = (float)GetTime();
@@ -67,7 +68,7 @@ void Platform::EnterLoop(Vici* v)
 				v->Render();
 
 				/* Swap front and back buffers */
-				glfwSwapBuffers(win);
+				_Display->SwapBuffers();
 
 				last = (float)GetTime();
 			}
