@@ -1,6 +1,7 @@
 #ifndef V_TEXTURE_ASSET
 #define V_TEXTURE_ASSET
 
+#include "CoreAPI.h"
 #include "Asset.h"
 
 /**
@@ -9,7 +10,7 @@
 * TextureID
 */
 
-class ASSETS_API TextureAsset : public Asset
+class CORE_API TextureAsset : public Asset
 {
 	ASSET_REGISTER_DEF(TextureAsset)
 private:

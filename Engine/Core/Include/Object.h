@@ -14,9 +14,9 @@ class CORE_API Object
 {
 	friend class SceneLoader;
 private:
-	static unsigned int _count;	/**< static unsigned int containing the total number of Objects ever instantiated */
+	static uint32 _count;	/**< static unsigned int containing the total number of Objects ever instantiated */
 
-	unsigned int _instance; /**< the instance id for this Object */
+	uint32 _instance; 		/**< the instance id for this Object */
 	
 	bool _indestructable;	/**< flag specifying if this Object is indestructable or not */
 

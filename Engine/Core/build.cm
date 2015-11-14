@@ -4,15 +4,19 @@ Name="Core"
 
 [ProjectIncludeDirectories]	
 /Include
+/Include/Rendering
 
 [ProjectSourceDirectories]
 /Source
 
 [WIN32:ProjectSourceDirectories]
 /Source/Windows
+/Rendering/Source/DesktopOpengl
+
 
 [APPLE:ProjectSourceDirectories]
 /Source/Mac
+/Rendering/Source/DesktopOpengl
 
 [Module]
 Type=shared

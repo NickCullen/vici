@@ -2,7 +2,7 @@
 #define V_CAMERA
 
 #include "IComponent.h"
-#include "RenderingAPI.h"
+#include "CoreAPI.h"
 
 /*Forward decl*/
 class Renderer;
@@ -13,7 +13,7 @@ class Renderer;
 * so not many detailed comments will be made here 
 */
 
-class RENDERING_API VCamera : public IComponent
+class CORE_API VCamera : public IComponent
 {
 	friend class Renderer;
 private:

@@ -17,7 +17,7 @@ class IComponent;
 class CORE_API ComponentTree : public TTree<IComponent*>
 {
 private:
-	int _lock; /**< Counter for locking the tree*/
+	int32 _lock; /**< Counter for locking the tree*/
 
 	TList<IComponent*> _delete_list; /**< If the list is locked and a commponent is trying to be removed then it will be added to this list and removed when list is unlocked */
 
@@ -27,7 +27,7 @@ private:
 	* @param rhs The Right Hand side of search
 	* @return -1 if lhs < rhs, 0 if lhs == rhs, 1 if lhs > rhs
 	*/
-	static int CompareComponent(IComponent* lhs, IComponent* rhs);
+	static int32 CompareComponent(IComponent* lhs, IComponent* rhs);
 
 	/**
 	* Callback function for tree search
@@ -35,7 +35,7 @@ private:
 	* @param rhs The component to check against
 	* @return -1 if id < comp, 0 if id == comp, 1 if id > comp
 	*/
-	static int SearchFunction(VHash id, IComponent* comp);
+	static int32 SearchFunction(VHash id, IComponent* comp);
 
 public:
 	/**

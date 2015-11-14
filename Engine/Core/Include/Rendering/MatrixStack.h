@@ -3,14 +3,14 @@
 
 #include "TStack.h"
 #include "glm.h"
-#include "UtilAPI.h"
+#include "Core_API.h"
 
 /** 
 * Node to place on the matrix stack containing the current snapshot of the 
 * matrix at this time 
 */
 
-struct UTIL_API MatrixTransform
+struct CORE_API MatrixTransform
 {
 	glm::mat4x4 _current_transform;
 };
@@ -22,7 +22,7 @@ struct UTIL_API MatrixTransform
 * No comments to follow
 */
 
-class UTIL_API MatrixStack
+class CORE_API MatrixStack
 {
 	friend class Renderer;
 private:

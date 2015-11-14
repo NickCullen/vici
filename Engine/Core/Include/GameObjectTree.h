@@ -4,6 +4,7 @@
 /* Forward Decl */
 class GameObject;
 
+#include "PlatformDefinitions.h"
 #include "CoreAPI.h"
 #include "TTree.h"
 #include "TList.h"
@@ -16,7 +17,7 @@ class GameObject;
 class CORE_API GameObjectTree : public TTree<GameObject*>
 {
 private:
-	int _lock; /**< Counter for locking the object list*/
+	int32 _lock; /**< Counter for locking the object list*/
 
 	TList<GameObject*> _delete_list; /**< If the list is locked and a game object is trying to be removed then it will be added to this list and removed when list is unlocked */
 
@@ -26,7 +27,7 @@ private:
 	* @param rhs The Right Hand side of search
 	* @return -1 if lhs < rhs, 0 if lhs == rhs, 1 if lhs > rhs
 	*/
-	static int CompareGameObject(GameObject* lhs, GameObject* rhs);
+	static int32 CompareGameObject(GameObject* lhs, GameObject* rhs);
 
 public:
 	/**

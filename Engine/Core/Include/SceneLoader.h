@@ -32,7 +32,7 @@ class CORE_API SceneLoader : public Singleton<SceneLoader>
 {
 friend class Vici;
 private:
-	int _current_level;	/**< integer containing the index into the _scenes list for the currently loaded scene */
+	int32 _current_level;	/**< integer containing the index into the _scenes list for the currently loaded scene */
 	std::vector<SceneData> _scenes; /**< list of SceneData nodes */
 
 	/** 
@@ -71,7 +71,7 @@ public:
 	* function to load the scene by its index into the _scenes array
 	* @param index unsigned integer index into the _scenes array 
 	*/
-	void LoadScene(unsigned int index);
+	void LoadScene(int32 index);
 
 	/**
 	* Overloaded LoadScene function to load scene by string instead of by index

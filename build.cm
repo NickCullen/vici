@@ -12,6 +12,7 @@ VICI_MAC
 [ProjectIncludeDirectories]	
 /Engine/CommonInclude
 /Engine/Core/Include
+/Engine/Core/Include/Rendering
 /Engine/Util/Include
 /Engine/Datastructures/Include
 /ThirdParty/Include

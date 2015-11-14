@@ -5,7 +5,7 @@
 class IComponent;
 
 /* for mapping of instances and creation functions */
-#include "FactoriesAPI.h"
+#include "CoreAPI.h"
 #include <map>
 #include "VHash.h"
 
@@ -21,7 +21,7 @@ typedef std::map<VHash, IComponent*(*)()> MapType;
 * Status(Complete)
 */
 
-class FACTORIES_API ComponentFactory
+class CORE_API ComponentFactory
 {
 private:
 	static MapType* _types; /**< static hash table containing creation function for registered classes */  
@@ -90,7 +90,7 @@ public:
 */
 
 template<typename T>
-class FACTORIES_API ComponentRegister : ComponentFactory
+class CORE_API ComponentRegister : ComponentFactory
 {
 public:
 	/**

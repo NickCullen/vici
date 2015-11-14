@@ -2,7 +2,7 @@
 #define V_SHADER_ASSET
 
 #include "Asset.h"
-#include "RenderingAPI.h"
+#include "CoreAPI.h"
 
 /* Macro for unrolling common shader uniform + attribute locations */
 #define _COMMON_SHADER_LOCATIONS(_GEN_) \
@@ -35,7 +35,7 @@
 * locations of commonly uniforms/attribues etc.
 */
 
-class RENDERING_API ShaderAsset : public Asset
+class CORE_API ShaderAsset : public Asset
 {
 private:
 	char _v_path[256]; /**< path for vertex shader */

@@ -34,7 +34,7 @@ void Vici::Init()
 	//initialize stuff
 	_Display->Init(_Platform->GetCwd());
     _SceneLoader->Init();
-	//_Layers->Init(_Platform->GetCwd());
+	_Layers->Init(_Platform->GetCwd());
 
 	//call some required static methods on classes
 	//ShaderAsset::LoadSharedCode(_Platform->GetCwd());
@@ -57,8 +57,8 @@ void Vici::Begin()
 {
 	if (!_started)
 	{
-		//load first scene (for some reason it wont let me put 0 here without casting it to unsigned in...)
-		_SceneLoader->LoadScene((unsigned int)0);
+		//load first scene
+		_SceneLoader->LoadScene(0);
 
 		//dispatch start to all objects
 		TTREE_foreach(GameObject*, object, _objects)

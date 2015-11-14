@@ -2,7 +2,7 @@
 #define V_ASSET
 
 #include "AssetFactory.h"
-#include "AssetsAPI.h"
+#include "CoreAPI.h"
 #include "PlatformDefinitions.h"
 #include "Xml.h"
 
@@ -24,7 +24,7 @@
 * and unload assets when required
 */
 
-class ASSETS_API Asset
+class CORE_API Asset
 {
 	friend class AssetLoader;
 private:

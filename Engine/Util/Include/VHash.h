@@ -5,7 +5,7 @@
 #include "UtilAPI.h"
 
 //the typedef for a hash
-typedef size_t vhash_int;
+typedef uint32 vhash_int;
 
 /**
 * This class is used to optimize the comparison between 2 strings 

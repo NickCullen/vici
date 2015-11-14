@@ -4,6 +4,9 @@
 #include "Singleton.h"
 #include "CoreAPI.h"
 
+/* Easy access macro */
+#define _Layers Singleton<LayerSystem>::Instance()
+
 /*Forward decl*/
 class VCamera;
 
@@ -16,7 +19,7 @@ class VCamera;
 
 struct CORE_API LayerInfo
 {
-	int _layer;	/**< the id for this layer */
+	int32 _layer;	/**< the id for this layer */
 	VCamera* _renderer;	/**< the camera that will render this layer */
 };
 
@@ -29,7 +32,7 @@ class CORE_API LayerSystem : public Singleton<LayerSystem>
 {
 private:
 	LayerInfo* _layers;	/**< Array of all the layers for the current scene */
-	unsigned int _num_of_layers; /**< counter for how many layers are in the scene */
+	uint32 _num_of_layers; /**< counter for how many layers are in the scene */
 public:
 
 	/** 
@@ -53,14 +56,14 @@ public:
 	* @param cam VCamera pointer to the layer renderer
 	* @param layer the unsigned integer id for the layer
 	*/
-	void SetCameraForLayer(VCamera* cam, unsigned int layer);
+	void SetCameraForLayer(VCamera* cam, uint32 layer);
 
 	/**
 	* Returns the camera that renders the specified layer (can be NULL)
 	* @param layer unsigned integer id of the layer you want to get the camera for
 	* @return VCamera pointer for the camera that will render the layer (can be NULL)
 	*/
-	VCamera* GetCameraForLayer(unsigned int layer);
+	VCamera* GetCameraForLayer(uint32 layer);
 };
 
 

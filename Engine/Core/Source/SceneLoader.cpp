@@ -145,7 +145,7 @@ void* SceneLoader::LoadObjects(void* args)
 	return NULL;
 }
 
-void SceneLoader::LoadScene(unsigned int index)
+void SceneLoader::LoadScene(int32 index)
 {
 	if (index < _scenes.size())
 	{

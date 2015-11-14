@@ -15,14 +15,14 @@
 
 struct CORE_API DisplayInfo
 {
-	int _w;
-	int _h;
+	int32 _w;
+	int32 _h;
 
 	/**
 	* Constructor to take the width
 	* and height to set
 	*/
-	DisplayInfo(int w, int h)
+	DisplayInfo(int32 w, int32 h)
 	{
 		_w = w; _h = h;
 	}
@@ -37,15 +37,15 @@ struct CORE_API DisplayInfo
 class CORE_API Display : public Singleton<Display>
 {
 private:
-	int _window_width; /**< The width of the current window (renderable area)*/
-	int _window_height; /**< The height of the current window (renderable area) */
+	int32 _window_width; /**< The width of the current window (renderable area)*/
+	int32 _window_height; /**< The height of the current window (renderable area) */
 
-	int _screen_width; /**< The width of the screen (i.e. the physical monitor) */
-	int _screen_height; /**< The height of the screen (i.e. the physical monitor) */
+	int32 _screen_width; /**< The width of the screen (i.e. the physical monitor) */
+	int32 _screen_height; /**< The height of the screen (i.e. the physical monitor) */
 
 	VWindow* _window; /**< The window that is used to render the engine */
 
-	int _refresh_rate; /**< Refresh rate of the monitor */
+	int32 _refresh_rate; /**< Refresh rate of the monitor */
 
 	bool _has_focus;	/**< Flag signifying if the window with the program running has focus or not */
 public:
@@ -79,7 +79,7 @@ public:
 	* Gets the height of the window
 	* @return integer representing the height of the window
 	*/
-	inline int Height()
+	inline int32 Height()
 	{
 		return _window_height;
 	}
@@ -89,7 +89,7 @@ public:
 	* Gets the width of the window
 	* @return integer representing the width of the window
 	*/
-	inline int Width()
+	inline int32 Width()
 	{
 		return _window_width;
 	}
@@ -112,7 +112,7 @@ public:
 	* @param h The height of the window
 	* @param force_window_resize set to true to resize the window
 	*/
-	void SetSize(int w, int h, bool force_window_resize = false);
+	void SetSize(int32 w, int32 h, bool force_window_resize = false);
 
 	/**
 	* Gets the window (may be NULL)
@@ -129,13 +129,13 @@ public:
 	* @param w The new width of the window
 	* @param h The new height of the window
 	*/
-	static void OnResize(VWindow* win, int w, int h);
+	static void OnResize(VWindow* win, int32 w, int32 h);
 
 	/**
 	* gets the refresh rate of the monitor
 	* @return Integer specifying the refresh rate of the monitor
 	*/
-	inline int RefreshRate(){ return _refresh_rate; }
+	inline int32 RefreshRate(){ return _refresh_rate; }
 
 	/**
 	* Getter for has focus

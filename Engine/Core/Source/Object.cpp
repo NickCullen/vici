@@ -1,7 +1,7 @@
 #include "Object.h"
 
 //static init
-unsigned int Object::_count = 0;
+uint32 Object::_count = 0;
 
 Object::Object()
 {

@@ -22,7 +22,7 @@ GameObjectTree::~GameObjectTree()
 }
 
 
-int GameObjectTree::CompareGameObject(GameObject* lhs, GameObject* rhs)
+int32 GameObjectTree::CompareGameObject(GameObject* lhs, GameObject* rhs)
 {
 	if (lhs->ID() < rhs->ID()) return -1;
 	else if (lhs->ID() > rhs->ID()) return 1;

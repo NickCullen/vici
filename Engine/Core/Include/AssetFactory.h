@@ -1,7 +1,7 @@
 #ifndef V_ASSET_FACTORY
 #define V_ASSET_FACTORY
 
-#include "FactoriesAPI.h"
+#include "CoreAPI.h"
 
 /* Forward Decl */
 class Asset;
@@ -22,7 +22,7 @@ typedef std::map<VHash, Asset*(*)()> AssetMapType;
 * Status(Complete)
 */
 
-class FACTORIES_API AssetFactory
+class CORE_API AssetFactory
 {
 private:
 	static AssetMapType* _types; /**< static hash table containing creation function for registered assets */
@@ -76,7 +76,7 @@ public:
 */
 
 template<typename T>
-class FACTORIES_API AssetRegister : AssetFactory
+class CORE_API AssetRegister : AssetFactory
 {
 public:
 

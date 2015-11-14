@@ -15,6 +15,7 @@ class VCamera;
 
 #include "SceneLoader.h"
 #include "GameObjectTree.h"
+#include "LayerSystem.h"
 
 //#include "tds.h"
 
@@ -23,16 +24,9 @@ class VCamera;
 /* Singleton Classes */
 //#include "AssetLoader.h"
 
-//#include "LayerSystem.h"
-
-//#include "VTime.h"
-//#include "Logger.h"
-
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
-//#define _Layers Singleton<LayerSystem>::Instance()
-//#define _Logger Singleton<Logger>::Instance()
 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
@@ -56,14 +50,12 @@ private:
 	
 	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
 
-	//LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
+	LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
 
 	Display _display;	/**< Class responsible for window presentation and sizes etc. - Singleton class accessed via the _Display macro */
 
 	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
 
-	//Logger _logger;	/**< Class used for logging strings in debug model - Singleton class accessed via the _Logger macro */
-	
 	/**
 	* Called to register all components of the engine by setting their static
 	* reg member variables with the ComponentRegister<T> class (See ComponentFactory.h)

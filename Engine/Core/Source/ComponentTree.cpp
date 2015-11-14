@@ -22,14 +22,14 @@ ComponentTree::~ComponentTree()
 }
 
 
-int ComponentTree::CompareComponent(IComponent* lhs, IComponent* rhs)
+int32 ComponentTree::CompareComponent(IComponent* lhs, IComponent* rhs)
 {
 	if (lhs->ID() < rhs->ID()) return -1;
 	else if (lhs->ID() > rhs->ID()) return 1;
 	else return 0;
 }
 
-int ComponentTree::SearchFunction(VHash id, IComponent* comp)
+int32 ComponentTree::SearchFunction(VHash id, IComponent* comp)
 {
 	if (id < comp->ID()) return -1;
 	else if (id > comp->ID()) return 1;

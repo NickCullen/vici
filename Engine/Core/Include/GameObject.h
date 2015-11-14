@@ -37,7 +37,7 @@ private:
 
 	bool _enabled;	/**< Flag to tell if this game object is enabled or not */
 
-	unsigned int _layer; /**< The unsigned integer to specify which layer this game object is on */
+	uint32 _layer; /**< The unsigned integer to specify which layer this game object is on */
 
 	GameObject* _parent; /**< The parent GameObject of this GameObject (can be NULL) */
 
@@ -127,7 +127,7 @@ public:
 	* Specifys which layer the game object is on
 	* @return An unsigned integer containing which layer this game object is on
 	*/
-	inline unsigned int GetLayer()
+	inline uint32 GetLayer()
 	{
 		return _layer;
 	}

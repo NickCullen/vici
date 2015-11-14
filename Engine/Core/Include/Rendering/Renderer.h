@@ -1,7 +1,7 @@
 #ifndef V_GL_RENDERER
 #define V_GL_RENDERER
 
-#include "RenderingAPI.h"
+#include "CoreAPI.h"
 #include "glm.h"
 /**
 * Constant representing the maximum number of dynamic
@@ -14,7 +14,7 @@ class Light;
 class MatrixStack;
 class ShaderAsset;
 
-class RENDERING_API Renderer
+class CORE_API Renderer
 {
 	friend class VCamera;
 
