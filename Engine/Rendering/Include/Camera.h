@@ -5,7 +5,7 @@
 #include "RenderingAPI.h"
 
 /*Forward decl*/
-class OpenGLRenderer;
+class Renderer;
 
 /**
 * Component used to render a layer in the current scene
@@ -17,7 +17,7 @@ class RENDERING_API VCamera : public IComponent
 {
 	friend class Renderer;
 private:
-	OpenGLRenderer* _renderer; /**< Renderer used to draw the objects this camera will render */
+	Renderer* _renderer; /**< Renderer used to draw the objects this camera will render */
 
 	unsigned int _clear_flags; /**< OpenGL clear flags this camera will clear */
 
@@ -88,7 +88,7 @@ public:
 	* Inline function to access the renderer
 	* @return Pointer to the scene renderer
 	*/
-	inline OpenGLRenderer* GetRenderer()
+	inline Renderer* GetRenderer()
 	{
 		return _renderer;
 	}
