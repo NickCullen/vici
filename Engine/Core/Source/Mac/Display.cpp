@@ -1,5 +1,6 @@
 #include "Display.h"
-#include "core.h"
+#include "Vici.h"
+#include "Xml.h"
 #include <string>
 
 
