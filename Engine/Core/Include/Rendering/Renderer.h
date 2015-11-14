@@ -49,6 +49,8 @@ public:
 	/*override functions*/
     void ClearBuffer(int flags, const glm::vec4& col);
 
+	/* sets current matrix on matrix stack to identity */
+
 	/*Inline getters and setters*/
 	inline MatrixStack* GetMatrixStack()
 	{

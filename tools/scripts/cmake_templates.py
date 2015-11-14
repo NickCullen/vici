@@ -71,10 +71,10 @@ set(LIBS $${LIBS} $${${framework_upper}_LIBRARIES})""")
 TExecutableOutput = Template('set(EXECUTABLE_OUTPUT_PATH "${dir}")\n')
 
 #template for exectuable output
-TRuntimeOutput = Template('set(RUNTIME_OUTPUT_DIRECTORY "${dir}")\n')
+TRuntimeOutput = Template('set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}")\n')
 
 #template for library output
-TLibraryoutput = Template('set(LIBRARY_OUTPUT_PATH "${dir}")\n')
+TLibraryoutput = Template('set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${dir}")\nset(LIBRARY_OUTPUT_PATH "${dir}")\n')
 
 #template for including a submodule
 TSubmoduleInclude = Template('add_subdirectory(${dir})')

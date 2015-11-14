@@ -4,7 +4,7 @@
 #include <string>
 #include "Display.h"
 #include "Project.h"
-//#include "Camera.h"
+#include "Camera.h"
 //#include "LayerSystem.h"
 //#include "Components.h"
 //#include "ComponentFactory.h"
@@ -106,14 +106,14 @@ void Vici::Update()
 
 void Vici::Render()
 {
-	//TLIST_foreach(VCamera*, camera, _cameras)
-	//{
-	//	//prepare the scene
-	//	camera->PrepareScene();
+	TLIST_foreach(VCamera*, camera, _cameras)
+	{
+		//prepare the scene
+		camera->PrepareScene();
 
-	//	//now do renderings
-	//	camera->Render();
-	//}
+		//now do renderings
+		camera->Render();
+	}
 }
 
 void Vici::OnExit()
@@ -165,5 +165,5 @@ void Vici::RemoveGameObject(GameObject* go)
 /* Component registrations */
 void Vici::RegisterComponents()
 {
-	//VCamera::reg = ComponentRegister<VCamera>("VCamera");
+	VCamera::reg = ComponentRegister<VCamera>("VCamera");
 }

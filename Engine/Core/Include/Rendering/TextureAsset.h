@@ -14,9 +14,9 @@ class CORE_API TextureAsset : public Asset
 {
 	ASSET_REGISTER_DEF(TextureAsset)
 private:
-	int _width; /**< Width of the texture */
-	int _height; /**< Height of the texture */
-	int _comp; /**< Number of components the texture has i.e. grey = 1, greyalpha = 2, rgb = 3, rgba = 4 */
+	int32 _width; /**< Width of the texture */
+	int32 _height; /**< Height of the texture */
+	int32 _comp; /**< Number of components the texture has i.e. grey = 1, greyalpha = 2, rgb = 3, rgba = 4 */
 
 	uint32 _texture; /**< Texture reference in opengl */
 

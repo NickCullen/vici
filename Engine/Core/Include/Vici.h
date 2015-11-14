@@ -16,9 +16,7 @@ class VCamera;
 #include "SceneLoader.h"
 #include "GameObjectTree.h"
 #include "LayerSystem.h"
-
-//#include "tds.h"
-
+#include "TList.h"
 
 
 /* Singleton Classes */
@@ -42,7 +40,7 @@ class CORE_API Vici : public Singleton<Vici>
 private:
 	GameObjectTree _objects; /**< Tree of Game Objects in the current scene*/
 
-	//TList<VCamera*> _cameras;	/**< List containing all active cameras */
+	TList<VCamera*> _cameras;	/**< List containing all active cameras */
 
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
 

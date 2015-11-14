@@ -3,6 +3,7 @@
 
 /*include the core engine */
 #include "GameObject.h"
+#include "ComponentFactory.h"
 
 /*Useful short hand macros*/
 #define _transform _go->GetTransform()

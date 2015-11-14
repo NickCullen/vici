@@ -1,8 +1,8 @@
 #include "Camera.h"
 #include "Platform.h"
-#include "OpenGLRenderer.h"
+#include "Renderer.h"
 #include "Vici.h"
-#include "Light.h"
+#include "MatrixStack.h"
 
 VCamera::VCamera()
 {
@@ -51,7 +51,7 @@ void VCamera::OnStart()
 	_Vici->_cameras.PushBack(this);
 
 	//get a scene renderer
-	_renderer = new OpenGLRenderer();
+	_renderer = new Renderer();
 
 	//initialize the scene
 	_renderer->Init(this);
@@ -75,10 +75,10 @@ void VCamera::OnDestroy()
 void VCamera::PrepareScene()
 {
 	//clear appropriate buffers
-	_renderer->ClearBuffer(_clear_flags, &_clear_color);
+	_renderer->ClearBuffer(_clear_flags, _clear_color);
 
 	//load matrix identity   
-	_renderer->_ms.Identity();
+	_renderer->_ms->Identity();
 
 	//set up projection matrices
 	_projection_mat = glm::perspective<float>(45.0f, _Display->AspectRatio(), 0.1f, 100.0f);
@@ -91,8 +91,8 @@ void VCamera::PrepareScene()
 							);
 
 	//specify the view and projection matrices
-	_renderer->_ms.SetProjection(_projection_mat);
-	_renderer->_ms.SetView(_view_mat);
+	_renderer->_ms->SetProjection(_projection_mat);
+	_renderer->_ms->SetView(_view_mat);
 }
 
 void VCamera::Render()
@@ -100,10 +100,10 @@ void VCamera::Render()
 	TLIST_foreach(GameObject*, obj, _render_list)
 	{
 		//push a matrix
-		_renderer->_ms.PushMatrix();
+		_renderer->_ms->PushMatrix();
 
 		//apply model matrix
-		_renderer->_ms.ApplyMatrix(obj->GetTransform()->GetModelMatrix());
+		_renderer->_ms->ApplyMatrix(obj->GetTransform()->GetModelMatrix());
 
 		//set the MVP matrices in the matrix stack
 		obj->PreRender(_renderer);
@@ -111,7 +111,7 @@ void VCamera::Render()
 		obj->PostRender(_renderer);
 
 		//pop if off the stack
-		_renderer->_ms.PopMatrix();
+		_renderer->_ms->PopMatrix();
 	}
 }
 

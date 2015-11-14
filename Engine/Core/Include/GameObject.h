@@ -2,6 +2,7 @@
 #define V_GAMEOBJECT
 
 #include "Object.h"
+#include "Transform.h"
 #include "VHash.h"
 #include "Xml.h"
 #include "GameObjectTree.h"
@@ -27,7 +28,7 @@ class CORE_API GameObject : public Object
 {
 	friend class Vici;
 private:
-	Transform* _t;	/**< Pointer to the transform of the GameObject holding its position, rotation and scale */
+	Transform _t;	/**< Pointer to the transform of the GameObject holding its position, rotation and scale */
 
 	ComponentTree _components; /**< tree of components attached to this object */
 
@@ -138,7 +139,7 @@ public:
 	*/
 	inline Transform* GetTransform()
 	{
-		return _t;
+		return &_t;
 	}
 
 

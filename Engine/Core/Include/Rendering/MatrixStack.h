@@ -3,7 +3,11 @@
 
 #include "TStack.h"
 #include "glm.h"
-#include "Core_API.h"
+#include "CoreAPI.h"
+
+#ifdef VICI_DEBUG
+#include "Platform.h"
+#endif
 
 /** 
 * Node to place on the matrix stack containing the current snapshot of the 

@@ -11,12 +11,11 @@ Name="Core"
 
 [WIN32:ProjectSourceDirectories]
 /Source/Windows
-/Rendering/Source/DesktopOpengl
-
+/Source/Rendering/DesktopOpengl
 
 [APPLE:ProjectSourceDirectories]
 /Source/Mac
-/Rendering/Source/DesktopOpengl
+/Source/Rendering/DesktopOpengl
 
 [Module]
 Type=shared

@@ -11,7 +11,6 @@ GameObject::GameObject()
 	_enabled = true;
 	_parent = NULL;
 	_layer = 0;	//0 is default layer
-	_t = new Transform();
 	_start_called = false;
 }
 GameObject::~GameObject()
@@ -103,9 +102,6 @@ void GameObject::OnDestroy()
 	{
 		_calls[i].Empty();
 	}
-
-	//delete transform
-	delete(_t);
 
 	_children.Lock();
 	//destroy children

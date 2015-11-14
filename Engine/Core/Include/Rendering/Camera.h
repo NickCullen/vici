@@ -1,8 +1,10 @@
 #ifndef V_CAMERA
 #define V_CAMERA
 
+
 #include "IComponent.h"
 #include "CoreAPI.h"
+#include "glm.h"
 
 /*Forward decl*/
 class Renderer;
@@ -19,7 +21,7 @@ class CORE_API VCamera : public IComponent
 private:
 	Renderer* _renderer; /**< Renderer used to draw the objects this camera will render */
 
-	unsigned int _clear_flags; /**< OpenGL clear flags this camera will clear */
+	uint32 _clear_flags; /**< OpenGL clear flags this camera will clear */
 
 	glm::vec4 _clear_color; /**< Colour of empty scene */
 

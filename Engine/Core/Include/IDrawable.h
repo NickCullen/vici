@@ -2,9 +2,7 @@
 #define V_IDRAWABLE
 
 #include "IComponent.h"
-
-/*Forward Decl*/
-class Renderer;
+#include "Renderer.h"
 
 /**
 * Components that require callbacks to render functions should inherit from IDrawable
