@@ -2,11 +2,14 @@
 #define V_COMPONENT
 
 /*include the core engine */
-#include "GameObject.h"
 #include "ComponentFactory.h"
+#include "EComponentCallback.h"
+#include "Object.h"
+#include "Delegate.h"
+#include "SmartPtr.h"
 
 /*Useful short hand macros*/
-#define _transform _go->GetTransform()
+//#define _transform _go->GetTransform()
 
 // Definition for classes that inherit from IComponent to put at the
 // Top of their definition
@@ -26,12 +29,10 @@ class CORE_API IComponent : public Object
 {
 	/*friend classes to internal objects*/
 	friend class Vici;
-	friend class GameObject;
 private:
 
 protected:
-	GameObject* _go; /**< The game object this component is attached to*/
-
+	SharedReference<class GameObject> _go; /**< The game object this component is attached to*/
 
 public:
 
@@ -45,6 +46,13 @@ public:
 	* IComponent destructor
 	*/
 	virtual ~IComponent(); 
+
+	template<class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_VAR(_go, ar);
+		_SERIALIZE_PARENT(Object, ar);
+	}
 
 	/**
 	* Called when the component is created (after init IF the component was loaded
@@ -71,20 +79,13 @@ public:
 	* Getter function to return the game object this component is attached to
 	* @return pointer to the game object
 	*/
-	inline GameObject* GetGameObject()
-	{
-		return _go;
-	}
+	SharedReference<class GameObject> GetGameObject();
 
 	/**
 	* Sets the GameObject that this component is attached to
 	* @param go The GameObject that this component is attached to
 	*/
-	inline void SetGameObject(GameObject* go)
-	{
-		_go = go;
-	}
-
+	inline void SetGameObject(class GameObject& go);
 };
 
 #endif

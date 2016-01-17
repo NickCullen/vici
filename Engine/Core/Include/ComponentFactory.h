@@ -10,7 +10,7 @@ class IComponent;
 #include "Hash.h"
 
 /* definition for the creation function of a component */
-template<typename T> IComponent* Internal_Component_CreateInstance() { return new T; }
+template<class T> IComponent* Internal_Component_CreateInstance() { return new T; }
 
 /* the typedef for the hash table of mappings */
 typedef std::map<Hash, IComponent*(*)()> MapType;
@@ -75,7 +75,7 @@ public:
 	* @param id string containing id of required component
 	* @return The created component pointer of specified type (NULL if not created)
 	*/
-	template<typename T>
+	template<class T>
 	static T* CreateComponent(Hash id)
 	{
 		IComponent* comp = CreateComponent(id);
@@ -89,7 +89,7 @@ public:
 * Status(Complete)
 */
 
-template<typename T>
+template<class T>
 class CORE_API ComponentRegister : ComponentFactory
 {
 public:

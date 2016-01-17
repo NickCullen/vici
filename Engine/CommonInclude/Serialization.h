@@ -8,6 +8,12 @@
 
 // Std library support
 #include <cereal/types/string.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/list.hpp>
+#include <cereal/types/map.hpp>
+#include <cereal/types/unordered_map.hpp>
+#include <cereal/types/memory.hpp>
+
 
 // Creates an archive for serialization data using the given streem
 #ifdef VICI_DEBUG

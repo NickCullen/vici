@@ -1,4 +1,5 @@
 #include "IComponent.h"
+#include "GameObject.h"
 
 IComponent::IComponent()
 {
@@ -23,4 +24,13 @@ void IComponent::OnStart()
 void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 {
 	//_go->RegisterCallback(cb, callback);
+}
+
+SharedReference<GameObject> IComponent::GetGameObject()
+{
+	return _go;
+}
+void IComponent::SetGameObject(GameObject& go)
+{
+	_go = SharedReference<GameObject>(&go);
 }

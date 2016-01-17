@@ -14,6 +14,7 @@
 #include "TextFile.h"
 
 #include "GameObject.h"
+#include "TestComponent.h"
 
 void Tests()
 {
@@ -30,7 +31,9 @@ void Tests()
 	t->Scale(20, 30, 40);
 	t->Rotate(90, 0, 1, 0);
 
-	_SERIALIZE_VAR_NAME(go);
+	TestComponent* comp = go.AddComponent<TestComponent>("TestComponent");
+
+	_SERIALIZE_VAR_NAME(go, "MyObject", outputArch);
 
 }
 
