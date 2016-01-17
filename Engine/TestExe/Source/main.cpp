@@ -63,12 +63,6 @@ int main(int argc, char** argv)
 	// Initialize Display
 	display->Init();
     
-    
-    
-    
-    
-    
-    
 	v->Init();
 
 	v->Begin();
