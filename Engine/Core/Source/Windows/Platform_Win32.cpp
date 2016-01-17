@@ -97,6 +97,23 @@ const char* Platform::Pathify(const char* file)
 	return file;
 }
 
+std::string& Platform::Pathify(std::string& file)
+{
+	char* start = (char*)(file.c_str());
+	while (*start != '\0')
+	{
+		if (*start == '/') *start = '\\';
+		start++;
+	}
+	return file;
+
+}
+
+std::string& Platform::GetFullPath(std::string& append)
+{
+	append = _cwd + append;
+	return Pathify(append);
+}
 void Platform::SetCwd(const char* executable_path, bool trim_end)
 {
 	if(trim_end)

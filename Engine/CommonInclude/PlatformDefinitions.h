@@ -25,7 +25,7 @@ typedef uint8_t uint8;
 #endif
 
 #ifdef VICI_DEBUG // Windows Debug includes
-#include "vld.h"
+//#include "vld.h"
 #endif
 
 typedef GLFWwindow VWindow; // Windows typedefs

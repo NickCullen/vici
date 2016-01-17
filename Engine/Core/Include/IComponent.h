@@ -47,14 +47,6 @@ public:
 	virtual ~IComponent(); 
 
 	/**
-	* Called when a component is created via xml. (i.e. when the scene file is loaded) No references should 
-	* be made to other components in this function as there is no guarantee that they may be instantiated yet.
-	* Note that components inheriting directly from this class MUST call IComponent::Init(data)
-	* @param data the xml node containing the required loading information
-	*/
-	virtual void Init(XmlNode& data);
-
-	/**
 	* Called when the component is created (after init IF the component was loaded
 	* from xml). It is safe to register for callbacks here and reference other components 
 	* and game objects

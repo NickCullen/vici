@@ -1,5 +1,5 @@
-#ifndef V_TIME
-#define V_TIME
+#ifndef VTIME_H
+#define VTIME_H
 
 #include "Singleton.h"
 #include "CoreAPI.h"

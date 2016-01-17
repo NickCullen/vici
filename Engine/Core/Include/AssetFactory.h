@@ -8,13 +8,13 @@ class Asset;
 
 /* For mapping of instances and creation functions */
 #include <map>
-#include "VHash.h"
+#include "Hash.h"
 
 /* Definition for the creation function of a asset */
 template<typename T> Asset* CreateAssetInstance() { return new T; }
 
 /* The typedef for the hash table of mappings */
-typedef std::map<VHash, Asset*(*)()> AssetMapType;
+typedef std::map<Hash, Asset*(*)()> AssetMapType;
 
 /**
 * Static class holding a Hashtable of registered asset creation functions
@@ -44,7 +44,7 @@ protected:
 	* @param id string containing id of required asset
 	* @return The found asset (NULL if not found)
 	*/
-	static Asset* FindType(VHash id);
+	static Asset* FindType(Hash id);
 
 public:
 	/**
@@ -61,7 +61,7 @@ public:
 	* @param id string containing id of required asset
 	* @return The created asset pointer (NULL if not created)
 	*/
-	static Asset* CreateAsset(VHash id);
+	static Asset* CreateAsset(Hash id);
 
 	/**
 	* Called to cleanup the types when program closes
@@ -85,7 +85,7 @@ public:
 	* The constructor used by the asset to register its creation function
 	* @param s The string id of the asset
 	*/
-	AssetRegister(VHash s)
+	AssetRegister(Hash s)
 	{
 		GetTypes()->insert(std::make_pair(s, &CreateAssetInstance<T>));
 	}

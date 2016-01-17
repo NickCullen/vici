@@ -3,7 +3,7 @@
 #include "Display.h"
 #include <stdio.h>
 
-#include "VTime.h"
+#include "Time.h"
 #include <unistd.h>
 #include <stdarg.h>
 

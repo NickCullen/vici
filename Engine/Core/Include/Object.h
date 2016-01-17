@@ -2,7 +2,7 @@
 #define V_OBJECT
 
 #include "CoreAPI.h"
-#include "VHash.h"
+#include "Hash.h"
 
 /**
 * Base class of most objects used for fast == operator and 
@@ -23,7 +23,7 @@ private:
 	bool _garbage; /**< Flag to represent if this object is garbage or not */
 protected:
 
-	VHash _hash; /**< The hash id of this object */
+	Hash _hash; /**< The hash id of this object */
 public:
 	/**
 	* Constructor for Object - will set _instance = _count++ when created 
@@ -34,6 +34,14 @@ public:
 	* Destructor for Object
 	*/
 	virtual ~Object();	
+
+	template< class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_VAR(_indestructable, ar);
+		_SERIALIZE_VAR(_garbage, ar);
+		_SERIALIZE_VAR(_hash, ar);
+	}
 
 	/**
 	* Copy constructor for Object used to ensure _count isnt incremented and _instance is copied
@@ -87,7 +95,7 @@ public:
 	* Getter for _id
 	* @return Returns the hash value of the id for this Object
 	*/
-	inline VHash ID()
+	inline Hash ID()
 	{
 		return _hash;
 	}

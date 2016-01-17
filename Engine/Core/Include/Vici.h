@@ -3,7 +3,6 @@
 
 /* Forward decl */
 class GameObject;
-class Camera;
 
 /* Required Includes */
 #include "CoreAPI.h"
@@ -11,12 +10,6 @@ class Camera;
 
 #include "Platform.h"
 #include "Input.h"
-
-#include "AssetLoader.h"
-#include "SceneLoader.h"
-#include "GameObjectTree.h"
-#include "LayerSystem.h"
-#include "TList.h"
 
 /* Macros for vici access and some singleton classes */
 #define _Vici Singleton<Vici>::Instance()
@@ -30,23 +23,13 @@ class Camera;
 
 class CORE_API Vici : public Singleton<Vici>
 {
-	friend class SceneLoader;
-	friend class Camera;
-private:
-	GameObjectTree _objects; /**< Tree of Game Objects in the current scene*/
 
-	TList<Camera*> _cameras;	/**< List containing all active cameras */
+private:
 
 	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
 
 	Platform _platform;	/**< The singleton class for platform functions - access via _Platform-> Macro */
 	
-	SceneLoader _scene_loader; /**< The scene loader - Singleton class accessed via the _SceneLoader macro */
-
-	AssetLoader _asset_loader;	/**< The asset loader - singleton class accessed via the _Assets macro */
-
-	LayerSystem _layer_system; /**< Class responsible for loading and maintaining layers - Singleton class accessed via the _Layers macro */
-
 	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
 
 public:

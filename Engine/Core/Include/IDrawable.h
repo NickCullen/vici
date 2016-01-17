@@ -2,7 +2,6 @@
 #define V_IDRAWABLE
 
 #include "IComponent.h"
-#include "Renderer.h"
 
 /**
 * Components that require callbacks to render functions should inherit from IDrawable
@@ -29,29 +28,20 @@ public:
 	virtual ~IDrawable();
 
 	/**
-	* Called when a component is created via xml. No references should be made to other
-	* components in this function as there is no guarantee that they may be instantiated yet.
-	* Idrawable will call the parent (IComponent) Init function. note that components
-	* inheriting from this class MUST call IDrawable::Init(data) 
-	* @param data the xml node containing the required loading information
-	*/
-	virtual void Init(XmlNode& data);
-
-	/**
 	* Called before rendering a frame
 	* @param renderer the renderer being used to render the scene
 	*/
-	virtual void PreRender(Renderer* renderer){};
+	//virtual void PreRender(Renderer* renderer){};
 	/**
 	* Called once per frame to render the current frame
 	* @param renderer the renderer being used to render the scene
 	*/
-	virtual void OnRender(Renderer* renderer){};
+	//virtual void OnRender(Renderer* renderer){};
 	/**
 	* Called after the scene has been rendered
 	* @param renderer the renderer being used to render the scene
 	*/
-	virtual void PostRender(Renderer* renderer){};
+	//virtual void PostRender(Renderer* renderer){};
 
 	/**
 	* Called when this IDrawable is destroyed

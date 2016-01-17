@@ -9,14 +9,6 @@ IDrawable::~IDrawable()
 
 }
 
-void IDrawable::Init(XmlNode& data)
-{
-	//important to call IComponent init
-	IComponent::Init(data);
-
-	//add to game objects render list
-	_go->RenderList()->PushBack(this);
-}
 
 void IDrawable::OnDestroy()
 {
@@ -24,6 +16,6 @@ void IDrawable::OnDestroy()
 	IComponent::OnDestroy();
 
 	//remove from components render list
-	_go->RenderList()->Remove(this);
+	//_go->RenderList()->Remove(this);
 
 }

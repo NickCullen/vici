@@ -2,9 +2,9 @@
 #include <fstream>
 
 // Creates the stream given the name
-#define SerializationOutputStream(name, path) std::ofstream name(path);
-#define SerializationInputStream(name, path) std::ifstream name(path);
-#define SerializationStringStream(name, path) std::stringstream name;
+#define SerializationOutputStream(name, path) std::ofstream name(path)
+#define SerializationInputStream(name, path) std::ifstream name(path)
+#define SerializationStringStream(name, path) std::stringstream name
 
 // Std library support
 #include <cereal/types/string.hpp>
@@ -16,8 +16,11 @@
 #define ArchiveOut cereal::JSONOutputArchive
 #define ArchiveIn cereal::JSONInputArchive
 
-#define CreateOutputArchive(name, stream) ArchiveOut name(stream);
-#define CreateInputArchive(name, stream) ArchiveIn name(stream);
+#define CreateOutputArchive(archiveName, streamName, path) SerializationOutputStream (streamName, path); \
+														   ArchiveOut archiveName(streamName)
+
+#define CreateInputArchive(archiveName, streamName, path) SerializationInputStream (streamName, path); \
+															 ArchiveIn archiveName(streamName)
 
 #else // ELSE - Release mode
 
@@ -26,27 +29,18 @@
 #define ArchiveOut cereal::PortableBinaryOutputArchive
 #define ArchiveIn cereal::PortableBinaryInputArchive
 
-#define CreateOutputArchive(name, stream) ArchiveOut name(stream);
-#define CreateInputArchive(name, stream) ArchiveIn name(stream);
+#define CreateOutputArchive(archiveName, streamName, path) SerializationOutputStream (streamName, path); \
+														   ArchiveOut archiveName(streamName)
+
+#define CreateInputArchive(archiveName, streamName, path) SerializationInputStream (streamName, path); \
+															 ArchiveIn archiveName(streamName)
 #endif
 
 // Generator for serialization
 #define _SERIALIZE_VAR(var, arc) arc(cereal::make_nvp(#var,var))
 
-// Generator for deserialization 
-#define _DESERIALIZE_VAR(var, arc) arc(cereal::make_nvp(#var,var))
+// Same as above but custom name
+#define _SERIALIZE_VAR_NAME(var, name, arc) arc(cereal::make_nvp(name,var))
 
-#ifndef ISERIALIZABLE_H
-#define ISERIALIZABLE_H
-
-// Pure virtual interface for serialization / deserialization
-class ISerializable
-{
-public:
-	
-    virtual void Serialize(ArchiveOut& archive) = 0;
-    virtual void Deserialize(ArchiveIn& archive) = 0;
-    
-};
-
-#endif
+// Serializes base class
+#define _SERIALIZE_PARENT(Type, arc) _SERIALIZE_VAR_NAME(cereal::base_class<Type>(this), #Type, arc)

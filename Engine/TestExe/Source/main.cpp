@@ -8,10 +8,31 @@
 #include "ComponentRegistrar.h"
 
 #include "ComponentFactory.h"
-#include "MeshRenderer.h"
 
 #include "Serialization.h"
 
+#include "TextFile.h"
+
+#include "GameObject.h"
+
+void Tests()
+{
+	std::string data = "/TestSerialization.json";
+	_Platform->GetFullPath(data);
+
+	CreateOutputArchive(outputArch, outputStream, data);
+
+	GameObject go;
+
+	Transform* t = go.GetTransform();
+
+	t->Translate(100, 0, 100);
+	t->Scale(20, 30, 40);
+	t->Rotate(90, 0, 1, 0);
+
+	_SERIALIZE_VAR_NAME(go);
+
+}
 
 int main(int argc, char** argv)
 {
@@ -50,16 +71,18 @@ int main(int argc, char** argv)
 	Display* display = new Display();
 	
 	// Deserialize the data
-	std::string displayData = _Platform->GetCwd();
-    displayData += "/settings/Display.json";
-	
+	std::string displayData = "/Settings/Display.json";
+	_Platform->GetFullPath(displayData);
+ 
 	// Load the data into memory
-    std::ifstream inputStream(displayData);
-    cereal::JSONInputArchive arch(inputStream);
+	CreateInputArchive(arch, inputStream, displayData);
     
 	// Deserialize
-	display->Deserialize(arch);
-	
+	_SERIALIZE_VAR_NAME(*display, "Display", arch);
+
+
+	Tests();
+
 	// Initialize Display
 	display->Init();
     
@@ -69,7 +92,7 @@ int main(int argc, char** argv)
 
 	_Platform->EnterLoop(v);
 
-	delete(display);
+//	delete(display);
 	delete(proj);
 	delete(v);
 	

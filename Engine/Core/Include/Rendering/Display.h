@@ -14,9 +14,13 @@
 * is being rendered on.
 */
 
-class CORE_API Display : public Singleton<Display>, ISerializable
+class CORE_API Display : public Singleton<Display>
 {
 private:
+	
+	
+public:
+
 	int32 _context_width; /**< The width of the current window (renderable area)*/
 	int32 _context_height; /**< The height of the current window (renderable area) */
 
@@ -26,14 +30,12 @@ private:
 	VRenderContext* _render_context; /**< The window that is used to render the engine */
 
 	int32 _refresh_rate; /**< Refresh rate of the monitor */
-	
+
 	bool _fullscreen;   /**< Flag for full screen window */
-	
+
 	bool _has_focus;	/**< Flag signifying if the window with the program running has focus or not */
-	
-    std::string _title;       /**< Title of display */
-	
-public:
+
+	std::string _title;       /**< Title of display */
 	/**
 	* Default constructor 
 	*/
@@ -44,9 +46,18 @@ public:
 	*/
 	~Display();
 	
-	virtual void Serialize(ArchiveOut& archive);
-	virtual void Deserialize(ArchiveIn& archive);
+	//virtual void Serialize(ArchiveOut& archive);
+	//virtual void Deserialize(ArchiveIn& archive);
 	
+	template<class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_VAR(_title, ar);
+		_SERIALIZE_VAR(_context_width, ar);
+		_SERIALIZE_VAR(_context_height, ar);
+		_SERIALIZE_VAR(_fullscreen, ar);
+	}
+
 	/**
 	* Creates display using the saved preferences
 	*/

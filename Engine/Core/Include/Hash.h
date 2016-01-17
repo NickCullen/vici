@@ -1,12 +1,12 @@
-#ifndef V_VHASH
-#define V_VHASH
+#ifndef HASH_H
+#define HASH_H
 
 #include "PlatformDefinitions.h"
 #include "CoreAPI.h"
 #include "Serialization.h"
 
 //the typedef for a hash
-typedef uint32 vhash_int;
+typedef uint32 hash_int;
 
 /**
 * This class is used to optimize the comparison between 2 strings 
@@ -15,55 +15,61 @@ typedef uint32 vhash_int;
 * status (complete)
 */
 
-class CORE_API VHash : public ISerializable
+class CORE_API Hash
 {
 private:
-	vhash_int _hash; /**< the output of the hash string (representing a string as an integer */
+	hash_int _hash; /**< the output of the hash string (representing a string as an integer */
 public:
 	/**
 	* VHash destructor 
 	*/
-	~VHash();
+	~Hash();
 
 	/**
 	* Default vhash constructor
 	*/
-	VHash();
+	Hash();
 	
-	virtual void Serialize(ArchiveOut& archive);
-	virtual void Deserialize(ArchiveIn& archive);
+	//virtual void Serialize(ArchiveOut& archive);
+	//virtual void Deserialize(ArchiveIn& archive);
 	
+	template<class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_VAR(_hash, ar);
+	}
+
 	// Typical overloads
-	bool operator <  (const VHash &other) const { return _hash <  other._hash; }
-	bool operator >	 (const VHash &other) const { return _hash >  other._hash; }
-	bool operator <= (const VHash &other) const { return _hash <= other._hash; }
-	bool operator >= (const VHash &other) const { return _hash >= other._hash; }
-	bool operator == (const VHash &other) const { return _hash == other._hash; }
-	bool operator != (const VHash &other) const { return _hash != other._hash; }
+	bool operator <  (const Hash &other) const { return _hash <  other._hash; }
+	bool operator >	 (const Hash &other) const { return _hash >  other._hash; }
+	bool operator <= (const Hash &other) const { return _hash <= other._hash; }
+	bool operator >= (const Hash &other) const { return _hash >= other._hash; }
+	bool operator == (const Hash &other) const { return _hash == other._hash; }
+	bool operator != (const Hash &other) const { return _hash != other._hash; }
 
 	/**
 	* Copy constructor for VHash
 	* @param other The VHash being copied 
 	*/
-	VHash(const VHash& other);
+	Hash(const Hash& other);
 	/**
 	* Overloaded constructor taking a string to set _hash
 	* @param str string to hash
 	*/
-	VHash(const char* str);
+	Hash(const char* str);
 	/**
 	* Another overloaded constructor taking const char* to avoid errors of casting 
 	* from char* to const char* and vis versa
 	* @param str string to hash
 	*/
-	VHash(char* str);
+	Hash(char* str);
 
 	/**
 	* equality comparison between this hash and an integer
 	* @param other integer 
 	* @return returns true if equal false if not
 	*/
-	bool operator==(vhash_int other);
+	bool operator==(hash_int other);
 
 	/**
 	* equality comparison between this hash and a string
@@ -85,7 +91,7 @@ public:
 	* @param other integer
 	* @return returns true if not equal false if so
 	*/
-	bool operator!=(vhash_int other);
+	bool operator!=(hash_int other);
 
 	/**
 	* !equality comparison between this hash and a string
@@ -107,26 +113,26 @@ public:
 	* @param eq the integer to set this _hash value to
 	* @return returns (*this)
 	*/
-	VHash operator=(vhash_int eq);
+	Hash operator=(hash_int eq);
 	/**
 	* Sets this hash from a string (note this will Hashify the string first)
 	* @param eq the string to hashify then set this _hash value to
 	* @return returns (*this)
 	*/
-	VHash operator=(const char* eq);
+	Hash operator=(const char* eq);
 	/**
 	* Sets this hash from a string (note this will Hashify the string first)
 	* @param eq the string to hashify then set this _hash value to
 	* @return returns (*this)
 	*/
-	VHash operator=(char* eq);
+	Hash operator=(char* eq);
 
 	/** 
 	* checks if this hash is less than the other 
 	* @param other Checks if this is less than an integer
 	* @return returns true if less then false if not
 	*/
-	bool operator<(vhash_int other);
+	bool operator<(hash_int other);
 
 	/**
 	* checks if this hash is less than the other
@@ -148,7 +154,7 @@ public:
 	* @param other Checks if this is greater than an integer
 	* @return returns true if greater then false if not
 	*/
-	bool operator>(vhash_int other);
+	bool operator>(hash_int other);
 
 	/**
 	* checks if this hash is greater than the other
@@ -169,7 +175,7 @@ public:
 	* Get function to return the hash value
 	* @return returns the integer value of the hash
 	*/
-	inline const vhash_int Value() const
+	inline const hash_int Value() const
 	{
 		return _hash;
 	}
@@ -180,9 +186,9 @@ public:
 	* @param str The string that requires hashing
 	* @return Returns the hash value (integer) of the string
 	*/
-	static inline vhash_int Hashify(const char* str)
+	static inline hash_int Hashify(const char* str)
 	{
-		vhash_int hash = 2166136261;
+		hash_int hash = 2166136261;
 
 		while (*str)
 		{

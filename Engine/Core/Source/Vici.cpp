@@ -3,8 +3,6 @@
 #include "Platform.h"
 #include <string>
 #include "Project.h"
-#include "Camera.h"
-#include "ShaderAsset.h"
 
 Vici::Vici() : Singleton<Vici>()
 {
@@ -27,13 +25,6 @@ void Vici::Init()
 {
 	//print cwd
 	_Platform->LogString("Running Directory = %s\n", _Platform->GetCwd());
-	
-	//initialize stuff
-    _SceneLoader->Init();
-	_Layers->Init(_Platform->GetCwd());
-
-	//call some required static methods on classes
-	ShaderAsset::LoadSharedCode(_Platform->GetCwd());
 
 	//Register Project specific assets
 	_Project->RegisterAssetImporters();
@@ -45,87 +36,23 @@ void Vici::Init()
 //starts the game
 void Vici::Begin()
 {
-	if (!_started)
-	{
-		//load first scene
-		_SceneLoader->LoadScene(0);
-
-		//dispatch start to all objects
-		TTREE_foreach(GameObject*, object, _objects)
-		{
-			if (object->GetEnabled())
-			{
-				object->OnStart();
-			}
-		}
-
-		//dispatch on enabled messages to those who just become enabled
-		TTREE_foreach(GameObject*, object, _objects)
-		{
-			if (object->GetEnabled())
-			{
-				object->Dispatch(eOnEnable);
-			}
-		}
-
-		_started = true;
-	}
-	else
-	{
-		_Platform->LogString("Cannot begin engine as _started is already set to true\n");
-	}
+	
 }
 
 /* Update and render funcs */
 void Vici::Update()
 {
-	//lock list
-	_objects.Lock();
-
-	TTREE_foreach(GameObject*, object, _objects)
-	{
-		//only perform update if object hasnt been deleted
-		if(!object->IsGarbage() && object->GetEnabled())
-			object->Dispatch(eUpdate);
-	}
-
-	//unlock
-	_objects.Unlock();
+	
 }
 
 
 void Vici::Render()
 {
-	TLIST_foreach(Camera*, camera, _cameras)
-	{
-		//prepare the scene
-		camera->PrepareScene();
 
-		//now do renderings
-		camera->Render();
-	}
 }
 
 void Vici::OnExit()
 {
-	//delete all objects left on tree
-	_objects.Lock();
-
-	TTREE_foreach(GameObject*, obj, _objects)
-	{
-		Object::Destroy(obj);
-	}
-
-	_objects.Unlock();
-
-	//unload assets
-	_Assets->UnloadAll();
-
-	//cleanup components
-	//ComponentFactory::CleanUp();
-	//AssetFactory::CleanUp();
-	//ShaderAsset::UnloadSharedCode();
-
 	//set back to false
 	_started = false;
 }
@@ -143,11 +70,10 @@ void Vici::OnEnteredFocus()
 /*Testing funcs*/
 void Vici::AddGameObject(GameObject* go)
 {
-	_objects.Insert(go);
+	
 }
 
 void Vici::RemoveGameObject(GameObject* go)
 {
-	//remove from list
-	_objects.Remove(go);
+	
 }

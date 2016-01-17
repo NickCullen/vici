@@ -4,7 +4,6 @@
 #include "AssetFactory.h"
 #include "CoreAPI.h"
 #include "PlatformDefinitions.h"
-#include "Xml.h"
 
 // Definition for classes that inherit from Asset to put at the
 // Top of their definition
@@ -49,12 +48,12 @@ public:
 	* mobile devices)
 	* @param node The XmlNode containing the data for this asset
 	*/
-	virtual void Load(XmlNode& node) = 0;
+	//virtual void Load(XmlNode& node) = 0;
 
 	/**
 	* Pure virtual method called when the asset is to be unloaded
 	*/
-	virtual void Unload() = 0;
+	//virtual void Unload() = 0;
 
 };
 

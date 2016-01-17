@@ -62,11 +62,27 @@ public:
 	const char* Pathify(const char* file);
 
 	/**
+	* Turns a path in c style string format into a platform
+	* corrent and sensible path (i.e. converts forward slashes
+	* to backslashes on windows machines)
+	* @param file The file path
+	* @return returns the same pointer
+	*/
+	std::string& Pathify(std::string& file);
+
+	/**
 	* Returns the current working directory - note that classes calling this function
 	* should not attempt to delete or modify this pointer
 	* @return A char pointer (C String) containing the current working directory
 	*/
 	inline char* GetCwd() { return _cwd; }
+
+	/**
+	* Appends the string to the cwd and returns it
+	* @param append The string to append to cwd
+	* @return reference to input string
+	*/
+	std::string& GetFullPath(std::string& append);
 
 	/**
 	* Called before any vici function and set by the programs

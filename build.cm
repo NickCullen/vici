@@ -18,13 +18,12 @@ VICI_OPENGL
 /Engine/CommonInclude
 /Engine/Core/Include
 /Engine/Core/Include/Rendering
-/Engine/Util/Include
 /Engine/Registrar/Include
-/Engine/Datastructures/Include
+/Engine/Math/Include
 /ThirdParty/Include
 
-[WIN32:ProjectIncludeDirectories]	
-/ThirdParty/Include/VLD
+;[WIN32:ProjectIncludeDirectories]	
+;/ThirdParty/Include/VLD
 
 [WIN32:OutputSettings]
 Executable==/Bin/Win32
@@ -46,8 +45,7 @@ Libs==/Lib/Mac
 
 [SubModules]
 /Engine/Core
-/Engine/Util
 /Engine/Registrar
 /Engine/TestExe
-
+/Engine/Math
 

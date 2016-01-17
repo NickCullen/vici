@@ -11,34 +11,6 @@ Transform::~Transform()
 
 }
 
-void Transform::Init(XmlNode& node)
-{
-	//make sure node exists
-	if (!node.IsNull())
-	{
-		//get nodes
-		XmlNode position_node = node.GetChild("position");
-		XmlNode rotation_node = node.GetChild("rotation");
-		XmlNode scale_node = node.GetChild("scale");
-
-		//load values
-		if (!position_node.IsNull())
-		{
-			sscanf(position_node.ValueString(), "%f %f %f", &_pos[0], &_pos[1], &_pos[2]);
-		}
-
-		if (!rotation_node.IsNull())
-		{
-			sscanf(rotation_node.ValueString(), "%f %f %f", &_rotation[0], &_rotation[1], &_rotation[2]);
-		}
-
-		if (!scale_node.IsNull())
-		{
-			sscanf(scale_node.ValueString(), "%f %f %f", &_scale[0], &_scale[1], &_scale[2]);
-		}
-
-	}
-}
 /* Transforms */
 void Transform::Translate(glm::vec3 offset)
 {

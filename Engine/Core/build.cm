@@ -22,7 +22,7 @@ Type==shared
 Name=="Core"
 
 [LinkLibs]
-Util
+Math
 
 [WIN32:LinkLibs]
 glfw3

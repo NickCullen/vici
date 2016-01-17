@@ -1,6 +1,5 @@
 #include "Display.h"
 #include "Vici.h"
-#include "Xml.h"
 #include <string>
 
 
@@ -18,17 +17,17 @@ Display::~Display()
 
 }
 
-void Display::Serialize(ArchiveOut& archive)
-{
-	_SERIALIZE_VAR(_title, archive);
-    _SERIALIZE_VAR(_context_width, archive);
-    _SERIALIZE_VAR(_context_height, archive);
-    _SERIALIZE_VAR(_fullscreen, archive);
-}
-void Display::Deserialize(ArchiveIn& archive)
-{
-	archive(_title, _context_width, _context_height, _fullscreen);
-}
+//void Display::Serialize(ArchiveOut& archive)
+//{
+//	_SERIALIZE_VAR(_title, archive);
+//    _SERIALIZE_VAR(_context_width, archive);
+//    _SERIALIZE_VAR(_context_height, archive);
+//    _SERIALIZE_VAR(_fullscreen, archive);
+//}
+//void Display::Deserialize(ArchiveIn& archive)
+//{
+//	archive(_title, _context_width, _context_height, _fullscreen);
+//}
 //called when focus to window has changed (minimized / opened)
 void OnFocusChanged(VWindow* window, int focus)
 {

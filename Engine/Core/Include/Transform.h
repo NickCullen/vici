@@ -4,8 +4,7 @@
 /*Forward decl*/
 
 #include "CoreAPI.h"
-#include "glm.h"
-#include "Xml.h"
+#include "Mathf.h"
 
 /**
 * Transform containing information on moving and representing 
@@ -35,11 +34,18 @@ public:
 	*/
 	~Transform();
 
-	/**
-	* Loads the transform from the given xml node
-	* @param node The XmlNode containing the data
-	*/
-	void Init(XmlNode& node);
+	template<class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_VAR(_pos.x, ar); _SERIALIZE_VAR(_pos.y, ar); _SERIALIZE_VAR(_pos.z, ar);
+
+		_SERIALIZE_VAR(_scale.x, ar); _SERIALIZE_VAR(_scale.y, ar); _SERIALIZE_VAR(_scale.z, ar);
+
+		_SERIALIZE_VAR(_rotation.x, ar); _SERIALIZE_VAR(_rotation.y, ar); _SERIALIZE_VAR(_rotation.z, ar);
+
+		_update_model_matrix = true;
+		UpdateMatrix();
+	}
 
 	/**
 	* Translates the position

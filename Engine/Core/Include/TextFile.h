@@ -1,13 +1,13 @@
 #ifndef V_TEXTFILE
 #define V_TEXTFILE
 
-#include "UtilAPI.h"
+#include "CoreAPI.h"
 
 /**
 * Helper class for loading a text file in one go (used heavily in the XML Document loader)
 */
 
-class UTIL_API TextFile
+class CORE_API TextFile
 {
 public:
 	char* _text; /**< char poitner pointing to the text files text in memory */

@@ -12,7 +12,7 @@ AssetFactory::~AssetFactory()
 
 }
 
-Asset* AssetFactory::FindType(VHash id)
+Asset* AssetFactory::FindType(Hash id)
 {
 	AssetMapType::iterator it = GetTypes()->find(id);
 	if (it == GetTypes()->end())
@@ -20,7 +20,7 @@ Asset* AssetFactory::FindType(VHash id)
 	return it->second();
 }
 
-Asset* AssetFactory::CreateAsset(VHash id)
+Asset* AssetFactory::CreateAsset(Hash id)
 {
 	return FindType(id);
 }
