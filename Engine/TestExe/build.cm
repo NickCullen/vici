@@ -1,6 +1,6 @@
 [ProjectSettings]  			
-MinCmakeVer=2.6				
-Name="TestExe" 		
+MinCmakeVer==2.6				
+Name=="TestExe" 		
 
 [ProjectIncludeDirectories]	
 /Include
@@ -9,8 +9,8 @@ Name="TestExe"
 /Source
 
 [Module]
-Type=exe
-Name="TestExe"
+Type==exe
+Name=="TestExe"
 
 [LinkLibs]
 Core

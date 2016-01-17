@@ -1,6 +1,9 @@
 [ProjectSettings]  			
-MinCmakeVer=2.6				
-Name="Vici" 		
+MinCmakeVer==2.6				
+Name=="Vici" 		
+
+[Flags]
+-std=c++11
 
 [WIN32:ProjectDefinitions]
 VICI_WINDOWS
@@ -24,18 +27,18 @@ VICI_OPENGL
 /ThirdParty/Include/VLD
 
 [WIN32:OutputSettings]
-Executable=/Bin/Win32
-Runtime=/Bin/Win32
-Libs=/Lib/Win32
+Executable==/Bin/Win32
+Runtime==/Bin/Win32
+Libs==/Lib/Win32
 
 [APPLE:OutputSettings]
-Executable=/Bin/Mac
-Runtime=/Bin/Mac
-Libs=/Lib/Mac
+Executable==/Bin/Mac
+Runtime==/Bin/Mac
+Libs==/Lib/Mac
 
 [APPLE:ProjectLibDirectories]
-/Lib/Mac
-/ThirdParty/Lib/Mac
+/lib/mac
+/ThirdParty/lib/mac
 
 [WIN32:ProjectLibDirectories]
 /lib/Win32

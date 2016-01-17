@@ -39,6 +39,7 @@ class Module:
 	settings = None						#settings for this module
 	projectSettings = None				#settings for this project
 	definitions = None					#definitions for this module
+	cflags = None
 	includes = None						#includes for this module
 	sources = None						#list of source sections (note some may be for targeted platforms) for this module
 	projectLibDirectories = None		#project lib directories (local libs)
@@ -95,10 +96,10 @@ def StringToVar(s):
 	return s
 			
 #parses key and value and returns a 2 tuple (k,v)
-def ParseKeyValue(line, seperator='='):
+def ParseKeyValue(line, seperator="=="):
 	k = Trim(line.split(seperator)[0])
 	v = Trim(line.split(seperator)[1])
-	
+
 	v = StringToVar(v)
 		
 	return(k,v)
@@ -140,7 +141,7 @@ def ParseSections(rootDir, f):
 		if l.startswith('['): #beginning of new section
 			currentSection = Section(ParseSection(l))
 			sections.append(currentSection)
-		elif "=" in l: #value whos key is unique
+		elif "==" in l: #value whos key is unique
 			data = ParseKeyValue(l)
 			currentSection.AddData(data)
 		else: #must asume it is just a single value
@@ -189,6 +190,11 @@ def CreateCmakeFile(rootDir, f, sections):
 		WriteDefinitions(f,definitions)
 		module.definitions = definitions
 		
+	cflags = GetSections("Flags", sections)
+	if cflags:
+		WriteCFlags(f, cflags)
+		module.cflags = cflags
+        
 	includes = GetSections("ProjectIncludeDirectories", sections)
 	if includes:
 		WriteIncludeDirectories(f, rootDir, includes)
@@ -231,7 +237,7 @@ def CreateCmakeFile(rootDir, f, sections):
 #rootDir is a string for the root directory
 #f is the python loaded build.cm file
 def Generate(rootDir, f):
-	print("Generating "+str(f))
+
 	sections = ParseSections(rootDir, f)
 	
 	#ensure rootDir contains forward slashes and NOT backslashes

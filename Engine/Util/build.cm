@@ -1,6 +1,6 @@
 [ProjectSettings]  			
-MinCmakeVer=2.6				
-Name="Util" 		
+MinCmakeVer==2.6				
+Name=="Util" 		
 
 [ProjectIncludeDirectories]	
 /Include
@@ -9,6 +9,6 @@ Name="Util"
 /Source
 
 [Module]
-Type=shared
-Name="Util"
+Type==shared
+Name=="Util"
 

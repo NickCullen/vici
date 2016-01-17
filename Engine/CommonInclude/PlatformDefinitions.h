@@ -34,6 +34,9 @@ typedef GLFWwindow VWindow; // Windows typedefs
 
 #ifdef VICI_MAC // Mac specific includes 
 
+#include <stdint.h>
+#include <assert.h>
+
 typedef int64_t int64;
 typedef int32_t int32;
 typedef int16_t int16;
@@ -48,8 +51,7 @@ typedef uint8_t uint8;
 #include "OpenGLDefinitions/OpenGLDefinitions.h"
 #endif
 
-#include <stdint.h>
-#include <assert.h>
+
 
 #endif // End Mac specific includes 
 

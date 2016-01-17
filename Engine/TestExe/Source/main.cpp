@@ -10,6 +10,9 @@
 #include "ComponentFactory.h"
 #include "MeshRenderer.h"
 
+#include "Serialization.h"
+
+
 int main(int argc, char** argv)
 {
 	Vici* v = new Vici();
@@ -45,8 +48,27 @@ int main(int argc, char** argv)
 	
 	// Setup Display
 	Display* display = new Display();
-	display->Init(_Platform->GetCwd());
 	
+	// Deserialize the data
+	std::string displayData = _Platform->GetCwd();
+    displayData += "/settings/Display.json";
+	
+	// Load the data into memory
+    std::ifstream inputStream(displayData);
+    cereal::JSONInputArchive arch(inputStream);
+    
+	// Deserialize
+	display->Deserialize(arch);
+	
+	// Initialize Display
+	display->Init();
+    
+    
+    
+    
+    
+    
+    
 	v->Init();
 
 	v->Begin();

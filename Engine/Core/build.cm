@@ -1,6 +1,6 @@
 [ProjectSettings]  			
-MinCmakeVer=2.6				
-Name="Core" 		
+MinCmakeVer==2.6				
+Name=="Core" 		
 
 [ProjectIncludeDirectories]	
 /Include
@@ -18,8 +18,8 @@ Name="Core"
 /Source/Rendering/DesktopOpengl
 
 [Module]
-Type=shared
-Name="Core"
+Type==shared
+Name=="Core"
 
 [LinkLibs]
 Util

@@ -14,6 +14,8 @@ project(${Name})
 set_property(GLOBAL PROPERTY USE_FOLDERS ${UseFolders})
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)\n""")
 
+#for defining C flags
+TCFlag = Template("set(CMAKE_CXX_FLAGS ${cflag} $${CMAKE_CXX_FLAGS})")
 
 #for including a definition
 TDefinition = Template("add_definitions(-D${definition})")
@@ -113,6 +115,7 @@ def WriteProjectSettings(f, section):
 	#defaults
 	if "UseFolders" not in section.data: section.data["UseFolders"] = "OFF"
 	
+	print(section)
 	#output
 	output = TProjectSettings.substitute(section.data)
 	f.write(output)
@@ -143,6 +146,19 @@ def WriteDefinitions(f, sections):
 		
 		WriteToFile(f,output, s.HasCondition(), s.condition)
 
+#writes all c flags 
+def WriteCFlags(f, sections):
+    #first write the one which is not platform specific
+	for s in sections:
+		flags = s.data[":"]
+		
+		#gather definitions to be output
+		output = ""
+		for flag in flags:
+			output += TCFlag.substitute(dict(cflag=flag)) + "\n"
+		
+		WriteToFile(f,output, s.HasCondition(), s.condition)
+        
 #project include directories
 def WriteIncludeDirectories(f, rootDir, sections):
 	#first write the one which is not platform specific
@@ -255,6 +271,7 @@ def WriteLinkLibs(f, rootDir, sections):
 				
 				output = TLinkObject.substitute(dict(object=objectLibName)) +"\n"
 				WriteToFile(f,output, s.HasCondition(), s.condition)
+                
 			else:
 				#add to LIBS cmake var
 				output = TAppendPythonVariable.substitute(dict(var="LIBS", appendedval=l))

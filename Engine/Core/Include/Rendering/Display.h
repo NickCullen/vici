@@ -5,6 +5,7 @@
 #include "Singleton.h"
 #include "PlatformDefinitions.h"
 #include "glm.h"
+#include "Serialization.h"
 
 #define _Display Singleton<Display>::Instance()
 
@@ -13,7 +14,7 @@
 * is being rendered on.
 */
 
-class CORE_API Display : public Singleton<Display>
+class CORE_API Display : public Singleton<Display>, ISerializable
 {
 private:
 	int32 _context_width; /**< The width of the current window (renderable area)*/
@@ -25,8 +26,13 @@ private:
 	VRenderContext* _render_context; /**< The window that is used to render the engine */
 
 	int32 _refresh_rate; /**< Refresh rate of the monitor */
-
+	
+	bool _fullscreen;   /**< Flag for full screen window */
+	
 	bool _has_focus;	/**< Flag signifying if the window with the program running has focus or not */
+	
+    std::string _title;       /**< Title of display */
+	
 public:
 	/**
 	* Default constructor 
@@ -37,13 +43,14 @@ public:
 	* Default destructor
 	*/
 	~Display();
-
+	
+	virtual void Serialize(ArchiveOut& archive);
+	virtual void Deserialize(ArchiveIn& archive);
+	
 	/**
-	* Used to load and initialize the display 
-	* from the display xml file found in the 
-	* settings folder of the project
+	* Creates display using the saved preferences
 	*/
-	void Init(char* cwd);
+	void Init();
 	
 	/**
 	* Used to set the context of the display

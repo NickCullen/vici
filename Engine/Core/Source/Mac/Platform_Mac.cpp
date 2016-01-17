@@ -44,10 +44,9 @@ void Platform::EnterLoop(Vici* v)
 
 	//get the window
 	VRenderContext* rc = _Display->GetRenderContext();
-	printf("Rc = %p\n", rc);
+	printf("Rendering Context = %p\n", rc);
 	if (rc != NULL)
 	{
-		printf("Hello again");
 		/* Loop until the user closes the window */
 		while (!glfwWindowShouldClose(rc))
 		{

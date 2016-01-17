@@ -1,6 +1,6 @@
 [ProjectSettings]  			
-MinCmakeVer=2.6				
-Name="Datastructures" 		
+MinCmakeVer==2.6				
+Name=="Datastructures" 		
 
 [ProjectIncludeDirectories]	
 /Include
@@ -10,6 +10,6 @@ Name="Datastructures"
 
 ;commented out for now
 ;[Module]
-;Type=shared
-;Name="Datastructures"
+;Type==shared
+;Name=="Datastructures"
 

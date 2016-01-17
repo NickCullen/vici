@@ -1,6 +1,6 @@
 [ProjectSettings]  			
-MinCmakeVer=2.6				
-Name="Registrar" 		
+MinCmakeVer==2.6				
+Name=="Registrar" 		
 
 [ProjectIncludeDirectories]	
 /Include
@@ -9,8 +9,8 @@ Name="Registrar"
 /Source
 
 [Module]
-Type=shared
-Name="Registrar"
+Type==shared
+Name=="Registrar"
 
 [LinkLibs]
 Core
