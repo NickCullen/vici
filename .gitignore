@@ -3,7 +3,6 @@
 *.DS_Store
 *.pyc
 CMakeLists.txt
-Tools/Mac/Python
 *.exp
 *.pdb
 *.ilk
