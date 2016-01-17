@@ -15,10 +15,17 @@ SceneLoader::~SceneLoader()
 {
 
 }
-
+void SceneLoader::Serialize(ArchiveOut& archive)
+{
+	
+}
+void SceneLoader::Deserialize(ArchiveIn& archive)
+{
+	
+}
 void SceneLoader::Init()
 {
-	char buff[758];
+	char buff[512];
 
 	//set the file path
 	strcpy(buff, _Platform->GetCwd());
@@ -43,15 +50,14 @@ void SceneLoader::Init()
 
 			//create its hash id
 			data._id = cur.ValueString();
-
-			//set its file and asset dir
-			sprintf(data._scene_file, "%s\\scenes\\%s.xml", _Platform->GetCwd(), cur.ValueString());
-			sprintf(data._scene_assets, "%s\\scenes\\%s_assets.xml", _Platform->GetCwd(), cur.ValueString());
-
-            //make them sensible to current platform file system
-            strcpy(data._scene_file, _Platform->Pathify(data._scene_file));
-            strcpy(data._scene_assets, _Platform->Pathify(data._scene_assets));
             
+			//set its file and asset dir
+			sprintf(buff, "/scenes/%s.xml", cur.ValueString());
+            data._scene_file = buff;
+            
+			sprintf(buff, "/scenes/%s_assets.xml", cur.ValueString());
+            data._scene_assets = buff;
+
 			//add to scene data
 			_scenes.push_back(data);
 

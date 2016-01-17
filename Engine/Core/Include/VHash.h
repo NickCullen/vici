@@ -2,7 +2,8 @@
 #define V_VHASH
 
 #include "PlatformDefinitions.h"
-#include "UtilAPI.h"
+#include "CoreAPI.h"
+#include "Serialization.h"
 
 //the typedef for a hash
 typedef uint32 vhash_int;
@@ -14,7 +15,7 @@ typedef uint32 vhash_int;
 * status (complete)
 */
 
-class UTIL_API VHash
+class CORE_API VHash : public ISerializable
 {
 private:
 	vhash_int _hash; /**< the output of the hash string (representing a string as an integer */
@@ -28,7 +29,10 @@ public:
 	* Default vhash constructor
 	*/
 	VHash();
-
+	
+	virtual void Serialize(ArchiveOut& archive);
+	virtual void Deserialize(ArchiveIn& archive);
+	
 	// Typical overloads
 	bool operator <  (const VHash &other) const { return _hash <  other._hash; }
 	bool operator >	 (const VHash &other) const { return _hash >  other._hash; }

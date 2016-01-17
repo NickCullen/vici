@@ -22,6 +22,14 @@ VHash::VHash(char* str)
 	_hash = Hashify((const char*)str);
 }
 
+void VHash::Serialize(ArchiveOut& archive)
+{
+	_SERIALIZE_VAR(_hash);
+}
+void VHash::Deserialize(ArchiveIn& archive)
+{
+	_DESERIALIZE_VAR(_hash);
+}
 //references
 bool VHash::operator==(vhash_int other)
 {

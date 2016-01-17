@@ -5,6 +5,8 @@
 #include "Singleton.h"
 #include "VHash.h"
 #include <vector>
+#include "Serialization.h"
+#include <string>
 
 #define _SceneLoader Singleton<SceneLoader>::Instance()
 
@@ -18,8 +20,8 @@ class Vici;
 struct CORE_API SceneData
 {
 	VHash _id; /**< the hash id of the scene */
-	char _scene_file[512]; /**< the full path to the scene xml file */
-	char _scene_assets[512]; /**< the full path to the scene assets file */
+	std::string _scene_file; /**< the relative path to the scene xml file */
+	std::string _scene_assets; /**< the relative path to the scene assets file */
 };
 
 /**
@@ -28,13 +30,13 @@ struct CORE_API SceneData
 * status (ongoing) 
 */
 
-class CORE_API SceneLoader : public Singleton<SceneLoader>
+class CORE_API SceneLoader : public Singleton<SceneLoader>, ISerializable
 {
 friend class Vici;
 private:
 	int32 _current_level;	/**< integer containing the index into the _scenes list for the currently loaded scene */
 	std::vector<SceneData> _scenes; /**< list of SceneData nodes */
-
+	
 	/** 
 	* initialized when the engine starts. Can only be called from Vici class
 	*/
@@ -66,7 +68,10 @@ public:
 	* Default destructor 
 	*/
 	~SceneLoader();
-
+	
+	virtual void Serialize(ArchiveOut& archive);
+	virtual void Deserialize(ArchiveIn& archive);
+	
 	/**
 	* function to load the scene by its index into the _scenes array
 	* @param index unsigned integer index into the _scenes array 
