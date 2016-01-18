@@ -7,10 +7,13 @@
 
 //typedefs
 #define SharedReference std::shared_ptr
-#define WeakReference std::weak_ptr
 
 //engine pointers
 #define AssetPointer SharedReference
+
+#define ComponentPtrDef SharedReference
+#define ComponentPtr ComponentPtrDef<IComponent>
+
 
 
 #endif

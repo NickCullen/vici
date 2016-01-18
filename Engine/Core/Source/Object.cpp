@@ -1,13 +1,13 @@
 #include "Object.h"
 
 //static init
-uint32 Object::_count = 0;
+uint32 Object::Count = 0;
 
 Object::Object()
 {
-	_indestructable = false;
-	_instance = ++_count;
-	_garbage = false;
+	bIndestructable = false;
+	InstanceID = ++Count;
+	bGarbage = false;
 }
 
 Object::~Object()
@@ -18,31 +18,31 @@ Object::~Object()
 //copy ctor
 Object::Object(const Object& other)
 {
-	_instance = other._instance;
-	_hash = other._hash;
+	InstanceID = other.InstanceID;
+	MyHash = other.MyHash;
 }
 
 bool Object::operator==(Object& o)
 {
-	return (_instance == o._instance && _hash == o._hash);
+	return (InstanceID == o.InstanceID && MyHash == o.MyHash);
 }
 
 bool Object::operator!=(Object& o)
 {
-	return (_instance != o._instance && _hash != o._hash);
+	return (InstanceID != o.InstanceID && MyHash != o.MyHash);
 }
 
 
 void Object::MakeIndestructable()
 {
-	_indestructable = true;
+	bIndestructable = true;
 }
 
 
 void Object::Destroy(Object* o)
 {
 	//if it isnt destructable
-	if (!o->_indestructable)
+	if (!o->bIndestructable)
 	{
 		//destroy it so it has a chance to clean up (and remove itself from lists)
 		o->OnDestroy();

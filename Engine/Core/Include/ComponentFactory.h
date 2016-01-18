@@ -8,12 +8,13 @@ class IComponent;
 #include "CoreAPI.h"
 #include <map>
 #include "Hash.h"
+#include "SmartPtr.h"
 
 /* definition for the creation function of a component */
-template<class T> IComponent* Internal_Component_CreateInstance() { return new T; }
+template<class T> ComponentPtr Internal_Component_CreateInstance() { return std::make_shared<T>(); }
 
 /* the typedef for the hash table of mappings */
-typedef std::map<Hash, IComponent*(*)()> MapType;
+typedef std::map<Hash, ComponentPtr(*)()> MapType;
 
 /**
 * Static class holding a Hashtable of registered component creation functions
@@ -24,7 +25,7 @@ typedef std::map<Hash, IComponent*(*)()> MapType;
 class CORE_API ComponentFactory
 {
 private:
-	static MapType* _types; /**< static hash table containing creation function for registered classes */  
+	static MapType* Types; /**< static hash table containing creation function for registered classes */
 
 protected:
 
@@ -34,8 +35,8 @@ protected:
 	*/
 	inline static MapType* GetTypes()
 	{
-		if (_types == NULL) _types = new MapType();
-		return _types;
+		if (Types == NULL) Types = new MapType();
+		return Types;
 	}
 
 	/**
@@ -43,7 +44,7 @@ protected:
 	* @param id string containing id of required component
 	* @return The found component (NULL if not found)
 	*/
-	static IComponent* FindType(Hash id);
+	static ComponentPtr FindType(Hash id);
 
 public:
 
@@ -66,7 +67,7 @@ public:
 	* @param id string containing id of required component
 	* @return The created component pointer (NULL if not created)
 	*/
-	static IComponent* CreateComponent(Hash id);
+	static ComponentPtr CreateComponent(Hash id);
 
 	/**
 	* Same as the non-template CreateComponent function except it casts the output to the 
@@ -76,10 +77,12 @@ public:
 	* @return The created component pointer of specified type (NULL if not created)
 	*/
 	template<class T>
-	static T* CreateComponent(Hash id)
+	static ComponentPtrDef<T> CreateComponent(Hash id)
 	{
-		IComponent* comp = CreateComponent(id);
-		return comp != NULL ? (T*)comp : NULL;
+		//IComponent* comp = CreateComponent(id);
+		//return comp != NULL ? (T*)comp : NULL;
+		ComponentPtr comp = CreateComponent(id);
+		return comp != NULL ? std::dynamic_pointer_cast<T>(comp) : NULL;
 	}
 };
 

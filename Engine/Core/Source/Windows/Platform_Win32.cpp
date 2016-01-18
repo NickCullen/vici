@@ -10,7 +10,7 @@
 
 Platform::Platform() : Singleton<Platform>()
 {
-	_cwd[0] = '\0';
+	Cwd[0] = '\0';
 }
 
 Platform::~Platform()
@@ -38,17 +38,16 @@ void Platform::EnterLoop(Vici* v)
 	float last = 0.0f, start = 0.0f, current = 0.0f;
 
 	//the fps
-	float fps = 1.0f / _Display->RefreshRate();
+	float fps = 1.0f / _Display->GetRefreshRate();
 
 	//cache last and start
 	start = last = (float)GetTime();
 
 	//get the window
 	VRenderContext* rc = _Display->GetRenderContext();
-	printf("Rc = %p\n", rc);
+	printf("RenderContext = %p\n", rc);
 	if (rc != NULL)
 	{
-		printf("Hello again");
 		/* Loop until the user closes the window */
 		while (!glfwWindowShouldClose(rc))
 		{
@@ -59,8 +58,8 @@ void Platform::EnterLoop(Vici* v)
 			if (current - last >= fps)
 			{
 				//update time
-				_Time->_time = current - start;
-				_Time->_delta_time = (current - last) * _Time->_time_scale;
+				_Time->Time = current - start;
+				_Time->DeltaTime = (current - last) * _Time->TimeScale;
 
 				//update engine
 				if (_Display->HasFocus()) v->Update();
@@ -111,7 +110,7 @@ std::string& Platform::Pathify(std::string& file)
 
 std::string& Platform::GetFullPath(std::string& append)
 {
-	append = _cwd + append;
+	append = Cwd + append;
 	return Pathify(append);
 }
 void Platform::SetCwd(const char* executable_path, bool trim_end)
@@ -130,5 +129,5 @@ void Platform::SetCwd(const char* executable_path, bool trim_end)
 	}
 
 	//set cwd
-	strcpy(_cwd, executable_path);
+	strcpy(Cwd, executable_path);
 }

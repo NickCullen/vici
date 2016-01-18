@@ -2,9 +2,9 @@
 
 Transform::Transform()
 {
-	_update_model_matrix = true;
+	bUpdateModelMatrix = true;
 	//default scale
-	_scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 Transform::~Transform()
 {
@@ -14,70 +14,70 @@ Transform::~Transform()
 /* Transforms */
 void Transform::Translate(glm::vec3 offset)
 {
-	_pos += offset;
-	_update_model_matrix = true;
+	Pos += offset;
+	bUpdateModelMatrix = true;
 }
 void Transform::Translate(float x, float y, float z)
 {
-	_pos += glm::vec3(x, y, z);
-	_update_model_matrix = true;
+	Pos += glm::vec3(x, y, z);
+	bUpdateModelMatrix = true;
 }
-void Transform::Scale(float scale)
+void Transform::SetScale(float scale)
 {
-	_scale = glm::vec3(scale, scale, scale);
-	_update_model_matrix = true;
+	Scale = glm::vec3(scale, scale, scale);
+	bUpdateModelMatrix = true;
 }
-void Transform::Scale(float scale_x, float scale_y, float scale_z)
+void Transform::SetScale(float scale_x, float scale_y, float scale_z)
 {
-	_scale = glm::vec3(scale_x, scale_y, scale_z);
-	_update_model_matrix = true;
+	Scale = glm::vec3(scale_x, scale_y, scale_z);
+	bUpdateModelMatrix = true;
 }
-void Transform::Scale(glm::vec3 scale)
+void Transform::SetScale(glm::vec3 scale)
 {
-	_scale = scale;
-	_update_model_matrix = true;
+	Scale = scale;
+	bUpdateModelMatrix = true;
 }
 void Transform::Rotate(float angle, glm::vec3 axis)
 {
-	_rotation = glm::vec3(angle * axis.x, angle * axis.y, angle * axis.z);
-	_update_model_matrix = true;
+	Rotation = glm::vec3(angle * axis.x, angle * axis.y, angle * axis.z);
+	bUpdateModelMatrix = true;
 }
 void Transform::Rotate(float angle, float ax_x, float ax_y, float ax_z)
 {
-	_rotation = glm::vec3(angle * ax_x, angle * ax_y, angle * ax_z);
-	_update_model_matrix = true;
+	Rotation = glm::vec3(angle * ax_x, angle * ax_y, angle * ax_z);
+	bUpdateModelMatrix = true;
 }
 
 glm::mat4 Transform::GetModelMatrix()
 {
 	UpdateMatrix();
-	return _model;
+	return Model;
 }
 
 void Transform::UpdateMatrix()
 {
 	//only do all this calculation if we need to
-	if (_update_model_matrix)
+	if (bUpdateModelMatrix)
 	{
 		//reset
-		_model = glm::mat4x4();
-		_rotation_matrix = glm::mat4x4();
+		Model = glm::mat4x4();
+		RotationMatrix = glm::mat4x4();
 
 		//translate
-		_model = glm::translate(_model, _pos);
+		Model = glm::translate(Model, Pos);
 
 		//rotate
-		_rotation_matrix = glm::rotate(_rotation_matrix, glm::radians(_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		_rotation_matrix = glm::rotate(_rotation_matrix, glm::radians(_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		_rotation_matrix = glm::rotate(_rotation_matrix, glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		RotationMatrix = glm::rotate(RotationMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		RotationMatrix = glm::rotate(RotationMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		RotationMatrix = glm::rotate(RotationMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		//multiple model by rotation
-		_model = _model * _rotation_matrix;
+		Model = Model * RotationMatrix;
 
 		//scale
-		_model = glm::scale(_model, _scale);
+		Model = glm::scale(Model, Scale);
 
 		//set back to false
-		_update_model_matrix = false;
+		bUpdateModelMatrix = false;
 	}
 }

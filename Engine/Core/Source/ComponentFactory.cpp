@@ -1,7 +1,7 @@
 #include "ComponentFactory.h"
 
 /*Static init*/
-MapType* ComponentFactory::_types = NULL;
+MapType* ComponentFactory::Types = NULL;
 
 ComponentFactory::ComponentFactory()
 {
@@ -12,7 +12,7 @@ ComponentFactory::~ComponentFactory()
 
 }
 
-IComponent* ComponentFactory::FindType(Hash id)
+ComponentPtr ComponentFactory::FindType(Hash id)
 {
 	MapType::iterator it = GetTypes()->find(id);
 	if (it == GetTypes()->end())
@@ -20,17 +20,17 @@ IComponent* ComponentFactory::FindType(Hash id)
 	return it->second();
 }
 
-IComponent* ComponentFactory::CreateComponent(Hash id)
+ComponentPtr ComponentFactory::CreateComponent(Hash id)
 {
 	return FindType(id);
 }
 
 void ComponentFactory::CleanUp()
 {
-	if(_types != NULL)
+	if(Types != NULL)
 	{
-		_types->clear();
-		delete(_types);
-		_types = NULL;
+		Types->clear();
+		delete(Types);
+		Types = NULL;
 	}
 }

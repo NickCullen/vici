@@ -3,7 +3,7 @@
 
 IComponent::IComponent()
 {
-	_go = NULL;
+	MyGameObject = NULL;
 }
 IComponent::~IComponent()
 {
@@ -26,11 +26,11 @@ void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 	//_go->RegisterCallback(cb, callback);
 }
 
-SharedReference<GameObject> IComponent::GetGameObject()
+GameObject* IComponent::GetGameObject()
 {
-	return _go;
+	return MyGameObject;
 }
-void IComponent::SetGameObject(GameObject& go)
+void IComponent::SetGameObject(GameObject* go)
 {
-	_go = SharedReference<GameObject>(&go);
+	MyGameObject = go;
 }

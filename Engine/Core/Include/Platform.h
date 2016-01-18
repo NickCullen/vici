@@ -21,7 +21,7 @@
 class CORE_API Platform : public Singleton<Platform>
 {
 private:
-	char _cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
+	char Cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
 
 	/**
 	* Returns the time in milliseconds - not public anymore should use (_Time->GetTime())
@@ -75,7 +75,7 @@ public:
 	* should not attempt to delete or modify this pointer
 	* @return A char pointer (C String) containing the current working directory
 	*/
-	inline char* GetCwd() { return _cwd; }
+	inline char* GetCwd() { return Cwd; }
 
 	/**
 	* Appends the string to the cwd and returns it

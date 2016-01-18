@@ -19,9 +19,9 @@ private:
 	/** The type def of the stub function which will call the delegate when required */
 	typedef void(*stub_type)(void* object_ptr);
 
-	void* _object_ptr;	/**< Void pointer to the object (we need this for referencing its method later) */
+	void* ObjectPtr;	/**< Void pointer to the object (we need this for referencing its method later) */
 
-	stub_type _stub_ptr; /**< Reference to the method stub which holds the actual method to call */
+	stub_type StubPtr; /**< Reference to the method stub which holds the actual method to call */
 
 	/** 
 	* This will be stored in _stub_ptr as the stub method which will hold
@@ -60,8 +60,8 @@ public:
 	static Delegate NoArgs(T* object_ptr)
 	{
 		Delegate d;
-		d._object_ptr = object_ptr;
-		d._stub_ptr = &method_stub<T, TMethod>; // #1
+		d.ObjectPtr = object_ptr;
+		d.StubPtr = &method_stub<T, TMethod>; // #1
 		return d;
 	}
 
@@ -71,7 +71,7 @@ public:
 	*/
 	void operator()() const
 	{
-		return (*_stub_ptr)(_object_ptr);
+		return (*StubPtr)(ObjectPtr);
 	}
 };
 

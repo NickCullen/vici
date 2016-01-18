@@ -2,12 +2,12 @@
 
 Delegate::Delegate()
 {
-	_object_ptr = 0;
-	_stub_ptr = 0;
+	ObjectPtr = 0;
+	StubPtr = 0;
 }
 
 Delegate::~Delegate()
 {
-	_object_ptr = 0;
-	_stub_ptr = 0;
+	ObjectPtr = 0;
+	StubPtr = 0;
 }

@@ -26,11 +26,11 @@ class CORE_API Vici : public Singleton<Vici>
 
 private:
 
-	bool _started;	/**< Flag to specify if the engine has run its initilization phase */
+	bool bStarted;	/**< Flag to specify if the engine has run its initilization phase */
 
-	Platform _platform;	/**< The singleton class for platform functions - access via _Platform-> Macro */
+	Platform PlatformInstance;	/**< The singleton class for platform functions - access via _Platform-> Macro */
 	
-	Input _input;	/**< Class for input - Singleton class accessed via the _Input macro */
+	Input InputInstance;	/**< Class for input - Singleton class accessed via the _Input macro */
 
 public:
 

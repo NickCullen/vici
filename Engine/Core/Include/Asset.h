@@ -27,7 +27,7 @@ class CORE_API Asset
 private:
 
 protected:
-	std::string _id; /**< The id of the asset - Used to retrieve asset from the asset database*/
+	std::string Id; /**< The id of the asset - Used to retrieve asset from the asset database*/
 
 public:
 	/**

@@ -21,6 +21,13 @@ void Tests()
 	std::string data = "/TestSerialization.json";
 	_Platform->GetFullPath(data);
 
+	//GameObject goDesr;
+
+	//CreateInputArchive(inputArch, inputStream, data);
+
+	//inputArch(goDesr);
+	//return;
+
 	CreateOutputArchive(outputArch, outputStream, data);
 
 	GameObject go;
@@ -28,7 +35,7 @@ void Tests()
 	Transform* t = go.GetTransform();
 
 	t->Translate(100, 0, 100);
-	t->Scale(20, 30, 40);
+	t->SetScale(20, 30, 40);
 	t->Rotate(90, 0, 1, 0);
 
 	TestComponent* comp = go.AddComponent<TestComponent>("TestComponent");
@@ -71,23 +78,23 @@ int main(int argc, char** argv)
 	_Platform->SetCwd(runningDirectory, trimEnd);
 	
 	// Setup Display
-	Display* display = new Display();
+	//Display* display = new Display();
 	
 	// Deserialize the data
-	std::string displayData = "/Settings/Display.json";
-	_Platform->GetFullPath(displayData);
+	//std::string displayData = "/Settings/Display.json";
+	//_Platform->GetFullPath(displayData);
  
 	// Load the data into memory
-	CreateInputArchive(arch, inputStream, displayData);
+	//CreateInputArchive(arch, inputStream, displayData);
     
 	// Deserialize
-	_SERIALIZE_VAR_NAME(*display, "Display", arch);
+	//_SERIALIZE_VAR_NAME(*display, "Display", arch);
 
 
 	Tests();
 
 	// Initialize Display
-	display->Init();
+	//display->Init();
     
 	v->Init();
 

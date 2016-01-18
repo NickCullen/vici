@@ -7,26 +7,29 @@
 #include "EComponentCallback.h"
 #include "IComponent.h"
 
-class CORE_API ComponentReference
-{
-public:
-	IComponent* _pointer;
-	Hash _component_type;
+//class CORE_API ComponentReference
+//{
+//public:
+//	ComponentPtr _pointer;
+//	Hash _component_type;
+//
+//	ComponentReference() = default;
+//
+//	ComponentReference(IComponent* component, Hash type)
+//	{
+//		_pointer = ComponentPtr(component);
+//		_component_type = type;
+//	}
+//
+//	template<class Archive>
+//	void serialize(Archive& ar) const
+//	{
+//		_SERIALIZE_VAR(_component_type, ar);
+//		_SERIALIZE_VAR(_pointer, ar);
+//	}
+//};
 
-	ComponentReference(IComponent* component, Hash type)
-	{
-		_pointer = component;
-		_component_type = type;
-	}
-
-	template<class Archive>
-	void serialize(Archive& ar)
-	{
-		_SERIALIZE_VAR(_component_type, ar);
-	}
-};
-
-typedef std::vector<ComponentReference> ComponentList;
+typedef std::vector<ComponentPtr> ComponentList;
 
 /** 
 * This class is the building block for the engine as it holds the components which
@@ -38,34 +41,18 @@ class CORE_API GameObject : public Object
 	friend class Vici;
 
 private:
-	Transform _transform; /**< Transform containing position, rotation and scale of the object */
+	Transform MyTransform; /**< Transform containing position, rotation and scale of the object */
 
-	ComponentList _components; /**< Map of components */
+	ComponentList Components; /**< Map of components */
 
 public:
 	
-	//template<class Archive>
-	//void serialize(Archive& ar)
-	//{
-	//	_SERIALIZE_PARENT(Object, ar);
-	//	_SERIALIZE_VAR(_transform, ar);
-		//_SERIALIZE_VAR(_components, ar);
-	//}
-
 	template<class Archive>
-	void load(Archive& ar)
+	void serialize(Archive& ar)
 	{
 		_SERIALIZE_PARENT(Object, ar);
-		_SERIALIZE_VAR(_transform, ar);
-		_SERIALIZE_VAR(_components, ar);
-	}
-
-	template<class Archive>
-	void save(Archive& ar) const
-	{
-		_SERIALIZE_PARENT(Object, ar);
-		_SERIALIZE_VAR(_transform, ar);
-		_SERIALIZE_VAR(_components, ar);
+		_SERIALIZE_VAR(MyTransform, ar)
+		_SERIALIZE_VAR(Components, ar)
 	}
 
 	/**
@@ -81,7 +68,7 @@ public:
 	/**
 	* @return Returns pointer to the transform
 	*/
-	inline Transform* GetTransform() { return &_transform; }
+	inline Transform* GetTransform() { return &MyTransform; }
 
 	/**
 	* Creates the specified component and returns a reference too it
@@ -91,13 +78,18 @@ public:
 	template<class T>
 	T* AddComponent(Hash componentName)
 	{
-		T* comp = ComponentFactory::CreateComponent<T>(componentName);
+		ComponentPtr comp = ComponentFactory::CreateComponent<T>(componentName);
 
-		_components.push_back(ComponentReference(comp, componentName));
+		//_components.push_back(ComponentReference(comp, componentName));
 
+		if (comp != NULL)
+		{
+			Components.push_back(comp);
+		}
+		
 		//_components.insert(std::pair<Hash, SharedReference<IComponent>>(componentName, SharedReference<IComponent>(comp)));
 
-		return comp;
+		return (T*)comp.get();
 	}
 };
 

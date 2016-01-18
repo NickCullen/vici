@@ -5,11 +5,11 @@
 
 Display::Display() : Singleton<Display>()
 {
-	_screen_width = _screen_height = _context_width = _context_height = 0;
-	_refresh_rate = 60;
-	_render_context = NULL;
-	_has_focus = true;
-	_fullscreen = false;
+	ScreenWidth = ScreenHeight = ContextWidth = ContextHeight = 0;
+	RefreshRate = 60;
+	RenderContext = NULL;
+	bHasFocus = true;
+	bFullscreen = false;
 }
 
 Display::~Display()
@@ -17,17 +17,6 @@ Display::~Display()
 
 }
 
-//void Display::Serialize(ArchiveOut& archive)
-//{
-//	_SERIALIZE_VAR(_title, archive);
-//    _SERIALIZE_VAR(_context_width, archive);
-//    _SERIALIZE_VAR(_context_height, archive);
-//    _SERIALIZE_VAR(_fullscreen, archive);
-//}
-//void Display::Deserialize(ArchiveIn& archive)
-//{
-//	archive(_title, _context_width, _context_height, _fullscreen);
-//}
 //called when focus to window has changed (minimized / opened)
 void OnFocusChanged(VWindow* window, int focus)
 {
@@ -47,12 +36,12 @@ void OnFocusChanged(VWindow* window, int focus)
 
 void Display::SetRenderContext(VRenderContext* context)
 {
-	_render_context = context;
+	RenderContext = context;
 	
-	glfwGetWindowSize(_render_context, &_context_width, &_context_height);
+	glfwGetWindowSize(RenderContext, &ContextWidth, &ContextHeight);
 	
 	/* Make the window's context current */
-	glfwMakeContextCurrent(_render_context);
+	glfwMakeContextCurrent(RenderContext);
 	
 	ClearRenderArea();
 }
@@ -67,7 +56,7 @@ void Display::Init()
 	}
 
 	/* If fullscreen we need to set the width and height to the monitor width and height */
-	if (_fullscreen)
+	if (bFullscreen)
 	{
 		//get the monitor info
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -79,25 +68,25 @@ void Display::Init()
 		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
 		//set w and h
-		_context_width = mode->width;
-		_context_height = mode->height;
+		ContextWidth = mode->width;
+		ContextHeight = mode->height;
 	}
 
 	/* Create a windowed mode window and its OpenGL context */
-	_render_context = glfwCreateWindow(_context_width, _context_height, _title.c_str(), _fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
-	if (_render_context == NULL)
+	RenderContext = glfwCreateWindow(ContextWidth, ContextHeight, Title.c_str(), bFullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+	if (RenderContext == NULL)
 	{
 		glfwTerminate();
 		_Platform->LogString("Could not load window\n");
 		return;
 	}
 	
-	SetRenderContext(_render_context);
+	SetRenderContext(RenderContext);
 
 	/* Set callbacks */
-	glfwSetWindowSizeCallback(_render_context, Display::OnResize);
+	glfwSetWindowSizeCallback(RenderContext, Display::OnResize);
 
-	glfwSetWindowFocusCallback(_render_context, OnFocusChanged);
+	glfwSetWindowFocusCallback(RenderContext, OnFocusChanged);
 
 #ifdef VICI_WINDOWS
 	//init glew
@@ -108,26 +97,26 @@ void Display::Init()
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
 	//set refresh rate
-	_refresh_rate = mode->refreshRate;
-	_screen_width = mode->width;
-	_screen_height = mode->height;
+	RefreshRate = mode->refreshRate;
+	ScreenWidth = mode->width;
+	ScreenHeight = mode->height;
 }
 
 void Display::SetSize(int w, int h, bool force_window_resize)
 {
-	_context_width = w;
-	_context_height = h;
+	ContextWidth = w;
+	ContextHeight = h;
 
 	if (force_window_resize)
 	{
-		glfwSetWindowSize(_render_context, w, h);
+		glfwSetWindowSize(RenderContext, w, h);
 	}
 }
 
 void Display::OnResize(VWindow* win, int w, int h)
 {
-	_Display->_context_width = w;
-	_Display->_context_height = h;
+	_Display->ContextWidth = w;
+	_Display->ContextHeight = h;
 }
 
 void Display::ClearRenderArea()
@@ -137,5 +126,5 @@ void Display::ClearRenderArea()
 
 void Display::SwapBuffers()
 {
-	glfwSwapBuffers(_render_context);
+	glfwSwapBuffers(RenderContext);
 }

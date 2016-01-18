@@ -21,21 +21,22 @@ private:
 	
 public:
 
-	int32 _context_width; /**< The width of the current window (renderable area)*/
-	int32 _context_height; /**< The height of the current window (renderable area) */
+	int32 ContextWidth; /**< The width of the current window (renderable area)*/
+	int32 ContextHeight; /**< The height of the current window (renderable area) */
 
-	int32 _screen_width; /**< The width of the screen (i.e. the physical monitor) */
-	int32 _screen_height; /**< The height of the screen (i.e. the physical monitor) */
+	int32 ScreenWidth; /**< The width of the screen (i.e. the physical monitor) */
+	int32 ScreenHeight; /**< The height of the screen (i.e. the physical monitor) */
 
-	VRenderContext* _render_context; /**< The window that is used to render the engine */
+	VRenderContext* RenderContext; /**< The window that is used to render the engine */
 
-	int32 _refresh_rate; /**< Refresh rate of the monitor */
+	int32 RefreshRate; /**< Refresh rate of the monitor */
 
-	bool _fullscreen;   /**< Flag for full screen window */
+	bool bFullscreen;   /**< Flag for full screen window */
 
-	bool _has_focus;	/**< Flag signifying if the window with the program running has focus or not */
+	bool bHasFocus;	/**< Flag signifying if the window with the program running has focus or not */
 
-	std::string _title;       /**< Title of display */
+	std::string Title;       /**< Title of display */
+
 	/**
 	* Default constructor 
 	*/
@@ -45,17 +46,14 @@ public:
 	* Default destructor
 	*/
 	~Display();
-	
-	//virtual void Serialize(ArchiveOut& archive);
-	//virtual void Deserialize(ArchiveIn& archive);
-	
+
 	template<class Archive>
 	void serialize(Archive& ar)
 	{
-		_SERIALIZE_VAR(_title, ar);
-		_SERIALIZE_VAR(_context_width, ar);
-		_SERIALIZE_VAR(_context_height, ar);
-		_SERIALIZE_VAR(_fullscreen, ar);
+		_SERIALIZE_VAR(Title, ar)
+		_SERIALIZE_VAR(ContextWidth, ar)
+		_SERIALIZE_VAR(ContextHeight, ar)
+		_SERIALIZE_VAR(bFullscreen, ar)
 	}
 
 	/**
@@ -75,7 +73,7 @@ public:
 	*/
 	inline int32 Height()
 	{
-		return _context_height;
+		return ContextHeight;
 	}
 
 
@@ -85,7 +83,7 @@ public:
 	*/
 	inline int32 Width()
 	{
-		return _context_width;
+		return ContextWidth;
 	}
 
 	/**
@@ -95,8 +93,8 @@ public:
 	inline float AspectRatio()
 	{
 		//prevent division  by 0
-		if (glm::epsilon<float>() > (float)_context_height) return 1.0f;
-		return (float)_context_width / (float)_context_height;
+		if (glm::epsilon<float>() > (float)ContextHeight) return 1.0f;
+		return (float)ContextWidth / (float)ContextHeight;
 	}
 
 	/**
@@ -114,7 +112,7 @@ public:
 	*/
 	inline VRenderContext* GetRenderContext()
 	{
-		return _render_context;
+		return RenderContext;
 	}
 
 	/**
@@ -129,19 +127,19 @@ public:
 	* gets the refresh rate of the monitor
 	* @return Integer specifying the refresh rate of the monitor
 	*/
-	inline int32 RefreshRate(){ return _refresh_rate; }
+	inline int32 GetRefreshRate(){ return RefreshRate; }
 
 	/**
 	* Getter for has focus
 	* @return Returns true if window has focus false otherwise
 	*/
-	inline bool HasFocus(){ return _has_focus; }
+	inline bool HasFocus(){ return bHasFocus; }
 
 	/**
 	* Setter for has focus
 	* @param value sets _has_focus to value
 	*/
-	inline void SetHasFocus(bool value){ _has_focus = value; }
+	inline void SetHasFocus(bool value){ bHasFocus = value; }
 	
 	/**
 	* Function to call to clear the renderable area on display

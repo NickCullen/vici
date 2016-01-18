@@ -18,7 +18,12 @@ typedef uint32 hash_int;
 class CORE_API Hash
 {
 private:
-	hash_int _hash; /**< the output of the hash string (representing a string as an integer */
+	hash_int Value; /**< the output of the hash string (representing a string as an integer */
+
+#ifdef VICI_DEBUG
+	std::string Friendly; /**< Friendly representation of hash */
+#endif
+
 public:
 	/**
 	* VHash destructor 
@@ -36,16 +41,20 @@ public:
 	template<class Archive>
 	void serialize(Archive& ar)
 	{
-		_SERIALIZE_VAR(_hash, ar);
+		_SERIALIZE_VAR(Value, ar)
+
+#ifdef VICI_DEBUG
+		_SERIALIZE_VAR(Friendly,ar)
+#endif
 	}
 
 	// Typical overloads
-	bool operator <  (const Hash &other) const { return _hash <  other._hash; }
-	bool operator >	 (const Hash &other) const { return _hash >  other._hash; }
-	bool operator <= (const Hash &other) const { return _hash <= other._hash; }
-	bool operator >= (const Hash &other) const { return _hash >= other._hash; }
-	bool operator == (const Hash &other) const { return _hash == other._hash; }
-	bool operator != (const Hash &other) const { return _hash != other._hash; }
+	bool operator <  (const Hash &other) const { return Value <  other.Value; }
+	bool operator >	 (const Hash &other) const { return Value >  other.Value; }
+	bool operator <= (const Hash &other) const { return Value <= other.Value; }
+	bool operator >= (const Hash &other) const { return Value >= other.Value; }
+	bool operator == (const Hash &other) const { return Value == other.Value; }
+	bool operator != (const Hash &other) const { return Value != other.Value; }
 
 	/**
 	* Copy constructor for VHash
@@ -175,9 +184,9 @@ public:
 	* Get function to return the hash value
 	* @return returns the integer value of the hash
 	*/
-	inline const hash_int Value() const
+	inline const hash_int GetValue() const
 	{
-		return _hash;
+		return Value;
 	}
 
 	/**

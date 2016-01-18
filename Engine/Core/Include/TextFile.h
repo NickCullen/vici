@@ -10,7 +10,7 @@
 class CORE_API TextFile
 {
 public:
-	char* _text; /**< char poitner pointing to the text files text in memory */
+	char* Text; /**< char poitner pointing to the text files text in memory */
 
 	/**
 	* TextFile constructor 
@@ -30,7 +30,7 @@ public:
 	*/
 	operator char*()
 	{
-		return _text;
+		return Text;
 	}
 
 	/**
@@ -40,7 +40,7 @@ public:
 	*/
 	operator const char*()
 	{
-		return (const char*)_text;
+		return (const char*)Text;
 	}
 
 	

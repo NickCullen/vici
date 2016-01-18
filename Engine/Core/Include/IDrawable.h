@@ -27,6 +27,18 @@ public:
 	*/
 	virtual ~IDrawable();
 
+	template<class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_PARENT(IComponent, ar);
+	}
+
+	/*template<class Archive>
+	void save(Archive& ar) const
+	{
+		_SERIALIZE_PARENT(IComponent, ar);
+	}*/
+
 	/**
 	* Called before rendering a frame
 	* @param renderer the renderer being used to render the scene

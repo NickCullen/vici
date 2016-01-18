@@ -14,16 +14,16 @@ class CORE_API Object
 {
 	friend class SceneLoader;
 private:
-	static uint32 _count;	/**< static unsigned int containing the total number of Objects ever instantiated */
+	static uint32 Count;	/**< static unsigned int containing the total number of Objects ever instantiated */
 
-	uint32 _instance; 		/**< the instance id for this Object */
+	uint32 InstanceID; 		/**< the instance id for this Object */
 	
-	bool _indestructable;	/**< flag specifying if this Object is indestructable or not */
+	bool bIndestructable;	/**< flag specifying if this Object is indestructable or not */
 
-	bool _garbage; /**< Flag to represent if this object is garbage or not */
+	bool bGarbage; /**< Flag to represent if this object is garbage or not */
 protected:
 
-	Hash _hash; /**< The hash id of this object */
+	Hash MyHash; /**< The hash id of this object */
 public:
 	/**
 	* Constructor for Object - will set _instance = _count++ when created 
@@ -36,19 +36,11 @@ public:
 	virtual ~Object();	
 
 	template< class Archive>
-	void load(Archive& ar)
+	void serialize(Archive& ar)
 	{
-		_SERIALIZE_VAR(_indestructable, ar);
-		_SERIALIZE_VAR(_garbage, ar);
-		_SERIALIZE_VAR(_hash, ar);
-	}
-
-	template< class Archive>
-	void save(Archive& ar) const
-	{
-		_SERIALIZE_VAR(_indestructable, ar);
-		_SERIALIZE_VAR(_garbage, ar);
-		_SERIALIZE_VAR(_hash, ar);
+		_SERIALIZE_VAR(bIndestructable, ar)
+		_SERIALIZE_VAR(bGarbage, ar)
+		_SERIALIZE_VAR(MyHash, ar)
 	}
 
 
@@ -78,9 +70,9 @@ public:
 	* Get function for the indestructable flag
 	* @return returns true of false depending upon if the current object is indestructable or not
 	*/
-	inline bool Indestructable()
+	inline bool IsIndestructable()
 	{
-		return _indestructable;
+		return bIndestructable;
 	}
 
 	/**
@@ -89,7 +81,7 @@ public:
 	*/
 	inline bool IsGarbage()
 	{
-		return _garbage;
+		return bGarbage;
 	}
 
 	/**
@@ -97,16 +89,16 @@ public:
 	*/
 	void SetGarbage()
 	{
-		_garbage = true;
+		bGarbage = true;
 	}
 
 	/**
 	* Getter for _id
 	* @return Returns the hash value of the id for this Object
 	*/
-	inline Hash ID()
+	inline Hash GetID()
 	{
-		return _hash;
+		return MyHash;
 	}
 
 	/**

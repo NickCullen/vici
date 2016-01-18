@@ -25,7 +25,7 @@ typedef std::map<Hash, Asset*(*)()> AssetMapType;
 class CORE_API AssetFactory
 {
 private:
-	static AssetMapType* _types; /**< static hash table containing creation function for registered assets */
+	static AssetMapType* Types; /**< static hash table containing creation function for registered assets */
 
 protected:
 
@@ -35,8 +35,8 @@ protected:
 	*/
 	inline static AssetMapType* GetTypes()
 	{
-		if (_types == NULL) _types = new AssetMapType();
-		return _types;
+		if (Types == NULL) Types = new AssetMapType();
+		return Types;
 	}
 
 	/**

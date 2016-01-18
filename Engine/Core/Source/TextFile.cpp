@@ -7,7 +7,7 @@
 
 TextFile::TextFile(const char* path)
 {
-	_text = NULL;
+	Text = NULL;
 	FILE* f = fopen(path, "rb");
 	if (f)
 	{
@@ -19,19 +19,19 @@ TextFile::TextFile(const char* path)
 		rewind(f);
 
 		//allocate a string that can hold it all
-		_text = new char[size + 1];
+		Text = new char[size + 1];
 
 		//read it all in one operation
-		size_t read_size = fread(_text, sizeof(char), size, f);
+		size_t read_size = fread(Text, sizeof(char), size, f);
 		//fread doesnt set it so put a \0 in the last position
 		//and buffer is now officialy a string
-		_text[size] = '\0';
+		Text[size] = '\0';
 
 		if (size != read_size) {
 			//something went wrong, throw away the memory and set
 			//the buffer to NULL
-			delete(_text);
-			_text = NULL;
+			delete(Text);
+			Text = NULL;
 		}
 
 		fclose(f);
@@ -40,13 +40,13 @@ TextFile::TextFile(const char* path)
 
 TextFile::~TextFile()
 {
-	if (_text != NULL)
+	if (Text != NULL)
 	{
-		delete(_text);
+		delete(Text);
 	}
 }
 
 bool TextFile::IsLoaded()
 {
-	return (_text != NULL);
+	return (Text != NULL);
 }

@@ -1,7 +1,7 @@
 #include "AssetFactory.h"
 
 /*Static init*/
-AssetMapType* AssetFactory::_types = NULL;
+AssetMapType* AssetFactory::Types = NULL;
 
 AssetFactory::AssetFactory()
 {
@@ -27,10 +27,10 @@ Asset* AssetFactory::CreateAsset(Hash id)
 
 void AssetFactory::CleanUp()
 {
-	if (_types != NULL)
+	if (Types != NULL)
 	{
-		_types->clear();
-		delete(_types);
-		_types = NULL;
+		Types->clear();
+		delete(Types);
+		Types = NULL;
 	}
 }

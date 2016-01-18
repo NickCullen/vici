@@ -14,15 +14,15 @@
 class CORE_API Transform
 {
 private:
-	glm::vec3 _pos;	/**< Position of object */
-	glm::vec3 _scale;	/**< Scale of object */
-	glm::vec3 _rotation;	/**< rotation of object */
+	glm::vec3 Pos;	/**< Position of object */
+	glm::vec3 Scale;	/**< Scale of object */
+	glm::vec3 Rotation;	/**< rotation of object */
 
-	glm::mat4x4 _model;	/**< Model Matrix */
+	glm::mat4x4 Model;	/**< Model Matrix */
 
-	glm::mat4x4 _rotation_matrix;	/**< Rotation matrix */
+	glm::mat4x4 RotationMatrix;	/**< Rotation matrix */
 
-	bool _update_model_matrix;	/**< Flag to set to true when model matrix needs updating - this gets set to true when a transformation has been applied to any pos, rot or scale */
+	bool bUpdateModelMatrix;	/**< Flag to set to true when model matrix needs updating - this gets set to true when a transformation has been applied to any pos, rot or scale */
 public:
 	/**
 	* Default constructor
@@ -37,13 +37,13 @@ public:
 	template<class Archive>
 	void serialize(Archive& ar)
 	{
-		_SERIALIZE_VAR(_pos.x, ar); _SERIALIZE_VAR(_pos.y, ar); _SERIALIZE_VAR(_pos.z, ar);
+		_SERIALIZE_VAR(Pos.x, ar) _SERIALIZE_VAR(Pos.y, ar) _SERIALIZE_VAR(Pos.z, ar)
 
-		_SERIALIZE_VAR(_scale.x, ar); _SERIALIZE_VAR(_scale.y, ar); _SERIALIZE_VAR(_scale.z, ar);
+		_SERIALIZE_VAR(Scale.x, ar) _SERIALIZE_VAR(Scale.y, ar) _SERIALIZE_VAR(Scale.z, ar)
 
-		_SERIALIZE_VAR(_rotation.x, ar); _SERIALIZE_VAR(_rotation.y, ar); _SERIALIZE_VAR(_rotation.z, ar);
+		_SERIALIZE_VAR(Rotation.x, ar) _SERIALIZE_VAR(Rotation.y, ar) _SERIALIZE_VAR(Rotation.z, ar)
 
-		_update_model_matrix = true;
+		bUpdateModelMatrix = true;
 		UpdateMatrix();
 	}
 
@@ -65,7 +65,7 @@ public:
 	* Sets all components of _scale(.xyz) to the given value
 	* @param scale Sets _scale(.xyz) = scale
 	*/
-	void Scale(float scale);
+	void SetScale(float scale);
 
 	/**
 	* Sets the individual components of _scale to the given values
@@ -73,13 +73,13 @@ public:
 	* @param scale_y _scale.y = scale_y
 	* @param scale_z _scale.z = scale_z
 	*/
-	void Scale(float scale_x, float scale_y, float scale_z);
+	void SetScale(float scale_x, float scale_y, float scale_z);
 
 	/**
 	* Sets the scale of the object to the given vec3 scale
 	* @param scale Sets _scale to glm::vec3 scale
 	*/
-	void Scale(glm::vec3 scale);
+	void SetScale(glm::vec3 scale);
 
 	/**
 	* Rotate the object by the angle (degrees) on the given axis
@@ -110,7 +110,7 @@ public:
 	*/
 	inline glm::vec3 GetPosition()
 	{
-		return _pos;
+		return Pos;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public:
 	*/
 	inline glm::vec3 GetRotation()
 	{
-		return _rotation;
+		return Rotation;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public:
 	*/
 	inline glm::vec3 GetScale()
 	{
-		return _scale;
+		return Scale;
 	}
 
 	/**
@@ -142,7 +142,7 @@ public:
 	{
 		static glm::vec4 initial_direction(0.0f,0.0f,-1.0f,1.0f);
 		UpdateMatrix();
-		return initial_direction * _rotation_matrix;
+		return initial_direction * RotationMatrix;
 	}
 
 	/**

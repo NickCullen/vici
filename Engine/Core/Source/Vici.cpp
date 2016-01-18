@@ -6,17 +6,17 @@
 
 Vici::Vici() : Singleton<Vici>()
 {
-	_started = false;
+	bStarted = false;
 
 }
 Vici::~Vici()
 {
 
 	//if started is strill true then that means we havnt had time to clean up so do it!
-	if (_started)
+	if (bStarted)
 	{
 		OnExit();
-		_started = false;
+		bStarted = false;
 	}
 }
 
@@ -54,7 +54,7 @@ void Vici::Render()
 void Vici::OnExit()
 {
 	//set back to false
-	_started = false;
+	bStarted = false;
 }
 
 void Vici::OnEnteredBackground()

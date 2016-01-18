@@ -12,17 +12,17 @@ template<typename T>
 class Singleton
 {
 private:
-	static T* _instance;	/**< The instance */
+	static T* ThisInstance;	/**< The instance */
 protected:
 
 public:
 	Singleton()
 	{
-        assert(Singleton<T>::_instance == NULL);
+        assert(Singleton<T>::ThisInstance == NULL);
 
-		if(Singleton<T>::_instance == NULL)
+		if(Singleton<T>::ThisInstance == NULL)
 		{
-			_instance = (T*)this;
+			ThisInstance = (T*)this;
 		}
 	}
 
@@ -31,7 +31,7 @@ public:
 	*/
 	virtual ~Singleton()
 	{
-		_instance = NULL;
+		ThisInstance = NULL;
 	}
 
 	/**
@@ -40,14 +40,14 @@ public:
 	*/
 	static inline T* Instance() 
 	{
-		if (_instance == NULL)
-			_instance = new T();
-		return _instance;
+		if (ThisInstance == NULL)
+			ThisInstance = new T();
+		return ThisInstance;
 	}
 };
 
 //static init
 template<typename T>
-T* Singleton<T>::_instance = NULL;
+T* Singleton<T>::ThisInstance = NULL;
 
 #endif

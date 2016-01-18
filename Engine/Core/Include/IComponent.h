@@ -8,6 +8,9 @@
 #include "Delegate.h"
 #include "SmartPtr.h"
 
+// Forward decl.
+class GameObject;
+
 /*Useful short hand macros*/
 //#define _transform _go->GetTransform()
 
@@ -25,14 +28,14 @@
 * inherit from this class, otherwise IDrawable should be used. 
 */
 
-class CORE_API IComponent : public Object
+class CORE_API IComponent
 {
 	/*friend classes to internal objects*/
 	friend class Vici;
 private:
 
 protected:
-	SharedReference<class GameObject> _go; /**< The game object this component is attached to*/
+	GameObject* MyGameObject; /**< The game object this component is attached to*/
 
 public:
 
@@ -47,12 +50,12 @@ public:
 	*/
 	virtual ~IComponent(); 
 
-	/*template<class Archive>
+	template<class Archive>
 	void serialize(Archive& ar)
 	{
-		_SERIALIZE_VAR(_go, ar);
-		_SERIALIZE_PARENT(Object, ar);
-	}*/
+		//_SERIALIZE_VAR(_go, ar);
+		//_SERIALIZE_PARENT(Object, ar);
+	}
 
 	/**
 	* Called when the component is created (after init IF the component was loaded
@@ -79,13 +82,13 @@ public:
 	* Getter function to return the game object this component is attached to
 	* @return pointer to the game object
 	*/
-	SharedReference<class GameObject> GetGameObject();
+	GameObject* GetGameObject();
 
 	/**
 	* Sets the GameObject that this component is attached to
 	* @param go The GameObject that this component is attached to
 	*/
-	inline void SetGameObject(class GameObject& go);
+	inline void SetGameObject(GameObject* go);
 };
 
 #endif
