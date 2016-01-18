@@ -36,12 +36,21 @@ public:
 	virtual ~Object();	
 
 	template< class Archive>
-	void serialize(Archive& ar)
+	void load(Archive& ar)
 	{
 		_SERIALIZE_VAR(_indestructable, ar);
 		_SERIALIZE_VAR(_garbage, ar);
 		_SERIALIZE_VAR(_hash, ar);
 	}
+
+	template< class Archive>
+	void save(Archive& ar) const
+	{
+		_SERIALIZE_VAR(_indestructable, ar);
+		_SERIALIZE_VAR(_garbage, ar);
+		_SERIALIZE_VAR(_hash, ar);
+	}
+
 
 	/**
 	* Copy constructor for Object used to ensure _count isnt incremented and _instance is copied

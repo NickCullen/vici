@@ -47,12 +47,12 @@ public:
 	*/
 	virtual ~IComponent(); 
 
-	template<class Archive>
+	/*template<class Archive>
 	void serialize(Archive& ar)
 	{
 		_SERIALIZE_VAR(_go, ar);
 		_SERIALIZE_PARENT(Object, ar);
-	}
+	}*/
 
 	/**
 	* Called when the component is created (after init IF the component was loaded

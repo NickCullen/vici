@@ -3,12 +3,30 @@
 
 #include "Transform.h"
 #include "Hash.h"
-#include <map>
+#include <vector>
 #include "EComponentCallback.h"
 #include "IComponent.h"
 
-// typedef
-typedef std::map<Hash, SharedReference<IComponent>> ComponentMap;
+class CORE_API ComponentReference
+{
+public:
+	IComponent* _pointer;
+	Hash _component_type;
+
+	ComponentReference(IComponent* component, Hash type)
+	{
+		_pointer = component;
+		_component_type = type;
+	}
+
+	template<class Archive>
+	void serialize(Archive& ar)
+	{
+		_SERIALIZE_VAR(_component_type, ar);
+	}
+};
+
+typedef std::vector<ComponentReference> ComponentList;
 
 /** 
 * This class is the building block for the engine as it holds the components which
@@ -22,12 +40,28 @@ class CORE_API GameObject : public Object
 private:
 	Transform _transform; /**< Transform containing position, rotation and scale of the object */
 
-	ComponentMap _components; /**< Map of components */
+	ComponentList _components; /**< Map of components */
 
 public:
 	
+	//template<class Archive>
+	//void serialize(Archive& ar)
+	//{
+	//	_SERIALIZE_PARENT(Object, ar);
+	//	_SERIALIZE_VAR(_transform, ar);
+		//_SERIALIZE_VAR(_components, ar);
+	//}
+
 	template<class Archive>
-	void serialize(Archive& ar)
+	void load(Archive& ar)
+	{
+		_SERIALIZE_PARENT(Object, ar);
+		_SERIALIZE_VAR(_transform, ar);
+		_SERIALIZE_VAR(_components, ar);
+	}
+
+	template<class Archive>
+	void save(Archive& ar) const
 	{
 		_SERIALIZE_PARENT(Object, ar);
 		_SERIALIZE_VAR(_transform, ar);
@@ -59,7 +93,9 @@ public:
 	{
 		T* comp = ComponentFactory::CreateComponent<T>(componentName);
 
-		_components.insert(std::pair<Hash, SharedReference<IComponent>>(componentName, SharedReference<IComponent>(comp)));
+		_components.push_back(ComponentReference(comp, componentName));
+
+		//_components.insert(std::pair<Hash, SharedReference<IComponent>>(componentName, SharedReference<IComponent>(comp)));
 
 		return comp;
 	}

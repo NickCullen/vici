@@ -13,10 +13,10 @@ public:
 
 	~TestComponent();
 
-	template<class Archive>
+	/*template<class Archive>
 	void serialize(Archive& ar)
 	{
 		_SERIALIZE_VAR(_my_int, ar);
 		_SERIALIZE_PARENT(IComponent, ar);
-	}
+	}*/
 };
