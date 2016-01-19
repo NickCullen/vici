@@ -21,12 +21,12 @@ void Tests()
 	std::string data = "/TestSerialization.json";
 	_Platform->GetFullPath(data);
 
-	//GameObject goDesr;
+	GameObject goDesr;
 
-	//CreateInputArchive(inputArch, inputStream, data);
+	CreateInputArchive(inputArch, inputStream, data);
 
-	//inputArch(goDesr);
-	//return;
+	inputArch(goDesr);
+	return;
 
 	CreateOutputArchive(outputArch, outputStream, data);
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cereal>
+	<MyObject>
+		<Object>
+			<bIndestructable>false</bIndestructable>
+			<bGarbage>false</bGarbage>
+			<MyHash>
+				<Value>0</Value>
+				<Friendly></Friendly>
+			</MyHash>
+		</Object>
+		<MyTransform>
+			<Pos.x>100</Pos.x>
+			<Pos.y>0</Pos.y>
+			<Pos.z>100</Pos.z>
+			<Scale.x>20</Scale.x>
+			<Scale.y>30</Scale.y>
+			<Scale.z>40</Scale.z>
+			<Rotation.x>0</Rotation.x>
+			<Rotation.y>90</Rotation.y>
+			<Rotation.z>0</Rotation.z>
+		</MyTransform>
+		<Components size="dynamic">
+			<value0>
+				<polymorphic_id>2147483649</polymorphic_id>
+				<polymorphic_name>TestComponent</polymorphic_name>
+				<ptr_wrapper>
+					<id>2147483649</id>
+					<data>
+						<MyInt>5</MyInt>
+						<IComponent/>
+					</data>
+				</ptr_wrapper>
+			</value0>
+		</Components>
+	</MyObject>
+</cereal>
+

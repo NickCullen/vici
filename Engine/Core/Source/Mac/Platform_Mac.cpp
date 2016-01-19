@@ -3,13 +3,13 @@
 #include "Display.h"
 #include <stdio.h>
 
-#include "Time.h"
+#include "VTime.h"
 #include <unistd.h>
 #include <stdarg.h>
 
 Platform::Platform() : Singleton<Platform>()
 {
-	_cwd[0] = '\0';
+	Cwd[0] = '\0';
 }
 
 Platform::~Platform()
@@ -37,7 +37,7 @@ void Platform::EnterLoop(Vici* v)
 	float last = 0.0f, start = 0.0f, current = 0.0f;
 
 	//the fps
-	float fps = 1.0f / _Display->RefreshRate();
+	float fps = 1.0f / _Display->GetRefreshRate();
 
 	//cache last and start
 	start = last = (float)GetTime();
@@ -57,8 +57,8 @@ void Platform::EnterLoop(Vici* v)
 			if (current - last >= fps)
 			{
 				//update time
-				_Time->_time = current - start;
-				_Time->_delta_time = (current - last) * _Time->_time_scale;
+				_Time->Time = current - start;
+				_Time->DeltaTime = (current - last) * _Time->TimeScale;
 
 				//update engine
 				if (_Display->HasFocus()) v->Update();
@@ -83,6 +83,25 @@ void Platform::EnterLoop(Vici* v)
 
 	v->OnExit();
 
+}
+
+std::string& Platform::GetFullPath(std::string& append)
+{
+    append = Cwd + append;
+    return Pathify(append);
+}
+
+
+std::string& Platform::Pathify(std::string& file)
+{
+    char* start = (char*)(file.c_str());
+    while (*start != '\0')
+    {
+        if (*start == '\\') *start = '/';
+        start++;
+    }
+    return file;
+    
 }
 
 const char* Platform::Pathify(const char* file)
@@ -112,5 +131,5 @@ void Platform::SetCwd(const char* executable_path, bool trim_end)
 	}
 
 	//set cwd
-	strcpy(_cwd, executable_path);
+	strcpy(Cwd, executable_path);
 }
