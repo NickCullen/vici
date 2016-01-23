@@ -1,31 +1,38 @@
 #Install
-It is essential to first install Cmake and optional to install python to use the build.py script. The build.py script is very much recommended!
+It is essential to first install Cmake.
 
 First run the following setup script in the vici home directory
  - setup.bat (Windows)
  - setup.sh (Mac/Linux)
 
-This will setup the required environment variable 'VICI_HOME' which will point to the root directory of the engine. Note if you move the Vici directory - please run this script again! It is required for the engine tools.
+This will create the required environment variables 'VICI_HOME', 'VICI_TOOLS' and 'VICI_PYTHON'. Note if you move the Vici directory - please run this script again! It is required for the engine tools.
 
-####Without python 
- - cd Path/To/Vici/Root
- - mkdir build && cd build
- - Windows : cmake -DVICI_TARGET_32:BOOL=true -DVICI_WINDOWS:BOOL=true ..
- - Mac : cmake -DVICI_MAC:BOOL=true .. && make
+Restart your terminal 
 
-####With python
- - cd Path/To/Vici/Root
- - python build.py -h (for arguments to build script)
- - python build.py -p [windows/mac] -t [32/64/all] -b [release/debug] -g [Unix Makefiles/Xcode... (see cmake --help for list of genereators)]
+#Compiling
 
-You can also simply run
- - python build.py 
-from the root of the Vici directory and it will build for the current platform.
+####Windows
+ - cd %VICI_HOME%
+ - $ vicipy %VICI_TOOLS%\build.py
+ - $ mkdir build && cd build
+ - $ cmake ..
+ 
+This will use cmake to create the Visual Studio project solutions to build the engine.
+The engine has been created using Visual Studio 2015.
 
-Whatever you choose the Visual Studio/ Make File / XCode project will be in the build directory.
+####Mac
+ - cd $VICI_HOME
+ - $ vicipy $VICI_TOOLS/build.py
+ - $ mkdir build && cd build
+ - $ cmake .. && make
+ OR
+ - $ cmake -G Xcode ..
+ 
+ The latter cmake option will create an Xcode project in the build directory.
+
 
 #Description
-This is a project I am working on in my spare time purely for learning. I am blogging about updates here ( www.blog.nickcullen.net ). This engine will not be sold not is it being made for the purpose of being sold so feel free to download and have a play about with it!
+This is a project I am working on in my spare time purely for learning. I am blogging about updates here ( www.blog.nickcullen.net ). This engine will not be sold nor is it being made for the purpose of being sold so feel free to download and have a play about with it!
 
 Anyone who wants to contribute drop me a message. 
 
