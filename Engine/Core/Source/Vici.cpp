@@ -1,7 +1,4 @@
 #include "Vici.h"
-#include "GameObject.h"
-#include "Platform.h"
-#include <string>
 #include "Project.h"
 
 Vici::Vici() : Singleton<Vici>()
@@ -67,13 +64,41 @@ void Vici::OnEnteredFocus()
 	
 }
 
-/*Testing funcs*/
-void Vici::AddGameObject(GameObject* go)
+
+GameObjectPtr Vici::CreateGameObject()
 {
-	
+	GameObjectPtr ptr = std::make_shared<GameObject>();
+	GameObjects.push_back(ptr);
+	return ptr;
 }
 
-void Vici::RemoveGameObject(GameObject* go)
+bool Vici::ReleaseGameObject(GameObjectPtr gameObject)
 {
-	
+	//NEEDS IMPROVING!
+	for (GameObjectList::iterator itr = GameObjects.begin(); itr != GameObjects.end(); itr++)
+	{
+		if ((*itr) == gameObject)
+		{
+			GameObjects.erase(itr);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Vici::SerializeState(const char* fname)
+{
+	try
+	{
+		CreateOutputArchive(outputArch, outputStream, fname);
+
+		_SERIALIZE_VAR(GameObjects, outputArch);
+
+		return true;
+	}
+	catch ( int e )
+	{
+		return false;
+	}
+
 }

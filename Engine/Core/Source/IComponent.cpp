@@ -26,11 +26,11 @@ void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 	//_go->RegisterCallback(cb, callback);
 }
 
-GameObject* IComponent::GetGameObject()
+ObjectPtr IComponent::GetGameObject()
 {
 	return MyGameObject;
 }
-void IComponent::SetGameObject(GameObject* go)
+void IComponent::SetGameObject(const ObjectPtr go)
 {
 	MyGameObject = go;
 }

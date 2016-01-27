@@ -39,7 +39,6 @@ public:
 	void serialize(Archive& ar)
 	{
 		_SERIALIZE_VAR(bIndestructable, ar)
-		_SERIALIZE_VAR(bGarbage, ar)
 		_SERIALIZE_VAR(MyHash, ar)
 	}
 
@@ -113,5 +112,7 @@ public:
 	*/
 	static void Destroy(Object* o);
 };
+
+CEREAL_REGISTER_TYPE(Object);
 
 #endif

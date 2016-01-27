@@ -1,19 +1,23 @@
 #ifndef VICI_H
 #define VICI_H
 
-/* Forward decl */
-class GameObject;
-
-/* Required Includes */
+// Required Includes 
 #include "CoreAPI.h"
 #include "Singleton.h"
 
 #include "Platform.h"
 #include "Input.h"
 
-/* Macros for vici access and some singleton classes */
+#include "GameObject.h"
+#include <vector>
+
+// Macros 
 #define _Vici Singleton<Vici>::Instance()
 
+// Typedefs
+typedef std::vector<GameObjectPtr> GameObjectList;
+
+// 
 /**
 * The core of the engine - A singelton class that can be accessed by anything via the 
 * _Vici-> macro or directly by certain built in components and classes. It is responsible for the flow
@@ -32,6 +36,7 @@ private:
 	
 	Input InputInstance;	/**< Class for input - Singleton class accessed via the _Input macro */
 
+	GameObjectList GameObjects; /**< List of game objects in the scene */
 public:
 
 	/**
@@ -73,19 +78,6 @@ public:
 	void OnExit();
 	
 	/**
-	* Temporary convenience method just to quickly add a game object for testing
-	* will be removed when things become more solid
-	* @param go pointer to the game object to add to the list
-	*/
-	void AddGameObject(GameObject* go);
-
-	/**
-	* Removes the game object from the update list
-	* @param go The game object to remove from list
-	*/
-	void RemoveGameObject(GameObject* go);
-
-	/**
 	* Called when application has been put in the background 
 	*/
 	void OnEnteredBackground();
@@ -94,6 +86,26 @@ public:
 	* Called when the application has resumed focus
 	*/
 	void OnEnteredFocus();
+
+	/**
+	 * Creates an empty GameObject and returns it as a shared_ptr (GameObjectPtr)
+	 * Object will also be appended to GameObjects list
+	 * @return Shared pointer to GameObject
+	 */
+	GameObjectPtr CreateGameObject();
+
+	/**
+	* Releases the object from the list
+	* @return true if item is removed
+	*/
+	bool ReleaseGameObject(GameObjectPtr gameObject);
+
+	/**
+	 * Saves the current GameObject list state to the given file
+	 * @param fname The file to be written to
+	 * @return returns true if save succedded
+	 */
+	bool SerializeState(const char* fname);
 
 };
 

@@ -8,12 +8,19 @@
 //typedefs
 #define SharedReference std::shared_ptr
 
-//engine pointers
-#define AssetPointer SharedReference
+//Asset pointers
+#define AssetPointerDef SharedReference
 
+// Component Pointers
 #define ComponentPtrDef SharedReference
 #define ComponentPtr ComponentPtrDef<IComponent>
 
+// classes that derive from Object
+#define ObjectPtrDef SharedReference
+#define ObjectPtr ObjectPtrDef<Object>
+#define SubObjectPtr ObjectPtrDef
 
+// Game Object Pointer
+#define GameObjectPtr SubObjectPtr<GameObject>
 
 #endif

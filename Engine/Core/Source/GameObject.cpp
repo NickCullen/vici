@@ -14,3 +14,8 @@ GameObject::~GameObject()
 {
 
 }
+
+void GameObject::Initialize()
+{
+
+}

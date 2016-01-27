@@ -7,28 +7,6 @@
 #include "EComponentCallback.h"
 #include "IComponent.h"
 
-//class CORE_API ComponentReference
-//{
-//public:
-//	ComponentPtr _pointer;
-//	Hash _component_type;
-//
-//	ComponentReference() = default;
-//
-//	ComponentReference(IComponent* component, Hash type)
-//	{
-//		_pointer = ComponentPtr(component);
-//		_component_type = type;
-//	}
-//
-//	template<class Archive>
-//	void serialize(Archive& ar) const
-//	{
-//		_SERIALIZE_VAR(_component_type, ar);
-//		_SERIALIZE_VAR(_pointer, ar);
-//	}
-//};
-
 typedef std::vector<ComponentPtr> ComponentList;
 
 /** 
@@ -44,6 +22,11 @@ private:
 	Transform MyTransform; /**< Transform containing position, rotation and scale of the object */
 
 	ComponentList Components; /**< Map of components */
+
+	/**
+	 * Internal call by Vici class
+	 */
+	void Initialize();
 
 public:
 	
@@ -80,17 +63,18 @@ public:
 	{
 		ComponentPtr comp = ComponentFactory::CreateComponent<T>(componentName);
 
-		//_components.push_back(ComponentReference(comp, componentName));
-
 		if (comp != NULL)
 		{
+			
 			Components.push_back(comp);
+
+
 		}
-		
-		//_components.insert(std::pair<Hash, SharedReference<IComponent>>(componentName, SharedReference<IComponent>(comp)));
 
 		return (T*)comp.get();
 	}
 };
+
+CEREAL_REGISTER_TYPE(GameObject);
 
 #endif

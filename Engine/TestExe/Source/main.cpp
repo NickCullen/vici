@@ -21,26 +21,19 @@ void Tests()
 	std::string data = "/TestSerialization.json";
 	_Platform->GetFullPath(data);
 
-	GameObject goDesr;
+	/*GameObject goDesr;
 
 	CreateInputArchive(inputArch, inputStream, data);
 
 	inputArch(goDesr);
-	return;
+	return;*/
 
-	CreateOutputArchive(outputArch, outputStream, data);
+	GameObjectPtr go = _Vici->CreateGameObject();
 
-	GameObject go;
+	TestComponent* tc = go->AddComponent<TestComponent>("TestComponent");
+	tc->SetGameObject(go);
 
-	Transform* t = go.GetTransform();
-
-	t->Translate(100, 0, 100);
-	t->SetScale(20, 30, 40);
-	t->Rotate(90, 0, 1, 0);
-
-	TestComponent* comp = go.AddComponent<TestComponent>("TestComponent");
-
-	_SERIALIZE_VAR_NAME(go, "MyObject", outputArch);
+	_Vici->SerializeState(data.c_str());
 
 }
 
