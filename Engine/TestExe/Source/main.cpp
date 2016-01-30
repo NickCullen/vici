@@ -15,6 +15,7 @@
 
 #include "GameObject.h"
 #include "TestComponent.h"
+#include "VTime.h"
 
 void Tests()
 {
@@ -46,6 +47,10 @@ int main(int argc, char** argv)
 	RegisterAssets();
 	RegisterComponents();
 
+	// Initialize platform
+	if (!_Platform->Init())
+		printf("Could not initialize platform\n");
+
 	// Default values
 	char* runningDirectory = argv[0];
 	bool trimEnd = true;
@@ -69,13 +74,18 @@ int main(int argc, char** argv)
 	
 	// Set current working directory
 	_Platform->SetCwd(runningDirectory, trimEnd);
-	
+
 	// Setup Display
-	//Display* display = new Display();
+	Display* display;
+	if (_Platform->DeserializeEngineComponent(kDisplay, "/Settings/Display.xml", (void**)&display))
+	{
+		display->Init();
+	}
+
 	
+
 	// Deserialize the data
-	//std::string displayData = "/Settings/Display.json";
-	//_Platform->GetFullPath(displayData);
+	//
  
 	// Load the data into memory
 	//CreateInputArchive(arch, inputStream, displayData);
@@ -93,8 +103,7 @@ int main(int argc, char** argv)
 
 	v->Begin();
 
-	_Platform->EnterLoop(v);
-
+	
 //	delete(display);
 	delete(proj);
 	delete(v);

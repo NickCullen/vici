@@ -1,7 +1,7 @@
 #include "Display.h"
 #include "Vici.h"
 #include <string>
-
+#include <SDL\SDL.h>
 
 Display::Display() : Singleton<Display>()
 {
@@ -17,6 +17,20 @@ Display::~Display()
 
 }
 
+bool Display::Init()
+{
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		_Platform->LogString("Failed to initialize SDL\n");
+		return false;
+	}
+	
+	// Log video driver
+	_Platform->LogString("Using %s video driver\n", SDL_GetCurrentVideoDriver());
+
+
+	return true;
+}
 //called when focus to window has changed (minimized / opened)
 void OnFocusChanged(VWindow* window, int focus)
 {
@@ -36,80 +50,88 @@ void OnFocusChanged(VWindow* window, int focus)
 
 void Display::SetRenderContext(VRenderContext* context)
 {
-	RenderContext = context;
 	
-	glfwGetWindowSize(RenderContext, &ContextWidth, &ContextHeight);
-	
-	/* Make the window's context current */
-	glfwMakeContextCurrent(RenderContext);
-	
-	ClearRenderArea();
 }
 
-void Display::Init()
-{
-	/* Initialize the library */
-	if (!glfwInit())
-	{
-		_Platform->LogString("Cannot init glfw\n");
-		return;
-	}
+//void Display::SetRenderContext(VRenderContext* context)
+//{
+//	RenderContext = context;
+//	
+//	glfwGetWindowSize(RenderContext, &ContextWidth, &ContextHeight);
+//	
+//	/* Make the window's context current */
+//	glfwMakeContextCurrent(RenderContext);
+//	
+//	ClearRenderArea();
+//}
 
-	/* If fullscreen we need to set the width and height to the monitor width and height */
-	if (bFullscreen)
-	{
-		//get the monitor info
-		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-		//get hints
-		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-
-		//set w and h
-		ContextWidth = mode->width;
-		ContextHeight = mode->height;
-	}
-
-	/* Create a windowed mode window and its OpenGL context */
-	RenderContext = glfwCreateWindow(ContextWidth, ContextHeight, Title.c_str(), bFullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
-	if (RenderContext == NULL)
-	{
-		glfwTerminate();
-		_Platform->LogString("Could not load window\n");
-		return;
-	}
-	
-	SetRenderContext(RenderContext);
-
-	/* Set callbacks */
-	glfwSetWindowSizeCallback(RenderContext, Display::OnResize);
-
-	glfwSetWindowFocusCallback(RenderContext, OnFocusChanged);
-
-#ifdef VICI_WINDOWS
-	//init glew
-	if (glewInit() != GLEW_OK)
-		_Platform->LogString("Could not init glew library\n");
-#endif
-	//get the monitor info
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-	//set refresh rate
-	RefreshRate = mode->refreshRate;
-	ScreenWidth = mode->width;
-	ScreenHeight = mode->height;
-}
+//void Display::Init()
+//{
+//	/* Initialize the library */
+//	if (!glfwInit())
+//	{
+//		_Platform->LogString("Cannot init glfw\n");
+//		return;
+//	}
+//
+//	/* If fullscreen we need to set the width and height to the monitor width and height */
+//	if (bFullscreen)
+//	{
+//		//get the monitor info
+//		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+//
+//		//get hints
+//		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+//		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+//		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+//		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+//
+//		//set w and h
+//		ContextWidth = mode->width;
+//		ContextHeight = mode->height;
+//	}
+//
+//	/* Create a windowed mode window and its OpenGL context */
+//	RenderContext = glfwCreateWindow(ContextWidth, ContextHeight, Title.c_str(), bFullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+//	if (RenderContext == NULL)
+//	{
+//		glfwTerminate();
+//		_Platform->LogString("Could not load window\n");
+//		return;
+//	}
+//	
+//	SetRenderContext(RenderContext);
+//
+//	/* Set callbacks */
+//	glfwSetWindowSizeCallback(RenderContext, Display::OnResize);
+//
+//	glfwSetWindowFocusCallback(RenderContext, OnFocusChanged);
+//
+//#ifdef VICI_WINDOWS
+//	//init glew
+//	if (glewInit() != GLEW_OK)
+//		_Platform->LogString("Could not init glew library\n");
+//#endif
+//	//get the monitor info
+//	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+//
+//	//set refresh rate
+//	RefreshRate = mode->refreshRate;
+//	ScreenWidth = mode->width;
+//	ScreenHeight = mode->height;
+//}
 
 void Display::SetSize(int w, int h, bool force_window_resize)
 {
+	THROW_NOT_IMPL
+
 	ContextWidth = w;
 	ContextHeight = h;
 
 	if (force_window_resize)
 	{
-		glfwSetWindowSize(RenderContext, w, h);
+		//glfwSetWindowSize(RenderContext, w, h);
 	}
 }
 
@@ -121,10 +143,12 @@ void Display::OnResize(VWindow* win, int w, int h)
 
 void Display::ClearRenderArea()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	THROW_NOT_IMPL
+	//glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Display::SwapBuffers()
 {
-	glfwSwapBuffers(RenderContext);
+	THROW_NOT_IMPL
+	//glfwSwapBuffers(RenderContext);
 }

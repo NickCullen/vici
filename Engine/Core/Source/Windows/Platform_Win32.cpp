@@ -2,10 +2,10 @@
 #include "Vici.h"
 #include "Display.h"
 #include <stdio.h>
-
 #include <direct.h>
 #include "VTime.h"
 #include <stdarg.h>
+#include <SDL\SDL.h>
 
 
 Platform::Platform() : Singleton<Platform>()
@@ -18,6 +18,17 @@ Platform::~Platform()
 
 }
 
+bool Platform::Init()
+{
+	if (SDL_Init(SDL_INIT_TIMER) < 0)
+	{
+		LogString("Could not initialize Timer\n");
+		return false;
+	}
+
+	return true;
+}
+
 void Platform::LogString(const char* fmt, ...)
 {
 	  /* Write the error message */
@@ -27,64 +38,34 @@ void Platform::LogString(const char* fmt, ...)
   	va_end (args);
 }
 
-double Platform::GetTime()
+bool Platform::DeserializeEngineComponent(EngineSerializableComponent component, const char* datafile, void** opaque)
 {
-	return glfwGetTime();
-}
+	std::string fullpath = datafile;
+	_Platform->GetFullPath(fullpath);
 
-void Platform::EnterLoop(Vici* v)
-{
-	//for timing
-	float last = 0.0f, start = 0.0f, current = 0.0f;
+	// Create the input stream
+	CreateInputArchive(arch, inputStream, fullpath);
 
-	//the fps
-	float fps = 1.0f / _Display->GetRefreshRate();
-
-	//cache last and start
-	start = last = (float)GetTime();
-
-	//get the window
-	VRenderContext* rc = _Display->GetRenderContext();
-	printf("RenderContext = %p\n", rc);
-	if (rc != NULL)
+	// Deserialize
+	switch (component)
 	{
-		/* Loop until the user closes the window */
-		while (!glfwWindowShouldClose(rc))
-		{
-			//get the current time
-			current = (float)GetTime();
+	case kDisplay:
+		*opaque = new Display();
 
-			//loop at target fps
-			if (current - last >= fps)
-			{
-				//update time
-				_Time->Time = current - start;
-				_Time->DeltaTime = (current - last) * _Time->TimeScale;
-
-				//update engine
-				if (_Display->HasFocus()) v->Update();
-
-				//render frame
-				v->Render();
-
-				/* Swap front and back buffers */
-				_Display->SwapBuffers();
-
-				last = (float)GetTime();
-			}
-
-			/* Poll for and process events */
-			glfwPollEvents();
-		}
-
-		glfwTerminate();
-
+		_SERIALIZE_VAR_NAME(*(Display*)*opaque, "Display", arch);
+		return true;
+	default:
+		return false;
 	}
 
-
-	v->OnExit();
-
+	return false;
 }
+
+uint32 Platform::GetTime()
+{
+	return SDL_GetTicks();
+}
+
 const char* Platform::Pathify(const char* file)
 {
 	char* start = (char*)file;

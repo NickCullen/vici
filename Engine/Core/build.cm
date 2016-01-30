@@ -25,9 +25,8 @@ Name=="Core"
 Math
 
 [WIN32:LinkLibs]
-glfw3
-glew32
--system OpenGL
+SDL2
+SDL2main
 
 [APPLE:LinkLibs]
 glfw3
@@ -35,3 +34,5 @@ glfw3
 -framework OpenGL
 -framework IOKit
 -framework CoreVideo
+SDL2
+SDL2main

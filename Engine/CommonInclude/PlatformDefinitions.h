@@ -19,8 +19,8 @@ typedef uint16_t uint16;
 typedef uint8_t uint8;
 
 #ifdef VICI_OPENGL
-#include "glew.h"
-#include "GLFW/glfw3.h"
+//#include "glew.h"
+//#include "GLFW/glfw3.h"
 #include "OpenGLDefinitions/OpenGLDefinitions.h"
 #endif
 
@@ -28,7 +28,7 @@ typedef uint8_t uint8;
 //#include "vld.h"
 #endif
 
-typedef GLFWwindow VWindow; // Windows typedefs
+typedef void* VWindow; // Windows typedefs
 
 #endif // End Windows specific includes
 
@@ -60,4 +60,7 @@ typedef uint8_t uint8;
 // Constants
 #define BUFF_LEN 512
 
+
+// Exeptions
+#define THROW_NOT_IMPL throw "No Implementation";
 

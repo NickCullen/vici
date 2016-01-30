@@ -23,7 +23,7 @@ void IComponent::OnStart()
 
 void IComponent::RegisterCallback(EComponentCallback cb, Delegate callback)
 {
-	//_go->RegisterCallback(cb, callback);
+	//MyGameObject->RegisterCallback(cb, callback);
 }
 
 ObjectPtr IComponent::GetGameObject()

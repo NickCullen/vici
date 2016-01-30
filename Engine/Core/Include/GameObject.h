@@ -4,7 +4,6 @@
 #include "Transform.h"
 #include "Hash.h"
 #include <vector>
-#include "EComponentCallback.h"
 #include "IComponent.h"
 
 typedef std::vector<ComponentPtr> ComponentList;

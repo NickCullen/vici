@@ -15,8 +15,6 @@ class CORE_API VTime : public Singleton<VTime>
 {
 	friend class Platform;
 private:
-	float Time; /**< The time since the program has started */
-
 	float DeltaTime; /**< The delta time since last frame update */
 
 	float TimeScale; /**< The time scale of program */
@@ -33,9 +31,9 @@ public:
 
 	/**
 	* Getter for time since the program has started
-	* @return Float representing time since program has started in seconds
+	* @return uint32 representing time since program has started in tick count
 	*/
-	inline float GetTime(){ return this->Time; }
+	uint32 GetTime();
 
 	/**
 	* Getter for delta time between frames

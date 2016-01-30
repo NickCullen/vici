@@ -13,6 +13,14 @@
 #define _Platform Singleton<Platform>::Instance()
 
 /**
+* Enums representing components that can be serialized / deserialized
+* by the engine
+*/
+enum EngineSerializableComponent {
+	kDisplay
+};
+
+/**
 * Singleton class containing platform specific functions
 * such as correcting path strings and logging strings
 * Can be accessed by the _Platform-> macro defined in Vici.h
@@ -20,14 +28,15 @@
 
 class CORE_API Platform : public Singleton<Platform>
 {
+	friend class VTime;
 private:
 	char Cwd[BUFF_LEN]; /**< Contains the current working directory of the program */
 
 	/**
-	* Returns the time in milliseconds - not public anymore should use (_Time->GetTime())
-	* @return double representing time in milliseconds
+	* Returns the ticks since startup
+	* @return uint32 representing time in ticks since startup
 	*/
-	double GetTime();
+	uint32 GetTime();
 
 public:
 	/**
@@ -41,16 +50,25 @@ public:
 	~Platform();
 
 	/**
+	* Gives the platform a chance to initialize
+	*/
+	bool Init();
+
+	/**
 	* Logs a string to the given output
 	* @param fmt Format of string like printf
 	*/
 	void LogString(const char* fmt, ...);
 
 	/**
-	* Enter the platforms game loop
-	* @param v Pointer to the vici instance
+	* Deserializes the given engine component with
+	* the specified data.
+	* @param component The enum representing which item to deserialize
+	* @param datafile The runtime relevant path to data
+	* @param opaque Pointer to the allocated data (will be set internally)
+	* @return Returns true upon succesfull deserialization
 	*/
-	void EnterLoop(class Vici* v);
+	bool DeserializeEngineComponent(EngineSerializableComponent component, const char* datafile, void** opaque);
 
 	/**
 	* Turns a path in c style string format into a platform
@@ -93,5 +111,6 @@ public:
 	*/
 	void SetCwd(const char* executable_path, bool trim_end = false);
 };
+
 
 #endif

@@ -59,7 +59,7 @@ public:
 	/**
 	* Creates display using the saved preferences
 	*/
-	void Init();
+	bool Init();
 	
 	/**
 	* Used to set the context of the display

@@ -1,2 +1,2 @@
-typedef GLFWwindow VWindow;
-typedef GLFWwindow VRenderContext;
+typedef void* VWindow;
+typedef void* VRenderContext;
