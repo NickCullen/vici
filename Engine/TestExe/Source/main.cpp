@@ -76,35 +76,36 @@ int main(int argc, char** argv)
 	_Platform->SetCwd(runningDirectory, trimEnd);
 
 	// Setup Display
-	Display* display;
-	if (_Platform->DeserializeEngineComponent(kDisplay, "/Settings/Display.xml", (void**)&display))
+	Display* display = _Vici->DeserializeEngineComponent<Display>("/Settings/Display.xml");
+	if (display == NULL || !display->Init())
 	{
-		display->Init();
+		_Platform->LogString("Error creating display\n");
 	}
 
-	
-
-	// Deserialize the data
-	//
- 
-	// Load the data into memory
-	//CreateInputArchive(arch, inputStream, displayData);
-    
-	// Deserialize
-	//_SERIALIZE_VAR_NAME(*display, "Display", arch);
-
-
-	Tests();
-
-	// Initialize Display
-	//display->Init();
-    
 	v->Init();
 
 	v->Begin();
 
-	
-//	delete(display);
+	SDL_Event e;
+	bool looping = true;
+	while (looping)
+	{
+		while (SDL_PollEvent(&e))
+		{
+			switch (e.type)
+			{
+			case SDL_QUIT:
+				looping = false;
+				break;
+			
+			default:
+				break;
+			}
+		}
+	}
+	// Game loop here
+
+	delete(display);
 	delete(proj);
 	delete(v);
 	

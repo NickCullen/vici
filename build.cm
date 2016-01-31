@@ -19,7 +19,7 @@ VICI_OPENGL
 /Engine/Core/Include
 /Engine/Core/Include/Rendering
 /Engine/Registrar/Include
-/Engine/Math/Include
+/Engine/Math/Math/Include
 /ThirdParty/Include
 
 ;[WIN32:ProjectIncludeDirectories]	
@@ -47,5 +47,5 @@ Libs==/Lib/Mac
 /Engine/Core
 /Engine/Registrar
 /Engine/TestExe
-/Engine/Math
+/Engine/Math/Math
 

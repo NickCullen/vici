@@ -28,7 +28,7 @@ bool Display::Init()
 	// Log video driver
 	_Platform->LogString("Using %s video driver\n", SDL_GetCurrentVideoDriver());
 
-
+	
 	return true;
 }
 //called when focus to window has changed (minimized / opened)

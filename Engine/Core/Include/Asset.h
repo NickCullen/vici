@@ -2,7 +2,6 @@
 #define V_ASSET
 
 #include "AssetFactory.h"
-#include "CoreAPI.h"
 #include "PlatformDefinitions.h"
 
 // Definition for classes that inherit from Asset to put at the

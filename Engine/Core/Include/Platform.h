@@ -6,7 +6,6 @@
 #endif
 
 #include "CoreAPI.h"
-#include "PlatformDefinitions.h"
 #include "Singleton.h"
 
 /* Quick access macro */
@@ -59,16 +58,6 @@ public:
 	* @param fmt Format of string like printf
 	*/
 	void LogString(const char* fmt, ...);
-
-	/**
-	* Deserializes the given engine component with
-	* the specified data.
-	* @param component The enum representing which item to deserialize
-	* @param datafile The runtime relevant path to data
-	* @param opaque Pointer to the allocated data (will be set internally)
-	* @return Returns true upon succesfull deserialization
-	*/
-	bool DeserializeEngineComponent(EngineSerializableComponent component, const char* datafile, void** opaque);
 
 	/**
 	* Turns a path in c style string format into a platform

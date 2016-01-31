@@ -3,8 +3,6 @@
 
 #include "CoreAPI.h"
 #include "Singleton.h"
-#include "PlatformDefinitions.h"
-#include "glm.h"
 
 #define _Input Singleton<Input>::Instance()
 
@@ -33,7 +31,7 @@ public:
 	* @param key The key to check if pressed
 	* @return bool true if pressed
 	*/
-	bool KeyDown(uint32 key);
+	bool KeyDown(SDL_Keycode key);
 
 	/**
 	* Checks to see if the specified (GLFW defined)
@@ -41,20 +39,20 @@ public:
 	* @param key The key to check if released
 	* @return bool true if released
 	*/
-	bool KeyUp(uint32 key);
+	bool KeyUp(SDL_Keycode key);
 
 	/**
 	* Returns the status of the key
 	* @param key The key to check status
 	* @return bool true pressed false if not
 	*/
-	bool Key(uint32 key);
+	bool Key(SDL_Keycode key);
 
 	/**
 	* Returns the mouse position
 	* @return vec2 containing mouse position
 	*/
-	glm::vec2 MousePosition();
+	class Vector2f MousePosition();
 };
 
 #endif

@@ -20,9 +20,9 @@ Platform::~Platform()
 
 bool Platform::Init()
 {
-	if (SDL_Init(SDL_INIT_TIMER) < 0)
+	if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_EVENTS) < 0)
 	{
-		LogString("Could not initialize Timer\n");
+		LogString("Could not initialize SDL platform features\n");
 		return false;
 	}
 
@@ -36,29 +36,6 @@ void Platform::LogString(const char* fmt, ...)
   	va_start (args, fmt);
   	vprintf (fmt, args);
   	va_end (args);
-}
-
-bool Platform::DeserializeEngineComponent(EngineSerializableComponent component, const char* datafile, void** opaque)
-{
-	std::string fullpath = datafile;
-	_Platform->GetFullPath(fullpath);
-
-	// Create the input stream
-	CreateInputArchive(arch, inputStream, fullpath);
-
-	// Deserialize
-	switch (component)
-	{
-	case kDisplay:
-		*opaque = new Display();
-
-		_SERIALIZE_VAR_NAME(*(Display*)*opaque, "Display", arch);
-		return true;
-	default:
-		return false;
-	}
-
-	return false;
 }
 
 uint32 Platform::GetTime()

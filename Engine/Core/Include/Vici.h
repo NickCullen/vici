@@ -3,16 +3,15 @@
 
 // Required Includes 
 #include "CoreAPI.h"
-#include "Singleton.h"
 
 #include "Platform.h"
 #include "Input.h"
 
 #include "GameObject.h"
-#include <vector>
 
 // Macros 
 #define _Vici Singleton<Vici>::Instance()
+#define _TYPE_NAME(_type) #_type
 
 // Typedefs
 typedef std::vector<GameObjectPtr> GameObjectList;
@@ -107,6 +106,62 @@ public:
 	 */
 	bool SerializeState(const char* fname);
 
+	/**
+	* Deserializes the given engine component with
+	* the specified data.
+	* @param datafile The runtime relevant path to data
+	* @return Returns the deserialized class - will be NULL on failure
+	*/
+	template<typename T>
+	T* DeserializeEngineComponent(const char* datafile)
+	{
+		std::string fullpath = datafile;
+		_Platform->GetFullPath(fullpath);
+
+		// Create the input stream
+		CreateInputArchive(arch, inputStream, fullpath);
+		T* ret = new T();
+
+		try
+		{
+			_SERIALIZE_VAR_NAME(*ret,"Data", arch);
+		}
+		catch (int e)
+		{
+			delete(ret);
+			return NULL;
+		}
+
+		return ret;
+	}
+
+	/**
+	* serializes the given engine component to the output path
+	* the path is relative to the running directory
+	* @param instance Pointer to the component to serialize
+	* @param datafile The runtime relevant path to data
+	* @return Returns true on successful serialization
+	*/
+	template<typename T>
+	bool SerializeEngineComponent(T* instance, const char* datafile)
+	{
+		std::string fullpath = datafile;
+		_Platform->GetFullPath(fullpath);
+
+		// Create the input stream
+		CreateOutputArchive(arch, outputStream, fullpath);
+
+		try
+		{
+			_SERIALIZE_VAR_NAME(*instance, "Data", arch);
+		}
+		catch (int e)
+		{
+			return false;
+		}
+
+		return true;
+	}
 };
 
 #endif

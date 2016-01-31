@@ -3,8 +3,12 @@
 
 /*Forward decl*/
 
+#include "PlatformDefinitions.h"
 #include "CoreAPI.h"
-#include "Mathf.h"
+#include "Serialization.h"
+#include "Vector3.h"
+#include "Vector4.h"
+#include "Matrix4.h"
 
 /**
 * Transform containing information on moving and representing 
@@ -14,13 +18,13 @@
 class CORE_API Transform
 {
 private:
-	glm::vec3 Pos;	/**< Position of object */
-	glm::vec3 Scale;	/**< Scale of object */
-	glm::vec3 Rotation;	/**< rotation of object */
+	Vector3f Pos;	/**< Position of object */
+	Vector3f Scale;	/**< Scale of object */
+	Vector3f Rotation;	/**< rotation of object */
 
-	glm::mat4x4 Model;	/**< Model Matrix */
+	Matrix4f Model;	/**< Model Matrix */
 
-	glm::mat4x4 RotationMatrix;	/**< Rotation matrix */
+	Matrix4f RotationMatrix;	/**< Rotation matrix */
 
 	bool bUpdateModelMatrix;	/**< Flag to set to true when model matrix needs updating - this gets set to true when a transformation has been applied to any pos, rot or scale */
 public:
@@ -37,11 +41,9 @@ public:
 	template<class Archive>
 	void serialize(Archive& ar)
 	{
-		_SERIALIZE_VAR(Pos.x, ar) _SERIALIZE_VAR(Pos.y, ar) _SERIALIZE_VAR(Pos.z, ar)
-
-		_SERIALIZE_VAR(Scale.x, ar) _SERIALIZE_VAR(Scale.y, ar) _SERIALIZE_VAR(Scale.z, ar)
-
-		_SERIALIZE_VAR(Rotation.x, ar) _SERIALIZE_VAR(Rotation.y, ar) _SERIALIZE_VAR(Rotation.z, ar)
+		_SERIALIZE_VAR(Pos, ar);
+		_SERIALIZE_VAR(Scale, ar);
+		_SERIALIZE_VAR(Rotation, ar);
 
 		bUpdateModelMatrix = true;
 		UpdateMatrix();
@@ -51,7 +53,7 @@ public:
 	* Translates the position
 	* @param offset The ammount to be added to the _pos
 	*/
-	void Translate(glm::vec3 offset);
+	void Translate(const Vector3f& offset);
 
 	/**
 	* Translate the position
@@ -79,14 +81,14 @@ public:
 	* Sets the scale of the object to the given vec3 scale
 	* @param scale Sets _scale to glm::vec3 scale
 	*/
-	void SetScale(glm::vec3 scale);
+	void SetScale(const Vector3f& scale);
 
 	/**
 	* Rotate the object by the angle (degrees) on the given axis
 	* @param angle The angle in degrees
 	* @param axis The axis to rotate on
 	*/
-	void Rotate(float angle, glm::vec3 axis);
+	void Rotate(float angle, const Vector3f& axis);
 
 	/**
 	* Rotate the object by the angle (degrees) on the given axis
@@ -102,13 +104,13 @@ public:
 	* if _update_model_matrix is set to true
 	* @return A 4x4 matrix containing the values for this transforms model matrix
 	*/
-	glm::mat4 GetModelMatrix();
+	Matrix4f& GetModelMatrix();
 
 	/**
 	* Returns the position of this object
 	* @return vec3 containing the position of this object
 	*/
-	inline glm::vec3 GetPosition()
+	inline Vector3f& GetPosition()
 	{
 		return Pos;
 	}
@@ -117,7 +119,7 @@ public:
 	* Returns the rotation of this object
 	* @return vec3 containing the Euler angles of this transform
 	*/
-	inline glm::vec3 GetRotation()
+	inline Vector3f& GetRotation()
 	{
 		return Rotation;
 	}
@@ -126,7 +128,7 @@ public:
 	* Returns the scale of this object
 	* @return vec3 containing the scale of this object
 	*/
-	inline glm::vec3 GetScale()
+	inline Vector3f& GetScale()
 	{
 		return Scale;
 	}
@@ -138,11 +140,14 @@ public:
 	* if _update_model_matrix is set to true!
 	* @return vec4 containing the way this object is facing
 	*/
-	inline glm::vec4 ForwardDirection()
+	inline Vector3f ForwardDirection()
 	{
-		static glm::vec4 initial_direction(0.0f,0.0f,-1.0f,1.0f);
+		static Vector4f initial_direction(0.0f,0.0f,-1.0f,1.0f);
 		UpdateMatrix();
-		return initial_direction * RotationMatrix;
+		THROW_NOT_IMPL
+		return Vector3f();
+		//return initial_direction;
+		//return initial_direction * RotationMatrix;
 	}
 
 	/**

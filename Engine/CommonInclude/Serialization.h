@@ -67,5 +67,13 @@
 	catch(cereal::Exception e) \
 	{ } \
 
+// Same gets name from type
+#define _SERIALIZE_VAR_NAME_FROM_TYPE(var, _type, arc) \
+	try { \
+		arc(cereal::make_nvp(#_type,var)); \
+	} \
+	catch(cereal::Exception e) \
+	{ } \
+
 // Serializes base class
 #define _SERIALIZE_PARENT(Type, arc) _SERIALIZE_VAR_NAME(cereal::base_class<Type>(this), #Type, arc)

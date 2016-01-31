@@ -25,7 +25,7 @@ typedef uint8_t uint8;
 #endif
 
 #ifdef VICI_DEBUG // Windows Debug includes
-//#include "vld.h"
+#include "VLD\vld.h"
 #endif
 
 typedef void* VWindow; // Windows typedefs
@@ -56,6 +56,7 @@ typedef uint8_t uint8;
 #endif // End Mac specific includes 
 
 #include <string>
+#include "SDL\SDL_events.h"
 
 // Constants
 #define BUFF_LEN 512

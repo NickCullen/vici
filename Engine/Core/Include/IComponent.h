@@ -6,12 +6,11 @@
 #include "EComponentCallback.h"
 #include "Object.h"
 #include "Delegate.h"
-#include "SmartPtr.h"
 
 // Forward decl
 
 /*Useful short hand macros*/
-#define MyTransform MyGameObject->GetTransform()
+//#define MyTransform MyGameObject->GetTransform()
 
 // Definition for classes that inherit from IComponent to put at the
 // Top of their definition

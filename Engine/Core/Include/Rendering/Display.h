@@ -3,9 +3,8 @@
 
 #include "CoreAPI.h"
 #include "Singleton.h"
-#include "PlatformDefinitions.h"
-#include "glm.h"
 #include "Serialization.h"
+#include "Mathf.h"
 
 #define _Display Singleton<Display>::Instance()
 
@@ -93,7 +92,7 @@ public:
 	inline float AspectRatio()
 	{
 		//prevent division  by 0
-		if (glm::epsilon<float>() > (float)ContextHeight) return 1.0f;
+		if (Mathf::Epsilon > (float)ContextHeight) return 1.0f;
 		return (float)ContextWidth / (float)ContextHeight;
 	}
 
