@@ -3,5 +3,5 @@
 
 float VTime::GetTime()
 {
-	return glfwGetTime();
+	return (float)glfwGetTime();
 }

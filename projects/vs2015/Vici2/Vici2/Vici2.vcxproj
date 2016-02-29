@@ -145,10 +145,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h" />
   </ItemGroup>
