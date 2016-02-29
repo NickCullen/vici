@@ -12,12 +12,24 @@ void KeyCallbackFn(VWindow* win, int key, int scancode, int action, int mods)
 	}
 }
 
+void MouseButtonCallbackFn(VWindow* win, int button, int action, int mods)
+{
+	printf("Mouse button: %d action = %d\n", button, action);
+}
+
+void CursorPosCallbackFn(VWindow* win, double xpos, double ypos)
+{
+	printf("Cursor pos X=%.2f, Y=%.2f\n", xpos, ypos);
+}
+
 int main(int argc, char** argv)
 {
 	VWindow win(500, 500);
 
 	// Set callbacks
 	win.SetKeyCallbackFn(KeyCallbackFn);
+	win.SetMouseButtonCallbackFn(MouseButtonCallbackFn);
+	win.SetCursorPosCallbackFn(CursorPosCallbackFn);
 
 	win.MakeCurrent();
 

@@ -7,9 +7,11 @@
 // Foward decl
 class VWindow;
 
-// Callbacks
+// Callbacks ---
+// Mouse button presses
 typedef void(*Vmousebuttonfun)(VWindow*, int, int, int);
 
+// Called when cursor moves over the window
 typedef void(*Vcursorposfun)(VWindow*, double, double);
 
 typedef void(*Vcursorenterfun)(VWindow*, int);

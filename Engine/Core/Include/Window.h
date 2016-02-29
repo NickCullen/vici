@@ -14,11 +14,16 @@ private:
 
 	NativeWindow_t NativeWindow;	// Pointer to native window
 
-	Vkeyfun KeyCallback;	// Pointer to key callback function
+	Vkeyfun KeyCallback;					// Pointer to key callback function
+	Vmousebuttonfun MouseButtonCallback;	// Pointer to mouse button callback
+	Vcursorposfun CursorPosCallback;		// Pointer to mouse move over window callback
 
 	// Internal GLFW callbacksCallbacks
 	static void ErrorCallback(int error, const char* desc);
-	static void KeyCallbackFn(struct GLFWwindow*, int key, int scancode, int action, int mods);
+	static void KeyCallbackFn(struct GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void MouseButtonCallbackFn(struct GLFWwindow* window, int button, int action, int mods);
+	static void CursorPositionCallbackFn(struct GLFWwindow* window, double xpos, double ypos);
+
 public:
 
 	VWindow(int width, int height, const char* title = "Default Window");
@@ -63,6 +68,16 @@ public:
 	 * Sets keyboard button callback
 	 */
 	void SetKeyCallbackFn(Vkeyfun keyFn);
+
+	/**
+	 * Sets mouse button callback
+	 */
+	void SetMouseButtonCallbackFn(Vmousebuttonfun mouseFn);
+
+	/**
+	 * Sets function callback for when mouse moves over window
+	 */
+	void SetCursorPosCallbackFn(Vcursorposfun cursorFn);
 
 	/**
 	* Retursn the size of the context frame buffer

@@ -54,6 +54,21 @@ void VWindow::KeyCallbackFn(GLFWwindow* win, int key, int scancode, int action, 
 	if (vWindow != nullptr && vWindow->KeyCallback != nullptr)
 		vWindow->KeyCallback(vWindow, key, scancode, action, mods);
 }	
+
+void VWindow::MouseButtonCallbackFn(GLFWwindow* win, int button, int action, int mods)
+{
+	VWindow* vWindow = (VWindow*)glfwGetWindowUserPointer(win);
+	if (vWindow != nullptr && vWindow->MouseButtonCallback != nullptr)
+		vWindow->MouseButtonCallback(vWindow, button, action, mods);
+}
+
+void VWindow::CursorPositionCallbackFn(GLFWwindow* win, double xpos, double ypos)
+{
+	VWindow* vWindow = (VWindow*)glfwGetWindowUserPointer(win);
+	if (vWindow != nullptr && vWindow->CursorPosCallback != nullptr)
+		vWindow->CursorPosCallback(vWindow, xpos, ypos);
+}
+
 // --- End of internal callbacks
 
 void VWindow::MakeCurrent()
@@ -100,6 +115,18 @@ void VWindow::SetKeyCallbackFn(Vkeyfun keyFn)
 {
 	glfwSetKeyCallback(AS_NATIVEWIN(NativeWindow), VWindow::KeyCallbackFn);	// Set internal
 	KeyCallback = keyFn;	// Store pointer
+}
+
+void VWindow::SetMouseButtonCallbackFn(Vmousebuttonfun mouseFn)
+{
+	glfwSetMouseButtonCallback(AS_NATIVEWIN(NativeWindow), VWindow::MouseButtonCallbackFn);
+	MouseButtonCallback = mouseFn;
+}
+
+void VWindow::SetCursorPosCallbackFn(Vcursorposfun cursorFn)
+{
+	glfwSetCursorPosCallback(AS_NATIVEWIN(NativeWindow), VWindow::CursorPositionCallbackFn);
+	CursorPosCallback = cursorFn;
 }
 
 void VWindow::GetFrameBufferSize(int* width, int* height)
