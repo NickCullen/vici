@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h">
@@ -50,10 +53,5 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Engine\Core\Source\Input.cpp">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -160,7 +160,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Engine\Core\Source\Input.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Input.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

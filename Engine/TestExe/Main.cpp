@@ -1,7 +1,8 @@
 #include "stdio.h"
+#include "Input.h"
 #include "Window.h"
 #include "Time.h"
-#include "Input.h"
+
 
 void Tests()
 {
@@ -17,14 +18,30 @@ void KeyCallbackFn(VWindow* win, VButton* button)
 	}
 }
 
-void MouseButtonCallbackFn(VWindow* win, int button, int action, int mods)
+void MouseButtonCallbackFn(VWindow* win, VMouseButton* button)
 {
-	printf("Mouse button: %d action = %d\n", button, action);
+	printf("Mouse button: %d action = %d\n", button->Button, button->Action);
 }
 
-void CursorPosCallbackFn(VWindow* win, double xpos, double ypos)
+void CursorPosCallbackFn(VWindow* win, VMouseInfo* mi)
 {
-	printf("Cursor pos X=%.2f, Y=%.2f\n", xpos, ypos);
+	printf("Cursor pos X=%.2f, Y=%.2f\n", mi->X, mi->Y);
+}
+
+void CursorEnteredCallbackFn(VWindow* win, bool entered)
+{
+	printf(entered ? "Mouse entered\n" : "Mouse left\n");
+}
+
+void ScrollCallback(VWindow* win, VScrollInfo* si)
+{
+	printf("Scroll X = %.2f Y = %.2f\n", si->XOffset, si->YOffset);
+}
+
+void FileDropped(VWindow* win, VFileDropInfo* fdi)
+{
+	for (int i = 0; i < fdi->Count; i++)
+		printf("File %s \n", fdi->Paths[i]);
 }
 
 int main(int argc, char** argv)
@@ -37,6 +54,9 @@ int main(int argc, char** argv)
 	win.SetKeyCallbackFn(KeyCallbackFn);
 	win.SetMouseButtonCallbackFn(MouseButtonCallbackFn);
 	win.SetCursorPosCallbackFn(CursorPosCallbackFn);
+	win.SetCursorEnteredCallbackFn(CursorEnteredCallbackFn);
+	win.SetScrollCallbackFn(ScrollCallback);
+	win.SetFileDropCallbackFn(FileDropped);
 
 	win.MakeCurrent();
 

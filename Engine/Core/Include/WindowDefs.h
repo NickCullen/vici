@@ -7,23 +7,29 @@
 // Foward decl
 class VWindow;
 class VButton;
+class VMouseButton;
+class VMouseInfo;
+class VScrollInfo;
+class VFileDropInfo;
 
 // Callbacks ---
 // Mouse button presses
-typedef void(*Vmousebuttonfun)(VWindow* win, int, int, int);
+typedef void(*Vmousebuttonfun)(VWindow* win, VMouseButton* button);
 
 // Called when cursor moves over the window
-typedef void(*Vcursorposfun)(VWindow*, double, double);
+typedef void(*Vcursorposfun)(VWindow*, VMouseInfo* mouseInfo);
 
-typedef void(*Vcursorenterfun)(VWindow*, int);
+typedef void(*Vcursorenterfun)(VWindow*, bool);
 
-typedef void(*Vscrollfun)(VWindow*, double, double);
+typedef void(*Vscrollfun)(VWindow*, VScrollInfo* scrollInfo);
 
 typedef void(*Vkeyfun)(VWindow*, VButton* button);
+
+typedef void(*Vdropfun)(VWindow*, VFileDropInfo* info);
 
 typedef void(*Vcharfun)(VWindow*, unsigned int);
 
 typedef void(*Vcharmodsfun)(VWindow*, unsigned int, int);
 
-typedef void(*Vdropfun)(VWindow*, int, const char **);
+
 

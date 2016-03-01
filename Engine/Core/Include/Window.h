@@ -3,7 +3,6 @@
 #include "CoreAPI.h"
 #include "WindowDefs.h"
 
-
 class CORE_API VWindow
 {
 private:
@@ -17,12 +16,18 @@ private:
 	Vkeyfun KeyCallback;					// Pointer to key callback function
 	Vmousebuttonfun MouseButtonCallback;	// Pointer to mouse button callback
 	Vcursorposfun CursorPosCallback;		// Pointer to mouse move over window callback
+	Vcursorenterfun CursorEnterCallback;	// Pointer to on cursor entered callback
+	Vscrollfun ScrollCallback;				// Pointer to mouse wheel scroll callback
+	Vdropfun FileDropCallback;				// Pointer to file dop callback
 
 	// Internal GLFW callbacksCallbacks
 	static void ErrorCallback(int error, const char* desc);
 	static void KeyCallbackFn(struct GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void MouseButtonCallbackFn(struct GLFWwindow* window, int button, int action, int mods);
 	static void CursorPositionCallbackFn(struct GLFWwindow* window, double xpos, double ypos);
+	static void CursorEnteredCallbackFn(struct GLFWwindow* window, int entered);
+	static void ScrollCallbackFn(struct GLFWwindow* window, double x, double y);
+	static void FileDropCallbackFn(struct GLFWwindow* window, int count, const char** files);
 
 public:
 
@@ -78,6 +83,21 @@ public:
 	 * Sets function callback for when mouse moves over window
 	 */
 	void SetCursorPosCallbackFn(Vcursorposfun cursorFn);
+
+	/**
+	 * Sets function callback for when mouse enters/leaves window
+	 */
+	void SetCursorEnteredCallbackFn(Vcursorenterfun cursorFn);
+	
+	/**
+	 * Sets function callback for when mouse wheel scrolls
+	 */
+	void SetScrollCallbackFn(Vscrollfun scrollFn);
+
+	/**
+	 * Sets function callback for when files get drag and dropped onto this window
+	 */
+	void SetFileDropCallbackFn(Vdropfun dropFn);
 
 	/**
 	* Retursn the size of the context frame buffer

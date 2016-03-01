@@ -143,6 +143,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Engine\TestExe\Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vici2\Vici2.vcxproj">
+      <Project>{84528993-50c7-4342-a782-72f404b26998}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
