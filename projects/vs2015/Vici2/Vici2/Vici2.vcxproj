@@ -145,16 +145,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VString.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Engine\Core\Source\Input.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

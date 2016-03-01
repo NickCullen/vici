@@ -1,19 +1,17 @@
 #include "stdio.h"
 #include "Window.h"
 #include "Time.h"
-#include "VString.h"
+#include "Input.h"
 
 void Tests()
 {
-	VString str = "Hello world";
-
-	printf(str);
+	
 }
 // Called when key is pressed
-void KeyCallbackFn(VWindow* win, int key, int scancode, int action, int mods)
+void KeyCallbackFn(VWindow* win, VButton* button)
 {
-	printf("Key %d action = %d\n", key, action);
-	if (key == V_KEY_ESCAPE && action == V_KEY_PRESS)
+	printf("Key %d action = %d\n", button->Key, button->Action);
+	if (button->Key == V_KEY_ESCAPE &&  button->Action == V_KEY_PRESS)
 	{
 		win->SignalShouldClose();
 	}

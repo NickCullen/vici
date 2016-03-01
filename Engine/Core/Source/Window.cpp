@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include "Input.h"
 
 // Static init
 bool VWindow::GLFWInit = false;
@@ -8,7 +9,7 @@ bool VWindow::GLFWInit = false;
 // Helpful macros
 #define AS_NATIVEWIN(ptr) ((GLFWwindow*)ptr)
 
-VWindow::VWindow(int w, int h, const char* title)
+VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
 	:Width(w),
 	Height(h),
 	NativeWindow(nullptr),
@@ -21,7 +22,7 @@ VWindow::VWindow(int w, int h, const char* title)
 		GLFWInit = true;
 	}
 
-	NativeWindow = glfwCreateWindow(w, h, title, nullptr, nullptr);
+	NativeWindow = glfwCreateWindow(w, h, title, fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 	if (!NativeWindow)
 	{
 		printf("Failed to create window\n");
@@ -38,7 +39,7 @@ VWindow::VWindow(int w, int h, const char* title)
 
 VWindow::~VWindow()
 {
-
+	Close();	// Ensure window is closed
 }
 
 // INTERNAL CALLBACKS ---
@@ -52,7 +53,10 @@ void VWindow::KeyCallbackFn(GLFWwindow* win, int key, int scancode, int action, 
 {
 	VWindow* vWindow = (VWindow*)glfwGetWindowUserPointer(win);
 	if (vWindow != nullptr && vWindow->KeyCallback != nullptr)
-		vWindow->KeyCallback(vWindow, key, scancode, action, mods);
+	{
+		VButton btn(key, scancode, action, mods);
+		vWindow->KeyCallback(vWindow, &btn);
+	}
 }	
 
 void VWindow::MouseButtonCallbackFn(GLFWwindow* win, int button, int action, int mods)
@@ -98,8 +102,11 @@ void VWindow::PollEvents()
 
 void VWindow::Close()
 {
-	if(NativeWindow != nullptr)
+	if (NativeWindow != nullptr)
+	{
 		glfwDestroyWindow(AS_NATIVEWIN(NativeWindow));
+		NativeWindow = nullptr;
+	}
 }
 
 void VWindow::TerminateAll()

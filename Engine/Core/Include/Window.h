@@ -26,7 +26,7 @@ private:
 
 public:
 
-	VWindow(int width, int height, const char* title = "Default Window");
+	VWindow(int width, int height, const char* title = "Default Window", bool fullscreen = false);
 	~VWindow();
 
 	/**
