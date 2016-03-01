@@ -1,7 +1,14 @@
 #include "stdio.h"
 #include "Window.h"
 #include "Time.h"
+#include "VString.h"
 
+void Tests()
+{
+	VString str = "Hello world";
+
+	printf(str);
+}
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, int key, int scancode, int action, int mods)
 {
@@ -24,6 +31,8 @@ void CursorPosCallbackFn(VWindow* win, double xpos, double ypos)
 
 int main(int argc, char** argv)
 {
+	Tests();
+
 	VWindow win(500, 500);
 
 	// Set callbacks
