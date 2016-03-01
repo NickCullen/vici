@@ -26,7 +26,7 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
 		glfwSetErrorCallback(VWindow::ErrorCallback);
 		GLFWInit = true;
 	}
-
+	
 	NativeWindow = glfwCreateWindow(w, h, title, fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 	if (!NativeWindow)
 	{
@@ -112,6 +112,10 @@ void VWindow::FileDropCallbackFn(GLFWwindow* win, int count, const char** files)
 }
 // --- End of internal callbacks
 
+void VWindow::SetPosition(int xPos, int yPos)
+{
+	glfwSetWindowPos(AS_NATIVEWIN(NativeWindow), xPos, yPos);
+}
 void VWindow::MakeCurrent()
 {
 	glfwMakeContextCurrent(AS_NATIVEWIN(NativeWindow));
@@ -194,4 +198,18 @@ void VWindow::SetFileDropCallbackFn(Vdropfun dropFn)
 void VWindow::GetFrameBufferSize(int* width, int* height)
 {
 	glfwGetFramebufferSize(AS_NATIVEWIN(NativeWindow), width, height);
+}
+
+void VWindow::GetPrimaryMonitorSize(int* width, int* height)
+{
+	// Ensure init
+	if (!GLFWInit && glfwInit())
+	{
+		glfwSetErrorCallback(VWindow::ErrorCallback);
+		GLFWInit = true;
+	}
+
+	const GLFWvidmode* data = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	*width = data->width;
+	*height = data->height;
 }

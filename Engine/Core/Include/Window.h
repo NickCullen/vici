@@ -35,6 +35,11 @@ public:
 	~VWindow();
 
 	/**
+	 * Positions the window
+	 */
+	void SetPosition(int xPos, int yPos);
+
+	/**
 	* Sets current opengl context for rendering 
 	*/
 	void MakeCurrent();	
@@ -103,4 +108,9 @@ public:
 	* Retursn the size of the context frame buffer
 	*/
 	void GetFrameBufferSize(int* width, int* height);
+
+	/**
+	 * Returns the max size of the screen
+	 */
+	static void GetPrimaryMonitorSize(int* width, int* height);
 };
