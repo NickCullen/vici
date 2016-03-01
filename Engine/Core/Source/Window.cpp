@@ -10,8 +10,7 @@ bool VWindow::GLFWInit = false;
 #define AS_NATIVEWIN(ptr) ((GLFWwindow*)ptr)
 
 VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
-	:Width(w),
-	Height(h),
+	:UserData(nullptr),
 	NativeWindow(nullptr),
 	KeyCallback(nullptr),
 	MouseButtonCallback(nullptr),
@@ -33,6 +32,9 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
 		printf("Failed to create window\n");
 		return;
 	}
+
+	// Reset hints
+	glfwDefaultWindowHints();
 
 	// Make sure we keep a reference to this
 	glfwSetWindowUserPointer(AS_NATIVEWIN(NativeWindow), this);
@@ -195,6 +197,11 @@ void VWindow::SetFileDropCallbackFn(Vdropfun dropFn)
 	FileDropCallback = dropFn;
 }
 
+void VWindow::GetWindowSize(int* width, int* height)
+{
+	glfwGetWindowSize(AS_NATIVEWIN(NativeWindow), width, height);
+}
+
 void VWindow::GetFrameBufferSize(int* width, int* height)
 {
 	glfwGetFramebufferSize(AS_NATIVEWIN(NativeWindow), width, height);
@@ -212,4 +219,9 @@ void VWindow::GetPrimaryMonitorSize(int* width, int* height)
 	const GLFWvidmode* data = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	*width = data->width;
 	*height = data->height;
+}
+
+void VWindow::SetBorderHint(bool show)
+{
+	glfwWindowHint(GLFW_DECORATED, show ? GL_TRUE : GL_FALSE);
 }

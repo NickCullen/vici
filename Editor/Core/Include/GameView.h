@@ -1,18 +1,17 @@
 #pragma once
 
-class VWindow;
+#include "Panel.h"
 
-class VGameView
+class VGameView : public VPanel
 {
-	friend class VEditor;
 private:
-	VWindow* Window;
 
 public:
 	VGameView();
 	~VGameView();
 
 	
-	bool Init();
+	bool Init() override;
+
 };
 

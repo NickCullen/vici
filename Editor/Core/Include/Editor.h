@@ -10,9 +10,8 @@ private:
 	VSceneView* SceneView;
 	VGameView* GameView;
 
-	bool IsPlaying;
+	bool Quit;
 
-	void GameLoop();
 public:
 	VEditor();
 

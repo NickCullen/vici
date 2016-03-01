@@ -8,9 +8,6 @@ class CORE_API VWindow
 private:
 	static bool GLFWInit;
 
-	int Width;
-	int Height;
-
 	NativeWindow_t NativeWindow;	// Pointer to native window
 
 	Vkeyfun KeyCallback;					// Pointer to key callback function
@@ -30,6 +27,7 @@ private:
 	static void FileDropCallbackFn(struct GLFWwindow* window, int count, const char** files);
 
 public:
+	void* UserData;					// Pointer to user data for callbacks
 
 	VWindow(int width, int height, const char* title = "Default Window", bool fullscreen = false);
 	~VWindow();
@@ -105,7 +103,12 @@ public:
 	void SetFileDropCallbackFn(Vdropfun dropFn);
 
 	/**
-	* Retursn the size of the context frame buffer
+	* Returns the size of the window
+	*/
+	void GetWindowSize(int* width, int* height);
+
+	/**
+	* Returns the size of the context frame buffer (may differ from window size)
 	*/
 	void GetFrameBufferSize(int* width, int* height);
 
@@ -113,4 +116,9 @@ public:
 	 * Returns the max size of the screen
 	 */
 	static void GetPrimaryMonitorSize(int* width, int* height);
+
+	/**
+	 * Hints to set before creating windows
+	 */
+	static void SetBorderHint(bool show);
 };

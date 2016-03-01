@@ -141,11 +141,13 @@
     <ClCompile Include="..\..\..\..\Editor\Core\Source\Editor.cpp" />
     <ClCompile Include="..\..\..\..\Editor\Core\Source\GameView.cpp" />
     <ClCompile Include="..\..\..\..\Editor\Core\Source\Main.cpp" />
+    <ClCompile Include="..\..\..\..\Editor\Core\Source\Panel.cpp" />
     <ClCompile Include="..\..\..\..\Editor\Core\Source\SceneView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Editor\Core\Include\Editor.h" />
     <ClInclude Include="..\..\..\..\Editor\Core\Include\GameView.h" />
+    <ClInclude Include="..\..\..\..\Editor\Core\Include\Panel.h" />
     <ClInclude Include="..\..\..\..\Editor\Core\Include\SceneView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

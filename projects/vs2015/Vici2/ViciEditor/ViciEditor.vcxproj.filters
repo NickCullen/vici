@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\..\..\Editor\Core\Source\SceneView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Editor\Core\Source\Panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Editor\Core\Include\Editor.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Editor\Core\Include\SceneView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Editor\Core\Include\Panel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

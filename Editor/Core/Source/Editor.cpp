@@ -7,7 +7,7 @@
 VEditor::VEditor()
 	:SceneView(nullptr),
 	GameView(nullptr),
-	IsPlaying(false)
+	Quit(false)
 {
 
 }
@@ -37,8 +37,7 @@ bool VEditor::Init(int argc, int argv)
 	return true;
 }
 
-// Will need to put this on a thread at some point
-void VEditor::GameLoop()
+int VEditor::Run()
 {
 	float t = 0.0f;
 	float dt = 0.01f;
@@ -46,7 +45,10 @@ void VEditor::GameLoop()
 	float currentTime = VTime::GetTime();
 	float accumulator = 0.0f;
 
-	while (!GameView->Window->ShouldClose())
+	VPanel* panels[] = { GameView, SceneView };
+	int panelCount = 2;
+
+	while (!Quit)
 	{
 		float newTime = VTime::GetTime();
 		float frameTime = newTime - currentTime;
@@ -72,16 +74,19 @@ void VEditor::GameLoop()
 
 		// TODO:: Render here
 
+		// Render panels
+		for (int i = 0; i < panelCount; i++)
+		{
+			panels[i]->Render();
 
-		// Swap buffers
-		GameView->Window->Swapbuffers();
+			panels[i]->PostRender();
+
+		}
 
 		// Poll events
-		GameView->Window->PollEvents();
+		for (int i = 0; i < panelCount; i++)
+			panels[i]->PollEvents();
 	}
-}
-int VEditor::Run()
-{
-	GameLoop();
+
 	return 0;
 }
