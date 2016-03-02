@@ -11,7 +11,7 @@
 	_GEN_(NormalMatrix, "uNormalMatrix", UniformLocation) \
 	_GEN_(Time, "uTime", UniformLocation) \
 	_GEN_(SceneAmbient, "uSceneAmbient", UniformLocation) \
-	_GEN_(Vertex, "aVertex", AttributeLocation) \
+	_GEN_(Position, "aPosition", AttributeLocation) \
 	_GEN_(UV, "aUV", AttributeLocation) \
 	_GEN_(Normal, "aNormal", AttributeLocation) \
 	_GEN_(Tangent, "aTangent", AttributeLocation) \
@@ -75,6 +75,10 @@ public:
 
 	bool Load(const char* vertexShaderPath, const char* fragShaderPath);
 
+	/** 
+	* Use the shader
+	*/
+	void Use();
 
 	/**
 	* Inline function returning the
@@ -102,6 +106,13 @@ public:
 	* @return integer specifiying the location of the attribute
 	*/
 	UniformHandle AttributeLocation(const char* id);
+
+	/**
+	* Binds the given out variable to the given location
+	* @param id The name of the out variable in frag shader
+	* @param location The location to bind the output
+	*/
+	void BindFragDataLocation(const char* id, uint32 location);
 
 	/**
 	* Check if shader is loaded or not

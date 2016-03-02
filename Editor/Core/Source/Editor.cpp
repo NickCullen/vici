@@ -24,7 +24,7 @@ VEditor::~VEditor()
 
 bool VEditor::Init(int argc, const char** argv)
 {
-	Engine = new VEngine();
+	Engine = VEngine::GetInstance();
 
 	GameView = new VGameView();
 	if (!GameView || !GameView->Init())

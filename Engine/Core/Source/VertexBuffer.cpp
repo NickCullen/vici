@@ -157,3 +157,15 @@ void VVertexBuffer::AddData(const void* data, int32 elementID)
 
 	memcpy((int8*)Data + vertexIndex + ve->Offset, data, ve->Size);
 }
+
+void VVertexBuffer::FromArray(void* data, int32 size, int32 sizePerVertex)
+{
+	FlushClientMemory();	// Make sure we're cleaned out
+
+	VertexSize = sizePerVertex;
+	Size = MaxSize = size;
+	Count = size / sizePerVertex;
+
+	Data = (void*)new int8[Size];
+	memcpy(Data, data, Size);
+}

@@ -27,9 +27,11 @@ enum EBufferUse
  * Class for dynamic vertex buffers - General logic is as follows:
  * 1. Allocate each element per vertex using AddElement
  * 2. Pre-allocate space using AllocateVertices
- * 3. Add a vertex using AddVertex
- * 4. Fill in the currently add vertex using AddData and give in the 
+ * 3. Lock the vertex buffer ready to upload data
+ * 4. Add a vertex using AddVertex
+ * 5. Fill in the currently add vertex using AddData and give in the 
  *    element ID you got from step 1.
+ * 6. Unlock to send data to graphics card
  */
 class CORE_API VVertexBuffer
 {
@@ -114,4 +116,7 @@ public:
 	}
 
 	void AddData(const void* data, int32 elementID);
+
+	// Sets the data from an array
+	void FromArray(void* data, int32 size, int32 sizePerVertex);
 };

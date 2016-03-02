@@ -2,6 +2,7 @@
 #include "Window.h"
 #include <stdio.h>
 #include "Renderer.h"
+#include "Engine.h"
 
 VGameView::VGameView()
 	: VPanel()
@@ -32,4 +33,5 @@ void VGameView::Render()
 	VRenderer::GetInstance()->ClearAllBuffers();
 	VRenderer::GetInstance()->ClearColor(0.1f, 0.1f, 0.1f);
 	
+	VEngine::GetInstance()->Render();
 }

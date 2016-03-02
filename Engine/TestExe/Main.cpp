@@ -19,42 +19,17 @@ struct VEC3
 
 void Tests()
 {
-	// Create buffer object
+	float arr[] = { 1.0, 2.0, 
+					3.0, 4.0, 
+					5.0, 6.0 };
+
 	VVertexBuffer* vb = new VVertexBuffer();
 
-	// Tell the buffer object how many elements per vertex
-	int vec2ID = vb->AddElement<VEC2>();
-	int vec3ID = vb->AddElement<VEC3>();
-
-	// Allocate some space
-	vb->AllocateVertices(1);
-
-	int x = 1;
-	int y = 2;
-	int i = 1;
 	if (vb->Lock())
 	{
-		for (int j = 0; j < 5; j++)
-		{
-			vb->AddVertex();	// Allocate for this vertex
-
-			VEC2 v2;
-			v2.x = x++ * i;
-			v2.y = y++ * i * i;
-
-			VEC3 v3;
-			v3.x = v2.x * 0.25;
-			v3.y = v2.y * 0.75;
-			v3.z = i;
-
-			vb->AddData<VEC2>(v2, vec2ID);
-			vb->AddData<VEC3>(v3, vec3ID);
-
-		}
-		i++;
+		vb->FromArray(arr, sizeof(arr), sizeof(float) * 2);
+		vb->Unlock();
 	}
-
-	delete(vb);
 }
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, VButton* button)

@@ -165,6 +165,11 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 	return true;
 }
 
+void VShader::Use()
+{
+	if (Program > 0)
+		glUseProgram(Program);
+}
 
 void VShader::DebugShader(ShaderHandle shader, ShaderDebugFlags checkType)
 {
@@ -219,6 +224,12 @@ UniformHandle VShader::AttributeLocation(const char* id)
 {
 	return glGetAttribLocation(Program, id);
 }
+
+void VShader::BindFragDataLocation(const char* id, uint32 location)
+{
+	glBindFragDataLocation(Program, location, id);
+}
+
 void VShader::LoadSharedCode(const char* cwd)
 {
 	if (CommonCode == nullptr)
