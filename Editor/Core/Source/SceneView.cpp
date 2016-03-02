@@ -28,6 +28,7 @@ bool VSceneView::Init()
 
 void VSceneView::Render()
 {
+	VRenderer::GetInstance()->ClearAllBuffers();
 	VRenderer::GetInstance()->ClearColor(0.1f, 0.1f, 0.1f);
 
 }

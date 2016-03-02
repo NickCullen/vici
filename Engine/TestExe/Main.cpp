@@ -2,19 +2,36 @@
 #include "Input.h"
 #include "Window.h"
 #include "Time.h"
-#include "Shader.h"
+#include "VertexBuffer.h"
 
+struct VEC2
+{
+	float x;
+	float y;
+};
+
+struct VEC3
+{
+	float x;
+	float y;
+	float z;
+};
 
 void Tests()
 {
-	VShader shader;
-	const char* vpath = "C:\\Dev\\vici\\Resources\\Shaders\\test.vert";
-	const char* fpath = "C:\\Dev\\vici\\Resources\\Shaders\\test.frag";
+	// Create buffer object
+	VVertexBuffer* vb = new VVertexBuffer();
 
-	shader.Load(vpath, fpath);
+	// Tell the buffer object how many elements per vertex
+	int vec2ID = vb->AddElement<VEC2>();
+	int vec3ID = vb->AddElement<VEC3>();
 
-	
-	
+	if (vb->Lock())
+	{
+		
+	}
+
+	delete(vb);
 }
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, VButton* button)
