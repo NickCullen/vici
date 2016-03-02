@@ -29,5 +29,6 @@ bool VGameView::Init()
 
 void VGameView::Render()
 {
-	VRenderer::GetInstance()->ClearColor(1.0f, 0.0f, 0.0f);
+	VRenderer::GetInstance()->ClearColor(0.1f, 0.1f, 0.1f);
+	
 }

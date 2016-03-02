@@ -17,7 +17,7 @@ VPanel::~VPanel()
 VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool border)
 {
 	// Make sure appropriate hints are set
-	VWindow::SetBorderHint(border);
+	//VWindow::SetBorderHint(border);		commented out for now
 
 	Window = new VWindow(width, height, title, false);	// Never have a full screen panel
 	Window->UserData = this;	// Make sure we store a reference to his

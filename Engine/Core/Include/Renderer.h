@@ -12,5 +12,8 @@ public:
 	~VRenderer();
 
 	static bool Init();
+	static void GetVersionString(const char** str);
+	static void GetVersionNumber(int* major, int* minor);
+
 	void ClearColor(float r, float g, float b, float a = 1.0f);
 };

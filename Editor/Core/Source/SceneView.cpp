@@ -1,6 +1,7 @@
 #include "SceneView.h"
 #include "Window.h"
 #include "Renderer.h"
+#include <stdio.h>
 
 VSceneView::VSceneView()
 {
@@ -27,5 +28,6 @@ bool VSceneView::Init()
 
 void VSceneView::Render()
 {
-	VRenderer::GetInstance()->ClearColor(0, 1, 0);
+	VRenderer::GetInstance()->ClearColor(0.1f, 0.1f, 0.1f);
+
 }
