@@ -32,6 +32,9 @@ void VShader::Unload()
 	if (Program > 0)
 		glDeleteProgram(Program);
 
+	//set all locations to -1
+	_COMMON_SHADER_LOCATIONS(_GEN_DEFAULT_VAL)
+
 	Loaded = false;
 }
 

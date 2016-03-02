@@ -5,17 +5,17 @@
 
 /* Macro for unrolling common shader uniform + attribute locations */
 #define _COMMON_SHADER_LOCATIONS(_GEN_) \
-	_GEN_(mvp, "uModelViewProjectionMatrix", UniformLocation) \
-	_GEN_(mv, "uModelViewMatrix", UniformLocation) \
-	_GEN_(model_matrix, "uModelMatrix", UniformLocation) \
-	_GEN_(normal_matrix, "uNormalMatrix", UniformLocation) \
-	_GEN_(time, "uTime", UniformLocation) \
-	_GEN_(scene_ambience, "uSceneAmbience", UniformLocation) \
-	_GEN_(vertex, "aVertex", AttributeLocation) \
-	_GEN_(uv, "aUV", AttributeLocation) \
-	_GEN_(normal, "aNormal", AttributeLocation) \
-	_GEN_(tangent, "aTangent", AttributeLocation) \
-	_GEN_(binormal, "aBinormal", AttributeLocation)
+	_GEN_(ModelViewProjectionMatrix, "uModelViewProjectionMatrix", UniformLocation) \
+	_GEN_(ModelViewMatrix, "uModelViewMatrix", UniformLocation) \
+	_GEN_(ModelMatrix, "uModelMatrix", UniformLocation) \
+	_GEN_(NormalMatrix, "uNormalMatrix", UniformLocation) \
+	_GEN_(Time, "uTime", UniformLocation) \
+	_GEN_(SceneAmbient, "uSceneAmbient", UniformLocation) \
+	_GEN_(Vertex, "aVertex", AttributeLocation) \
+	_GEN_(UV, "aUV", AttributeLocation) \
+	_GEN_(Normal, "aNormal", AttributeLocation) \
+	_GEN_(Tangent, "aTangent", AttributeLocation) \
+	_GEN_(Binormal, "aBinormal", AttributeLocation)
 
 /* Typedefs */
 typedef int32 ShaderHandle;

@@ -15,12 +15,7 @@ VRenderer::~VRenderer()
 
 bool VRenderer::Init()
 {
-	GLenum err = glewInit();
-	if (GLEW_OK != err)
-	{
-		printf("Failed to init glew\n");
-		return false;
-	}
+	
 	return true;
 }
 

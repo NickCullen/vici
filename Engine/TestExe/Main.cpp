@@ -2,10 +2,18 @@
 #include "Input.h"
 #include "Window.h"
 #include "Time.h"
+#include "Shader.h"
 
 
 void Tests()
 {
+	VShader shader;
+	const char* vpath = "C:\\Dev\\vici\\Resources\\Shaders\\test.vert";
+	const char* fpath = "C:\\Dev\\vici\\Resources\\Shaders\\test.frag";
+
+	shader.Load(vpath, fpath);
+
+	
 	
 }
 // Called when key is pressed
@@ -46,8 +54,6 @@ void FileDropped(VWindow* win, VFileDropInfo* fdi)
 
 int main(int argc, char** argv)
 {
-	Tests();
-
 	VWindow win(500, 500);
 
 	// Set callbacks
@@ -59,6 +65,9 @@ int main(int argc, char** argv)
 	win.SetFileDropCallbackFn(FileDropped);
 
 	win.MakeCurrent();
+
+	Tests();
+
 
 	float t = 0.0f;
 	float dt = 0.01f;

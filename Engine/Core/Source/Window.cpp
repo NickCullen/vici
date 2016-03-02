@@ -1,7 +1,9 @@
 #include "Window.h"
+#include "GL/glew.h"
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include "Input.h"
+
 
 // Static init
 bool VWindow::GLFWInit = false;
@@ -41,6 +43,14 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
 
 	// Set current so we can set VSync
 	MakeCurrent();
+
+	// Make sure glew is initialized
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		printf("Failed to init glew\n");
+	}
+
 	glfwSwapInterval(1);
 }
 

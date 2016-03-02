@@ -12,7 +12,6 @@ VEditor::VEditor()
 	IsPlaying(false),
 	Engine(nullptr)
 {
-
 }
 
 VEditor::~VEditor()
