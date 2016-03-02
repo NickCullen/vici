@@ -3,10 +3,10 @@
 #include "CoreAPI.h"
 #include "VTypes.h"
 
-// max number of elements per vertex - 24 is way more than enough
-static const int MAX_BUFFER_ELEMENTS = 24;
-
 typedef uint32 VBO_t;
+
+// max number of elements per vertex
+static const int MAX_BUFFER_ELEMENTS = 16;
 
 // Defines what type of buffer this is
 enum EBufferType
@@ -23,6 +23,14 @@ enum EBufferUse
 	STREAM_DRAW		// Vertex data will change almost every frame
 };
 
+/**
+ * Class for dynamic vertex buffers - General logic is as follows:
+ * 1. Allocate each element per vertex using AddElement
+ * 2. Pre-allocate space using AllocateVertices
+ * 3. Add a vertex using AddVertex
+ * 4. Fill in the currently add vertex using AddData and give in the 
+ *    element ID you got from step 1.
+ */
 class CORE_API VVertexBuffer
 {
 	// So we can store elements and their sizes
@@ -59,6 +67,8 @@ private:
 	uint32 BufferTypeToGL();
 	uint32 BufferUsageToGL();
 
+	// Resizes Data array to NewSize where NewSize = size in bytes of new array
+	void Resize(int32 NewSize);
 public:
 	VVertexBuffer(EBufferType type = ARRAY_BUFFER, EBufferUse useage = STATIC_DRAW);
 	~VVertexBuffer();
@@ -78,6 +88,10 @@ public:
 	// Frees all data
 	void Flush();
 
+	// Allocate space for specified number of vertices
+	// Allocates data array to be VertexSize * Count
+	void AllocateVertices(int32 Count);
+
 	// Adds an element and returns the id of it
 	template<typename T>
 	int AddElement()
@@ -89,6 +103,15 @@ public:
 	// Actual AddElement implementation
 	int AddElement(int32 SizeOfElement);
 
-	//Add Data
+	// Adds 1 to the Count
+	void AddVertex();
 
+	// Add the data to the vertex
+	template <typename T>
+	void AddData(const T& data, int32 elementID)
+	{
+		AddData((const void*)&data, elementID);
+	}
+
+	void AddData(const void* data, int32 elementID);
 };
