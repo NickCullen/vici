@@ -1,6 +1,8 @@
 #include "Shader.h"
 #include "GL/glew.h"
 #include <string>
+#include "TextFile.h"
+
 
 // init statics
 char* VShader::CommonCode = nullptr;
@@ -43,18 +45,18 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 	strcpy(VPath, vertexShaderPath);
 	strcpy(FPath, fragShaderPath);
 
-	TextFile vs = TextFile(VPath);
-	TextFile fs = TextFile(FPath);
+	VTextFile vs = VTextFile(VPath);
+	VTextFile fs = VTextFile(FPath);
 
 	if (!vs.IsLoaded())
 	{
-		printf("\n\nERROR: file: %s not found -  ", _v_path);
-		return;
+		printf("\n\nERROR: file: %s not found -  ", VPath);
+		return false;
 	}
 	if (!fs.IsLoaded())
 	{
-		printf("\n\nERROR: file: %s not found -  ", _f_path);
-		return;
+		printf("\n\nERROR: file: %s not found -  ", VPath);
+		return false;
 	}
 
 	char *vv = NULL;
@@ -65,27 +67,27 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 	bool delete_ff = false;
 
 	//check if vertex shader requires common code
-	char* vertex_common = strstr((char*)vs, "#include common");
-	if (vertex_common != NULL)
+	char* vertexCommon = strstr((char*)vs, "#include common");
+	if (vertexCommon != NULL)
 	{
 		//number of characters to copy before splitting code
-		int32 pre_text_size = (int32)(vertex_common - (char*)vs);
+		int32 pre_text_size = (int32)(vertexCommon - (char*)vs);
 
 		//cycle until new line
-		while (*vertex_common != '\n')
-			vertex_common++;
+		while (*vertexCommon != '\n')
+			vertexCommon++;
 
 		//++ 1 more to get rid of new line
-		vertex_common++;
+		vertexCommon++;
 
 		//allocate enough space in vv
-		vv = new char[pre_text_size + strlen(_common_code) + strlen(vertex_common) + 1];
+		vv = new char[pre_text_size + strlen(CommonCode) + strlen(vertexCommon) + 1];
 		
 		//copy over a number of chars frm original string
 		strncpy(vv, (char*)fs, pre_text_size);
 		ff[pre_text_size] = '\0';
-		strcat(vv, _common_code);
-		strcat(vv, vertex_common);
+		strcat(vv, CommonCode);
+		strcat(vv, vertexCommon);
 
 		//set to true
 		delete_vv = true;
@@ -96,27 +98,27 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 	}
 
 	//check if frag shader requires common code
-	char* frag_common = strstr((char*)fs, "#include common");
-	if (frag_common != NULL)
+	char* fragCommon = strstr((char*)fs, "#include common");
+	if (fragCommon != NULL)
 	{
 		//number of characters to copy before splitting code
-		int32 pre_text_size = (int32)(frag_common - (char*)fs);
+		int32 pre_text_size = (int32)(fragCommon - (char*)fs);
 
 		//cycle until new line
-		while (*frag_common != '\n')
-			frag_common++;
+		while (*fragCommon != '\n')
+			fragCommon++;
 
 		//++ 1 more to get rid of new line
-		frag_common++;
+		fragCommon++;
 
 		//allocate enough space in vv
-		ff = new char[pre_text_size + strlen(_common_code) + strlen(frag_common) + 1];
+		ff = new char[pre_text_size + strlen(CommonCode) + strlen(fragCommon) + 1];
 
 		//copy over a number of chars frm original string
 		strncpy(ff, (char*)fs, pre_text_size);
 		ff[pre_text_size] = '\0';
-		strcat(ff, _common_code);
-		strcat(ff, frag_common);
+		strcat(ff, CommonCode);
+		strcat(ff, fragCommon);
 
 		//set to true
 		delete_ff = true;
@@ -127,35 +129,37 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 	}
 
 	//set shader source
-	glShaderSource(_v, 1, &vv, NULL);
-	glShaderSource(_f, 1, &ff, NULL);
+	glShaderSource(VHandle, 1, &vv, NULL);
+	glShaderSource(FHandle, 1, &ff, NULL);
 
 	//compile and check for errors
-	glCompileShader(_v);
-	DebugShader(_v, GL_COMPILE_STATUS);
-	glCompileShader(_f);
-	DebugShader(_f, GL_COMPILE_STATUS);
+	glCompileShader(VHandle);
+	DebugShader(VHandle, GL_COMPILE_STATUS);
+	glCompileShader(FHandle);
+	DebugShader(FHandle, GL_COMPILE_STATUS);
 
 	//create program and attach shaders
-	_program = glCreateProgram();
-	glAttachShader(_program, _v);
-	glAttachShader(_program, _f);
+	Program = glCreateProgram();
+	glAttachShader(Program, VHandle);
+	glAttachShader(Program, FHandle);
 
 	//link the shaders to program and check for error
-	glLinkProgram(_program);
+	glLinkProgram(Program);
 
 	//print any errors
-	DebugProgram(_program, GL_LINK_STATUS);
+	DebugProgram(Program, GL_LINK_STATUS);
 
 	//get the locations
 	_COMMON_SHADER_LOCATIONS(_GEN_LOCATIONS)
 
 	//set true
-	_is_loaded = true;
+	Loaded = true;
 
 	//free up if needed
-	if (delete_vv) delete(vv);
-	if (delete_ff) delete(ff);
+	if (delete_vv) delete [] vv;
+	if (delete_ff) delete [] ff;
+
+	return true;
 }
 
 
@@ -172,7 +176,7 @@ void VShader::DebugShader(ShaderHandle shader, ShaderDebugFlags checkType)
 		{
 			char* infoLog = new char[infoLen];
 			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-			printf("Error in shader %d - %s\n", _program, infoLog);
+			printf("Error in shader %d - %s\n", Program, infoLog);
 			delete(infoLog);
 		}
 	}
@@ -192,7 +196,7 @@ void VShader::DebugProgram(ShaderHandle program, ShaderDebugFlags checkType)
 		{
 			char* infoLog = new char[infoLen];
 			glGetProgramInfoLog(program, infoLen, NULL, infoLog);
-			printf("Error in program %d - %s\n", _program, infoLog);
+			printf("Error in program %d - %s\n", Program, infoLog);
 			delete(infoLog);
 		}
 	}
@@ -200,36 +204,39 @@ void VShader::DebugProgram(ShaderHandle program, ShaderDebugFlags checkType)
 
 SamplerHandle VShader::SamplerLocation(const char* id)
 {
-	return glGetUniformLocation(_program, id); 
+	return glGetUniformLocation(Program, id);
 }
 
 UniformHandle VShader::UniformLocation(const char* id)
 {
-	return glGetUniformLocation(_program, id);
+	return glGetUniformLocation(Program, id);
 }
 
-void VShader::LoadSharedCode(std::string cwd)
+UniformHandle VShader::AttributeLocation(const char* id)
 {
-	if (_common_code == NULL)
+	return glGetAttribLocation(Program, id);
+}
+void VShader::LoadSharedCode(const char* cwd)
+{
+	if (CommonCode == nullptr)
 	{
-		cwd += "/Assets/Common.shaders";
-		char buff[256];
-		strcpy(buff, _Platform->Pathify(cwd.c_str()));
+		char buff[512];
+		sprintf(buff, "%s%s", cwd, "/Assets/Common.shaders");
 
-		TextFile tf(buff);
+		VTextFile tf(buff);
 
 		if (tf.IsLoaded())
 		{
-			_common_code = new char[strlen(tf) + 1];
-			strcpy(_common_code, tf);
+			CommonCode = new char[strlen(tf) + 1];
+			strcpy(CommonCode, tf);
 		}
 	}
 }
 
 void VShader::UnloadSharedCode()
 {
-	if (_common_code != NULL)
+	if (CommonCode != NULL)
 	{
-		delete(_common_code);
+		delete [] CommonCode;
 	}
 }

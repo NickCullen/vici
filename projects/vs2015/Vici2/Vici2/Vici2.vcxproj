@@ -86,7 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -116,7 +116,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -134,7 +134,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -148,6 +148,8 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VString.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp" />
@@ -158,9 +160,12 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VTypes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h" />
   </ItemGroup>

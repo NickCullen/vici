@@ -5,17 +5,17 @@
 
 /* Macro for unrolling common shader uniform + attribute locations */
 #define _COMMON_SHADER_LOCATIONS(_GEN_) \
-	_GEN_(mvp, "uModelViewProjectionMatrix", GetUniformLocationFunc) \
-	_GEN_(mv, "uModelViewMatrix", GetUniformLocationFunc) \
-	_GEN_(model_matrix, "uModelMatrix", GetUniformLocationFunc) \
-	_GEN_(normal_matrix, "uNormalMatrix", GetUniformLocationFunc) \
-	_GEN_(time, "uTime", GetUniformLocationFunc) \
-	_GEN_(scene_ambience, "uSceneAmbience", GetUniformLocationFunc) \
-	_GEN_(vertex, "aVertex", GetAttribLocationFunc) \
-	_GEN_(uv, "aUV", GetAttribLocationFunc) \
-	_GEN_(normal, "aNormal", GetAttribLocationFunc) \
-	_GEN_(tangent, "aTangent", GetAttribLocationFunc) \
-	_GEN_(binormal, "aBinormal", GetAttribLocationFunc)
+	_GEN_(mvp, "uModelViewProjectionMatrix", UniformLocation) \
+	_GEN_(mv, "uModelViewMatrix", UniformLocation) \
+	_GEN_(model_matrix, "uModelMatrix", UniformLocation) \
+	_GEN_(normal_matrix, "uNormalMatrix", UniformLocation) \
+	_GEN_(time, "uTime", UniformLocation) \
+	_GEN_(scene_ambience, "uSceneAmbience", UniformLocation) \
+	_GEN_(vertex, "aVertex", AttributeLocation) \
+	_GEN_(uv, "aUV", AttributeLocation) \
+	_GEN_(normal, "aNormal", AttributeLocation) \
+	_GEN_(tangent, "aTangent", AttributeLocation) \
+	_GEN_(binormal, "aBinormal", AttributeLocation)
 
 /* Typedefs */
 typedef int32 ShaderHandle;
@@ -33,7 +33,7 @@ typedef uint32 ShaderDebugFlags;
 #define _GEN_GETTERS(name, a, b) inline UniformHandle name##Location(){return _##name##_loc;}
 
 /* Unrolls the input to get the location */
-#define _GEN_LOCATIONS(name, id, function) _##name##_loc = function(_program, id);
+#define _GEN_LOCATIONS(name, id, function) _##name##_loc = function(id);
 
 /**
 * Class used to load shader files and store
@@ -95,6 +95,13 @@ public:
 	* @return Integer specifying the location of the uniform 
 	*/
 	UniformHandle UniformLocation(const char* id);
+
+	/**
+	* Returns the location of the specified attribute location
+	* @param id of the attribute
+	* @return integer specifiying the location of the attribute
+	*/
+	UniformHandle AttributeLocation(const char* id);
 
 	/**
 	* Check if shader is loaded or not
