@@ -3,11 +3,14 @@
 #include "SceneView.h"
 #include "Time.h"
 #include "Window.h"
+#include "Engine.h"
 
 VEditor::VEditor()
 	:SceneView(nullptr),
 	GameView(nullptr),
-	Quit(false)
+	Quit(false),
+	IsPlaying(false),
+	Engine(nullptr)
 {
 
 }
@@ -20,8 +23,10 @@ VEditor::~VEditor()
 		delete(SceneView);
 }
 
-bool VEditor::Init(int argc, int argv)
+bool VEditor::Init(int argc, const char** argv)
 {
+	Engine = new VEngine();
+
 	GameView = new VGameView();
 	if (!GameView || !GameView->Init())
 	{
@@ -30,6 +35,12 @@ bool VEditor::Init(int argc, int argv)
 
 	SceneView = new VSceneView();
 	if (!SceneView || !SceneView->Init())
+	{
+		return false;
+	}
+
+	// Init engine at the end
+	if (!Engine->Init(argc, argv))
 	{
 		return false;
 	}
@@ -59,24 +70,33 @@ int VEditor::Run()
 		currentTime = newTime;
 		accumulator += frameTime;
 
+
 		// UPDATING --
 		while (accumulator >= dt)
 		{
 			// TODO:: Fixed update code goes here
+			if (IsPlaying)
+			{
 
+			}
 
 			t += dt;
 			accumulator -= dt;
 		}
 
 		// TODO:: Single frame update code here
+		if (IsPlaying)
+		{
 
+		}
 
 		// TODO:: Render here
 
 		// Render panels
 		for (int i = 0; i < panelCount; i++)
 		{
+			panels[i]->MakeContextCurrent();
+
 			panels[i]->Render();
 
 			panels[i]->PostRender();

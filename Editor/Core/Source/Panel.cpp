@@ -70,12 +70,6 @@ void VPanel::FileDropped(VWindow* win, VFileDropInfo* fdi)
 		panel->OnFileDropped(fdi);
 }
 
-void VPanel::Render()
-{
-	if(Window) Window->MakeCurrent();
-
-}
-
 void VPanel::PostRender()
 {
 	if (Window) Window->Swapbuffers();
@@ -84,4 +78,10 @@ void VPanel::PostRender()
 void VPanel::PollEvents()
 {
 	if (Window) Window->PollEvents();
+}
+
+void VPanel::MakeContextCurrent()
+{
+	if (Window) Window->MakeCurrent();
+
 }

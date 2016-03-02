@@ -1,5 +1,6 @@
 #include "SceneView.h"
 #include "Window.h"
+#include "Renderer.h"
 
 VSceneView::VSceneView()
 {
@@ -22,4 +23,9 @@ bool VSceneView::Init()
 	Window->SetPosition(x1, y1);
 
 	return true;
+}
+
+void VSceneView::Render()
+{
+	VRenderer::GetInstance()->ClearColor(0, 1, 0);
 }

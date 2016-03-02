@@ -1,7 +1,7 @@
 #include "Editor.h"
 
 
-int main(int argc, int argv)
+int main(int argc, const char** argv)
 {
 	VEditor editor;
 

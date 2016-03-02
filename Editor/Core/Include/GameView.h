@@ -13,5 +13,6 @@ public:
 	
 	bool Init() override;
 
+	void Render() override;
 };
 

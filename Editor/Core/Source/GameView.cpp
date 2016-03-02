@@ -1,6 +1,7 @@
 #include "GameView.h"
 #include "Window.h"
 #include <stdio.h>
+#include "Renderer.h"
 
 VGameView::VGameView()
 	: VPanel()
@@ -24,4 +25,9 @@ bool VGameView::Init()
 	Window->SetPosition(x1, y1);
 
 	return true;
+}
+
+void VGameView::Render()
+{
+	VRenderer::GetInstance()->ClearColor(1.0f, 0.0f, 0.0f);
 }

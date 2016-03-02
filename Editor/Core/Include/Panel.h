@@ -21,6 +21,7 @@ private:
 	static void FileDropped(VWindow* win, VFileDropInfo* fdi);
 
 	// Called by VEditor
+	void MakeContextCurrent();	// Set render target
 	void PostRender();
 
 	void PollEvents();
@@ -36,7 +37,7 @@ public:
 
 	virtual bool Init() = 0;
 
-	virtual void Render();
+	virtual void Render() {}
 
 	// Window event overrides
 	virtual void OnKeyPress(VButton* button) {}
