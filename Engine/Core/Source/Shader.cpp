@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "GL/glew.h"
+#include "Glew.h"
 #include <string>
 #include "TextFile.h"
 

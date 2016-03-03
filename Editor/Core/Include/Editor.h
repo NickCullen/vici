@@ -1,13 +1,15 @@
 #pragma once
 
 class VEngine;
-class VWindow;
+class VMainWindow;
 class VSceneView;
 class VGameView;
 
 class VEditor
 {
 private:
+	VMainWindow* MainWindow;
+
 	VEngine* Engine;
 
 	VSceneView* SceneView;

@@ -4,10 +4,13 @@
 #include "Time.h"
 #include "Window.h"
 #include "Engine.h"
+#include "MainWindow.h"
+#include "Renderer.h"
 
 VEditor::VEditor()
 	:SceneView(nullptr),
 	GameView(nullptr),
+	MainWindow(nullptr),
 	Quit(false),
 	IsPlaying(false),
 	Engine(nullptr)
@@ -26,11 +29,19 @@ bool VEditor::Init(int argc, const char** argv)
 {
 	Engine = VEngine::GetInstance();
 
+	MainWindow = new VMainWindow();
+	if (!MainWindow || !MainWindow->Init())
+	{
+		return false;
+	}
+	MainWindow->MakeContextCurrent();	// Set the main window to be the default context
+
 	GameView = new VGameView();
 	if (!GameView || !GameView->Init())
 	{
 		return false;
 	}
+
 
 	SceneView = new VSceneView();
 	if (!SceneView || !SceneView->Init())
@@ -55,8 +66,8 @@ int VEditor::Run()
 	float currentTime = VTime::GetTime();
 	float accumulator = 0.0f;
 
-	VPanel* panels[] = { GameView, SceneView };
-	int panelCount = 2;
+	VPanel* panels[] = { MainWindow , GameView, SceneView };
+	int panelCount = sizeof(panels) / sizeof(VPanel*);
 
 	while (!Quit)
 	{
@@ -100,7 +111,12 @@ int VEditor::Run()
 
 			panels[i]->PostRender();
 
+			VRenderer::CheckErrors();
 		}
+
+		// Swap buffers
+		//for (int i = 0; i < panelCount; i++)
+			
 
 		// Poll events
 		for (int i = 0; i < panelCount; i++)

@@ -29,6 +29,7 @@ bool VSceneView::Init()
 
 void VSceneView::Render()
 {
+	VRenderer::GetInstance()->SetViewport(0, 0, GetWidth(), GetHeight());
 	VRenderer::GetInstance()->ClearAllBuffers();
 	VRenderer::GetInstance()->ClearColor(0.1f, 0.1f, 0.1f);
 

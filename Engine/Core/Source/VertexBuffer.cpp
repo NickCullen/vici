@@ -1,5 +1,5 @@
 #include "VertexBuffer.h"
-#include "GL/glew.h"
+#include "Glew.h"
 #include <memory>
 
 VVertexBuffer::VVertexBuffer(EBufferType type, EBufferUse usage)
@@ -60,6 +60,11 @@ void VVertexBuffer::Resize(int32 NewSize)
 	MaxSize = NewSize;
 	Count = VertexSize != 0 ? Size / VertexSize : 0;
 
+}
+
+void VVertexBuffer::Bind()
+{
+	glBindBuffer(BufferTypeToGL(), VBO);
 }
 
 bool VVertexBuffer::Lock()

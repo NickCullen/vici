@@ -75,6 +75,9 @@ public:
 	VVertexBuffer(EBufferType type = ARRAY_BUFFER, EBufferUse useage = STATIC_DRAW);
 	~VVertexBuffer();
 
+	// Binds the vertex buffer
+	void Bind();
+
 	// Creates the VBO and prepares for uploading vertices
 	bool Lock();
 

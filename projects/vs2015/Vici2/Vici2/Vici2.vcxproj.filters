@@ -89,5 +89,8 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Glew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

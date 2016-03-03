@@ -28,6 +28,9 @@ private:
 protected:
 	VWindow* Window;
 
+	int Width;
+	int Height;
+
 	VWindow* CreateWindow(int width, int height, const char* title, bool border = false);
 public:
 
@@ -47,4 +50,7 @@ public:
 	virtual void OnMouseScroll(VScrollInfo* info) {}
 	virtual void OnFileDropped(VFileDropInfo* info) {}
 
+	// Getters
+	int GetWidth();
+	int GetHeight();
 };

@@ -1,8 +1,11 @@
 #include "Panel.h"
 #include "Window.h"
+#include "MainWindow.h"
 
 VPanel::VPanel()
-	:Window(nullptr)
+	:Window(nullptr),
+	Width(0),
+	Height(0)
 {
 
 }
@@ -19,8 +22,13 @@ VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool bor
 	// Make sure appropriate hints are set
 	//VWindow::SetBorderHint(border);		commented out for now
 
-	Window = new VWindow(width, height, title, false);	// Never have a full screen panel
+	// Share the context of the main window
+	Window = new VWindow(width, height, title, false, VMainWindow::GetInstance()->GetWindow());
 	Window->UserData = this;	// Make sure we store a reference to his
+
+	// Set vars
+	Width = width;
+	Height = height;
 
 	// Set callbacks
 	Window->SetKeyCallbackFn(VPanel::KeyCallbackFn);
@@ -84,4 +92,18 @@ void VPanel::MakeContextCurrent()
 {
 	if (Window) Window->MakeCurrent();
 
+}
+
+int VPanel::GetWidth()
+{
+	if (Window != nullptr)
+		Window->GetFrameBufferSize(&Width, &Height);
+	return Width;
+}
+
+int VPanel::GetHeight()
+{
+	if (Window != nullptr)
+		Window->GetFrameBufferSize(&Width, &Height);
+	return Height;
 }

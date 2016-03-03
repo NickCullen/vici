@@ -3,10 +3,14 @@
 #include "CoreAPI.h"
 #include "WindowDefs.h"
 
+
 class CORE_API VWindow
 {
 private:
 	static bool GLFWInit;
+	static int Count;	// Number of windows created
+
+	int WindowID;		// ID of this window (whatever value count is when this window is created)
 
 	NativeWindow_t NativeWindow;	// Pointer to native window
 
@@ -26,10 +30,15 @@ private:
 	static void ScrollCallbackFn(struct GLFWwindow* window, double x, double y);
 	static void FileDropCallbackFn(struct GLFWwindow* window, int count, const char** files);
 
+	static bool Init(); // Initalises library
 public:
+#ifdef GLEW_MX
+	void* glewContext;
+	static VWindow* CurrentContext;	// Pointer to the current context
+#endif
 	void* UserData;					// Pointer to user data for callbacks
 
-	VWindow(int width, int height, const char* title = "Default Window", bool fullscreen = false);
+	VWindow(int width, int height, const char* title = "Default Window", bool fullscreen = false, VWindow* parent = nullptr);
 	~VWindow();
 
 	/**
@@ -121,4 +130,5 @@ public:
 	 * Hints to set before creating windows
 	 */
 	static void SetBorderHint(bool show);
+
 };

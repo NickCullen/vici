@@ -1,5 +1,5 @@
 #include "Window.h"
-#include "GL/glew.h"
+#include "Glew.h"
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include "Input.h"
@@ -7,11 +7,22 @@
 
 // Static init
 bool VWindow::GLFWInit = false;
+int VWindow::Count = 0;
 
 // Helpful macros
 #define AS_NATIVEWIN(ptr) ((GLFWwindow*)ptr)
 
-VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
+#ifdef GLEW_MX	// Context switching stuff
+VWindow* VWindow::CurrentContext = nullptr;
+
+GLEWContext* glewGetContext()
+{
+	return (GLEWContext*)VWindow::CurrentContext->glewContext;
+}
+#endif
+
+// Definitions of glewGetContext
+VWindow::VWindow(int w, int h, const char* title, bool fullscreen, VWindow* parent)
 	:UserData(nullptr),
 	NativeWindow(nullptr),
 	KeyCallback(nullptr),
@@ -19,16 +30,23 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
 	CursorEnterCallback(nullptr),
 	CursorPosCallback(nullptr),
 	ScrollCallback(nullptr),
-	FileDropCallback(nullptr)
+	FileDropCallback(nullptr),
+	WindowID(++Count)
 {
-	// Only do if glfw is init
-	if (!GLFWInit && glfwInit())
-	{
-		glfwSetErrorCallback(VWindow::ErrorCallback);
-		GLFWInit = true;
-	}
+#ifdef GLEW_MX
+	this->glewContext = nullptr;
+	VWindow* PreviousContext = CurrentContext;
+#endif
 	
-	NativeWindow = glfwCreateWindow(w, h, title, fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
+
+	// ensure init
+	if (!Init())
+	{
+		printf("Cannot initialize window library\n");
+		return;
+	}
+
+	NativeWindow = glfwCreateWindow(w, h, title, fullscreen ? glfwGetPrimaryMonitor() : nullptr, parent ? AS_NATIVEWIN(parent->NativeWindow) : nullptr);
 	if (!NativeWindow)
 	{
 		printf("Failed to create window\n");
@@ -36,27 +54,50 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen)
 	}
 
 	// Reset hints
-	glfwDefaultWindowHints();
+	//glfwDefaultWindowHints();
 
 	// Make sure we keep a reference to this
 	glfwSetWindowUserPointer(AS_NATIVEWIN(NativeWindow), this);
 
-	// Set current so we can set VSync
-	MakeCurrent();
+	
+#ifdef GLEW_MX
+	// Create glew context
+	this->glewContext = (void*)new GLEWContext();
+#endif
 
-	// Make sure glew is initialized
+	// Set current so we can init glew for this context
+	MakeCurrent();
+	
+	// Make sure glew is initialized for this context
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
 		printf("Failed to init glew\n");
 	}
 
-	glfwSwapInterval(1);
+	//glfwSwapInterval(1);
+
+#ifdef GLEW_MX
+	CurrentContext = PreviousContext;
+	if(CurrentContext) glfwMakeContextCurrent(AS_NATIVEWIN(CurrentContext->NativeWindow));	//Set to previous
+#endif
 }
 
 VWindow::~VWindow()
 {
 	Close();	// Ensure window is closed
+}
+
+bool VWindow::Init()
+{
+	// Only do if glfw is init
+	if (!GLFWInit && glfwInit())
+	{
+		glfwSetErrorCallback(VWindow::ErrorCallback);
+
+		GLFWInit = true;
+	}
+	return true;
 }
 
 // INTERNAL CALLBACKS ---
@@ -131,6 +172,9 @@ void VWindow::SetPosition(int xPos, int yPos)
 void VWindow::MakeCurrent()
 {
 	glfwMakeContextCurrent(AS_NATIVEWIN(NativeWindow));
+#ifdef GLEW_MX
+	CurrentContext = this;
+#endif
 }
 
 bool VWindow::ShouldClose()
@@ -219,11 +263,11 @@ void VWindow::GetFrameBufferSize(int* width, int* height)
 
 void VWindow::GetPrimaryMonitorSize(int* width, int* height)
 {
-	// Ensure init
-	if (!GLFWInit && glfwInit())
+	// ensure init
+	if (!Init())
 	{
-		glfwSetErrorCallback(VWindow::ErrorCallback);
-		GLFWInit = true;
+		printf("Cannot initialize window library\n");
+		return;
 	}
 
 	const GLFWvidmode* data = glfwGetVideoMode(glfwGetPrimaryMonitor());
