@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include "Input.h"
-
+#include "Renderer.h"
 
 // Static init
 bool VWindow::GLFWInit = false;
@@ -77,10 +77,7 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen, VWindow* pare
 
 	//glfwSwapInterval(1);
 
-#ifdef GLEW_MX
-	CurrentContext = PreviousContext;
-	if(CurrentContext) glfwMakeContextCurrent(AS_NATIVEWIN(CurrentContext->NativeWindow));	//Set to previous
-#endif
+	MakeCurrent(PreviousContext);
 }
 
 VWindow::~VWindow()
@@ -172,9 +169,24 @@ void VWindow::SetPosition(int xPos, int yPos)
 void VWindow::MakeCurrent()
 {
 	glfwMakeContextCurrent(AS_NATIVEWIN(NativeWindow));
+	// Window ID starts at 1 so we need to negate it for 0 arrays
+	VRenderer::GetInstance()->SetContextID(WindowID - 1);
 #ifdef GLEW_MX
 	CurrentContext = this;
 #endif
+}
+
+void VWindow::MakeCurrent(VWindow* ctx)
+{
+	if (ctx != nullptr)
+	{
+		glfwMakeContextCurrent(AS_NATIVEWIN(ctx->NativeWindow));
+		// Window ID starts at 1 so we need to negate it for 0 arrays
+		VRenderer::GetInstance()->SetContextID(ctx->WindowID - 1);
+#ifdef GLEW_MX
+		CurrentContext = ctx;
+#endif
+	}
 }
 
 bool VWindow::ShouldClose()

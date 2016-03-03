@@ -31,6 +31,11 @@ private:
 	static void FileDropCallbackFn(struct GLFWwindow* window, int count, const char** files);
 
 	static bool Init(); // Initalises library
+
+	/**
+	* Overloaded MakeCurrent function for internal use
+	*/
+	void MakeCurrent(VWindow* ctx);
 public:
 #ifdef GLEW_MX
 	void* glewContext;

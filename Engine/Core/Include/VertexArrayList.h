@@ -7,8 +7,15 @@
 
 typedef uint32 VAO_t;
 
-// Delegate definitions
-typedef VDelegate<void(*)(class VVertexArrayList*)> UpdateVertexListDelegate;
+/**
+ * Objects that manage Vertex array lists must
+ * implement a VertexArrayHandler interface
+ */
+class CORE_API IVertexArrayHandler 
+{
+public:
+	virtual void BindArrays(const class VVertexArrayList& list) = 0;
+};
 
 class CORE_API VVertexArrayList
 {
@@ -22,7 +29,7 @@ private:
 
 	VAOInstance VAO[MAX_RENDER_CONTEXTS];	// 1 VAO per render contexts
 
-	UpdateVertexListDelegate OnUpdateVertexListDelegate;	// Called when vertex list needs updating
+	IVertexArrayHandler* Handler;	// Handler for this array;
 
 	/**
 	* Checks all VAOS for this VertexArrayList
@@ -38,6 +45,7 @@ private:
 	void AllocVAOAndNotify();
 public:
 	VVertexArrayList();
+	VVertexArrayList(IVertexArrayHandler* handler);
 
 	~VVertexArrayList();
 
@@ -48,4 +56,9 @@ public:
 	* can rebind all the vertex arrays
 	*/
 	void Bind();
+
+	/** 
+	 * Sets the handler for this object
+	 */
+	void SetHandler(IVertexArrayHandler* handler) { Handler = handler; }
 };
