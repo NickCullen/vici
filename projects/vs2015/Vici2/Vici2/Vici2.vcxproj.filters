@@ -1,96 +1,123 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Core">
+      <UniqueIdentifier>{67badb58-229d-4e65-8d09-08f5577ff486}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Core\Graphics">
+      <UniqueIdentifier>{f521d9af-0edd-4c8e-a64e-d9d5ab78f3a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Core\Graphics\Include">
+      <UniqueIdentifier>{92ce82c4-1808-46f3-bf40-4babe7605fd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Graphics\Source">
+      <UniqueIdentifier>{29881860-964c-4362-b5dd-ffa2bfb2e880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Graphics\Private">
+      <UniqueIdentifier>{9093d46a-ba93-4b9f-bc8b-26a002b33187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine">
+      <UniqueIdentifier>{bcfe195d-87ac-441f-9d88-148423770b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Source">
+      <UniqueIdentifier>{a0eda228-3983-44a4-93d8-9942c183e677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Include">
+      <UniqueIdentifier>{732bdcbb-1208-4eec-9c5d-832c258f0edc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Private">
+      <UniqueIdentifier>{4b2d3fe0-e094-4350-a548-97eed6a70e42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\File">
+      <UniqueIdentifier>{ec372b63-98ef-48d2-9226-14db2a7b202c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\File\Include">
+      <UniqueIdentifier>{22cc964a-f3fe-415b-93ef-4e9fc48cd9b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\File\Private">
+      <UniqueIdentifier>{3585e9ae-417a-4002-8310-970e035610e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\File\Source">
+      <UniqueIdentifier>{2270c3a6-f3e3-4785-a9fd-e6893b8020d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\VString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Input.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\VString.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp">
+      <Filter>Core\File\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Engine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h">
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h">
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\VTypes.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\Engine\Core\Private\Glew.h">
+      <Filter>Core\Graphics\Private</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h">
+      <Filter>Core\Engine\Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Glew.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Engine.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VTypes.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h">
+      <Filter>Core\File\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,21 +5,11 @@
 #include "Shader.h"
 #include "VertexBuffer.h"
 #include "Glew.h"
+#include "Vector3.h"
 
 VShader* Shader;
 VVertexBuffer* VertexBuffer;
 GLuint vao[3];
-
-struct VEC2
-{
-	float x;
-	float y;
-
-	VEC2(float _x, float _y)
-	{
-		x = _x; y = _y;
-	}
-};
 
 VEngine::VEngine()
 	:VSingleton(this)
@@ -41,6 +31,7 @@ bool VEngine::Init(int argc, const char** argv)
 						  0.5f, -0.5f,
 						 -0.5f, -0.5f };
 
+	
 	const char* vPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.vert";
 	const char* fPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.frag";
 	Shader = new VShader();
@@ -65,13 +56,14 @@ int max = 3;
 
 void VEngine::Render()
 {
-
+	
 	if(vao[count] == 0)
 		glGenVertexArrays(1, &vao[count]);
 	glBindVertexArray(vao[count]);
 	VertexBuffer->Bind();
 
-	int32 posAttrib = Shader->PositionLocation();
+	int32 posAttrib = Shader->GetPositionLocation();
+	
 	glEnableVertexAttribArray(posAttrib);
 	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	

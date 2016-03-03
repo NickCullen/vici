@@ -24,16 +24,16 @@ typedef int32 SamplerHandle;
 typedef uint32 ShaderDebugFlags;
 
 /* Sets all locations to intial -1 */
-#define _GEN_DEFAULT_VAL(variable, a ,b) _##variable##_loc = -1;
+#define _GEN_DEFAULT_VAL(variable, a ,b) variable##Location = -1;
 
 /* Unrolls the input to generate member variables */
-#define _GEN_MEMBERS(name, a, b) UniformHandle _##name##_loc;
+#define _GEN_MEMBERS(name, a, b) UniformHandle name##Location;
 
 /* Unrolls the input to generate getters */
-#define _GEN_GETTERS(name, a, b) inline UniformHandle name##Location(){return _##name##_loc;}
+#define _GEN_GETTERS(name, a, b) inline UniformHandle Get##name##Location(){return name##Location;}
 
 /* Unrolls the input to get the location */
-#define _GEN_LOCATIONS(name, id, function) _##name##_loc = function(id);
+#define _GEN_LOCATIONS(name, id, function) name##Location = function(id);
 
 /**
 * Class used to load shader files and store

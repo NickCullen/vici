@@ -24,6 +24,16 @@ enum EBufferUse
 };
 
 /**
+ * Structure that holds info about each
+ * interleaved element per vertex
+ */
+struct VVertexElement
+{
+	int32 Size;				// Sizeof this element
+	int32 Offset;			// Offset (in bytes) from the first element
+};
+
+/**
  * Class for dynamic vertex buffers - General logic is as follows:
  * 1. Allocate each element per vertex using AddElement
  * 2. Pre-allocate space using AllocateVertices
@@ -35,13 +45,6 @@ enum EBufferUse
  */
 class CORE_API VVertexBuffer
 {
-	// So we can store elements and their sizes
-	struct VVertexElement
-	{
-		int32 Size;				// Sizeof this element
-		int32 Offset;			// Offset (in bytes) from the first element
-	};
-
 private:
 	
 	void* Data;	// Vertex data in memory

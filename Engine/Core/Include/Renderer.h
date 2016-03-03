@@ -2,25 +2,28 @@
 
 #include "CoreAPI.h"
 #include "Singleton.h"
+#include "VTypes.h"
 
 class CORE_API VRenderer : public VSingleton<VRenderer>
 {
 private:
-
+	int32 ContextID;	// The id of the current context  (0 is default)
 public:
 	VRenderer();
 	~VRenderer();
 
 	static bool Init();
 	static void GetVersionString(const char** str);
-	static void GetVersionNumber(int* major, int* minor);
+	static void GetVersionNumber(int32* major, int32* minor);
 	static void CheckErrors(const char* message = nullptr);
 
-	void ClearColor(float r, float g, float b, float a = 1.0f);
+	void ClearColor(float32 r, float32 g, float32 b, float32 a = 1.0f);
 	void ClearDepthBuffer();
 	void ClearColorBuffer();
 	void ClearAllBuffers();
 
-	void SetViewport(int x, int y, int width, int height);
+	void SetViewport(int32 x, int32 y, int32 width, int32 height);
+	void SetContextID(int32 id);
 
+	inline int32 GetContextID() { return ContextID; }
 };

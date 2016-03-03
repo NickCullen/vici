@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{84528993-50C7-4342-A782-72F404B26998}</ProjectGuid>
-    <RootNamespace>Vici2</RootNamespace>
+    <ProjectGuid>{72E770F3-F1C3-4228-BAE4-811BCFF34029}</ProjectGuid>
+    <RootNamespace>Math</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -85,13 +85,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Math\Math\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>Math_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -99,13 +97,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Math\Math\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>Math_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,15 +111,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Math\Math\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>Math_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,52 +127,38 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Math\Math\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>Math_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexBuffer.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\VString.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Line.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\MathAPI.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Mathf.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\MathLib.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Matrix2.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Matrix3.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Matrix4.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Plane.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Vector2.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Vector3.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Vector4.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Engine.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\VTypes.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Private\Glew.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Input.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Math\Math.vcxproj">
-      <Project>{72e770f3-f1c3-4228-bae4-811bcff34029}</Project>
-    </ProjectReference>
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Line.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Mathf.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Matrix2.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Matrix3.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Matrix4.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Plane.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Vector2.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Vector3.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Vector4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

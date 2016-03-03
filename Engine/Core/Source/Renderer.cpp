@@ -3,7 +3,8 @@
 #include <stdio.h>
 
 VRenderer::VRenderer() 
-	:VSingleton(this)
+	:VSingleton(this),
+	ContextID(0)
 {
 
 }
@@ -24,7 +25,7 @@ void VRenderer::GetVersionString(const char** str)
 	*str = (const char*)glGetString(GL_VERSION);
 }
 
-void VRenderer::GetVersionNumber(int* major, int* minor)
+void VRenderer::GetVersionNumber(int32* major, int32* minor)
 {
 	glGetIntegerv(GL_MAJOR_VERSION, major);
 	glGetIntegerv(GL_MINOR_VERSION, minor);
@@ -43,7 +44,7 @@ void VRenderer::CheckErrors(const char* message)
 	}
 }
 
-void VRenderer::ClearColor(float r, float g, float b, float a)
+void VRenderer::ClearColor(float32 r, float32 g, float32 b, float32 a)
 {
 	glClearColor(r, g, b, a);
 }
@@ -63,7 +64,12 @@ void VRenderer::ClearAllBuffers()
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
 
-void VRenderer::SetViewport(int x, int y, int width, int height)
+void VRenderer::SetViewport(int32 x, int32 y, int32 width, int32 height)
 {
 	glViewport(x, y, width, height);
+}
+
+void VRenderer::SetContextID(int32 id)
+{
+	ContextID = id;
 }

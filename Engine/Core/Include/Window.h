@@ -131,4 +131,8 @@ public:
 	 */
 	static void SetBorderHint(bool show);
 
+	/** 
+	* Returns the ID of this window
+	*/
+	inline int GetID() { return WindowID; }
 };
