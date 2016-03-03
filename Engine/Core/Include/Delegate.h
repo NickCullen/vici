@@ -3,12 +3,14 @@
 // Credit: https://github.com/marcmo/delegates/
 // Modified to follow engine style
 
+#include "CoreAPI.h"
+
 // we have C++11 support...yeah!
 /**
  * non specialized template declaration for delegate
  */
 template <typename T>
-class VDelegate;
+class CORE_API VDelegate;
 
 /**
  * specialization for member functions
@@ -19,7 +21,7 @@ class VDelegate;
  *                      of the captured function
  */
 template <typename T, typename R, typename... Params>
-class VDelegate<R (T::*)(Params...)>
+class CORE_API VDelegate<R (T::*)(Params...)>
 {
 public:
     typedef R (T::*func_type)(Params...);
@@ -52,7 +54,7 @@ private:
  * specialization for const member functions
  */
 template <typename T, typename R, typename... Params>
-class VDelegate<R (T::*)(Params...) const>
+class CORE_API VDelegate<R (T::*)(Params...) const>
 {
 public:
     typedef R (T::*func_type)(Params...) const;
@@ -89,7 +91,7 @@ private:
  *                      of the captured function
  */
 template <typename R, typename... Params>
-class VDelegate<R (*)(Params...)>
+class CORE_API VDelegate<R (*)(Params...)>
 {
 public:
     typedef R (*func_type)(Params...);

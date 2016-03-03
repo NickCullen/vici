@@ -128,5 +128,8 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Delegate.h">
       <Filter>Core\Engine\Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineConstants.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

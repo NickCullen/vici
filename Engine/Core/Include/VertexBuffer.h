@@ -2,11 +2,10 @@
 
 #include "CoreAPI.h"
 #include "VTypes.h"
+#include "EngineConstants.h"
 
 typedef uint32 VBO_t;
 
-// max number of elements per vertex
-static const int MAX_BUFFER_ELEMENTS = 16;
 
 // Defines what type of buffer this is
 enum EBufferType
@@ -49,7 +48,7 @@ private:
 	
 	void* Data;	// Vertex data in memory
 
-	VVertexElement Elements[MAX_BUFFER_ELEMENTS];	// Array of elements
+	VVertexElement Elements[MAX_ELEMENTS_PER_VERTEX];	// Array of elements
 
 	int32 NumOfElements;	// Number of elements in this buffer object
 

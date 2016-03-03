@@ -6,9 +6,12 @@
 #include "VertexBuffer.h"
 #include "Glew.h"
 #include "Vector3.h"
+#include "VertexArrayList.h"
 
 VShader* Shader;
 VVertexBuffer* VertexBuffer;
+VVertexArrayList* VertexArrayList;
+
 GLuint vao[3];
 
 VEngine::VEngine()
@@ -32,6 +35,10 @@ bool VEngine::Init(int argc, const char** argv)
 						 -0.5f, -0.5f };
 
 	
+	VertexArrayList = new VVertexArrayList();
+
+	VertexArrayList->Bind();
+
 	const char* vPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.vert";
 	const char* fPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.frag";
 	Shader = new VShader();

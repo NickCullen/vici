@@ -118,7 +118,7 @@ void VVertexBuffer::AllocateVertices(int32 Count)
 int VVertexBuffer::AddElement(int32 SizeOfElement)
 {
 	// Cannot create more than MAX_BUFFER_ELEMENTS
-	if (NumOfElements + 1 > MAX_BUFFER_ELEMENTS)
+	if (NumOfElements + 1 > MAX_ELEMENTS_PER_VERTEX)
 		return -1;
 
 	int32 id = NumOfElements;	// ID Is equal to number of elements
