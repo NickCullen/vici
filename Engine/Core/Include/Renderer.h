@@ -7,7 +7,7 @@
 class CORE_API VRenderer : public VSingleton<VRenderer>
 {
 private:
-	int32 ContextID;	// The id of the current context  (0 is default)
+	uint32 ContextID;	// The id of the current context  (0 is default)
 public:
 	VRenderer();
 	~VRenderer();
@@ -23,7 +23,7 @@ public:
 	void ClearAllBuffers();
 
 	void SetViewport(int32 x, int32 y, int32 width, int32 height);
-	void SetContextID(int32 id);
+	void SetContextID(uint32 id);
 
-	inline int32 GetContextID() { return ContextID; }
+	inline uint32 GetContextID() { return ContextID; }
 };

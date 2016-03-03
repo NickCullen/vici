@@ -72,6 +72,9 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp">
       <Filter>Core\File\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexArrayList.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -118,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h">
       <Filter>Core\File\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexArrayList.h">
+      <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Delegate.h">
+      <Filter>Core\Engine\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

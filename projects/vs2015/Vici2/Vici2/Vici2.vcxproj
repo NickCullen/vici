@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexArrayList.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexBuffer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Delegate.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Engine.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexArrayList.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />

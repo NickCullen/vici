@@ -69,7 +69,7 @@ void VRenderer::SetViewport(int32 x, int32 y, int32 width, int32 height)
 	glViewport(x, y, width, height);
 }
 
-void VRenderer::SetContextID(int32 id)
+void VRenderer::SetContextID(uint32 id)
 {
 	ContextID = id;
 }
