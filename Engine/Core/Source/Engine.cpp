@@ -69,7 +69,6 @@ bool VEngine::Init(int argc, const char** argv)
 		VertexBuffer->Unlock();
 	}
 
-	// Create the links
 	VertexArrayList->Bind();
 
 	return true;

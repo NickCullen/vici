@@ -19,15 +19,10 @@ public:
 
 class CORE_API VVertexArrayList
 {
-	struct VAOInstance
-	{
-		VAO_t VAO;	// The GL reference to the vertex array
-		int32 Context;	// The ID of the context this VAO has been set for
-	};
 
 private:
 
-	VAOInstance VAO[MAX_RENDER_CONTEXTS];	// 1 VAO per render contexts
+	VAO_t VAO[MAX_RENDER_CONTEXTS];	// 1 VAO per render context
 
 	IVertexArrayHandler* Handler;	// Handler for this array;
 
@@ -56,6 +51,14 @@ public:
 	* can rebind all the vertex arrays
 	*/
 	void Bind();
+
+	/**
+	* Does the same as Bind but doesn't notify
+	* the vertex array handler. This may be useful if 
+	* You want to bind the array object and then set up
+	* your array data
+	*/
+	void BindNoNotify();
 
 	/** 
 	 * Sets the handler for this object

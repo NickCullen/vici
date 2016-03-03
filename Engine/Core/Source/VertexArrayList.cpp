@@ -5,15 +5,11 @@
 VVertexArrayList::VVertexArrayList()
 	:Handler(nullptr)
 {
-	for (int i = 0; i < MAX_RENDER_CONTEXTS; i++)
-		VAO[i].Context = -1;
 }
 
 VVertexArrayList::VVertexArrayList(IVertexArrayHandler* handler)
 	:Handler(handler)
 {
-	for (int i = 0; i < MAX_RENDER_CONTEXTS; i++)
-		VAO[i].Context = -1;
 }
 
 VVertexArrayList::~VVertexArrayList()
@@ -24,16 +20,15 @@ VVertexArrayList::~VVertexArrayList()
 bool VVertexArrayList::DoesVAOExist()
 {
 	// if not equal to -1 then this VAO has been allocated for this context
-	return VAO[VRenderer::GetInstance()->GetContextID()].Context != -1 ? true : false;
+	return VAO[VRenderer::GetInstance()->GetContextID()] != 0 ? true : false;
 }
 
 void VVertexArrayList::AllocVAOAndNotify()
 {
 	int32 currentContextID = VRenderer::GetInstance()->GetContextID();
-	VAO[currentContextID].Context = currentContextID;
 
-	glGenVertexArrays(1, &VAO[currentContextID].VAO);
-	glBindVertexArray(VAO[currentContextID].VAO);
+	glGenVertexArrays(1, &VAO[currentContextID]);
+	glBindVertexArray(VAO[currentContextID]);
 
 	// Notify handler to bind arrays
 	Handler->BindArrays(*this);
@@ -46,7 +41,16 @@ void VVertexArrayList::Bind()
 	else
 	{
 		int32 currentContextID = VRenderer::GetInstance()->GetContextID();
-		glBindVertexArray(VAO[currentContextID].VAO);
+		glBindVertexArray(VAO[currentContextID]);
 	}
 
+}
+
+void VVertexArrayList::BindNoNotify()
+{
+	int32 currentContextID = VRenderer::GetInstance()->GetContextID();
+	if (!DoesVAOExist())
+		glGenVertexArrays(1, &VAO[currentContextID]);
+
+	glBindVertexArray(VAO[currentContextID]);
 }
