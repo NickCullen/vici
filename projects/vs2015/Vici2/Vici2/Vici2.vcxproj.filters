@@ -81,6 +81,12 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\PrimitiveShapes.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Buffer.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\IndexBuffer.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -141,6 +147,12 @@
       <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h">
+      <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Buffer.h">
+      <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\IndexBuffer.h">
       <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
   </ItemGroup>

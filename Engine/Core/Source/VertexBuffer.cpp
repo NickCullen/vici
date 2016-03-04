@@ -3,122 +3,27 @@
 #include <memory>
 #include "Shader.h"
 
-VVertexBuffer::VVertexBuffer(EBufferType type, EBufferUse usage)
-	:Data(nullptr),
+VVertexBuffer::VVertexBuffer(EBufferUse usage)
+	:VBuffer(ARRAY_BUFFER, usage),
 	NumOfElements(0),
-	VertexSize(0),
-	VBO(0),
-	Type(type),
-	Usage(usage),
-	Size(0),
-	MaxSize(0),
-	Count(0)
+	VertexSize(0)
 {
 
 }
 
 VVertexBuffer::~VVertexBuffer()
 {
-	// Make sure we clean up after ourselves
-	Flush();
-}
-
-uint32 VVertexBuffer::BufferTypeToGL()
-{
-	switch (Type)
-	{
-		case ARRAY_BUFFER:		return GL_ARRAY_BUFFER;
-		case ELEMENT_BUFFER:	return GL_ELEMENT_ARRAY_BUFFER;
-		default:				return GL_ARRAY_BUFFER;		// Assume array buffer
-	}
-}
-
-uint32 VVertexBuffer::BufferUsageToGL()
-{
-	switch (Usage)
-	{
-		case STATIC_DRAW:		return GL_STATIC_DRAW;
-		case DYNAMIC_DRAW:	return GL_DYNAMIC_DRAW;
-		case STREAM_DRAW:		return GL_STREAM_DRAW;
-		default:				return GL_STATIC_DRAW;	// Assume static
-	}
-}
-
-uint32 VVertexBuffer::ElementTypeToGL(const EElementType type)
-{
-	switch (type)
-	{
-		case ELEM_TYPE_FLOAT: return GL_FLOAT;
-		case ELEM_TYPE_INT: return GL_INT;
-		default: return GL_FLOAT;	// Assume float
-	}
-}
-
-void VVertexBuffer::Resize(int32 NewSize)
-{
-	// Make sure Size doesnt exceed NewSize for when we copy data over
-	if (NewSize < Size) Size = NewSize;
-
-	void* NewData = (void*)new int8[NewSize];	// Allocate
-
-	if (Size > 0)
-	{
-		memcpy(NewData, Data, Size);	// Copy over data
-		delete[] Data;
-	}
-	
-	Data = NewData;
-	MaxSize = NewSize;
-	Count = VertexSize != 0 ? Size / VertexSize : 0;
 
 }
 
-void VVertexBuffer::Bind()
+int32 VVertexBuffer::GetSingleItemDataSize()
 {
-	glBindBuffer(BufferTypeToGL(), VBO);
+	return VertexSize;
 }
 
-bool VVertexBuffer::Lock()
+void VVertexBuffer::SetSingleItemDataSize(int32 size)
 {
-	FlushGPUMemory();
-	glGenBuffers(1, &VBO);
-
-	if (VBO <= 0)
-		return false;
-
-	glBindBuffer(BufferTypeToGL(), VBO);
-
-	return true;
-}
-
-void VVertexBuffer::Unlock()
-{
-	glBufferData(BufferTypeToGL(), Size, Data, BufferUsageToGL());
-}
-
-void VVertexBuffer::FlushClientMemory()
-{
-	if (Data != nullptr)
-	{
-		delete[] Data;
-		Data = nullptr;
-		Count = Size = MaxSize = 0;
-	}
-}
-
-void VVertexBuffer::FlushGPUMemory()
-{
-	if (VBO > 0)
-	{
-		glDeleteBuffers(1, &VBO);
-		VBO = 0;
-	}
-}
-
-void VVertexBuffer::Flush()
-{
-	FlushGPUMemory();
-	FlushClientMemory();
+	VertexSize = size;
 }
 
 void VVertexBuffer::AllocateVertices(int32 Count)
@@ -178,18 +83,6 @@ void VVertexBuffer::AddData(const void* data, int32 elementID)
 	VVertexElement* ve = &Elements[elementID];
 
 	memcpy((int8*)Data + vertexIndex + ve->Offset, data, ve->Size);
-}
-
-void VVertexBuffer::FromArray(void* data, int32 size, int32 sizePerVertex)
-{
-	FlushClientMemory();	// Make sure we're cleaned out
-
-	VertexSize = sizePerVertex;
-	Size = MaxSize = size;
-	Count = size / sizePerVertex;
-
-	Data = (void*)new int8[Size];
-	memcpy(Data, data, Size);
 }
 
 void VVertexBuffer::SetElementsInShader(VShader* shader)

@@ -33,7 +33,7 @@ bool VEngine::Init(int argc, const char** argv)
 	if (!VRenderer::Init())
 		return false;
 
-	Mesh = VPrimitiveShapes::CreateTriangle();
+	Mesh = VPrimitiveShapes::CreateQuad();
 
 	const char* vPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.vert";
 	const char* fPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.frag";
@@ -51,7 +51,4 @@ bool VEngine::Init(int argc, const char** argv)
 void VEngine::Render()
 {
 	Mesh->Render();
-
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
 }
