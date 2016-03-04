@@ -87,6 +87,15 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\IndexBuffer.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\VTypes.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture2D.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -153,6 +162,12 @@
       <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\IndexBuffer.h">
+      <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Texture.h">
+      <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Texture2D.h">
       <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
   </ItemGroup>

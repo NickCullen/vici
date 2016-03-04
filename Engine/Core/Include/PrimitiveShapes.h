@@ -17,6 +17,8 @@ public:
 
 	~VPrimitiveShapes();
 
+	
 	static VMesh* CreateTriangle();
-	static VMesh* CreateQuad();
+	static VMesh* CreateSquare();
+	static VMesh* CreateQuad();		// Quad differs from square such that it contains UV info
 };

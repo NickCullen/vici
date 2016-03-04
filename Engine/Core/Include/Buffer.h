@@ -22,14 +22,6 @@ enum EBufferUse
 	STREAM_DRAW		// Vertex data will change almost every frame
 };
 
-// Type of value in an element
-enum EElementType
-{
-	ELEM_TYPE_FLOAT,
-	ELEM_TYPE_INT,
-	ELEM_TYPE_UNSIGNED_INT
-};
-
 /** 
  * Base class for Vertex and Index buffers
  */
@@ -76,9 +68,6 @@ public:
 	VBuffer(EBufferType type, EBufferUse usage);
 
 	virtual ~VBuffer();
-
-	// Converts the specified input type to its respective GLEnum
-	static uint32 ElementTypeToGL(const EElementType type);
 
 	// Binds the vertex buffer
 	void Bind();

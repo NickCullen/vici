@@ -52,26 +52,62 @@ VMesh* VPrimitiveShapes::CreateFromData(void* data, int sizeOfData, int sizePerV
 
 VMesh* VPrimitiveShapes::CreateTriangle()
 {
-	// Pos3
+	// Pos 2
 	static float32 vertexData[] = {
-		0.0f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f 
+		0.0f, 0.5f,
+		-0.5f, -0.5f,
+		0.5f, -0.5f 
 	};
 
 	static uint32 indexData[] = {
 		0, 1, 2
 	};
 
-	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * 3, indexData, 3);
+	static const int8 NUM_COMPONENTS = 2;
+
+	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * NUM_COMPONENTS, indexData, 3);
 	if (mesh)
 	{
 		VVertexBuffer* vb = mesh->VertexBuffer;
 
 		// Set vertex element info so it knows how to send to the 
 		// shader vertex array
-		int32 posID = vb->AddElement(sizeof(float32) * 3, false);
-		vb->SetElementInfo(posID, VElementInfo(SHADER_IN_POSITION_ID, 3));
+		int32 posID = vb->AddElement(sizeof(float32) * NUM_COMPONENTS, false);
+		vb->SetElementInfo(posID, VElementInfo(SHADER_IN_POSITION_ID, NUM_COMPONENTS));
+
+		// Return the mesh
+		return mesh;
+	}
+	else
+		return nullptr;
+}
+
+VMesh* VPrimitiveShapes::CreateSquare()
+{
+	// Pos2 
+	static float32 vertexData[] = {
+		-0.5f, 0.5f,
+		-0.5f, -0.5f,
+		0.5f, -0.5f,
+		0.5f, 0.5f
+	};
+
+	static uint32 indexData[] = {
+		0, 1, 2,
+		3, 0, 2
+	};
+
+	static const int8 NUM_COMPONENTS = 2;
+
+	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * NUM_COMPONENTS, indexData, 6);
+	if (mesh)
+	{
+		VVertexBuffer* vb = mesh->VertexBuffer;
+
+		// Set vertex element info so it knows how to send to the 
+		// shader vertex array
+		int32 posID = vb->AddElement(sizeof(float32) * NUM_COMPONENTS, false);
+		vb->SetElementInfo(posID, VElementInfo(SHADER_IN_POSITION_ID, NUM_COMPONENTS));
 
 		// Return the mesh
 		return mesh;
@@ -82,12 +118,12 @@ VMesh* VPrimitiveShapes::CreateTriangle()
 
 VMesh* VPrimitiveShapes::CreateQuad()
 {
-	// Pos3 
+	// Pos2 / uv2
 	static float32 vertexData[] = {
-		-0.5f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f
+		-0.5f, 0.5f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.0f, 0.0f,
+		0.5f, -0.5f, 1.0f, 0.0f,
+		0.5f, 0.5f, 1.0f, 1.0f,
 	};
 
 	static uint32 indexData[] = {
@@ -95,16 +131,18 @@ VMesh* VPrimitiveShapes::CreateQuad()
 		3, 0, 2
 	};
 
-	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * 3, indexData, 6);
+	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * 4, indexData, 6);
 	if (mesh)
 	{
 		VVertexBuffer* vb = mesh->VertexBuffer;
 
 		// Set vertex element info so it knows how to send to the 
 		// shader vertex array
-		int32 posID = vb->AddElement(sizeof(float32) * 3, false);
-		vb->SetElementInfo(posID, VElementInfo(SHADER_IN_POSITION_ID, 3));
+		int32 posID = vb->AddElement(sizeof(float32) * 2, false);
+		vb->SetElementInfo(posID, VElementInfo(SHADER_IN_POSITION_ID, 2));
 
+		int32 uvID = vb->AddElement(sizeof(float32) * 2, false);
+		vb->SetElementInfo(uvID, VElementInfo(SHADER_IN_UV1_ID, 2));
 		// Return the mesh
 		return mesh;
 	}

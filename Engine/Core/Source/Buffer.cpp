@@ -28,16 +28,6 @@ uint32 VBuffer::BufferTypeToGL()
 	}
 }
 
-uint32 VBuffer::ElementTypeToGL(const EElementType type)
-{
-	switch (type)
-	{
-	case ELEM_TYPE_FLOAT:			return GL_FLOAT;
-	case ELEM_TYPE_INT:				return GL_INT;
-	case ELEM_TYPE_UNSIGNED_INT:	return GL_UNSIGNED_INT;
-	default:						return GL_FLOAT;	// Assume float
-	}
-}
 
 uint32 VBuffer::BufferUsageToGL()
 {
