@@ -115,7 +115,7 @@ void VVertexBuffer::AllocateVertices(int32 Count)
 	Resize(Count * VertexSize);
 }
 
-int VVertexBuffer::AddElement(int32 SizeOfElement)
+int32 VVertexBuffer::AddElement(int32 SizeOfElement, bool EffectVertexSize)
 {
 	// Cannot create more than MAX_BUFFER_ELEMENTS
 	if (NumOfElements + 1 > MAX_ELEMENTS_PER_VERTEX)
@@ -136,14 +136,15 @@ int VVertexBuffer::AddElement(int32 SizeOfElement)
 	newElement->Offset = offset;
 
 	// Add this to the size per vertex
-	VertexSize += newElement->Size;
+	if(EffectVertexSize) VertexSize += newElement->Size;
 
 	// Increment
 	NumOfElements++;
-
+	
 	// Return id
 	return id;
 }
+
 
 void VVertexBuffer::AddVertex()
 {

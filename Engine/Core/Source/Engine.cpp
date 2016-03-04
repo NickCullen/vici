@@ -8,10 +8,13 @@
 #include "Glew.h"
 #include "Vector3.h"
 #include "VertexArrayList.h"
+#include "Mesh.h"
+#include "PrimitiveShape.h"
 
 VShader* Shader;
 VVertexBuffer* VertexBuffer;
 VVertexArrayList* VertexArrayList;
+VMesh* Mesh;
 
 GLuint vao[3];
 
@@ -52,32 +55,23 @@ bool VEngine::Init(int argc, const char** argv)
 						  0.5f, -0.5f,
 						 -0.5f, -0.5f };
 
-
-	VertexArrayList = new VVertexArrayList(this);
+	Mesh = VPrimitiveShape::CreateTriangle();
 
 	const char* vPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.vert";
 	const char* fPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.frag";
 	Shader = new VShader();
 	Shader->Load(vPath, fPath);
-	Shader->BindFragDataLocation("outColor", 0);
+	Shader->BindFragDataLocation(SHADER_COLOUR_OUT_ID, 0);
 
-	VertexBuffer = new VVertexBuffer();
-	if (VertexBuffer->Lock())
-	{
-		VertexBuffer->FromArray(positions, sizeof(positions), sizeof(float) * 2);
-
-		VertexBuffer->Unlock();
-	}
-
-	VertexArrayList->Bind();
+	// Set shader that will be used to render mesh
+	Mesh->SetShader(Shader);
 
 	return true;
 }
 
 void VEngine::Render()
 {
-	Shader->Use();
-	VertexArrayList->Bind();
+	Mesh->Render();
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 

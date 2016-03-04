@@ -23,6 +23,9 @@ typedef int32 UniformHandle;
 typedef int32 SamplerHandle;
 typedef uint32 ShaderDebugFlags;
 
+/* Constants */
+static const char* SHADER_COLOUR_OUT_ID = "outColor";
+
 /* Sets all locations to intial -1 */
 #define _GEN_DEFAULT_VAL(variable, a ,b) variable##Location = -1;
 
@@ -44,8 +47,8 @@ class CORE_API VShader
 {
 
 private:
-	char VPath[256]; /**< path for vertex shader */
-	char FPath[256]; /**< Path for fragment shader */
+	char* VPath; /**< path for vertex shader */
+	char* FPath; /**< Path for fragment shader */
 
 	ShaderHandle VHandle; /**< The vertex shader */
 	ShaderHandle FHandle; /**< The fragment shader */

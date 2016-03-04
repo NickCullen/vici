@@ -9,4 +9,4 @@ static const int MAX_RENDER_CONTEXTS = 1;
 #endif
 
 // Max number of elements per vertex in a vertex buffer
-static const int MAX_ELEMENTS_PER_VERTEX = 16;
+static const int MAX_ELEMENTS_PER_VERTEX = 8;

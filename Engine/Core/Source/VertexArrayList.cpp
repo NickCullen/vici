@@ -29,7 +29,7 @@ void VVertexArrayList::AllocVAOAndNotify()
 
 	glGenVertexArrays(1, &VAO[currentContextID]);
 	glBindVertexArray(VAO[currentContextID]);
-
+	
 	// Notify handler to bind arrays
 	Handler->BindArrays(*this);
 }

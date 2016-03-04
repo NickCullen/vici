@@ -11,7 +11,9 @@ VShader::VShader()
 	:VHandle(-1),
 	FHandle(-1),
 	Program(-1),
-	Loaded(false)
+	Loaded(false),
+	FPath(nullptr),
+	VPath(nullptr)
 {
 	//set all locations to -1
 	_COMMON_SHADER_LOCATIONS(_GEN_DEFAULT_VAL)
@@ -35,6 +37,13 @@ void VShader::Unload()
 	//set all locations to -1
 	_COMMON_SHADER_LOCATIONS(_GEN_DEFAULT_VAL)
 
+	if (VPath)
+		delete[] VPath;
+	if (FPath)
+		delete[] FPath;
+
+	FPath = VPath = nullptr;
+
 	Loaded = false;
 }
 
@@ -45,7 +54,9 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 	FHandle = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// store paths..
+	VPath = new char[strlen(vertexShaderPath) + 1];
 	strcpy(VPath, vertexShaderPath);
+	FPath = new char[strlen(fragShaderPath) + 1];
 	strcpy(FPath, fragShaderPath);
 
 	VTextFile vs = VTextFile(VPath);

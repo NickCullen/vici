@@ -54,7 +54,7 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen, VWindow* pare
 	}
 
 	// Reset hints
-	//glfwDefaultWindowHints();
+	glfwDefaultWindowHints();
 
 	// Make sure we keep a reference to this
 	glfwSetWindowUserPointer(AS_NATIVEWIN(NativeWindow), this);
@@ -75,7 +75,7 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen, VWindow* pare
 		printf("Failed to init glew\n");
 	}
 
-	//glfwSwapInterval(1);
+	glfwSwapInterval(1);
 
 	MakeCurrent(PreviousContext);
 }

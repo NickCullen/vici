@@ -75,6 +75,12 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexArrayList.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Mesh.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\PrimitiveShape.cpp">
+      <Filter>Core\Graphics\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -130,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineConstants.h">
       <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Mesh.h">
+      <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShape.h">
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

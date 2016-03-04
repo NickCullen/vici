@@ -22,11 +22,12 @@ enum EBufferUse
 	STREAM_DRAW		// Vertex data will change almost every frame
 };
 
+
 /**
  * Structure that holds info about each
  * interleaved element per vertex
  */
-struct VVertexElement
+struct CORE_API VVertexElement
 {
 	int32 Size;				// Sizeof this element
 	int32 Offset;			// Offset (in bytes) from the first element
@@ -108,7 +109,9 @@ public:
 	}
 
 	// Actual AddElement implementation
-	int AddElement(int32 SizeOfElement);
+	// If you want the SizeOfElement to not effect the VertexSize variable,
+	// Pass in false to the last argument to this function
+	int32 AddElement(int32 SizeOfElement, bool EffectVertexSize = true);
 
 	// Adds 1 to the Count
 	void AddVertex();
@@ -124,4 +127,5 @@ public:
 
 	// Sets the data from an array
 	void FromArray(void* data, int32 size, int32 sizePerVertex);
+
 };

@@ -8,6 +8,7 @@ class CORE_API VRenderer : public VSingleton<VRenderer>
 {
 private:
 	uint32 ContextID;	// The id of the current context  (0 is default)
+
 public:
 	VRenderer();
 	~VRenderer();
