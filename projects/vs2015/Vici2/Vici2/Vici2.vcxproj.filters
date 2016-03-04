@@ -78,7 +78,7 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Mesh.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\PrimitiveShape.cpp">
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\PrimitiveShapes.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,7 +140,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Mesh.h">
       <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShape.h">
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h">
       <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
   </ItemGroup>

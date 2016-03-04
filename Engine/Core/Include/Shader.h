@@ -11,6 +11,7 @@
 
 // Inputs
 _DECL_SHADER_INPUT(POSITION, vPosition)
+_DECL_SHADER_INPUT(COLOR, vColor)
 _DECL_SHADER_INPUT(NORMAL, vNormal)
 _DECL_SHADER_INPUT(TANGENT, vTangent)
 _DECL_SHADER_INPUT(BINORMAL, vBinormal)
@@ -39,6 +40,7 @@ _DECL_SHADER_OUTPUT(COLOR, oColor)
 	_GEN_(Time, SHADER_UNIFORM_TIME_ID, UniformLocation) \
 	_GEN_(SceneAmbient, SHADER_UNIFORM_SCENE_AMBIENT_ID, UniformLocation) \
 	_GEN_(Position, SHADER_IN_POSITION_ID, AttributeLocation) \
+	_GEN_(VertexColor, SHADER_IN_COLOR_ID, AttributeLocation) \
 	_GEN_(UV1, SHADER_IN_UV1_ID, AttributeLocation) \
 	_GEN_(UV2, SHADER_IN_UV2_ID, AttributeLocation) \
 	_GEN_(UV3, SHADER_IN_UV3_ID, AttributeLocation) \

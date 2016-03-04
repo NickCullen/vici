@@ -7,36 +7,6 @@
 
 typedef uint32 VAO_t;
 
-// Type of value in an element
-enum EElementType
-{
-	ELEM_FLOAT,
-	ELEM_INT
-};
-
-/**
-* Info per element vertex array in the 
-* vertex list
-*/
-struct CORE_API VVertexListInfo
-{
-	VString ShaderID;		// Name of input array in shader
-	EElementType Type;		// What type is each component of this element?
-	int8 NumOfComponents;	// How many components of said type are there in this element?
-	bool Normalize;			// Should the values be normalized when sent to the GPU?
-
-	VVertexListInfo() = default;
-
-	// Constructor
-	VVertexListInfo(const VString& nameInShader, int8 numOfComponents, EElementType type = ELEM_FLOAT, bool normalize = false)
-		:ShaderID(nameInShader),
-		Type(type),
-		NumOfComponents(numOfComponents),
-		Normalize(normalize)
-	{
-	}
-};
-
 /**
  * Objects that manage Vertex array lists must
  * implement a VertexArrayHandler interface
@@ -81,7 +51,7 @@ public:
 	/**
 	* Binds the vertex arrays, if the vao has
 	* Not been allocated for the current context,
-	* it will call the UpdateVertexListDelegate so the user
+	* it will call the handler bind array func so the user
 	* can rebind all the vertex arrays
 	*/
 	void Bind();
@@ -103,5 +73,5 @@ public:
 	/** 
 	 * Sets the handler for this object
 	 */
-	void SetHandler(IVertexArrayHandler* handler) { Handler = handler; }
+	inline void SetHandler(IVertexArrayHandler* handler) { Handler = handler; }
 };

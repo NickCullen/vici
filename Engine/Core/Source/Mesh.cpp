@@ -19,12 +19,7 @@ VMesh::~VMesh()
 void VMesh::BindArrays(const VVertexArrayList& list)
 {
 	VertexBuffer->Bind();
-
-	int32 posAttrib = Shader->GetPositionLocation();
-
-	//TEMP HARDCODED
-	glEnableVertexAttribArray(posAttrib);
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	VertexBuffer->SetElementsInShader(Shader);
 }
 
 void VMesh::SetVertexBuffer(VVertexBuffer* vertexBuffer)

@@ -1,6 +1,7 @@
 #include "VertexBuffer.h"
 #include "Glew.h"
 #include <memory>
+#include "Shader.h"
 
 VVertexBuffer::VVertexBuffer(EBufferType type, EBufferUse usage)
 	:Data(nullptr),
@@ -40,6 +41,16 @@ uint32 VVertexBuffer::BufferUsageToGL()
 		case DYNAMIC_DRAW:	return GL_DYNAMIC_DRAW;
 		case STREAM_DRAW:		return GL_STREAM_DRAW;
 		default:				return GL_STATIC_DRAW;	// Assume static
+	}
+}
+
+uint32 VVertexBuffer::ElementTypeToGL(const EElementType type)
+{
+	switch (type)
+	{
+		case ELEM_TYPE_FLOAT: return GL_FLOAT;
+		case ELEM_TYPE_INT: return GL_INT;
+		default: return GL_FLOAT;	// Assume float
 	}
 }
 
@@ -145,6 +156,11 @@ int32 VVertexBuffer::AddElement(int32 SizeOfElement, bool EffectVertexSize)
 	return id;
 }
 
+void VVertexBuffer::SetElementInfo(int32 id, const VElementInfo& info)
+{
+	Elements[id].Info = info;
+}
+
 
 void VVertexBuffer::AddVertex()
 {
@@ -174,4 +190,24 @@ void VVertexBuffer::FromArray(void* data, int32 size, int32 sizePerVertex)
 
 	Data = (void*)new int8[Size];
 	memcpy(Data, data, Size);
+}
+
+void VVertexBuffer::SetElementsInShader(VShader* shader)
+{
+	for (int i = 0; i < NumOfElements; i++)
+	{
+		VVertexElement* e = &Elements[i];
+
+		UniformHandle attribID = shader->AttributeLocation(e->Info.ShaderID);
+		if (attribID != -1)
+		{
+			glEnableVertexAttribArray(attribID);
+			glVertexAttribPointer(attribID, 
+				e->Info.NumOfComponents, 
+				ElementTypeToGL(e->Info.Type),
+				e->Info.Normalize ? GL_TRUE : GL_FALSE, 
+				VertexSize, 
+				(void*)e->Offset);
+		}
+	}
 }

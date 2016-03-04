@@ -2,9 +2,8 @@
 
 #include "CoreAPI.h"
 #include "Singleton.h"
-#include "VertexArrayList.h"
 
-class CORE_API VEngine : public VSingleton<VEngine>, IVertexArrayHandler
+class CORE_API VEngine : public VSingleton<VEngine>
 {
 private:
 
@@ -15,7 +14,4 @@ public:
 	bool Init(int argc, const char** argv);
 
 	void Render();
-
-	void BindArrays(const VVertexArrayList& list) override;
-
 };

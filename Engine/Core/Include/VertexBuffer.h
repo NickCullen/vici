@@ -4,6 +4,10 @@
 #include "VTypes.h"
 #include "EngineConstants.h"
 
+// Forward decl
+class VShader;
+
+// Typedefs
 typedef uint32 VBO_t;
 
 
@@ -22,6 +26,34 @@ enum EBufferUse
 	STREAM_DRAW		// Vertex data will change almost every frame
 };
 
+// Type of value in an element
+enum EElementType
+{
+	ELEM_TYPE_FLOAT,
+	ELEM_TYPE_INT
+};
+
+/**
+* Info of an element in a vertex
+*/
+struct CORE_API VElementInfo
+{
+	const char* ShaderID;	// Name of input array in shader
+	EElementType Type;		// What type is each component of this element?
+	int8 NumOfComponents;	// How many components of said type are there in this element?
+	bool Normalize;			// Should the values be normalized when sent to the GPU?
+
+	VElementInfo() = default;
+
+	// Constructor
+	VElementInfo(const char* nameInShader, int8 numOfComponents, EElementType type = ELEM_TYPE_FLOAT, bool normalize = false)
+		:ShaderID(nameInShader),
+		Type(type),
+		NumOfComponents(numOfComponents),
+		Normalize(normalize)
+	{
+	}
+};
 
 /**
  * Structure that holds info about each
@@ -31,6 +63,7 @@ struct CORE_API VVertexElement
 {
 	int32 Size;				// Sizeof this element
 	int32 Offset;			// Offset (in bytes) from the first element
+	VElementInfo Info;	// Info about this info when binding it to the vertex array list
 };
 
 /**
@@ -71,6 +104,7 @@ private:
 	// its respective GLenum
 	uint32 BufferTypeToGL();
 	uint32 BufferUsageToGL();
+	uint32 ElementTypeToGL(const EElementType type);
 
 	// Resizes Data array to NewSize where NewSize = size in bytes of new array
 	void Resize(int32 NewSize);
@@ -113,6 +147,9 @@ public:
 	// Pass in false to the last argument to this function
 	int32 AddElement(int32 SizeOfElement, bool EffectVertexSize = true);
 
+	// Sets element info with the given id
+	void SetElementInfo(int32 id, const VElementInfo& info);
+
 	// Adds 1 to the Count
 	void AddVertex();
 
@@ -128,4 +165,6 @@ public:
 	// Sets the data from an array
 	void FromArray(void* data, int32 size, int32 sizePerVertex);
 
+	// Set element array info in the shader
+	void SetElementsInShader(VShader* shader);
 };
