@@ -50,18 +50,13 @@ bool VEngine::Init(int argc, const char** argv)
 	if (!VRenderer::Init())
 		return false;
 
-
-	float positions[] = { 0.0f, 0.5f,
-						  0.5f, -0.5f,
-						 -0.5f, -0.5f };
-
 	Mesh = VPrimitiveShape::CreateTriangle();
 
 	const char* vPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.vert";
 	const char* fPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.frag";
 	Shader = new VShader();
 	Shader->Load(vPath, fPath);
-	Shader->BindFragDataLocation(SHADER_COLOUR_OUT_ID, 0);
+	Shader->BindFragDataLocation(SHADER_OUT_COLOR_ID, 0);
 
 	// Set shader that will be used to render mesh
 	Mesh->SetShader(Shader);
@@ -69,9 +64,31 @@ bool VEngine::Init(int argc, const char** argv)
 	return true;
 }
 
+int count = 0;
+
+//THIS IS ALL TEST CODE FOR NOW
 void VEngine::Render()
 {
 	Mesh->Render();
+
+	uint32 uLoc = Shader->UniformLocation("triangleColor");
+
+	switch (count)
+	{
+	case 0:
+		glUniform3f(uLoc, 1.0f, 0.0f, 0.0f);
+		count = 1;
+		break;
+	case 1:
+		glUniform3f(uLoc, 0.0f, 1.0f, 0.0f);
+		count = 2;
+		break;
+	case 2:
+		glUniform3f(uLoc, 0.0f, 0.0f, 1.0f);
+		count = 0;
+	break;
+
+	}
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 

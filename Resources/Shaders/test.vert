@@ -1,6 +1,6 @@
-in vec2 aPosition;
+in vec2 vPosition;
 
 void main(void)
 {
-	gl_Position = vec4(aPosition,0.0,1.0);
+	gl_Position = vec4(vPosition,0.0,1.0);
 }

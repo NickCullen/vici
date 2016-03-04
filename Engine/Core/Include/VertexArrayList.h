@@ -47,11 +47,15 @@ public:
 	virtual void BindArrays(const class VVertexArrayList& list) = 0;
 };
 
+/**
+ * Class used to manage sending vertex arrays to the shader
+ * The idea is to create a vertex buffer and bind each element
+ * to an array entry. This requires access to the shader that will
+ * use these arrays as input
+ */
 class CORE_API VVertexArrayList
 {
-
 private:
-
 	VAO_t VAO[MAX_RENDER_CONTEXTS];	// 1 VAO per render context
 
 	IVertexArrayHandler* Handler;	// Handler for this array;
@@ -89,6 +93,12 @@ public:
 	* your array data
 	*/
 	void BindNoNotify();
+
+	/**
+	* Binds the VAO and calls the handler BindArray function
+	* even if the VAO already has arrays bound to it
+	*/
+	void BindForceNotify();
 
 	/** 
 	 * Sets the handler for this object

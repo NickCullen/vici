@@ -1,7 +1,9 @@
 
-out vec4 outColor;
+uniform vec3 triangleColor;
 
-void main(void)
+out vec4 oColor;
+
+void main()
 {
-	outColor = vec4(1.0, 0.0, 0.0, 1.0);
+    oColor = vec4(triangleColor, 1.0);
 }

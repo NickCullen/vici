@@ -22,6 +22,7 @@ void VMesh::BindArrays(const VVertexArrayList& list)
 
 	int32 posAttrib = Shader->GetPositionLocation();
 
+	//TEMP HARDCODED
 	glEnableVertexAttribArray(posAttrib);
 	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
 }
@@ -44,4 +45,9 @@ void VMesh::Render()
 void VMesh::SetShader(VShader* shader)
 {
 	Shader = shader;
+	if (Shader)
+	{
+		// force binding of array
+		VertexArrayList.BindForceNotify();
+	}
 }

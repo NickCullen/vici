@@ -8,6 +8,8 @@ class VShader;
 
 class CORE_API VMesh : public IVertexArrayHandler
 {
+	friend class VPrimitiveShape;
+
 private:
 	VVertexArrayList VertexArrayList;	// The list of vertex arrays for this mesh
 

@@ -54,3 +54,18 @@ void VVertexArrayList::BindNoNotify()
 
 	glBindVertexArray(VAO[currentContextID]);
 }
+
+void VVertexArrayList::BindForceNotify()
+{
+	// We got to make sure the VAO exists at least
+	if (!DoesVAOExist())
+		AllocVAOAndNotify();
+	else
+	{
+		int32 currentContextID = VRenderer::GetInstance()->GetContextID();
+		glBindVertexArray(VAO[currentContextID]);
+
+		// Notify handler to bind arrays
+		Handler->BindArrays(*this);
+	}
+}

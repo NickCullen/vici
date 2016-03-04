@@ -4,7 +4,8 @@
 
 VRenderer::VRenderer() 
 	:VSingleton(this),
-	ContextID(0)
+	ContextID(0),
+	ActiveShader(nullptr)
 {
 
 }
@@ -67,9 +68,4 @@ void VRenderer::ClearAllBuffers()
 void VRenderer::SetViewport(int32 x, int32 y, int32 width, int32 height)
 {
 	glViewport(x, y, width, height);
-}
-
-void VRenderer::SetContextID(uint32 id)
-{
-	ContextID = id;
 }

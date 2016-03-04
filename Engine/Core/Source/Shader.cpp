@@ -2,7 +2,7 @@
 #include "Glew.h"
 #include <string>
 #include "TextFile.h"
-
+#include "Renderer.h"
 
 // init statics
 char* VShader::CommonCode = nullptr;
@@ -179,7 +179,10 @@ bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
 void VShader::Use()
 {
 	if (Program > 0)
+	{
 		glUseProgram(Program);
+		VRenderer::GetInstance()->SetActiveShader(this);
+	}
 }
 
 void VShader::DebugShader(ShaderHandle shader, ShaderDebugFlags checkType)
