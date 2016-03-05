@@ -6,7 +6,7 @@ struct VStringImpl;
 
 class CORE_API VString
 {
-private:
+protected:
 	VStringImpl* Impl;	// Pimpl idiom for std::string impl
 
 public:
@@ -15,6 +15,12 @@ public:
 	VString(const char* str);
 
 	~VString();
+
+	// Access
+	const char* c_str();
+
+	// Set
+	void SetString(const VString& str);
 
 	// operator overloads
 	operator const char*();

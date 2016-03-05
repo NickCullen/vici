@@ -35,6 +35,16 @@ VString::~VString()
 	delete(Impl);
 }
 
+const char* VString::c_str()
+{
+	return Impl->Data.c_str();
+}
+
+void VString::SetString(const VString& str)
+{
+	Impl->Data = str;
+}
+
 VString::operator const char*()
 {
 	return Impl->Data.c_str();
@@ -47,28 +57,24 @@ VString::operator char*() const
 
 VString VString::operator+(const VString& other)
 {
-	ENSURE_IMPL
 	std::string newString = Impl->Data + other.Impl->Data;
-	return VString(newString.c_str());
+	return newString.c_str();
 }
 
 VString VString::operator+(const char* other)
 {
-	ENSURE_IMPL
 	std::string newString = Impl->Data + other;
-	return VString(newString.c_str());
+	return newString.c_str();
 }
 
 VString& VString::operator=(const VString& other)
 {
-	ENSURE_IMPL
 	Impl->Data = other.Impl->Data;
 	return *this;
 }
 
 VString& VString::operator=(const char* other)
 {
-	ENSURE_IMPL
 	Impl->Data = other;
 	return *this;
 }

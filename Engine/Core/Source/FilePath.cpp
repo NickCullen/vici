@@ -24,6 +24,24 @@ VFilePath::VFilePath(const VString& relativeFilePath, EFileLocation location)
 	Path = Path + relativeFilePath;
 }
 
+VFilePath::VFilePath(const VString& relativeFilePath)
+{
+	EnsurePathFriendly(relativeFilePath);
+	Path = relativeFilePath;
+}
+
+VFilePath::VFilePath(const char* relativeFilePath)
+{
+	EnsurePathFriendly((char*)relativeFilePath);
+	Path = relativeFilePath;
+}
+
+VFilePath::VFilePath(char* relativeFilePath)
+{
+	EnsurePathFriendly(relativeFilePath);
+	Path = relativeFilePath;
+}
+
 VFilePath::~VFilePath()
 {
 	
@@ -39,7 +57,7 @@ void VFilePath::PrefixLocation()
 	}
 }
 
-void VFilePath::EnsurePathFriendly(char* path)
+const char* VFilePath::EnsurePathFriendly(char* path)
 {
 	int len = strlen(path);
 	for (int i = 0; i < len; i++)
@@ -47,9 +65,28 @@ void VFilePath::EnsurePathFriendly(char* path)
 		if (path[i] == INVALID_SLASH)
 			path[i] = VALID_SLASH;
 	}
+	return path;
 }
+
+const char* VFilePath::TrimPath(char* path)
+{
+	int len = strlen(path);
+	char* currentChar = &path[len];
+	while (*currentChar != '\\' && *currentChar != '/')
+	{
+		*currentChar = '\0';
+		currentChar--;
+	}
+	return path;
+}
+
 
 VFilePath::operator const char *()
 {
-	return Path;
+	return (const char*)Path;
+}
+
+VFilePath::operator char *()
+{
+	return (char*)Path;
 }

@@ -1,5 +1,6 @@
 #include "Environment.h"
 #include <stdlib.h>	//Get env
+#include <stdio.h>
 
 VEnvironment::VEnvironment()
 	:VSingleton(this),
@@ -114,4 +115,14 @@ bool VEnvironment::Remove(VHash key)
 const char* VEnvironment::GetSystemEnvVar(const char* key)
 {
 	return getenv(key);
+}
+
+void VEnvironment::PrintEnvVars()
+{
+	VEnvVar* current = Head;
+	while (current)
+	{
+		printf("Key = %d, Val = %s\n", current->Key, (const char*)current->Value);
+		current = current->Next;
+	}
 }

@@ -4,38 +4,22 @@
 #include "FilePath.h"
 #include <stdio.h>
 #include <string>
-
-void TrimPath(const char* path)
-{
-	int len = strlen(path);
-	char* currentChar = (char*)&path[len];
-	while(*currentChar != '\\' && *currentChar != '/')
-	{
-		*currentChar = '\0';
-		currentChar--;
-	}
-}
+#include "VString.h"
 
 int main(int argc, const char** argv)
 {
 	const char* path = argv[0];
-	TrimPath(path);
+	VFilePath runningDirectory = VFilePath::TrimPath((char*)path);
 
-	const char* vpath = VEnvironment::GetSystemEnvVar("VICI_HOME");
+	VString vpath = VEnvironment::GetSystemEnvVar("VICI_HOME");
+	VFilePath vResPath = vpath + "Resources/";
 
-	printf("Executable = %s\n", argv[0]);
+	printf("Res = %s\n", (char*)vResPath);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), vpath);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), vResPath);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_RUNNING_DIRECTORY), runningDirectory);
 
-	// Setup environment
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), argv[0], true);
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_RUNNING_DIRECTORY), argv[0], true);
-	VEnvironment::GetInstance()->Put("lol", "mylol", false);
-
-	
-
-	VEnvironment::GetInstance()->Remove("lol");
-
-	const char* mylol = VEnvironment::GetInstance()->Get("lol");
-
+	VEnvironment::GetInstance()->PrintEnvVars();
 
 	VEditor editor;
 	

@@ -10,7 +10,9 @@
 enum EFileLocation
 {
 	FILE_RUNNING_DIRECTORY,
-	FILE_EDITOR_DIRECTORY
+
+	FILE_EDITOR_DIRECTORY,
+	FILE_EDITOR_RESOURCE_DIRECTORY
 };
 
 /**
@@ -32,21 +34,25 @@ private:
 	void PrefixLocation();
 
 public:
-	VFilePath(const VString& relativeFilePath, EFileLocation location = FILE_RUNNING_DIRECTORY);
+	VFilePath(const VString& relativeFilePath, EFileLocation location);
+	VFilePath(const VString& relativeFilePath);
+	VFilePath(const char* relativeFilePath);
+	VFilePath(char* relativeFilePath);
 
 	~VFilePath();
 
 	/**
 	* Makes sure the given path is platform friendly
 	*/
-	static void EnsurePathFriendly(char* path);
+	static const char* EnsurePathFriendly(char* path);
 
 	/**
 	 * Trims the file path so that the filename (and extension) is 
 	 * removed from the string, leaving only its absolute path to the directory
 	 */
-	static void TrimPath(const char* path);
+	static const char* TrimPath(char* path);
 
 	// Cast operators
 	operator const char*();
+	operator char*();
 };

@@ -48,4 +48,9 @@ public:
 	 * Searches the system environment variable for the given key
 	 */
 	static const char* GetSystemEnvVar(const char* key);
+
+	/**
+	 * Prints env vars
+	 */
+	void PrintEnvVars();
 };
