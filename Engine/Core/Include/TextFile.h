@@ -15,7 +15,7 @@ public:
 	* TextFile constructor 
 	* @param path the path to the text file to load (note this will load the file)
 	*/
-	VTextFile(const char* path);
+	VTextFile(const class VFilePath& path);
 
 	/**
 	* Text file destrucor (will free memory if file was loaded)

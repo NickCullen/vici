@@ -3,6 +3,7 @@
 #include <string>
 #include "TextFile.h"
 #include "Renderer.h"
+#include "FilePath.h"
 
 // init statics
 char* VShader::CommonCode = nullptr;
@@ -48,28 +49,26 @@ void VShader::Unload()
 }
 
 
-bool VShader::Load(const char* vertexShaderPath, const char* fragShaderPath)
+bool VShader::Load(const VFilePath& vertexShaderPath, const VFilePath& fragShaderPath)
 {
 	VHandle = glCreateShader(GL_VERTEX_SHADER);
 	FHandle = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// store paths..
-	VPath = new char[strlen(vertexShaderPath) + 1];
-	strcpy(VPath, vertexShaderPath);
-	FPath = new char[strlen(fragShaderPath) + 1];
-	strcpy(FPath, fragShaderPath);
+	VPath = new VFilePath(vertexShaderPath);
+	FPath = new VFilePath(fragShaderPath);
 
-	VTextFile vs = VTextFile(VPath);
-	VTextFile fs = VTextFile(FPath);
+	VTextFile vs = VTextFile(*VPath);
+	VTextFile fs = VTextFile(*FPath);
 
 	if (!vs.IsLoaded())
 	{
-		printf("\n\nERROR: file: %s not found -  ", VPath);
+		printf("\n\nERROR: file: %s not found -  ", (char*)VPath);
 		return false;
 	}
 	if (!fs.IsLoaded())
 	{
-		printf("\n\nERROR: file: %s not found -  ", VPath);
+		printf("\n\nERROR: file: %s not found -  ", (char*)VPath);
 		return false;
 	}
 

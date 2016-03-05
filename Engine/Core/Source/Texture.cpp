@@ -130,3 +130,32 @@ void VTexture::FromArray(void* pixels, int32 sizeInBytes)
 	Pixels = (void*)new uint8[sizeInBytes];
 	memcpy(Pixels, pixels, sizeInBytes);
 }
+
+EColorMode VTexture::ComponentCountToColorMode(int8 count)
+{
+	switch (count)
+	{
+		case 1:		return COLOR_GREYSCALE;
+		case 2:		return COLOR_GREY_ALPHA;
+		case 3:		return COLOR_RGB;
+		case 4:		return COLOR_RGBA;
+		default:	return COLOR_RGB;	// Assume rgb
+	}
+}
+
+int8 VTexture::ComponentsInColorMode(EColorMode mode)
+{
+	switch (mode)
+	{
+	case COLOR_GREYSCALE:	return 1;
+	case COLOR_GREY_ALPHA:	return 2;
+	case COLOR_RGB:			return 3;
+	case COLOR_RGBA:		return 4;
+	default:				return 3;		// Assume rgb
+	}
+}
+
+int8 VTexture::ComponentsInColorMode()
+{
+	return ComponentsInColorMode(PixelFormat);
+}

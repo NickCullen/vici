@@ -52,6 +52,9 @@ public:
 	 */
 	static const char* TrimPath(char* path);
 
+	// Data access
+	const char* GetString() const;
+
 	// Cast operators
 	operator const char*();
 	operator char*();

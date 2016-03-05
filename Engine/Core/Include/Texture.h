@@ -66,6 +66,12 @@ protected:
 	
 	bool GenerateMipMap;				//Should mipmap be generated for this texture?
 
+	// Converts the number of components to its relevant EColorMode
+	static EColorMode ComponentCountToColorMode(int8 count);
+
+	// Returns the number of components in the EColorMode
+	static int8 ComponentsInColorMode(EColorMode mode);
+	int8 ComponentsInColorMode();	// non static version
 public:
 	VTexture(ETextureType type = TEXTURE_2D, ETextureWrapMode wrapMode = WRAP_REPEAT);
 

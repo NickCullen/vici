@@ -40,8 +40,9 @@ bool VEngine::Init(int argc, const char** argv)
 
 	Mesh1 = VPrimitiveShapes::CreateQuad();
 
-	const char* vPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.vert";
-	const char* fPath = "C:\\Users\\Nick\\Desktop\\vici\\Resources\\Shaders\\test.frag";
+	VFilePath vPath("Shaders\\test.vert", FILE_EDITOR_RESOURCE_DIRECTORY);
+	VFilePath fPath("Shaders\\test.frag", FILE_EDITOR_RESOURCE_DIRECTORY);
+
 	Shader = new VShader();
 	Shader->Load(vPath, fPath);
 	Shader->BindFragDataLocation(SHADER_OUT_COLOR_ID, 0);
@@ -55,7 +56,7 @@ bool VEngine::Init(int argc, const char** argv)
 		1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
 	};
 
-	VFilePath fp("Resources/Textures/test.png");
+	VFilePath fp("Textures/test.png", FILE_EDITOR_RESOURCE_DIRECTORY);
 
 	Texture = VTexture2D::FromFile(fp);
 

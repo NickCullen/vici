@@ -17,7 +17,7 @@ public:
 	~VString();
 
 	// Access
-	const char* c_str();
+	const char* c_str() const;
 
 	// Set
 	void SetString(const VString& str);

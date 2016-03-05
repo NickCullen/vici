@@ -1,6 +1,9 @@
 #include "Texture2D.h"
 #include "Glew.h"
 #include "FilePath.h"
+
+// Image loading
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 VTexture2D::VTexture2D(ETextureWrapMode wrapMode)
@@ -26,6 +29,43 @@ bool VTexture2D::Lock()
 
 VTexture2D* VTexture2D::FromFile(const VFilePath& filePath)
 {
+	int comp, width, height;
+
+	stbi_uc* pixels = stbi_load(filePath.GetString(), &width, &height, &comp, 0);
+
+	// if loaded
+	if (pixels)
+	{
+		EColorMode colorMode = ComponentCountToColorMode(comp);	//Color mode of the texture
+
+		VTexture2D* tex = new VTexture2D();
+		if (tex->Lock())
+		{
+			tex->Width = width;
+			tex->Height = height;
+			tex->InternalFormat = colorMode;
+			tex->PixelFormat = colorMode;
+			tex->PixelDataType = ELEM_TYPE_UINT8;
+			tex->GenerateMipMap = true;
+			
+			tex->Pixels = new stbi_uc[width*height*comp];
+			memcpy(tex->Pixels, pixels, width*height*comp*sizeof(stbi_uc));
+
+			tex->Unlock();	
+		}
+		// Error creating texture
+		else
+		{
+			delete (tex);
+			tex = nullptr;
+		}
+
+		// Free image data
+		stbi_image_free(pixels);
+
+		return tex;
+	}
+	
 	return nullptr;
 }
 

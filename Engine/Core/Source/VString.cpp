@@ -35,7 +35,7 @@ VString::~VString()
 	delete(Impl);
 }
 
-const char* VString::c_str()
+const char* VString::c_str() const
 {
 	return Impl->Data.c_str();
 }

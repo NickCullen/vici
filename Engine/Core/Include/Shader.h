@@ -3,8 +3,13 @@
 #include "CoreAPI.h"
 #include "VTypes.h"
 
-/* Constants */
+/* Typedefs */
+typedef int32 ShaderHandle;
+typedef int32 UniformHandle;
+typedef int32 SamplerHandle;
+typedef uint32 ShaderDebugFlags;
 
+/* Constants */
 #define _DECL_SHADER_INPUT(NAME, val) static const char* SHADER_IN_##NAME##_ID = #val;
 #define _DECL_SHADER_UNIFORM(NAME, val) static const char* SHADER_UNIFORM_##NAME##_ID = #val;
 #define _DECL_SHADER_OUTPUT(NAME, val) static const char* SHADER_OUT_##NAME##_ID = #val;
@@ -20,7 +25,7 @@ _DECL_SHADER_INPUT(UV2, vUV2)
 _DECL_SHADER_INPUT(UV3, vUV3)
 _DECL_SHADER_INPUT(UV4, vUV4)
 
-// Uniform
+// Uniforms
 _DECL_SHADER_UNIFORM(MODELVIEWPROJECTION, uModelViewProjectionMatrix)
 _DECL_SHADER_UNIFORM(MODELVIEW, uModelViewMatrix)
 _DECL_SHADER_UNIFORM(MODEL_MATRIX, uModelMatrix)
@@ -49,12 +54,6 @@ _DECL_SHADER_OUTPUT(COLOR, oColor)
 	_GEN_(Tangent, SHADER_IN_TANGENT_ID, AttributeLocation) \
 	_GEN_(Binormal, SHADER_IN_BINORMAL_ID, AttributeLocation)
 
-/* Typedefs */
-typedef int32 ShaderHandle;
-typedef int32 UniformHandle;
-typedef int32 SamplerHandle;
-typedef uint32 ShaderDebugFlags;
-
 
 /* Sets all locations to intial -1 */
 #define _GEN_DEFAULT_VAL(variable, a ,b) variable##Location = -1;
@@ -77,8 +76,8 @@ class CORE_API VShader
 {
 
 private:
-	char* VPath; /**< path for vertex shader */
-	char* FPath; /**< Path for fragment shader */
+	class VFilePath* VPath; /**< path for vertex shader */
+	class VFilePath* FPath; /**< Path for fragment shader */
 
 	ShaderHandle VHandle; /**< The vertex shader */
 	ShaderHandle FHandle; /**< The fragment shader */
@@ -106,7 +105,7 @@ public:
 
 	void Unload();
 
-	bool Load(const char* vertexShaderPath, const char* fragShaderPath);
+	bool Load(const class VFilePath& vertexShaderPath, const class VFilePath& fragShaderPath);
 
 	/** 
 	* Use the shader

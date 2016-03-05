@@ -1,10 +1,11 @@
 #include "TextFile.h"
+#include "FilePath.h"
 #include <stdio.h>
 
-VTextFile::VTextFile(const char* path)
+VTextFile::VTextFile(const VFilePath& path)
 	:Text(nullptr)
 {
-	FILE* f = fopen(path, "rb");
+	FILE* f = fopen(path.GetString(), "rb");
 	if (f)
 	{
 		//seek the last byte of the file

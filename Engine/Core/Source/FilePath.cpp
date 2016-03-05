@@ -1,14 +1,11 @@
 #include "FilePath.h"
-#include <stdio.h>  /* defines FILENAME_MAX */
+#include "EngineMacros.h"
+#include "Environment.h"
 #include <string>
 #ifdef VICI_WINDOWS
-#include <direct.h>
-#define GetCurrentDir _getcwd
 #define VALID_SLASH '\\'
 #define INVALID_SLASH '/'
 #else
-#include <unistd.h>
-#define GetCurrentDir getcwd
 #define VALID_SLASH '/'
 #define INVALID_SLASH '\\'
 #endif
@@ -49,12 +46,24 @@ VFilePath::~VFilePath()
 
 void VFilePath::PrefixLocation()
 {
-	char buff[FILENAME_MAX];
-	if (GetCurrentDir(buff, sizeof(buff)))
+
+	switch (Location)
 	{
-		printf("buff = %s\n", buff);
-		Path = buff;
+	case FILE_RUNNING_DIRECTORY:
+		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY));
+		break;
+	case FILE_EDITOR_DIRECTORY:
+		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_DIRECTORY));
+		break;
+	case FILE_EDITOR_RESOURCE_DIRECTORY:
+		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY));
+		break;
+	default:
+		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY));	// Assume running directory
+		break;
 	}
+
+	
 }
 
 const char* VFilePath::EnsurePathFriendly(char* path)
@@ -80,6 +89,10 @@ const char* VFilePath::TrimPath(char* path)
 	return path;
 }
 
+const char* VFilePath::GetString() const
+{
+	return Path.c_str();
+}
 
 VFilePath::operator const char *()
 {
