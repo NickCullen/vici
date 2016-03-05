@@ -13,6 +13,8 @@
 #define INVALID_SLASH '\\'
 #endif
 
+#include <stdlib.h>
+
 
 VFilePath::VFilePath(const VString& relativeFilePath, EFileLocation location)
 	: Location(location)
@@ -24,7 +26,7 @@ VFilePath::VFilePath(const VString& relativeFilePath, EFileLocation location)
 
 VFilePath::~VFilePath()
 {
-
+	
 }
 
 void VFilePath::PrefixLocation()

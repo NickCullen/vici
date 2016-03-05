@@ -17,7 +17,7 @@ public:
 	/** 
 	 * Loads the specified image from file
 	 */
-	VTexture2D* FromPath(const class VFilePath& filePath);
+	static VTexture2D* FromFile(const class VFilePath& filePath);
 
 	// Binds the vertex buffer
 	virtual bool Lock() override;

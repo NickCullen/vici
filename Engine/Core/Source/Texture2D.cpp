@@ -24,7 +24,7 @@ bool VTexture2D::Lock()
 	return true;
 }
 
-VTexture2D* VTexture2D::FromPath(const VFilePath& filePath)
+VTexture2D* VTexture2D::FromFile(const VFilePath& filePath)
 {
 	return nullptr;
 }

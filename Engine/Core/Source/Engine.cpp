@@ -57,6 +57,8 @@ bool VEngine::Init(int argc, const char** argv)
 
 	VFilePath fp("Resources/Textures/test.png");
 
+	Texture = VTexture2D::FromFile(fp);
+
 	//Texture = new VTexture2D();
 	//if (Texture->Lock())
 	//{
