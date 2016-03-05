@@ -50,27 +50,10 @@ bool VEngine::Init(int argc, const char** argv)
 	// Set shader that will be used to render mesh
 	Mesh1->SetShader(Shader);
 
-	// checker board
-	float pixels[] = {
-		0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
-	};
-
 	VFilePath fp("Textures/test.png", FILE_EDITOR_RESOURCE_DIRECTORY);
 
 	Texture = VTexture2D::FromFile(fp);
 
-	//Texture = new VTexture2D();
-	//if (Texture->Lock())
-	//{
-	//	Texture->SetSize(2, 2);
-	//	Texture->FromArray(pixels, sizeof(pixels));
-	//	Texture->SetMinFilterMetho(FILTER_NEAREST);
-	//	Texture->SetMagFilterMetho(FILTER_NEAREST);
-
-	//	// Send to GPU
-	//	Texture->Unlock();
-	//}
 
 	return true;
 }

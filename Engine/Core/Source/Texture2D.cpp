@@ -31,6 +31,8 @@ VTexture2D* VTexture2D::FromFile(const VFilePath& filePath)
 {
 	int comp, width, height;
 
+	stbi_set_flip_vertically_on_load(1);	// stb loads images upside down
+
 	stbi_uc* pixels = stbi_load(filePath.GetString(), &width, &height, &comp, 0);
 
 	// if loaded
