@@ -96,6 +96,9 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture2D.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\FilePath.cpp">
+      <Filter>Core\File\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -169,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Texture2D.h">
       <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Private\stb_image.h">
+      <Filter>Core\Graphics\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\FilePath.h">
+      <Filter>Core\File\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,8 @@
 #include "Mesh.h"
 #include "PrimitiveShapes.h"
 #include "Texture2D.h"
+#include "Vector4.h"
+#include "FilePath.h"
 
 VShader* Shader;
 VMesh* Mesh1;
@@ -53,16 +55,19 @@ bool VEngine::Init(int argc, const char** argv)
 		1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
 	};
 
-	Texture = new VTexture2D();
-	if (Texture->Lock())
-	{
-		Texture->SetSize(2, 2);
-		Texture->FromArray(pixels, sizeof(pixels));
-		Texture->SetMinFilterMetho(FILTER_NEAREST);
-		Texture->SetMagFilterMetho(FILTER_NEAREST);
-		// Send to GPU
-		Texture->Unlock();
-	}
+	VFilePath fp("Resources/Textures/test.png");
+
+	//Texture = new VTexture2D();
+	//if (Texture->Lock())
+	//{
+	//	Texture->SetSize(2, 2);
+	//	Texture->FromArray(pixels, sizeof(pixels));
+	//	Texture->SetMinFilterMetho(FILTER_NEAREST);
+	//	Texture->SetMagFilterMetho(FILTER_NEAREST);
+
+	//	// Send to GPU
+	//	Texture->Unlock();
+	//}
 
 	return true;
 }

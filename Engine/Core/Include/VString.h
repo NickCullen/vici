@@ -16,6 +16,11 @@ public:
 
 	~VString();
 
-	// Cast operator
+	// operator overloads
 	operator const char*();
+	operator char*() const;
+	VString operator+(const VString& other);
+	VString operator+(const char* other);
+	VString& operator=(const VString& other);
+	VString& operator=(const char* other);
 };

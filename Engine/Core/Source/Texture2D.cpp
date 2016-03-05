@@ -1,5 +1,7 @@
 #include "Texture2D.h"
 #include "Glew.h"
+#include "FilePath.h"
+#include "stb_image.h"
 
 VTexture2D::VTexture2D(ETextureWrapMode wrapMode)
 {
@@ -20,6 +22,11 @@ bool VTexture2D::Lock()
 	glBindTexture(GL_TEXTURE_2D, Handle);
 
 	return true;
+}
+
+VTexture2D* VTexture2D::FromPath(const VFilePath& filePath)
+{
+	return nullptr;
 }
 
 // Sends the vertex data upto the GPU
@@ -50,4 +57,6 @@ void VTexture2D::Unlock(bool freeClientMemory)
 	// Free RAM space if requested
 	if (freeClientMemory)
 		FlushClientMemory();
+
+	
 }
