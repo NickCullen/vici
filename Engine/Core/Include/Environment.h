@@ -43,4 +43,9 @@ public:
 	 * Simply removes the variable with the given key
 	 */
 	bool Remove(VHash key);
+
+	/** 
+	 * Searches the system environment variable for the given key
+	 */
+	static const char* GetSystemEnvVar(const char* key);
 };

@@ -48,3 +48,8 @@ void VFilePath::EnsurePathFriendly(char* path)
 			path[i] = VALID_SLASH;
 	}
 }
+
+VFilePath::operator const char *()
+{
+	return Path;
+}

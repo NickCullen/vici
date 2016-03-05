@@ -40,4 +40,13 @@ public:
 	* Makes sure the given path is platform friendly
 	*/
 	static void EnsurePathFriendly(char* path);
+
+	/**
+	 * Trims the file path so that the filename (and extension) is 
+	 * removed from the string, leaving only its absolute path to the directory
+	 */
+	static void TrimPath(const char* path);
+
+	// Cast operators
+	operator const char*();
 };

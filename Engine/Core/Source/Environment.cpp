@@ -1,4 +1,5 @@
 #include "Environment.h"
+#include <stdlib.h>	//Get env
 
 VEnvironment::VEnvironment()
 	:VSingleton(this),
@@ -108,4 +109,9 @@ bool VEnvironment::Remove(VHash key)
 		}
 	}
 	return false;
+}
+
+const char* VEnvironment::GetSystemEnvVar(const char* key)
+{
+	return getenv(key);
 }
