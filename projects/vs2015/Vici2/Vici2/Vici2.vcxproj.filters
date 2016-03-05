@@ -99,6 +99,12 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\FilePath.cpp">
       <Filter>Core\File\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Environment.cpp">
+      <Filter>Core\File\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Hash.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -178,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\FilePath.h">
       <Filter>Core\File\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Environment.h">
+      <Filter>Core\File\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Hash.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineMacros.h">
+      <Filter>Core\Engine\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

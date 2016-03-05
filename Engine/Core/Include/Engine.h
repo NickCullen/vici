@@ -2,6 +2,8 @@
 
 #include "CoreAPI.h"
 #include "Singleton.h"
+#include "EngineConstants.h"
+#include "EngineMacros.h"
 
 class CORE_API VEngine : public VSingleton<VEngine>
 {
