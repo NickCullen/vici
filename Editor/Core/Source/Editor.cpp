@@ -121,6 +121,7 @@ int VEditor::Run()
 		// Poll events
 		for (int i = 0; i < panelCount; i++)
 			panels[i]->PollEvents();
+
 	}
 
 	return 0;

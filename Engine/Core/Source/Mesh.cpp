@@ -15,7 +15,8 @@ VMesh::VMesh()
 
 VMesh::~VMesh()
 {
-	if(VertexBuffer) delete(VertexBuffer);
+	if (VertexBuffer) delete(VertexBuffer);
+	if (IndexBuffer) delete(IndexBuffer);
 }
 
 void VMesh::BindArrays(const VVertexArrayList& list)

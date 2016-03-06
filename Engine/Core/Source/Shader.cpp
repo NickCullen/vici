@@ -39,9 +39,9 @@ void VShader::Unload()
 	_COMMON_SHADER_LOCATIONS(_GEN_DEFAULT_VAL)
 
 	if (VPath)
-		delete[] VPath;
+		delete (VPath);
 	if (FPath)
-		delete[] FPath;
+		delete (FPath);
 
 	FPath = VPath = nullptr;
 

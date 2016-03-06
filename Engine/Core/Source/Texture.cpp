@@ -16,7 +16,7 @@ VTexture::VTexture(ETextureType type, ETextureWrapMode wrapMode)
 	LOD(0),
 	InternalFormat(COLOR_RGB),
 	PixelFormat(COLOR_RGB),
-	PixelDataType(ELEM_TYPE_FLOAT)
+	PixelDataType(ELEM_TYPE_UINT8)
 {
 }
 
