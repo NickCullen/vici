@@ -1,7 +1,7 @@
 #include "PrimitiveShapes.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
-#include "Mesh.h"
+#include "MeshData.h"
 #include "VTypes.h"
 #include "Shader.h"	// Need shader IN constants
 
@@ -15,7 +15,7 @@ VPrimitiveShapes::~VPrimitiveShapes()
 
 }
 
-VMesh* VPrimitiveShapes::CreateFromData(void* data, int sizeOfData, int sizePerVertex, uint32* indices, uint32 indexCount)
+VMeshData* VPrimitiveShapes::CreateFromData(void* data, int sizeOfData, int sizePerVertex, uint32* indices, uint32 indexCount)
 {
 	VVertexBuffer* vb = new VVertexBuffer();
 	if (vb->Lock())
@@ -31,7 +31,7 @@ VMesh* VPrimitiveShapes::CreateFromData(void* data, int sizeOfData, int sizePerV
 			ib->FromArray(indices, indexCount * sizeof(uint32), sizeof(uint32));
 			ib->Unlock();
 
-			VMesh* retMesh = new VMesh();
+			VMeshData* retMesh = new VMeshData();
 			retMesh->SetVertexBuffer(vb);
 			retMesh->SetIndexBuffer(ib);
 			return retMesh;
@@ -50,7 +50,7 @@ VMesh* VPrimitiveShapes::CreateFromData(void* data, int sizeOfData, int sizePerV
 	}
 }
 
-VMesh* VPrimitiveShapes::CreateTriangle()
+VMeshData* VPrimitiveShapes::CreateTriangle()
 {
 	// Pos 2
 	static float32 vertexData[] = {
@@ -65,7 +65,7 @@ VMesh* VPrimitiveShapes::CreateTriangle()
 
 	static const int8 NUM_COMPONENTS = 2;
 
-	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * NUM_COMPONENTS, indexData, 3);
+	VMeshData* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * NUM_COMPONENTS, indexData, 3);
 	if (mesh)
 	{
 		VVertexBuffer* vb = mesh->VertexBuffer;
@@ -82,7 +82,7 @@ VMesh* VPrimitiveShapes::CreateTriangle()
 		return nullptr;
 }
 
-VMesh* VPrimitiveShapes::CreateSquare()
+VMeshData* VPrimitiveShapes::CreateSquare()
 {
 	// Pos2 
 	static float32 vertexData[] = {
@@ -99,7 +99,7 @@ VMesh* VPrimitiveShapes::CreateSquare()
 
 	static const int8 NUM_COMPONENTS = 2;
 
-	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * NUM_COMPONENTS, indexData, 6);
+	VMeshData* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * NUM_COMPONENTS, indexData, 6);
 	if (mesh)
 	{
 		VVertexBuffer* vb = mesh->VertexBuffer;
@@ -116,7 +116,7 @@ VMesh* VPrimitiveShapes::CreateSquare()
 		return nullptr;
 }
 
-VMesh* VPrimitiveShapes::CreateQuad()
+VMeshData* VPrimitiveShapes::CreateQuad()
 {
 	// Pos2 / uv2
 	static float32 vertexData[] = {
@@ -131,7 +131,7 @@ VMesh* VPrimitiveShapes::CreateQuad()
 		3, 0, 2
 	};
 
-	VMesh* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * 4, indexData, 6);
+	VMeshData* mesh = CreateFromData(vertexData, sizeof(vertexData), sizeof(float32) * 4, indexData, 6);
 	if (mesh)
 	{
 		VVertexBuffer* vb = mesh->VertexBuffer;

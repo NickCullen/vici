@@ -5,7 +5,7 @@
 // Temp
 #include "Shader.h"
 #include "Glew.h"
-#include "Mesh.h"
+#include "MeshRenderer.h"
 #include "PrimitiveShapes.h"
 #include "Texture2D.h"
 #include "Vector4.h"
@@ -13,7 +13,7 @@
 #include "Renderer.h"
 
 VShader* Shader;
-VMesh* Mesh1;
+VMeshRenderer* MeshRenderer;
 VTexture2D* Texture;
 VTexture2D* Texture2;
 
@@ -40,7 +40,8 @@ bool VEngine::Init(int argc, const char** argv)
 	if (!VRenderer::Init())
 		return false;
 
-	Mesh1 = VPrimitiveShapes::CreateQuad();
+	MeshRenderer = new VMeshRenderer();
+	MeshRenderer->SetMeshData(VPrimitiveShapes::CreateQuad());
 
 	VFilePath vPath("Shaders\\test.vert", FILE_EDITOR_RESOURCE_DIRECTORY);
 	VFilePath fPath("Shaders\\test.frag", FILE_EDITOR_RESOURCE_DIRECTORY);
@@ -50,7 +51,7 @@ bool VEngine::Init(int argc, const char** argv)
 	Shader->BindFragDataLocation(SHADER_OUT_COLOR_ID, 0);
 
 	// Set shader that will be used to render mesh
-	Mesh1->SetShader(Shader);
+	MeshRenderer->SetShader(Shader);
 
 	VFilePath fp("Textures/test.png", FILE_EDITOR_RESOURCE_DIRECTORY);
 	VFilePath fp2("Textures/test2.png", FILE_EDITOR_RESOURCE_DIRECTORY);
@@ -85,6 +86,6 @@ void VEngine::Render()
 	glUniform1i(tex2Handle, 1);
 	Texture2->Bind(1);*/
 
-	Mesh1->Render();
+	MeshRenderer->Render();
 
 }

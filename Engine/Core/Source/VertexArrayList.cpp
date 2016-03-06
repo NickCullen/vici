@@ -31,7 +31,12 @@ void VVertexArrayList::AllocVAOAndNotify()
 	glBindVertexArray(VAO[currentContextID]);
 	
 	// Notify handler to bind arrays
-	Handler->BindArrays(*this);
+	// If it returns false (failed to bind arrays) then destroy this vertex buffer
+	if (!Handler->BindArrays(*this))
+	{
+		glDeleteVertexArrays(1, &VAO[currentContextID]);
+		VAO[currentContextID] = 0;
+	}
 }
 
 void VVertexArrayList::Bind()

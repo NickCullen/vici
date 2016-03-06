@@ -14,7 +14,7 @@ typedef uint32 VAO_t;
 class CORE_API IVertexArrayHandler 
 {
 public:
-	virtual void BindArrays(const class VVertexArrayList& list) = 0;
+	virtual bool BindArrays(const class VVertexArrayList& list) = 0;
 };
 
 /**
