@@ -4,10 +4,12 @@
 #include "Shader.h"
 #include "Glew.h"
 #include "MeshData.h"
+#include "Material.h"
+
 
 VMeshRenderer::VMeshRenderer()
 	:MeshData(nullptr),
-	Shader(nullptr)
+	Material(nullptr)
 {
 	// Let the array list know that this mesh is in charge of it
 	VertexArrayList.SetHandler(this);	
@@ -20,7 +22,7 @@ VMeshRenderer::~VMeshRenderer()
 bool VMeshRenderer::BindArrays(const VVertexArrayList& list)
 {
 	// Only bother binding if something is going to actually render this mesh
-	if (Shader)
+	if (Material)
 	{
 		MeshData->BindBuffers(this);
 		return true;
@@ -30,20 +32,20 @@ bool VMeshRenderer::BindArrays(const VVertexArrayList& list)
 
 void VMeshRenderer::Render()
 {
-	if (Shader)
+	if (Material)
 	{
-		Shader->Use();	// User shader
+		Material->PrepareForRender();	// Uses shader and sets up its parameters
 
-		VertexArrayList.Bind();	// Bind the vertex arrays
+		VertexArrayList.Bind();			// Bind the vertex arrays
 
-		MeshData->DrawElements();	// Draw 
+		MeshData->DrawElements();		// Draw 
 	}
 }
 
-void VMeshRenderer::SetShader(VShader* shader)
+void VMeshRenderer::SetMaterial(VMaterial* material)
 {
-	Shader = shader;
-	if (Shader)
+	Material = material;
+	if (Material)
 	{
 		// force binding of array
 		VertexArrayList.BindForceNotify();
@@ -57,4 +59,9 @@ void VMeshRenderer::SetMeshData(VMeshData* data)
 	{
 		VertexArrayList.BindForceNotify();
 	}
+}
+
+VShader* VMeshRenderer::GetShader()
+{
+	return Material ? Material->GetShader() : nullptr;
 }

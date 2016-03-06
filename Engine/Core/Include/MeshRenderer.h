@@ -5,6 +5,7 @@
 
 class VShader;	
 class VMeshData;
+class VMaterial;
 
 class CORE_API VMeshRenderer : public IVertexArrayHandler
 {
@@ -13,7 +14,8 @@ private:
 
 	VMeshData* MeshData;			// The mesh that this renderer will draw
 
-	VShader* Shader;				// Shader used to render this mesh (should be material - placeholder)
+	VMaterial* Material;			// material for this mesh
+
 public:
 	VMeshRenderer();
 
@@ -24,9 +26,9 @@ public:
 	void Render();
 
 	// Setters
-	void SetShader(VShader* shader);
+	void SetMaterial(VMaterial* material);
 	void SetMeshData(VMeshData* data);
 
 	// Getters
-	inline VShader* GetShader() { return Shader; }
+	inline VShader* GetShader();
 };

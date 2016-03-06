@@ -15,6 +15,9 @@ public:
 
 	~VMaterial();
 
+	// Uses the shader and passes in its arguments
+	void PrepareForRender();
+
 	// Setters
 	inline void SetShader(VShader* shader) { Shader = shader; }
 

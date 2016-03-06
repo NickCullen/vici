@@ -151,6 +151,7 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\FilePath.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Hash.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\IndexBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\Material.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\MeshData.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\MeshRenderer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\PrimitiveShapes.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\IndexBuffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Material.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshData.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshRenderer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h" />

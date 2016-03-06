@@ -11,6 +11,7 @@
 #include "Vector4.h"
 #include "FilePath.h"
 #include "Renderer.h"
+#include "Material.h"
 
 VShader* Shader;
 VMeshRenderer* MeshRenderer;
@@ -50,8 +51,10 @@ bool VEngine::Init(int argc, const char** argv)
 	Shader->Load(vPath, fPath);
 	Shader->BindFragDataLocation(SHADER_OUT_COLOR_ID, 0);
 
-	// Set shader that will be used to render mesh
-	MeshRenderer->SetShader(Shader);
+	// Set material that will be used for this mesh
+	VMaterial* material = new VMaterial();
+	material->SetShader(Shader);
+	MeshRenderer->SetMaterial(material);
 
 	VFilePath fp("Textures/test.png", FILE_EDITOR_RESOURCE_DIRECTORY);
 	VFilePath fp2("Textures/test2.png", FILE_EDITOR_RESOURCE_DIRECTORY);
