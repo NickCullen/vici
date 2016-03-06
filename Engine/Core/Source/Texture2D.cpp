@@ -7,6 +7,9 @@
 #include "stb_image.h"
 
 VTexture2D::VTexture2D(ETextureWrapMode wrapMode)
+	:VTexture(TEXTURE_2D),
+	Width(0),
+	Height(0)
 {
 
 }
@@ -100,5 +103,59 @@ void VTexture2D::Unlock(bool freeClientMemory)
 	if (freeClientMemory)
 		FlushClientMemory();
 
+	
+}
+
+void VTexture2D::SetPixel(int32 x, int32 y, uint8 r, uint8 g, uint8 b, uint8 a)
+{
+	stbi_uc* u8 = ((stbi_uc*)Pixels);	// Convert pixels to uint8 first
+	int32 index = 0; 
+
+	switch (PixelFormat)
+	{
+		case COLOR_GREYSCALE:
+		{
+			index = ((y*Width) + x);
+			u8[index] = r;
+			break;
+		}
+		case COLOR_GREY_ALPHA:
+		{
+			index = ((y*Width) + x) * 2;
+			u8[index] = r;
+			u8[index+1] = g;
+			break;
+		}
+
+		case COLOR_RGB:
+		{
+			index = ((y*Width) + x) * 3;
+			u8[index] = r;
+			u8[index+1] = g;
+			u8[index+2] = b;
+			break;
+		}
+
+		case COLOR_RGBA:
+		{
+			index = ((y*Width) + x) * 4;
+			u8[index] = r;
+			u8[index+1] = g;
+			u8[index+2] = b;
+			u8[index+3] = a;
+			break;
+		}
+
+		// Assume RGB
+		default:
+		{
+			index = ((y*Width) + x) * 3;
+			u8[index] = r;
+			u8[index + 1] = g;
+			u8[index + 2] = b;
+
+			break;
+		}
+	}
 	
 }

@@ -90,7 +90,9 @@ public:
 	static uint32 FilterMethodToGL(const ETextureFilterMethod method);
 
 	// Make this texture active
-	void Bind();
+	// Pass in an integer if you want to bind it to an active texture
+	// other than texture0
+	void Bind(int32 activeTextureNum = 0);
 
 	// Sets to default texture
 	void Unbind();

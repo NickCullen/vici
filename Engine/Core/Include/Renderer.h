@@ -6,6 +6,9 @@
 
 class VShader;
 
+// Macros
+#define CHECK_RENDERER_ERR VRenderer::CheckErrors()
+
 class CORE_API VRenderer : public VSingleton<VRenderer>
 {
 private:

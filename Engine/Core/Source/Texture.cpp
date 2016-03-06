@@ -62,8 +62,9 @@ uint32 VTexture::FilterMethodToGL(const ETextureFilterMethod method)
 	}
 }
 
-void VTexture::Bind()
+void VTexture::Bind(int32 activeTextureNum)
 {
+	glActiveTexture(GL_TEXTURE0 + activeTextureNum);
 	glBindTexture(TextureTypeToGL(Type), Handle);
 }
 
