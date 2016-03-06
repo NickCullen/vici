@@ -5,7 +5,6 @@
 #include "VString.h"
 #include "VTypes.h"
 
-
 class VShader;
 class VTexture;
 
