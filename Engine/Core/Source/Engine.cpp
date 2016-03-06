@@ -60,18 +60,10 @@ bool VEngine::Init(int argc, const char** argv)
 	VFilePath fp2("Textures/test2.png", FILE_EDITOR_RESOURCE_DIRECTORY);
 
 	Texture = VTexture2D::FromFile(fp);
-
-	if (Texture->Lock())
-	{
-		for (int y = 0; y < Texture->GetHeight(); y += 2)
-		{
-			for (int x = 0; x < Texture->GetWidth(); x += 3)
-				Texture->SetPixel(x, y, (y / (float)Texture->GetHeight()) * 255, 0, 0, 255);
-		}
-		Texture->Unlock();
-	}
 	Texture2 = VTexture2D::FromFile(fp2);
 
+	material->AddTexture("tex1", Texture);
+	material->AddTexture("tex2", Texture2);
 	return true;
 }
 
@@ -79,15 +71,6 @@ bool VEngine::Init(int argc, const char** argv)
 void VEngine::Render()
 {
 	Shader->Use();
-
-	UniformHandle tex1Handle = Shader->UniformLocation("tex1");
-	Texture->Bind(0);
-	glUniform1i(tex1Handle, 0);
-	
-
-	/*UniformHandle tex2Handle = Shader->UniformLocation("tex2");
-	glUniform1i(tex2Handle, 1);
-	Texture2->Bind(1);*/
 
 	MeshRenderer->Render();
 

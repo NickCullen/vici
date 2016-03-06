@@ -40,6 +40,15 @@
     <Filter Include="Core\File\Source">
       <UniqueIdentifier>{2270c3a6-f3e3-4785-a9fd-e6893b8020d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Data Structures">
+      <UniqueIdentifier>{22d40857-bf6e-4b44-a5ff-27ee50113e3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data Structures\Include">
+      <UniqueIdentifier>{741c5414-929c-41cc-8b14-f0b269bd3d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data Structures\Source">
+      <UniqueIdentifier>{9c2acd55-02ce-4b1f-a595-30bb54d5b541}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp">
@@ -205,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Material.h">
       <Filter>Core\Graphics\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\LinkedList.h">
+      <Filter>Core\Data Structures\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -180,6 +180,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\IndexBuffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\LinkedList.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Material.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshData.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshRenderer.h" />
