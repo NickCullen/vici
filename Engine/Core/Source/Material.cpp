@@ -21,8 +21,12 @@ void VMaterial::PrepareForRender()
 	int loc = 0;
 	for (auto item = Textures.GetFirst(); item; item = Textures.GetNext(item), loc++)
 	{
-		item->Data.Texture->Bind(loc);
-		glUniform1i(item->Data.UniformLocation, loc);
+		VTextureParam* cur = &item->Data;
+		if (cur->UniformLocation >= 0)
+		{
+			item->Data.Texture->Bind(loc);
+			glUniform1i(item->Data.UniformLocation, loc);
+		}
 	}
 }
 

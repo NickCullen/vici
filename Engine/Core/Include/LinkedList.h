@@ -29,12 +29,19 @@ public:
 
 	~VLinkedList()
 	{
-
+		Empty();
+		delete(Head);
 	}
 
 	void Empty()
 	{
-		
+		ListItem* current = Head->Next;
+		while (current)
+		{
+			ListItem* next = current->Next;
+			delete(current);
+			current = next;
+		}
 	}
 
 	void Add(const T& item)
