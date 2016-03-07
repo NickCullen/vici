@@ -2,6 +2,7 @@
 
 #include "CoreAPI.h"
 #include "VTypes.h"
+#include "MaterialParam.h"
 
 typedef uint32 Texture_t;
 
@@ -41,7 +42,7 @@ enum ETextureFilterMethod
 	FILTER_LINEAR_MIPMAP_LINEAR
 };
 
-class CORE_API VTexture
+class CORE_API VTexture : public IMaterialParam
 {
 protected:
 	void* Pixels;		// Pixel data
@@ -126,6 +127,9 @@ public:
 
 	// Loads pixels from array
 	void FromArray(void* pixels, int32 sizeInBytes);
+
+	// Implements IMaterialParam interface
+	virtual bool SendToShader(UniformHandle handle) override;
 
 	// Setters
 	inline void SetGenerateMipmap(bool setMipmap) { GenerateMipMap = setMipmap; }

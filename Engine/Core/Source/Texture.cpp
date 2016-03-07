@@ -160,3 +160,8 @@ int8 VTexture::ComponentsInColorMode()
 {
 	return ComponentsInColorMode(PixelFormat);
 }
+
+bool VTexture::SendToShader(UniformHandle handle)
+{
+	return true;	// TEMP
+}

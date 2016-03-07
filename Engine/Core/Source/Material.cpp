@@ -1,7 +1,7 @@
 #include "Material.h"
-#include "Shader.h"
 #include "Glew.h"
 #include "Texture.h"
+#include "VString.h"
 
 VMaterial::VMaterial()
 	:Shader(nullptr)
@@ -18,29 +18,29 @@ void VMaterial::PrepareForRender()
 {
 	Shader->Use();
 
-	int loc = 0;
-	for (auto item = Textures.GetFirst(); item; item = Textures.GetNext(item), loc++)
+	for (auto item = Uniforms.GetFirst(); item; item = Uniforms.GetNext(item))
 	{
-		VTextureParam* cur = &item->Data;
-		if (cur->UniformLocation >= 0)
+		ParamHandle* cur = &item->Data;
+		if (cur->Handle >= 0)
 		{
-			item->Data.Texture->Bind(loc);
-			glUniform1i(item->Data.UniformLocation, loc);
+			cur->Param->SendToShader(cur->Handle);
+			//item->Data.Texture->Bind(loc);
+			//glUniform1i(item->Data.UniformLocation, loc);
 		}
 	}
 }
 
-void VMaterial::AddTexture(const VString& name, VTexture* texture)
+void VMaterial::AddParam(const VString& name, IMaterialParam* param)
 {
-	VTextureParam prm;
-
-	prm.Name = name;
-	prm.Texture = texture;
-
+	ParamHandle prm;
+	
 	if(Shader)
-		prm.UniformLocation = Shader->UniformLocation(prm.Name.c_str());
+		prm.Handle = Shader->UniformLocation(name.c_str());
 
-	Textures.Add(prm);
+	prm.Param = param;
+	prm.Name = name;
+
+	Uniforms.Add(prm);
 }
 
 void VMaterial::SetShader(VShader* shader)
@@ -49,10 +49,10 @@ void VMaterial::SetShader(VShader* shader)
 	if (Shader)
 	{
 		// Cache texture locations
-		for (auto item = Textures.GetFirst(); item; item = Textures.GetNext(item))
+		for (auto item = Uniforms.GetFirst(); item; item = Uniforms.GetNext(item))
 		{
-			VTextureParam* cur = &item->Data;
-			cur->UniformLocation = Shader->UniformLocation(cur->Name.c_str());
+			ParamHandle* cur = &item->Data;
+			cur->Handle = Shader->UniformLocation(cur->Name.c_str());
 		}
 	}
 }

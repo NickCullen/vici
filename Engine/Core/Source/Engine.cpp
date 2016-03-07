@@ -62,16 +62,13 @@ bool VEngine::Init(int argc, const char** argv)
 	Texture = VTexture2D::FromFile(fp);
 	Texture2 = VTexture2D::FromFile(fp2);
 
-	material->AddTexture("tex1", Texture);
-	material->AddTexture("tex2", Texture2);
+	material->AddParam("tex1", Texture);
+	material->AddParam("tex2", Texture2);
 	return true;
 }
 
 //THIS IS ALL TEST CODE FOR NOW
 void VEngine::Render()
 {
-	Shader->Use();
-
 	MeshRenderer->Render();
-
 }

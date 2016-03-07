@@ -22,7 +22,8 @@ private:
 	ListItem* Tail;
 public:
 	VLinkedList()
-		:Head(nullptr)
+		:Head(nullptr),
+		Tail(nullptr)
 	{
 		Tail = Head = new ListItem();
 	}
@@ -33,6 +34,9 @@ public:
 		delete(Head);
 	}
 
+	/**
+	 * Empties the list, leaving data untouched
+	 */
 	void Empty()
 	{
 		ListItem* current = Head->Next;
@@ -44,6 +48,9 @@ public:
 		}
 	}
 
+	/**
+	 * Add specified item to the end of list
+	 */
 	void Add(const T& item)
 	{
 		Tail->Next = new ListItem();
@@ -52,6 +59,11 @@ public:
 		Tail->Data = item;
 	}
 
+	/**
+	 * Remove the item from the list
+	 * Note that this will search from start 
+	 * to end until it finds the item
+	 */
 	bool Remove(const T& item)
 	{
 		ListItem* current = Head->Next;
@@ -65,6 +77,10 @@ public:
 		return false;
 	}
 
+	/**
+	 * Removes the item from the list, this will be
+	 * carried out in constant time
+	 */
 	bool Remove(ListItem* item)
 	{
 		if (item != Head)
@@ -78,13 +94,36 @@ public:
 		return false;
 	}
 
+	/**
+	 * Returns the first item on the list
+	 * may be nullptr
+	 */
 	const ListItem* GetFirst()
 	{
 		return Head->Next;
 	}
 
+	/** 
+	 * Gets the next item given the current
+	 */
 	const ListItem* GetNext(const ListItem* current)
 	{
 		return current ? current->Next : nullptr;
+	}
+
+	/**
+	 * Returns the tail of the list
+	 */
+	const ListItem* GetLast()
+	{
+		return Tail != Head ? Tail : nullptr;
+	}
+
+	/**
+	 * gets the previous item from the current
+	 */
+	const ListItem* GetPrevious(const ListItem* current)
+	{
+		return current && current->Prev != Head ? current->Prev : nullptr;
 	}
 };

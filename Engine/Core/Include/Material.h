@@ -1,25 +1,29 @@
 #pragma once
 
-#include "CoreAPI.h"
+#include "MaterialParam.h"
 #include "LinkedList.h"
-#include "VString.h"
 #include "VTypes.h"
+#include "VString.h"
 
-class VShader;
 class VTexture;
 
 class CORE_API VMaterial
 {
-	struct VTextureParam
+	/**
+	 * couples the uniform location 
+	 * and the data together
+	 */
+	struct ParamHandle
 	{
-		VString Name;	// Name in shader
-		VTexture* Texture;	
-		uint32	UniformLocation;	// location in shader
+		UniformHandle Handle;		// Uniform location of param in the shader
+		IMaterialParam* Param;		// The param data
+		VString Name;				// Name of the argument in the shader
 	};
+
 private:
 	VShader* Shader;		// Shader used to render this material
 
-	VLinkedList<VTextureParam> Textures;	// Textures used in this material
+	VLinkedList<ParamHandle> Uniforms;	// Uniforms to send to the shader
 public:
 	VMaterial();
 
@@ -28,8 +32,8 @@ public:
 	// Uses the shader and passes in its arguments
 	void PrepareForRender();
 
-	// Adds a texture parameter
-	void AddTexture(const VString& name, VTexture* texture);
+	// Adds a paramter to the shader
+	void AddParam(const class VString& name, IMaterialParam* param);
 
 	// Setters
 	void SetShader(VShader* shader);
