@@ -23,8 +23,9 @@ bool VGameView::Init()
 	int x1 = (int)(mWidth * 0.25f), x2 = (int)(mWidth * 0.5f);
 	int y1 = (int)(mHeight * 0.5f + 50), y2 = (int)(mHeight * 0.5f - 100);
 
-	Window = CreateWindow(x2, y2, "Game View", false);
+	Window = CreateWindow(x2, y2, "Game View", WINDOW_DEFAULT);
 	Window->SetPosition(x1, y1);
+	Window->SetBorderHint(false);
 
 	return true;
 }

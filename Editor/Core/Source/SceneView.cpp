@@ -21,8 +21,9 @@ bool VSceneView::Init()
 	float x1 = mWidth * 0.25f, x2 = mWidth * 0.5f;
 	float y1 = 50, y2 = mHeight * 0.5f - 50;
 
-	Window = CreateWindow((int)x2, (int)y2, "Scene View", false);
+	Window = CreateWindow((int)x2, (int)y2, "Scene View", WINDOW_DEFAULT);
 	Window->SetPosition((int)x1, (int)y1);
+	Window->SetBorderHint(false);
 
 	return true;
 }

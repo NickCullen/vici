@@ -22,7 +22,7 @@ GLEWContext* glewGetContext()
 #endif
 
 // Definitions of glewGetContext
-VWindow::VWindow(int w, int h, const char* title, bool fullscreen, VWindow* parent)
+VWindow::VWindow(int w, int h, const char* title, EWindowMode mode, VWindow* parent)
 	:UserData(nullptr),
 	NativeWindow(nullptr),
 	KeyCallback(nullptr),
@@ -46,7 +46,35 @@ VWindow::VWindow(int w, int h, const char* title, bool fullscreen, VWindow* pare
 		return;
 	}
 
-	NativeWindow = glfwCreateWindow(w, h, title, fullscreen ? glfwGetPrimaryMonitor() : nullptr, parent ? AS_NATIVEWIN(parent->NativeWindow) : nullptr);
+	const GLFWvidmode* vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	switch (mode)
+	{
+		// Simply open the window with specified width and height
+	case WINDOW_DEFAULT:
+		NativeWindow = glfwCreateWindow(w, h, title, nullptr, parent ? AS_NATIVEWIN(parent->NativeWindow) : nullptr); 
+		break;
+
+		// Open window using the video mode to get the window features fullscreen
+	case WINDOW_FULLSCREEN_WINDOWED:
+		glfwWindowHint(GLFW_RED_BITS, vidMode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS, vidMode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS, vidMode->blueBits);
+		glfwWindowHint(GLFW_REFRESH_RATE, vidMode->refreshRate);
+		glfwWindowHint(GLFW_DECORATED, GL_TRUE);
+		NativeWindow = glfwCreateWindow(vidMode->width, vidMode->height-30, title, nullptr, NULL);
+		break;
+
+		// No window border
+	case WINDOW_FULLSCREEN_BORDERLESS:
+		NativeWindow = glfwCreateWindow(w, h, title, glfwGetPrimaryMonitor(), parent ? AS_NATIVEWIN(parent->NativeWindow) : nullptr);
+		break;
+
+		// Assume default window
+	default:
+		NativeWindow = glfwCreateWindow(w, h, title, nullptr, parent ? AS_NATIVEWIN(parent->NativeWindow) : nullptr);
+		break;
+	}
+	
 	if (!NativeWindow)
 	{
 		printf("Failed to create window\n");

@@ -20,10 +20,10 @@ VPanel::~VPanel()
 VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool border)
 {
 	// Make sure appropriate hints are set
-	//VWindow::SetBorderHint(border);		commented out for now
+	VWindow::SetBorderHint(border);		
 
 	// Share the context of the main window
-	Window = new VWindow(width, height, title, false, VMainWindow::GetInstance()->GetWindow());
+	Window = new VWindow(width, height, title, WINDOW_DEFAULT, VMainWindow::GetInstance()->GetWindow());
 	Window->UserData = this;	// Make sure we store a reference to his
 
 	// Set vars

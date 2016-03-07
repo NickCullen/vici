@@ -19,8 +19,8 @@ bool VMainWindow::Init()
 	int sw, sh;
 	VWindow::GetPrimaryMonitorSize(&sw, &sh);
 
-	Window = new VWindow(sw, (int)(sh*0.05f), "Vici Editor", false);
-	Window->SetPosition(0, 20);
+	Window = new VWindow(sw, sh, "Vici Editor", WINDOW_FULLSCREEN_WINDOWED);
+	Window->SetPosition(0, 30);
 	if (!Window)
 		return false;
 	return true;

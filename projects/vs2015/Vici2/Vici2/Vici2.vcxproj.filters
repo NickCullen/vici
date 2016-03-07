@@ -49,6 +49,15 @@
     <Filter Include="Core\Data Structures\Source">
       <UniqueIdentifier>{9c2acd55-02ce-4b1f-a595-30bb54d5b541}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\UI">
+      <UniqueIdentifier>{fde9bee0-417f-40ee-9357-2a25b511d083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\UI\Include">
+      <UniqueIdentifier>{71b52a4c-421d-44e8-baed-a7246484000d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\UI\Source">
+      <UniqueIdentifier>{ab113b54-bcaf-450b-b0ea-0ca4ae055a37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp">

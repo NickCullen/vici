@@ -3,6 +3,16 @@
 #include "CoreAPI.h"
 #include "WindowDefs.h"
 
+/**
+ * Enum defining how to open a window
+ */
+enum EWindowMode
+{
+	WINDOW_DEFAULT,
+	WINDOW_FULLSCREEN_WINDOWED,
+	WINDOW_FULLSCREEN_BORDERLESS
+};
+
 
 class CORE_API VWindow
 {
@@ -43,7 +53,7 @@ public:
 #endif
 	void* UserData;					// Pointer to user data for callbacks
 
-	VWindow(int width, int height, const char* title = "Default Window", bool fullscreen = false, VWindow* parent = nullptr);
+	VWindow(int width, int height, const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr);
 	~VWindow();
 
 	/**
