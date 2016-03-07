@@ -24,8 +24,18 @@ void VMaterial::PrepareForRender()
 		if (cur->Handle >= 0)
 		{
 			cur->Param->SendToShader(cur->Handle);
-			//item->Data.Texture->Bind(loc);
-			//glUniform1i(item->Data.UniformLocation, loc);
+		}
+	}
+}
+
+void VMaterial::CleanupAfterRender()
+{
+	for (auto item = Uniforms.GetFirst(); item; item = Uniforms.GetNext(item))
+	{
+		ParamHandle* cur = &item->Data;
+		if (cur->Handle >= 0)
+		{
+			cur->Param->CleanupFromShader();
 		}
 	}
 }

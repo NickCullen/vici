@@ -32,6 +32,10 @@ public:
 	// Uses the shader and passes in its arguments
 	void PrepareForRender();
 
+	// Cleanup after render (this is simple cleanup, no alloc/dealloc should be 
+	// happening here - this should be done as fast as possible
+	void CleanupAfterRender();
+
 	// Adds a paramter to the shader
 	void AddParam(const class VString& name, IMaterialParam* param);
 

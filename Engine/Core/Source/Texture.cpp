@@ -5,6 +5,8 @@
 
 //REMEMBER: OpenGL textures (0,0) == bottom left and (1,1) == top right.
 
+int32 VTexture::ActiveTextureCount = 0;
+
 VTexture::VTexture(ETextureType type, ETextureWrapMode wrapMode)
 	:Type(type),
 	WrapMode(wrapMode),
@@ -163,5 +165,13 @@ int8 VTexture::ComponentsInColorMode()
 
 bool VTexture::SendToShader(UniformHandle handle)
 {
+	Bind(ActiveTextureCount);
+	glUniform1i(handle, ActiveTextureCount);
+	ActiveTextureCount++;
 	return true;	// TEMP
+}
+
+void VTexture::CleanupFromShader()
+{
+	ActiveTextureCount--;
 }

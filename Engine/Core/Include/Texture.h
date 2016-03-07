@@ -45,6 +45,8 @@ enum ETextureFilterMethod
 class CORE_API VTexture : public IMaterialParam
 {
 protected:
+	static int32 ActiveTextureCount;		// Number of currently active textures
+
 	void* Pixels;		// Pixel data
 
 	Texture_t Handle;	// Handle to the texture on the gpu
@@ -130,6 +132,7 @@ public:
 
 	// Implements IMaterialParam interface
 	virtual bool SendToShader(UniformHandle handle) override;
+	virtual void CleanupFromShader() override;
 
 	// Setters
 	inline void SetGenerateMipmap(bool setMipmap) { GenerateMipMap = setMipmap; }

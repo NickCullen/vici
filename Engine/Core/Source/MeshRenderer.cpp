@@ -39,6 +39,8 @@ void VMeshRenderer::Render()
 		VertexArrayList.Bind();			// Bind the vertex arrays
 
 		MeshData->DrawElements();		// Draw 
+
+		Material->CleanupAfterRender();	// Cleanup
 	}
 }
 

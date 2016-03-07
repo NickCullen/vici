@@ -14,4 +14,7 @@ public:
 
 	// Pass the data to the shader
 	virtual bool SendToShader(UniformHandle handle) = 0;
+
+	// Chance to cleanup after render
+	virtual void CleanupFromShader() = 0;
 };

@@ -1,3 +1,5 @@
+#version 150
+
 in vec3 vPosition;
 in vec3 vColor;
 in vec2 vUV1;
