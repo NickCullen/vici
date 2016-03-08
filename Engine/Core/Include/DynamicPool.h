@@ -7,21 +7,47 @@
 template<typename T>
 class CORE_API VDynamicPool
 {
+	class VPoolPointer
+	{
+		friend class VDynamicPool;
+	private:
+		uint32 Index;		// Index into Pool array
+		VDynamicPool* Pool;	// Pointer to the pool so we can retrieve the object
+
+		// Only pool object allowed to create these
+		VPoolPointer() = default;
+		
+	public:
+		~VPoolPointer() = default;
+
+		T* operator->()
+		{
+			return Pool->GetPtr(Index);
+		}
+	};
+
+	friend class VPoolPointer;
 private:
 	T* Data;	// Array of data
 
-	uint32 MaxSize;	// Total allocated space of the pool
+	uint32 MaxCount;	// Total number of allocated objects
 
 	T* Begin;		// Pointer to the start of the pool
 
 	T* End;			// Pointer to the end of the pool
+
+	// Only callable by VPoolPointers
+	inline T* GetPtr(uint32 index)
+	{
+		return &Data[index];
+	}
 
 public:
 	VDynamicPool()
 		: Data(nullptr),
 		Begin(nullptr),
 		End(nullptr),
-		MaxSize(0)
+		MaxCount(0)
 	{
 	}
 
@@ -29,9 +55,9 @@ public:
 		: Data(nullptr),
 		Begin(nullptr),
 		End(nullptr),
-		MaxSize(0)
+		MaxCount(0)
 	{
-		Resize(count * sizeof(T));
+		Resize(count);
 	}
 
 	~VDynamicPool()
@@ -39,26 +65,30 @@ public:
 		delete [] Data;
 	}
 
-	// Resizes array to the newSize in bytes
-	void Resize(uint32 newSize)
+	// Resizes array to the newCount * sizeof(T)
+	void Resize(uint32 newCount)
 	{
+		uint32 newSize = newCount * sizeof(T);
 		// Data already exists
 		if (Data != nullptr)
 			Data = (T*)realloc(Data, newSize);
 		else
 			Data = (T*)malloc(newSize);
 
-		MaxSize = newSize;
+		MaxCount = newCount;
 		Begin = &Data[0];
-		End = &Data[MaxSize];
+		End = &Data[MaxCount];
 	}
 
-	T* Get(uint32 index)
+	VPoolPointer Get(uint32 index)
 	{
-		uint32 offset = sizeof(T) * index;
-		if (offset >= MaxSize)
-			Resize(offset + (offset >> 1));
+		if (index >= MaxCount)
+			Resize(index + (index >> 1));
 
-		return &Data[index];
+		VPoolPointer ptr;
+		ptr.Index = index;
+		ptr.Pool = this;
+
+		return ptr;
 	}
 };

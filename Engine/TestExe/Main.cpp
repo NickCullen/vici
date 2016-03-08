@@ -24,10 +24,18 @@ void Tests()
 
 	for (int i = 0; i < 11; i++)
 	{
-		VEC2* v = pool.Get(i);
-		printf("VEC2[%d] = %p\n", i, v);
+		auto v = pool.Get(i);
+		
+		v->x = 20 * (i + 1);
+		v->y = 10 * (i + 1);
 	}
 
+	for (int i = 0; i < 11; i++)
+	{
+		auto v = pool.Get(i);
+
+		printf("VEC2[%d] = %f, %f\n", i, v->x, v->y);
+	}
 }
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, VButton* button)
