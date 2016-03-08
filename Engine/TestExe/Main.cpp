@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Time.h"
 #include "VertexBuffer.h"
+#include "DynamicPool.h"
 
 struct VEC2
 {
@@ -19,17 +20,14 @@ struct VEC3
 
 void Tests()
 {
-	float arr[] = { 1.0, 2.0, 
-					3.0, 4.0, 
-					5.0, 6.0 };
+	VDynamicPool<VEC2> pool(10);
 
-	VVertexBuffer* vb = new VVertexBuffer();
-
-	if (vb->Lock())
+	for (int i = 0; i < 11; i++)
 	{
-		vb->FromArray(arr, sizeof(arr), sizeof(float) * 2);
-		vb->Unlock();
+		VEC2* v = pool.Get(i);
+		printf("VEC2[%d] = %p\n", i, v);
 	}
+
 }
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, VButton* button)

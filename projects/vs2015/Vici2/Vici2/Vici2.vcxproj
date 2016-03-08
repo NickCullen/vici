@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Delegate.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\DynamicPool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Engine.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineConstants.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineMacros.h" />
