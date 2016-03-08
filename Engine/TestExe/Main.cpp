@@ -9,6 +9,7 @@ struct VEC2
 {
 	float x;
 	float y;
+
 };
 
 struct VEC3
@@ -20,14 +21,19 @@ struct VEC3
 
 void Tests()
 {
+
 	VDynamicPool<VEC2> pool(10);
 
 	for (int i = 0; i < 11; i++)
 	{
 		auto v = pool.Get(i);
-		
+		auto v2 = pool.Get(i + 1);
+
 		v->x = 20 * (i + 1);
 		v->y = 10 * (i + 1);
+
+		
+		printf("Hello");
 	}
 
 	for (int i = 0; i < 11; i++)

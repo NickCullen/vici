@@ -4,9 +4,16 @@
 #include "VTypes.h"
 #include <memory>
 
+/**
+ * Pool of objects that can resize if
+ * a call to Get exceeds MaxCount
+ */
 template<typename T>
 class CORE_API VDynamicPool
 {
+	/**
+	 * Use for safe access when working with dynamic pools
+	 */
 	class VPoolPointer
 	{
 		friend class VDynamicPool;
@@ -15,15 +22,41 @@ class CORE_API VDynamicPool
 		VDynamicPool* Pool;	// Pointer to the pool so we can retrieve the object
 
 		// Only pool object allowed to create these
-		VPoolPointer() = default;
+		VPoolPointer(uint32 index, VDynamicPool* pool)
+			:Index(index),
+			Pool(pool)
+		{}
 		
 	public:
 		~VPoolPointer() = default;
 
+		int GetIndex() { return Index; }
+
+		// Function access operator
 		T* operator->()
 		{
 			return Pool->GetPtr(Index);
 		}
+
+		// Dereference Operator
+		const T operator*() const
+		{
+			return *Pool->GetPtr(Index);
+		}
+
+		// Returns the pointer
+		T* AsPointer()
+		{
+			return Pool->GetPtr(Index);
+		}
+
+		// Common operators
+		bool operator==(const VPoolPointer& other) { return **this == *other; }
+		bool operator!=(const VPoolPointer& other) { return **this != *other; }
+		bool operator<(const VPoolPointer& other) { return **this < *other; }
+		bool operator>(const VPoolPointer& other) { return **this > *other; }
+		bool operator<=(const VPoolPointer& other) { return **this <= *other; }
+		bool operator>=(const VPoolPointer& other) { return **this >= *other; }
 	};
 
 	friend class VPoolPointer;
@@ -31,10 +64,6 @@ private:
 	T* Data;	// Array of data
 
 	uint32 MaxCount;	// Total number of allocated objects
-
-	T* Begin;		// Pointer to the start of the pool
-
-	T* End;			// Pointer to the end of the pool
 
 	// Only callable by VPoolPointers
 	inline T* GetPtr(uint32 index)
@@ -45,16 +74,12 @@ private:
 public:
 	VDynamicPool()
 		: Data(nullptr),
-		Begin(nullptr),
-		End(nullptr),
 		MaxCount(0)
 	{
 	}
 
 	VDynamicPool(uint32 count)
 		: Data(nullptr),
-		Begin(nullptr),
-		End(nullptr),
 		MaxCount(0)
 	{
 		Resize(count);
@@ -62,7 +87,7 @@ public:
 
 	~VDynamicPool()
 	{
-		delete [] Data;
+		if(Data) free(Data);
 	}
 
 	// Resizes array to the newCount * sizeof(T)
@@ -76,8 +101,6 @@ public:
 			Data = (T*)malloc(newSize);
 
 		MaxCount = newCount;
-		Begin = &Data[0];
-		End = &Data[MaxCount];
 	}
 
 	VPoolPointer Get(uint32 index)
@@ -85,10 +108,11 @@ public:
 		if (index >= MaxCount)
 			Resize(index + (index >> 1));
 
-		VPoolPointer ptr;
-		ptr.Index = index;
-		ptr.Pool = this;
-
-		return ptr;
+		return VPoolPointer(index, this);
 	}
+
+	// Getters
+	inline uint32 GetMaxCount() { return MaxCount; }
+	inline const T* GetFront() { return Data ? &Data[0] : nullptr; }
+	inline const T* GetEnd() { return Data ? &Data[MaxCount] : nullptr; }
 };
