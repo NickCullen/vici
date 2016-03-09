@@ -1,7 +1,7 @@
 #include "VString.h"
 #include <string>
 
-#define ENSURE_IMPL if(Impl == nullptr || (unsigned int)Impl == 0xcccccccc) Impl = new VStringImpl();
+#define ENSURE_IMPL if(Impl == nullptr) Impl = new VStringImpl();
 
 // def
 struct VStringImpl

@@ -4,6 +4,10 @@
 #include "VTypes.h"
 #include <memory>
 
+// Forward decl. friends
+template<typename T> 
+class VArray;
+
 /**
  * Pool of objects that can resize if
  * a call to Get exceeds MaxCount
@@ -60,6 +64,7 @@ class CORE_API VDynamicPool
 	};
 
 	friend class VPoolPointer;
+	friend class VArray<T>;
 private:
 	T* Data;	// Array of data
 
@@ -90,6 +95,19 @@ public:
 		Resize(count);
 	}
 
+	/**
+	 * Copy Constructor (we dont want to have 2 copies of a dynamic pool
+	 * pointing at the same pool. Consider passing pools by reference to 
+	 * prevent this.
+	 */
+	VDynamicPool(const VDynamicPool& other)
+	{
+		uint32 size = other.MaxCount * sizeof(T);
+		Data = (T*)malloc(size);
+		memcpy(Data, other.Data, size);
+
+		MaxCount = other.MaxCount;
+	}
 	~VDynamicPool()
 	{
 		if(Data) free(Data);
@@ -99,13 +117,18 @@ public:
 	void Resize(uint32 newCount)
 	{
 		uint32 newSize = newCount * sizeof(T);
-		// Data already exists
-		if (Data != nullptr)
-			Data = (T*)realloc(Data, newSize);
-		else
-			Data = (T*)malloc(newSize);
+		// Costly op, dont do if we are resizing to the same size!
+		if (newSize != MaxCount * sizeof(T))
+		{
+			// Data already exists
+			if (Data != nullptr)
+				Data = (T*)realloc(Data, newSize);
+			else
+				Data = (T*)malloc(newSize);
 
-		MaxCount = newCount;
+			MaxCount = newCount;
+		}
+		
 	}
 
 	VPoolPointer Get(uint32 index)
@@ -114,6 +137,36 @@ public:
 			Resize(index + (index >> 1));
 
 		return VPoolPointer(index, this);
+	}
+
+	void Set(uint32 index, const T& data)
+	{
+		if (index >= MaxCount)
+			Resize(index + (index >> 1));
+
+		Data[index] = data;
+	}
+
+	/**
+	 * Shifts the elements on the pool from the given index
+	 * down one index. This will remove the element at the given index
+	 */
+	void ShiftDownFrom(uint32 index)
+	{
+		T* cutoff = &Data[index];		// The item we will be remove
+		T* move = &Data[index + 1];		// Where we will move the item down from
+		memcpy(cutoff, move, (MaxCount - index -1 ) * sizeof(T));
+	}
+
+	/**
+	 * Shifts down N given times from the given index. This will remove
+	 * the values before and including the given index
+	 */
+	void ShiftDownNTimesFrom(uint32 index, uint32 nTimes) 
+	{
+		T* cutoff = &Data[index];			// Start of items to remove
+		T* move = &Data[index + nTimes];	// Start of the first value we are going to keep
+		memcpy(cutoff, move, (MaxCount - index - nTimes) * sizeof(T));
 	}
 
 	// Getters

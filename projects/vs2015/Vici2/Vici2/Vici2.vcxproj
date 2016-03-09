@@ -170,6 +170,7 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Array.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Delegate.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\DynamicPool.h" />

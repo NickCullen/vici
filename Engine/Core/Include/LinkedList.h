@@ -2,6 +2,11 @@
 
 #include "CoreAPI.h"
 
+/** 
+ * Dynamic class data structure ideal for chains of
+ * items which do not change often. If using for an
+ * array of items, consider VArray
+ */
 template<typename T>
 class CORE_API VLinkedList
 {
@@ -15,6 +20,12 @@ class CORE_API VLinkedList
 			: Next(nullptr),
 			Prev(nullptr)
 		{}
+
+		// Dereference Operator
+		T& operator*()
+		{
+			return Data;
+		}
 	};
 
 private:

@@ -68,7 +68,7 @@ void VFilePath::PrefixLocation()
 
 const char* VFilePath::EnsurePathFriendly(char* path)
 {
-	int len = strlen(path);
+	size_t len = strlen(path);
 	for (int i = 0; i < len; i++)
 	{
 		if (path[i] == INVALID_SLASH)
@@ -79,7 +79,7 @@ const char* VFilePath::EnsurePathFriendly(char* path)
 
 const char* VFilePath::TrimPath(char* path)
 {
-	int len = strlen(path);
+	size_t len = strlen(path);
 	char* currentChar = &path[len];
 	while (*currentChar != '\\' && *currentChar != '/')
 	{

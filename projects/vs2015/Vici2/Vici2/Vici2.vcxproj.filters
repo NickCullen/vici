@@ -236,5 +236,8 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\DynamicPool.h">
       <Filter>Core\Data Structures\Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Array.h">
+      <Filter>Core\Data Structures\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,8 @@
 #include "Window.h"
 #include "Time.h"
 #include "VertexBuffer.h"
-#include "DynamicPool.h"
+#include "Array.h"
+
 
 struct VEC2
 {
@@ -19,29 +20,29 @@ struct VEC3
 	float z;
 };
 
+void TestArray(VArray<int>& arrCpy)
+{
+	for (uint32 i = 0; i < arrCpy.GetCount(); i++)
+	{
+		int val = arrCpy[i];
+
+		printf("Val = %d\n", val);
+
+	}
+}
+
 void Tests()
 {
+	VArray<int> arr;
 
-	VDynamicPool<VEC2> pool(10);
+	arr.Add(2);
+	arr.Add(3);
+	arr.Add(5);
 
-	for (int i = 0; i < 11; i++)
-	{
-		auto v = pool.Get(i);
-		auto v2 = pool.Get(i + 1);
-		
-		v->x = 20 * (i + 1);
-		v->y = 10 * (i + 1);
+	arr.RemoveAllBefore(3);
 
-		
-		printf("Hello");
-	}
+	TestArray(arr);
 
-	for (int i = 0; i < 11; i++)
-	{
-		auto v = pool.Get(i);
-
-		printf("VEC2[%d] = %f, %f\n", i, v->x, v->y);
-	}
 }
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, VButton* button)
