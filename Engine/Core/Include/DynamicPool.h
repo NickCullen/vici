@@ -39,9 +39,9 @@ class CORE_API VDynamicPool
 		}
 
 		// Dereference Operator
-		const T operator*() const
+		T& operator*()
 		{
-			return *Pool->GetPtr(Index);
+			return Pool->GetData(Index);
 		}
 
 		// Returns the pointer
@@ -69,6 +69,11 @@ private:
 	inline T* GetPtr(uint32 index)
 	{
 		return &Data[index];
+	}
+
+	inline T& GetData(uint32 index)
+	{
+		return Data[index];
 	}
 
 public:

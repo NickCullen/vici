@@ -28,7 +28,7 @@ void Tests()
 	{
 		auto v = pool.Get(i);
 		auto v2 = pool.Get(i + 1);
-
+		
 		v->x = 20 * (i + 1);
 		v->y = 10 * (i + 1);
 
