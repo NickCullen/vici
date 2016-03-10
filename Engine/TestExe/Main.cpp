@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "Time.h"
 #include "VertexBuffer.h"
-#include "DynamicPool.h"
+#include "Queue.h"
 
 
 struct VEC2
@@ -26,35 +26,17 @@ struct VEC3
 };
 
 
-void TestPool(VDynamicPool<VEC3> pool)
-{
-	for (int i = 0; i < pool.GetMaxCount(); i++)
-	{
-		auto v3 = pool[i];
-
-		printf("v3 = %f %f %f \n", v3->x, v3->y, v3->z);
-
-
-	}
-}
-
 void Tests()
 {
-	int count = 100000;
-	VDynamicPool<VEC3> pool(count);
+	VQueue<int>* queue = new VQueue<int>();
 
-	for (int i = 0; i < pool.GetMaxCount(); i++)
-	{
-		auto v3 = pool[i];
+	queue->Add(1);
+	queue->Add(2);
+	queue->Add(3);
 
-		v3->x = i;
-		v3->y = i + 1;
-		v3->z = i + 2;
-	}
-
-	TestPool(pool);
-	
+	delete(queue);
 }
+
 
 
 // Called when key is pressed

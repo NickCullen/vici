@@ -192,6 +192,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Mutex.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Pool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Queue.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
