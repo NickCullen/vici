@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Array.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ConditionVar.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\CoreAPI.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Delegate.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\DynamicPool.h" />
@@ -188,14 +189,18 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MaterialParam.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshData.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshRenderer.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Mutex.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Pool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\StaticPool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Buffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Texture.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Texture2D.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Thread.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexArrayList.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h" />

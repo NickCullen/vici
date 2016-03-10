@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "Time.h"
 #include "VertexBuffer.h"
-#include "Array.h"
+#include "DynamicPool.h"
 
 
 struct VEC2
@@ -25,38 +25,38 @@ struct VEC3
 	float z;
 };
 
-void TestArray(VArray<int>& arrCpy)
-{
-	for (uint32 i = 0; i < arrCpy.GetCount(); i++)
-	{
-		int val = arrCpy[i];
 
-		printf("Val = %d\n", val);
+void TestPool(VDynamicPool<VEC3> pool)
+{
+	for (int i = 0; i < pool.GetMaxCount(); i++)
+	{
+		auto v3 = pool[i];
+
+		printf("v3 = %f %f %f \n", v3->x, v3->y, v3->z);
+
 
 	}
 }
 
 void Tests()
 {
-	VArray<VEC2> arr;
-	const VEC2* copy = nullptr;
+	int count = 100000;
+	VDynamicPool<VEC3> pool(count);
 
-	arr.Add(VEC2(10,20));
-	arr.Add(VEC2(20,40));
-	arr.Add(VEC2(30,60));
-	
-	copy = arr.GetData();
-
-	uint32 size = arr.GetSize();
-	arr.RemoveAllBefore(1);
-	size = arr.GetSize();
-
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < pool.GetMaxCount(); i++)
 	{
-		printf("val = %f\n", copy[i].x);
+		auto v3 = pool[i];
+
+		v3->x = i;
+		v3->y = i + 1;
+		v3->z = i + 2;
 	}
 
+	TestPool(pool);
+	
 }
+
+
 // Called when key is pressed
 void KeyCallbackFn(VWindow* win, VButton* button)
 {

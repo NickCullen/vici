@@ -58,6 +58,18 @@
     <Filter Include="Core\UI\Source">
       <UniqueIdentifier>{ab113b54-bcaf-450b-b0ea-0ca4ae055a37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Threads">
+      <UniqueIdentifier>{95c0ae6e-fd83-45ac-b610-5b6896220397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Threads\Include">
+      <UniqueIdentifier>{235eca0b-f2e5-450c-81fd-42dbcbebf53b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Threads\Source">
+      <UniqueIdentifier>{3ad1422f-2cd1-4621-8250-a0b1e2216058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Threads\Private">
+      <UniqueIdentifier>{054c73f4-2797-490a-ac66-85e9977a9bb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp">
@@ -237,6 +249,21 @@
       <Filter>Core\Data Structures\Include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Array.h">
+      <Filter>Core\Data Structures\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Thread.h">
+      <Filter>Core\Threads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Mutex.h">
+      <Filter>Core\Threads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ConditionVar.h">
+      <Filter>Core\Threads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\StaticPool.h">
+      <Filter>Core\Data Structures\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Pool.h">
       <Filter>Core\Data Structures\Include</Filter>
     </ClInclude>
   </ItemGroup>
