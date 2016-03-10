@@ -169,6 +169,26 @@ public:
 		memcpy(cutoff, move, (MaxCount - index - nTimes) * sizeof(T));
 	}
 
+	/**
+	 * Copies the elements from and to specified indices
+	 * to the given buffer.
+	 * @param buffer The pre-allocated buffer
+	 * @param start The start index (inclusive)
+	 * @param end The end index (inclusive)
+	 */
+	void CopyTo(T* buffer, uint32 start, uint32 end)
+	{
+		T* begin = &Data[start];
+		memcpy(buffer, begin, (end - start) * sizeof(T));
+	}
+
+	/**
+	 * Zeros out the allocated memory
+	 */
+	void ZeroMemory()
+	{
+		memset(Data, 0, MaxCount * sizeof(T));
+	}
 	// Getters
 	inline uint32 GetMaxCount() { return MaxCount; }
 	inline const T* GetFront() { return Data ? &Data[0] : nullptr; }

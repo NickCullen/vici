@@ -11,6 +11,11 @@ struct VEC2
 	float x;
 	float y;
 
+	VEC2(float _x, float _y)
+		:x(_x),
+		y(_y)
+	{}
+
 };
 
 struct VEC3
@@ -33,15 +38,23 @@ void TestArray(VArray<int>& arrCpy)
 
 void Tests()
 {
-	VArray<int> arr;
+	VArray<VEC2> arr;
+	VEC2* copy = nullptr;
 
-	arr.Add(2);
-	arr.Add(3);
-	arr.Add(5);
+	arr.Add(VEC2(10,20));
+	arr.Add(VEC2(20,40));
+	arr.Add(VEC2(30,60));
+	
+	copy = arr.GetDataCopy();
 
-	arr.RemoveAllBefore(3);
+	arr.RemoveAll();
 
-	TestArray(arr);
+	for (int i = 0; i < 3; i++)
+	{
+		printf("val = %f\n", copy[i].x);
+	}
+	
+	free(copy);
 
 }
 // Called when key is pressed

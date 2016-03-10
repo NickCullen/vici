@@ -67,6 +67,7 @@ public:
 		{
 			Count = 0;
 			Elements.Resize(DEFAULT_MAX_SIZE);
+			Elements.ZeroMemory();
 		}
 	}
 
@@ -104,7 +105,19 @@ public:
 		return Elements.GetData(Count--);
 	}
 
+	/**
+	 * Returns a copy of the array, it is upto the caller
+	 * to free this data
+	 */
+	T* GetDataCopy()
+	{
+		T* buff = (T*)malloc(Count*sizeof(T));
+		Elements.CopyTo(buff, 0, Count);
+		return buff;
+	}
+
 	// getters
 	inline uint32 GetCount() { return Count; }
 	inline uint32 GetCapacity() { return Elements.GetMaxCount(); }
+	inline const T* GetData() { return Elements.Data; }
 };
