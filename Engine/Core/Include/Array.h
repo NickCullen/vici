@@ -102,7 +102,7 @@ public:
 	 */
 	T& PopBack()
 	{
-		return Elements.GetData(Count--);
+		return Elements.GetData(--Count);
 	}
 
 	/**
@@ -118,6 +118,7 @@ public:
 
 	// getters
 	inline uint32 GetCount() { return Count; }
+	inline uint32 GetSize() { return Count * sizeof(T); }
 	inline uint32 GetCapacity() { return Elements.GetMaxCount(); }
 	inline const T* GetData() { return Elements.Data; }
 };

@@ -39,22 +39,22 @@ void TestArray(VArray<int>& arrCpy)
 void Tests()
 {
 	VArray<VEC2> arr;
-	VEC2* copy = nullptr;
+	const VEC2* copy = nullptr;
 
 	arr.Add(VEC2(10,20));
 	arr.Add(VEC2(20,40));
 	arr.Add(VEC2(30,60));
 	
-	copy = arr.GetDataCopy();
+	copy = arr.GetData();
 
-	arr.RemoveAll();
+	uint32 size = arr.GetSize();
+	arr.RemoveAllBefore(1);
+	size = arr.GetSize();
 
 	for (int i = 0; i < 3; i++)
 	{
 		printf("val = %f\n", copy[i].x);
 	}
-	
-	free(copy);
 
 }
 // Called when key is pressed
