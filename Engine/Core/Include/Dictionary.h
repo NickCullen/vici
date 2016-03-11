@@ -2,9 +2,11 @@
 
 #include "CoreAPI.h"
 #include "Hash.h"
-#include "LinkedList.h"
 #include "Array.h"
 
+/**
+ * Class to store values as a key,value pair
+ */
 template< typename ValueType, typename KeyType = VHash>
 class CORE_API VDictionary
 {
@@ -28,7 +30,6 @@ public:
 private:
 	VArray<VDictionaryEntry> Entries[MAX_DICT_SIZE];
 
-	ValueType DefaultValue;	// DefaultValue
 public:
 	VDictionary()
 	{
@@ -41,8 +42,7 @@ public:
 	}
 
 	/**
-	 * Access an element like an array, will return default
-	 * value if item does not exist
+	 * Access an element like an array, will throw error if no entry exists
 	 * Note that if Dictionary is being used as a pointer
 	 * remember to derefence it before using [] operator like so
 	 * (*dict)[<id>]
@@ -57,7 +57,8 @@ public:
 				return Entries[index][i].Val;
 			}
 		}
-		return DefaultValue;
+		
+		throw "Entry does not exist";
 	}
 
 	/**

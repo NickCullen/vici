@@ -188,20 +188,3 @@ public:
 		return hash;
 	}
 };
-
-/*namespace std
-{
-	// forward decl
-	//template <class T> struct hash;
-
-	template <> 
-	struct hash<VHash>
-	{
-		typedef VHash argument_type;
-
-		size_t operator()(VHash const & val) const
-		{
-			return val.Value();
-		}
-	};
-}*/
