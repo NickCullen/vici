@@ -26,9 +26,9 @@ public:
 	const static int MAX_DICT_SIZE = 32;
 
 private:
-	//VLinkedList<VDictionaryEntry> Entries[MAX_DICT_SIZE];	// Array of linked lists set to MAX_DICT_SIZE
 	VArray<VDictionaryEntry> Entries[MAX_DICT_SIZE];
 
+	ValueType DefaultValue;	// DefaultValue
 public:
 	VDictionary()
 	{
@@ -38,6 +38,26 @@ public:
 	~VDictionary()
 	{
 
+	}
+
+	/**
+	 * Access an element like an array, will return default
+	 * value if item does not exist
+	 * Note that if Dictionary is being used as a pointer
+	 * remember to derefence it before using [] operator like so
+	 * (*dict)[<id>]
+	 */
+	ValueType& operator[](const KeyType& key)
+	{
+		uint32 index = key.Value() % MAX_DICT_SIZE;
+		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		{
+			if (Entries[index][i].Key == key)
+			{
+				return Entries[index][i].Val;
+			}
+		}
+		return DefaultValue;
 	}
 
 	/**
@@ -80,6 +100,24 @@ public:
 		{
 			if (Entries[index][i].Key == key)
 				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Removes the item with the given key
+	 * Will return true if successfully removed
+	 */
+	bool Remove(const KeyType& key)
+	{
+		uint32 index = key.Value() % MAX_DICT_SIZE;
+		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		{
+			if (Entries[index][i].Key == key)
+			{
+				Entries[index].RemoveAt(i);
+				return true;
+			}
 		}
 		return false;
 	}

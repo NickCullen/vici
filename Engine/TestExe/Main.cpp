@@ -30,31 +30,16 @@ struct VEC3
 
 void Tests()
 {
-	srand(3250239752);
-	VDictionary<int>* dict = new VDictionary<int>();
+	VDictionary<int> dict;
 
-	// Stress test
-	const int max = 40000;
-	const int strSize = 5;
-	char buff[strSize];
-	for (int i = 0; i < max; i++)
-	{
-		for (int j = 0; j < strSize; j++)
-			buff[j] = 65 + rand() % 25;
+	dict.Insert("MyInt1", 64);
 
-		dict->Insert(buff, i);
-	}
-	dict->Insert("MyInt1", 64);
+	int val = dict["MyInt1"];
+	int non = dict["MyNonExistentInt"];
+	
+	dict["MyInt1"] = 22;
 
-	bool exists = dict->KeyExists("MyInt1");
-	int out = 0;
-	if (dict->Get("MyInt1", &out))
-	{
-		printf("Retrieved = %d\n", out);
-	}
-
-
-	delete(dict);
+	val = dict["MyInt1"];
 }
 
 
