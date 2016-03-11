@@ -25,12 +25,34 @@ struct VEC3
 	float z;
 };
 
+#include <random>
+#include <time.h>
 
 void Tests()
 {
+	srand(3250239752);
 	VDictionary<int>* dict = new VDictionary<int>();
 
+	// Stress test
+	const int max = 40000;
+	const int strSize = 5;
+	char buff[strSize];
+	for (int i = 0; i < max; i++)
+	{
+		for (int j = 0; j < strSize; j++)
+			buff[j] = 65 + rand() % 25;
+
+		dict->Insert(buff, i);
+	}
 	dict->Insert("MyInt1", 64);
+
+	bool exists = dict->KeyExists("MyInt1");
+	int out = 0;
+	if (dict->Get("MyInt1", &out))
+	{
+		printf("Retrieved = %d\n", out);
+	}
+
 
 	delete(dict);
 }
