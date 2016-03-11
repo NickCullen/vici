@@ -196,6 +196,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Stack.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\StaticPool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\TextFile.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Buffer.h" />

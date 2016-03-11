@@ -269,5 +269,8 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Queue.h">
       <Filter>Core\Data Structures\Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Stack.h">
+      <Filter>Core\Data Structures\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

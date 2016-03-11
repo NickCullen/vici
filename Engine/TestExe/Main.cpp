@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "Time.h"
 #include "VertexBuffer.h"
-#include "Queue.h"
+#include "Stack.h"
 
 
 struct VEC2
@@ -28,13 +28,23 @@ struct VEC3
 
 void Tests()
 {
-	VQueue<int>* queue = new VQueue<int>();
+	VStack<int>* stack = new VStack<int>();
 
-	queue->Add(1);
-	queue->Add(2);
-	queue->Add(3);
+	stack->Push(1);
+	stack->Push(2);
+	stack->Push(3);
 
-	delete(queue);
+
+	int var;
+	stack->Pop(var);
+	stack->Pop(var);
+
+	stack->Peek(var);
+
+	stack->Pop(var);
+	stack->Pop(var);
+
+	delete(stack);
 }
 
 
