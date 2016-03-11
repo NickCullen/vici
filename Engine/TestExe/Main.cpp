@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "Time.h"
 #include "VertexBuffer.h"
-#include "Stack.h"
+#include "Dictionary.h"
 
 
 struct VEC2
@@ -28,23 +28,11 @@ struct VEC3
 
 void Tests()
 {
-	VStack<int>* stack = new VStack<int>();
+	VDictionary<int>* dict = new VDictionary<int>();
 
-	stack->Push(1);
-	stack->Push(2);
-	stack->Push(3);
+	dict->Insert("MyInt1", 64);
 
-
-	int var;
-	stack->Pop(var);
-	stack->Pop(var);
-
-	stack->Peek(var);
-
-	stack->Pop(var);
-	stack->Pop(var);
-
-	delete(stack);
+	delete(dict);
 }
 
 
