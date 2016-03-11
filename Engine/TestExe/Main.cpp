@@ -2,44 +2,12 @@
 #include "Input.h"
 #include "Window.h"
 #include "Time.h"
-#include "VertexBuffer.h"
-#include "Dictionary.h"
 
 
-struct VEC2
-{
-	float x;
-	float y;
-
-	VEC2(float _x, float _y)
-		:x(_x),
-		y(_y)
-	{}
-
-};
-
-struct VEC3
-{
-	float x;
-	float y;
-	float z;
-};
-
-#include <random>
-#include <time.h>
 
 void Tests()
 {
-	VDictionary<int> dict;
 
-	dict.Insert("MyInt1", 64);
-
-	int val = dict["MyInt1"];
-	int non = dict["MyNonExistentInt"];
-	
-	dict["MyInt1"] = 22;
-
-	val = dict["MyInt1"];
 }
 
 
@@ -100,12 +68,20 @@ int main(int argc, char** argv)
 	float t = 0.0f;
 	float dt = 0.01f;
 
-	float currentTime = VTime::GetTime();
+	VTime::GetInstance()->SetFixedDeltaTime(dt);		// Fixed delta time will not change
+
+	// Initialize
+	VTime::GetInstance()->UpdateTime();		// Update time for this
+
+
+	float currentTime = VTime::GetInstance()->GetTime();
 	float accumulator = 0.0f;
 
 	while (!win.ShouldClose())
 	{
-		float newTime = VTime::GetTime();
+		VTime::GetInstance()->UpdateTime();		// Update time for this
+
+		float newTime =	VTime::GetInstance()->GetTime();
 		float frameTime = newTime - currentTime;
 
 		if (frameTime > 0.25f)

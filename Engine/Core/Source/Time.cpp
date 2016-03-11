@@ -1,7 +1,12 @@
 #include "Time.h"
 #include "GLFW/glfw3.h"
 
-float VTime::GetTime()
+VTime::VTime()
+	:VSingleton(this)
 {
-	return (float)glfwGetTime();
+
+}
+void VTime::UpdateTime()
+{
+	Time = (float)glfwGetTime();
 }
