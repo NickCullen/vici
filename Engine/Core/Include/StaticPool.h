@@ -22,6 +22,20 @@ public:
 	{
 	}
 
+	/**
+	* Copy Constructor (we dont want to have 2 copies of a pool
+	* pointing at the same pool. Consider passing pools by reference to
+	* prevent this.
+	*/
+	VStaticPool(const VStaticPool& other)
+	{
+		uint32 size = other.MaxCount * sizeof(T);
+		Data = (T*)malloc(size);
+		memcpy(Data, other.Data, size);
+
+		MaxCount = other.MaxCount;
+	}
+
 	T& operator[](int32 index)
 	{
 		return Data[index];

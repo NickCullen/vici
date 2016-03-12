@@ -1,80 +1,117 @@
 #include "VString.h"
 #include <string>
 
-#define ENSURE_IMPL if(Impl == nullptr) Impl = new VStringImpl();
-
-// def
-struct VStringImpl
-{
-	std::string Data;
-
-	VStringImpl() = default;
-	VStringImpl(const std::string& other) { Data = other; }
-};
-
 VString::VString()
-	:Impl(nullptr)
+	: Data(10),
+	Length(0)
 {
-	ENSURE_IMPL
-}
-
-VString::VString(const VString& other)
-{
-	ENSURE_IMPL
-	*Impl = *other.Impl;
+	
 }
 
 VString::VString(const char* str)
 {
-	ENSURE_IMPL
-	Impl->Data = str;
+	Length = strlen(str);
+	Data.SetCount(Length+1);
+	for (uint32 i = 0; i < Length; i++)
+		Data[i] = str[i];
+	Data[Length] = '\0';
+}
+
+VString::VString(const VArray<char>& arr)
+{
+	Length = arr.GetAt(arr.GetCount()-1) == '\0' ? arr.GetCount() - 1 : arr.GetCount();
+	Data = arr;
 }
 
 VString::~VString()
 {
-	delete(Impl);
 }
 
-const char* VString::c_str() const
+const char* VString::GetCString() const
 {
-	return Impl->Data.c_str();
+	return Data.GetData();
 }
 
 void VString::SetString(const VString& str)
 {
-	Impl->Data = str;
+	Data = str.Data;
+	Length = str.Length;
 }
 
-VString::operator const char*()
+VString::operator const char*() const
 {
-	return Impl->Data.c_str();
+	return Data.GetData();
 }
 
 VString::operator char*() const
 {
-	return (char*)Impl->Data.c_str();
+	return (char*)Data.GetData();
 }
 
-VString VString::operator+(const VString& other)
+VString VString::operator+(const VString& other) const
 {
-	std::string newString = Impl->Data + other.Impl->Data;
-	return newString.c_str();
+	uint32 len = Length + other.Length + 1;
+
+	// Pool to store new data
+	VArray<char> newArr(len);
+
+	// Copy this string
+	for (uint32 i = 0; i < Length; i++)
+		newArr.Add(Data.GetAt(i));
+
+	// Copy next string
+	for (uint32 i = 0; i < other.Length; i++)
+		newArr.Add(other.Data.GetAt(i));
+
+	// Null terminate
+	newArr[len] = '\0';
+
+	return newArr;
 }
 
-VString VString::operator+(const char* other)
+VString VString::operator+(const char* other) const
 {
-	std::string newString = Impl->Data + other;
-	return newString.c_str();
+	int strLen = strlen(other);
+	uint32 len = Length + strLen;
+
+	// Pool to store new data
+	VArray<char> newArr(len);
+
+	// Copy this string
+	for (int i = 0; i < Length-1; i++)
+		newArr[i] = Data.GetAt(i);
+
+	// Copy next string
+	for (int i = 0; i < strLen; i++)
+		newArr[Length+i] = other[i];
+
+	// Null terminate
+	newArr[len] = '\0';
+
+	return newArr;
 }
 
 VString& VString::operator=(const VString& other)
 {
-	Impl->Data = other.Impl->Data;
+	Data = other.Data;
+	Length = other.Length;
+
 	return *this;
 }
 
 VString& VString::operator=(const char* other)
 {
-	Impl->Data = other;
+	Length = strlen(other) + 1;
+	Data.SetCount(Length);
+
+	for (uint32 i = 0; i < Length; i++)
+		Data[i] = other[i];
+
 	return *this;
+}
+
+
+uint32 VString::GetLength() const
+{
+	return Length;
 }

@@ -32,22 +32,22 @@ class CORE_API VDynamicPool : public VPool<T>
 	public:
 		~VPoolPointer() = default;
 
-		int GetIndex() { return Index; }
+		int GetIndex() const { return Index; }
 
 		// Function access operator
-		T* operator->()
+		T* operator->() const
 		{
 			return Pool->GetPtr(Index);
 		}
 
 		// Dereference Operator
-		T& operator*()
+		T& operator*() const
 		{
 			return Pool->GetData(Index);
 		}
 
 		// Returns the pointer
-		T* AsPointer()
+		T* AsPointer() const
 		{
 			return Pool->GetPtr(Index);
 		}
@@ -64,19 +64,6 @@ class CORE_API VDynamicPool : public VPool<T>
 	friend class VPoolPointer;
 	friend class VArray<T>;
 
-private:
-	
-	// Only callable by VPoolPointers
-	inline T* GetPtr(uint32 index)
-	{
-		return &Data[index];
-	}
-
-	inline T& GetData(uint32 index)
-	{
-		return Data[index];
-	}
-
 public:
 	VDynamicPool()
 		: VPool()
@@ -86,6 +73,30 @@ public:
 	VDynamicPool(uint32 count)
 		: VPool(count)
 	{
+	}
+
+	/**
+	* Copy Constructor (we dont want to have 2 copies of a pool
+	* pointing at the same pool. Consider passing pools by reference to
+	* prevent this.
+	*/
+	VDynamicPool(const VDynamicPool<T>& other)
+	{
+		uint32 size = other.MaxCount * sizeof(T);
+		Data = (T*)malloc(size);
+		memcpy(Data, other.Data, size);
+
+		MaxCount = other.MaxCount;
+	}
+
+	inline T* GetPtr(uint32 index) const
+	{
+		return &Data[index];
+	}
+
+	inline T& GetData(uint32 index) const
+	{
+		return Data[index];
 	}
 
 	// Resizes array to the newCount * sizeof(T)
@@ -105,9 +116,9 @@ public:
 		}
 	}
 
-	VPoolPointer operator[](int32 index)
+	T& operator[](int32 index)
 	{
-		return Get(index);
+		return Data[index];
 	}
 
 	VPoolPointer Get(uint32 index)
@@ -124,5 +135,19 @@ public:
 			Resize(index + (index >> 1));
 
 		Data[index] = data;
+	}
+
+
+	/**
+	 * Copy 'count' number of items from in to Data
+	 * @param in The data to be copied into this pool
+	 * @param count Number of elements of in to copy (note this is count, NOT size in bytes)
+	 */
+	void CopyFrom(const T* in, uint32 count)
+	{
+		if (count > MaxCount)
+			Resize(count);
+
+		memcpy(Data, in, count * sizeof(T));
 	}
 };

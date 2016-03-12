@@ -3,12 +3,23 @@
 #include "Window.h"
 #include "Time.h"
 
-#include "Matrix4.h"
+#include "VString.h"
 
 void Tests()
 {
+	VString str = "Goodbye";
+	VString str2 = str;
+	VArray<char> charArr;
+
+	charArr.Add('H'); charArr.Add('e'); charArr.Add('l'); charArr.Add('l'); charArr.Add('o'); charArr.Add('\0');
+	VString str3 = charArr;
+
+	const char* cstr = str3.GetCString();
+
+	str2 = str3;
 
 
+	printf("Hello");
 }
 
 

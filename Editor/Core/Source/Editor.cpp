@@ -6,6 +6,8 @@
 #include "Engine.h"
 #include "MainWindow.h"
 #include "Renderer.h"
+#include "ObjImporter.h"
+#include "FilePath.h"
 
 VEditor::VEditor()
 	:SceneView(nullptr),
@@ -28,6 +30,11 @@ VEditor::~VEditor()
 bool VEditor::Init(int argc, const char** argv)
 {
 	Engine = VEngine::GetInstance();
+
+	// Load UI
+	OBJImporter importer;
+
+	importer.Import(VFilePath("Meshes/UI.obj", EFileLocation::FILE_EDITOR_RESOURCE_DIRECTORY));
 
 	MainWindow = new VMainWindow();
 	if (!MainWindow || !MainWindow->Init())

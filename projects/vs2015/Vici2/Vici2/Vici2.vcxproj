@@ -155,6 +155,7 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\MaterialParam.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\MeshData.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\MeshRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\ObjImporter.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\PrimitiveShapes.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture2D.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshData.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\MeshRenderer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Mutex.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ObjImporter.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Pool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Queue.h" />

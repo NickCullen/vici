@@ -27,20 +27,6 @@ public:
 		ZeroMemory();
 	}
 
-	/**
-	* Copy Constructor (we dont want to have 2 copies of a pool
-	* pointing at the same pool. Consider passing pools by reference to
-	* prevent this.
-	*/
-	VPool(const VPool& other)
-	{
-		uint32 size = other.MaxCount * sizeof(T);
-		Data = (T*)malloc(size);
-		memcpy(Data, other.Data, size);
-
-		MaxCount = other.MaxCount;
-	}
-
 	~VPool()
 	{
 		if (Data) free(Data);
@@ -98,7 +84,7 @@ public:
 	* @param start The start index (inclusive)
 	* @param end The end index (inclusive)
 	*/
-	void CopyTo(T* buffer, uint32 start, uint32 end)
+	void CopyTo(T* buffer, uint32 start, uint32 end) const
 	{
 		T* begin = &Data[start];
 		memcpy(buffer, begin, (end - start) * sizeof(T));
@@ -114,6 +100,6 @@ public:
 
 	// Getters
 	inline uint32 GetMaxCount() const { return MaxCount; }
-	inline const T* GetFront() { return Data ? &Data[0] : nullptr; }
-	inline const T* GetEnd() { return Data ? &Data[MaxCount] : nullptr; }
+	inline const T* GetFront() const { return Data ? &Data[0] : nullptr; }
+	inline const T* GetEnd() const { return Data ? &Data[MaxCount] : nullptr; }
 };

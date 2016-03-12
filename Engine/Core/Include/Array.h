@@ -37,6 +37,14 @@ public:
 	}
 
 	/**
+	 * Gets an element at the given index
+	 */
+	T GetAt(uint32 index) const
+	{
+		return Elements.GetData(index);
+	}
+
+	/**
 	 * Add an item at the end of the array
 	 * @param element The element to add
 	 */
@@ -109,16 +117,23 @@ public:
 	 * Returns a copy of the array, it is upto the caller
 	 * to free this data
 	 */
-	T* GetDataCopy()
+	T* GetDataCopy() const
 	{
 		T* buff = (T*)malloc(Count*sizeof(T));
 		Elements.CopyTo(buff, 0, Count);
 		return buff;
 	}
 
-	// getters
-	inline uint32 GetCount() { return Count; }
-	inline uint32 GetSize() { return Count * sizeof(T); }
-	inline uint32 GetCapacity() { return Elements.GetMaxCount(); }
-	inline const T* GetData() { return Elements.Data; }
+	// Setters
+	inline uint32 GetCount() const { return Count; }
+	inline uint32 GetSize() const { return Count * sizeof(T); }
+	inline uint32 GetCapacity() const { return Elements.GetMaxCount(); }
+	inline const T* GetData() const { return Elements.Data; }
+
+	// Setters
+	inline void SetCount(uint32 count)
+	{
+		Count = count;
+		Elements.Resize(count);
+	}
 };

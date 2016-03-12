@@ -144,6 +144,9 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\MaterialParam.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\ObjImporter.cpp">
+      <Filter>Core\File\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Dictionary.h">
       <Filter>Core\Data Structures\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ObjImporter.h">
+      <Filter>Core\File\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

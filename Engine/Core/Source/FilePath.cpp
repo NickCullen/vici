@@ -91,7 +91,7 @@ const char* VFilePath::TrimPath(char* path)
 
 const char* VFilePath::GetString() const
 {
-	return Path.c_str();
+	return Path.GetCString();
 }
 
 VFilePath::operator const char *()

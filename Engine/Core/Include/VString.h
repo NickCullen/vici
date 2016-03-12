@@ -1,32 +1,35 @@
 #pragma once
 
-struct VStringImpl;
-
-#include "CoreAPI.h"
+#include "Array.h"
 
 class CORE_API VString
 {
 protected:
-	VStringImpl* Impl;	// Pimpl idiom for std::string impl
+	VArray<char> Data;	// The pool of data for our characters
 
+	uint32 Length;
 public:
 	VString();
-	VString(const VString& other);
 	VString(const char* str);
+	VString(const VArray<char>& pool);
 
 	~VString();
 
 	// Access
-	const char* c_str() const;
+	const char* GetCString() const;
 
 	// Set
 	void SetString(const VString& str);
 
 	// operator overloads
-	operator const char*();
+	operator const char*() const;
 	operator char*() const;
-	VString operator+(const VString& other);
-	VString operator+(const char* other);
+
+	VString operator+(const VString& other) const;
+	VString operator+(const char* other)  const;
 	VString& operator=(const VString& other);
 	VString& operator=(const char* other);
+
+	// Getters
+	uint32 GetLength() const;
 };
