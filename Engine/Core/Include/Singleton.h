@@ -8,7 +8,7 @@ private:
 
 public:
 
-	VSingleton<T>(T* instance)
+	VSingleton(T* instance)
 	{
 		Instance = instance;
 	}

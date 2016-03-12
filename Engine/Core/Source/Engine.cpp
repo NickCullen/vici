@@ -67,6 +67,16 @@ bool VEngine::Init(int argc, const char** argv)
 	return true;
 }
 
+void VEngine::FixedUpdate()
+{
+
+}
+
+void VEngine::Update()
+{
+
+}
+
 //THIS IS ALL TEST CODE FOR NOW
 void VEngine::Render()
 {

@@ -63,6 +63,10 @@ int VEditor::Run()
 	float t = 0.0f;
 	float dt = 0.01f;
 
+	// Start time class
+	VTime::GetInstance()->SetFixedDeltaTime(dt);
+	VTime::GetInstance()->UpdateTime();
+
 	float currentTime = VTime::GetInstance()->GetTime();
 	float accumulator = 0.0f;
 
@@ -71,8 +75,12 @@ int VEditor::Run()
 
 	while (!Quit)
 	{
+		VTime::GetInstance()->UpdateTime();	// Update time
+
 		float newTime = VTime::GetInstance()->GetTime();
 		float frameTime = newTime - currentTime;
+
+		VTime::GetInstance()->SetDeltaTime(frameTime);		// Set per frame delta time
 
 		if (frameTime > 0.25f)
 			frameTime = 0.25f;

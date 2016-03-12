@@ -5,15 +5,16 @@
 
 class CORE_API VTime : public VSingleton<VTime>
 {
+	friend class VSingleton<VTime>;
+
 private:
 	float Time;
 	float DeltaTime;
 	float FixedDeltaTime;
 
-	
-public:
 	VTime();
 	~VTime() = default;
+public:
 
 	// Setters
 	inline void UpdateTime();	// Will set Time using the native timer

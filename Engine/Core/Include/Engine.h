@@ -15,5 +15,7 @@ public:
 
 	bool Init(int argc, const char** argv);
 
+	void FixedUpdate();
+	void Update();
 	void Render();
 };
