@@ -27,9 +27,7 @@ public:
 
 	VString operator+(const VString& other) const;
 	VString operator+(const char* other)  const;
-	/*VString& operator=(const VString& other);*/
-	VString& operator=(const char* other);
 
 	// Getters
-	uint32 GetLength() const;
+	inline uint32 GetLength() const { return Length; }
 };

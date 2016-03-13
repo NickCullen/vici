@@ -8,14 +8,6 @@
 
 void Tests()
 {
-	VDictionary<int> dict1;
-	VDictionary<int> dict2;
-
-	dict1.Insert("Hello", 2);
-	dict1.Insert("HELELE", 5);
-
-	dict2 = dict1;
-
 	VString str = "Goodbye";
 	VString str2 = str;
 	VArray<char> charArr;
@@ -26,6 +18,15 @@ void Tests()
 	const char* cstr = str3.GetCString();
 
 	str2 = str3;
+
+	str2.SetString("Changed again it has");
+
+	const char* conv_str = (const char*)str;
+	char* conv_str2 = (char*)str2;
+
+	str = "Hello, ";
+	str2 = "World";
+	str3 = str + str2;
 
 
 	printf("Hello");

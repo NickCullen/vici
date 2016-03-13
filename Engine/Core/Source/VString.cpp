@@ -50,6 +50,7 @@ VString::operator char*() const
 
 VString VString::operator+(const VString& other) const
 {
+	// Remember Length does not take into account \0
 	uint32 len = Length + other.Length + 1;
 
 	// Pool to store new data
@@ -61,57 +62,33 @@ VString VString::operator+(const VString& other) const
 
 	// Copy next string
 	for (uint32 i = 0; i < other.Length; i++)
-		newArr.Add(other.Data.GetAt(i));
+		newArr.Add(other.Data[i]);
 
 	// Null terminate
-	newArr[len] = '\0';
+	newArr.Add('\0');
 
 	return newArr;
 }
 
 VString VString::operator+(const char* other) const
 {
+	// Remember Length does not take into account \0
 	uint32 strLen = (uint32)strlen(other);
-	uint32 len = Length + strLen;
+	uint32 len = Length + strLen + 1;
 
 	// Pool to store new data
 	VArray<char> newArr(len);
 
 	// Copy this string
-	for (uint32 i = 0; i < Length-1; i++)
-		newArr[i] = Data.GetAt(i);
+	for (uint32 i = 0; i < Length; i++)
+		newArr.Add(Data.GetAt(i));
 
 	// Copy next string
 	for (uint32 i = 0; i < strLen; i++)
-		newArr[Length+i] = other[i];
+		newArr.Add(other[i]);
 
 	// Null terminate
-	newArr[len] = '\0';
+	newArr.Add('\0');
 
 	return newArr;
-}
-
-//VString& VString::operator=(const VString& other)
-//{
-//	Data = other.Data;
-//	Length = other.Length;
-//
-//	return *this;
-//}
-
-VString& VString::operator=(const char* other)
-{
-	Length = (uint32)strlen(other) + 1;
-	Data.SetCount(Length);
-
-	for (uint32 i = 0; i < Length; i++)
-		Data[i] = other[i];
-
-	return *this;
-}
-
-
-uint32 VString::GetLength() const
-{
-	return Length;
 }
