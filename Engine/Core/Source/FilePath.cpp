@@ -108,7 +108,7 @@ VString VFilePath::GetDirectory() const
 {
 	VString ret = Path;
 	size_t indexOf = ret.find_last_of(VALID_SLASH);
-	ret.erase(indexOf);
+	ret.erase(indexOf+1);
 	return ret;
 
 	/*VString dirPath = Path;

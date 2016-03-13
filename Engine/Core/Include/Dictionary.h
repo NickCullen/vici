@@ -50,7 +50,7 @@ public:
 	ValueType& operator[](const KeyType& key)
 	{
 		uint32 index = key.Value() % MAX_DICT_SIZE;
-		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		for (uint32 i = 0; i < Entries[index].size(); i++)
 		{
 			if (Entries[index][i].Key == key)
 			{
@@ -84,7 +84,7 @@ public:
 	void Insert(const KeyType& key, const ValueType& val)
 	{
 		int index = key.Value() % MAX_DICT_SIZE;
-		Entries[index].Add(VDictionaryEntry(key, val));
+		Entries[index].push_back(VDictionaryEntry(key, val));
 	}
 
 	/**
@@ -114,7 +114,7 @@ public:
 	bool KeyExists(const KeyType& key) const
 	{
 		uint32 index = key.Value() % MAX_DICT_SIZE;
-		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		for (uint32 i = 0; i < Entries[index].size(); i++)
 		{
 			if (Entries[index][i].Key == key)
 				return true;
@@ -129,7 +129,7 @@ public:
 	bool Remove(const KeyType& key)
 	{
 		uint32 index = key.Value() % MAX_DICT_SIZE;
-		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		for (uint32 i = 0; i < Entries[index].size(); i++)
 		{
 			if (Entries[index][i].Key == key)
 			{

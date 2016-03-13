@@ -3,8 +3,6 @@
 #include "Environment.h"
 #include "FilePath.h"
 #include <stdio.h>
-#include <string>
-#include "VString.h"
 
 int main(int argc, const char** argv)
 {
