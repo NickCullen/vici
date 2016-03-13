@@ -23,9 +23,9 @@ public:
 	 * @param initialCapacity Inital size of the pool, 5 default
 	 */
 	VArray(uint32 initialCapacity = DEFAULT_MAX_SIZE)
-		:Count(0)
+		:Count(0),
+		Elements(initialCapacity)
 	{
-		Elements.Resize(initialCapacity);
 	}
 	
 	/**

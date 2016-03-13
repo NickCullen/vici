@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreAPI.h"
+#include "IndexBuffer.h"
 
 class CORE_API OBJImporter
 {
