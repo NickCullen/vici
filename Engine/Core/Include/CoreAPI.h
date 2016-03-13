@@ -10,6 +10,8 @@
 
 #ifdef CORE_EXPORTS
 #define CORE_API API_EXPORT
+#define EXPIMP_TEMPLATE
 #else
 #define CORE_API API_IMPORT
+#define EXPIMP_TEMPLATE extern
 #endif

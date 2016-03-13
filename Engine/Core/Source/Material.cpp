@@ -45,7 +45,7 @@ void VMaterial::AddParam(const VString& name, IMaterialParam* param)
 	ParamHandle prm;
 	
 	if(Shader)
-		prm.Handle = Shader->UniformLocation(name.GetCString());
+		prm.Handle = Shader->UniformLocation(name.c_str());
 
 	prm.Param = param;
 	prm.Name = name;
@@ -62,7 +62,7 @@ void VMaterial::SetShader(VShader* shader)
 		for (auto item = Uniforms.GetFirst(); item; item = Uniforms.GetNext(item))
 		{
 			ParamHandle* cur = &item->Data;
-			cur->Handle = Shader->UniformLocation(cur->Name.GetCString());
+			cur->Handle = Shader->UniformLocation(cur->Name.c_str());
 		}
 	}
 }

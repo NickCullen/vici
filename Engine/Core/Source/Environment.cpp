@@ -72,7 +72,7 @@ const char* VEnvironment::Get(VHash key)
 	while (current)
 	{
 		if (current->Key == key)
-			return current->Value;
+			return current->Value.c_str();
 		else
 			current = current->Next;
 	}
@@ -122,7 +122,7 @@ void VEnvironment::PrintEnvVars()
 	VEnvVar* current = Head;
 	while (current)
 	{
-		printf("Key = %d, Val = %s\n", current->Key, (const char*)current->Value);
+		printf("Key = %d, Val = %s\n", current->Key, current->Value.c_str());
 		current = current->Next;
 	}
 }

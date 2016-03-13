@@ -15,7 +15,7 @@ int main(int argc, const char** argv)
 	VFilePath vResPath = vpath + "Resources/";
 
 	printf("Res = %s\n", (char*)vResPath);
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), vpath);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), vpath.c_str());
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), vResPath);
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_RUNNING_DIRECTORY), runningDirectory);
 

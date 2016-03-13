@@ -16,14 +16,14 @@
 VFilePath::VFilePath(const VString& relativeFilePath, EFileLocation location)
 	: Location(location)
 {
-	EnsurePathFriendly(relativeFilePath);
+	EnsurePathFriendly((char*)relativeFilePath.c_str());
 	PrefixLocation();
 	Path = Path + relativeFilePath;
 }
 
 VFilePath::VFilePath(const VString& relativeFilePath)
 {
-	EnsurePathFriendly(relativeFilePath);
+	EnsurePathFriendly((char*)relativeFilePath.c_str());
 	Path = relativeFilePath;
 }
 
@@ -69,7 +69,7 @@ void VFilePath::PrefixLocation()
 const char* VFilePath::EnsurePathFriendly(char* path)
 {
 	size_t len = strlen(path);
-	for (int i = 0; i < len; i++)
+	for (size_t i = 0; i < len; i++)
 	{
 		if (path[i] == INVALID_SLASH)
 			path[i] = VALID_SLASH;
@@ -91,24 +91,29 @@ const char* VFilePath::TrimPath(char* path)
 
 const char* VFilePath::GetString() const
 {
-	return Path.GetCString();
+	return Path.c_str();
 }
 
 VFilePath::operator const char *() const
 {
-	return (const char*)Path;
+	return (const char*)Path.c_str();
 }
 
 VFilePath::operator char *()
 {
-	return (char*)Path;
+	return (char*)Path.c_str();
 }
 
 VString VFilePath::GetDirectory() const
 {
-	VString dirPath = Path;
+	VString ret = Path;
+	size_t indexOf = ret.find_last_of(VALID_SLASH);
+	ret.erase(indexOf);
+	return ret;
+
+	/*VString dirPath = Path;
 	uint32 deducted = 0;
-	for (int32 i = (int32)dirPath.GetLength(); i > 0; i--)
+	for (int32 i = (int32)dirPath.length(); i > 0; i--)
 	{
 		if (dirPath[i] != VALID_SLASH)
 		{
@@ -118,6 +123,6 @@ VString VFilePath::GetDirectory() const
 		else
 			break;
 	}
-	dirPath.SetLength(dirPath.GetLength() - deducted);
-	return dirPath;
+	dirPath.SetLength(dirPath.length() - deducted);
+	return dirPath;*/
 }

@@ -1,9 +1,11 @@
 #include "ObjImporter.h"
 #include "FilePath.h"
-#include <string>
+#include "VString.h"
 #include "Vector3.h"
 #include "Vector2.h"
 #include <vector>
+#include "Array.h"
+
 #define COMPARE(s1, s2) strcmp(s1, s2) == 0
 
 /**

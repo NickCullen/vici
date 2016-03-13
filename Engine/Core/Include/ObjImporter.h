@@ -2,13 +2,14 @@
 
 #include "CoreAPI.h"
 #include "IndexBuffer.h"
+#include "VString.h"
 
 class CORE_API OBJImporter
 {
 private:
 
 	// Parses the material file line (mtlib <matfile.mtl)
-	void ParseMaterialFile(const class VString& directory, const class VString& line);
+	void ParseMaterialFile(const VString& directory, const VString& line);
 public:
 	OBJImporter();
 

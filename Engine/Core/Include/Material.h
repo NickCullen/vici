@@ -37,7 +37,7 @@ public:
 	void CleanupAfterRender();
 
 	// Adds a paramter to the shader
-	void AddParam(const class VString& name, IMaterialParam* param);
+	void AddParam(const VString& name, IMaterialParam* param);
 
 	// Setters
 	void SetShader(VShader* shader);
