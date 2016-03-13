@@ -96,9 +96,6 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp">
       <Filter>Core\Engine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\VString.cpp">
-      <Filter>Core\Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp">
       <Filter>Core\File\Source</Filter>
     </ClCompile>

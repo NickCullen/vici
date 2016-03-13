@@ -66,7 +66,7 @@ bool OBJImporter::Import(const VFilePath& file)
 			{
 				Vector3f pos;
 				fscanf(fp, "%f %f %f", &pos.x, &pos.y, &pos.z);
-				positionsArr.Add(pos);
+				positionsArr.push_back(pos);
 			}
 
 			// Vertex UV
@@ -74,7 +74,7 @@ bool OBJImporter::Import(const VFilePath& file)
 			{
 				Vector2f uv;
 				fscanf(fp, "%f %f", &uv.x, &uv.y);
-				uvArr.Add(uv);
+				uvArr.push_back(uv);
 			}
 
 			// Vertex Normal
@@ -82,7 +82,7 @@ bool OBJImporter::Import(const VFilePath& file)
 			{
 				Vector3f norm;
 				fscanf(fp, "%f %f %f", &norm.x, &norm.y, &norm.z);
-				normalArr.Add(norm);
+				normalArr.push_back(norm);
 			}
 
 			// Parameter space vertices
@@ -90,7 +90,7 @@ bool OBJImporter::Import(const VFilePath& file)
 			{
 				Vector3f param;
 				fscanf(fp, "%f %f %f", &param.x, &param.y, &param.z);
-				paramArr.Add(param);
+				paramArr.push_back(param);
 			}
 
 			// Face
@@ -104,21 +104,21 @@ bool OBJImporter::Import(const VFilePath& file)
 				do
 				{
 					// Position
-					if (positionsArr.GetCount() > 0)
+					if (positionsArr.size() > 0)
 					{
 						fscanf(fp, "%d%c", &val, &slash);
 						face.pos.push_back(val);
 					}
 
 					// Normal
-					if (normalArr.GetCount() > 0)
+					if (normalArr.size() > 0)
 					{
 						fscanf(fp, "%d%c", &val, &slash);
 						face.norm.push_back(val);
 					}
 
 					// UV
-					if (uvArr.GetCount() > 0)
+					if (uvArr.size() > 0)
 					{
 						fscanf(fp, "%d%c", &val, &slash);
 						face.uv.push_back(val);

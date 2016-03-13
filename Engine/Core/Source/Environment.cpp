@@ -122,7 +122,7 @@ void VEnvironment::PrintEnvVars()
 	VEnvVar* current = Head;
 	while (current)
 	{
-		printf("Key = %d, Val = %s\n", current->Key, current->Value.c_str());
+		printf("Key = %d, Val = %s\n", current->Key.Value(), current->Value.c_str());
 		current = current->Next;
 	}
 }
