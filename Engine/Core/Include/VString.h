@@ -17,6 +17,8 @@ public:
 
 	// Access
 	const char* GetCString() const;
+	char& operator[](int32 index);
+	const char& operator[](int32 index) const;
 
 	// Set
 	void SetString(const VString& str);
@@ -30,4 +32,7 @@ public:
 
 	// Getters
 	inline uint32 GetLength() const { return Length; }
+
+	// Setters
+	inline void SetLength(uint32 len) { Length = len; }
 };

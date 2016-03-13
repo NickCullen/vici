@@ -32,6 +32,16 @@ const char* VString::GetCString() const
 	return Data.GetData();
 }
 
+char& VString::operator[](int32 index)
+{
+	return Data[index];
+}
+
+const char& VString::operator[](int32 index) const
+{
+	return Data[index];
+}
+
 void VString::SetString(const VString& str)
 {
 	Data = str.Data;

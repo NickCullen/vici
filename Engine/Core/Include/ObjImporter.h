@@ -6,6 +6,8 @@ class CORE_API OBJImporter
 {
 private:
 
+	// Parses the material file line (mtlib <matfile.mtl)
+	void ParseMaterialFile(const class VString& directory, const class VString& line);
 public:
 	OBJImporter();
 

@@ -94,7 +94,7 @@ const char* VFilePath::GetString() const
 	return Path.GetCString();
 }
 
-VFilePath::operator const char *()
+VFilePath::operator const char *() const
 {
 	return (const char*)Path;
 }
@@ -102,4 +102,22 @@ VFilePath::operator const char *()
 VFilePath::operator char *()
 {
 	return (char*)Path;
+}
+
+VString VFilePath::GetDirectory() const
+{
+	VString dirPath = Path;
+	uint32 deducted = 0;
+	for (int32 i = (int32)dirPath.GetLength(); i > 0; i--)
+	{
+		if (dirPath[i] != VALID_SLASH)
+		{
+			dirPath[i] = '\0';
+			deducted++;
+		}
+		else
+			break;
+	}
+	dirPath.SetLength(dirPath.GetLength() - deducted);
+	return dirPath;
 }

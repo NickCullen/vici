@@ -56,6 +56,12 @@ public:
 	const char* GetString() const;
 
 	// Cast operators
-	operator const char*();
+	operator const char*() const;
 	operator char*();
+
+	/**
+	 * Returns the full path of the directory this
+	 * file is contained in
+	 */
+	VString GetDirectory() const;
 };
