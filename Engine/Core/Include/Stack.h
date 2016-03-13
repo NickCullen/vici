@@ -83,7 +83,7 @@ public:
 	 * @param outVariable This variable will be set if an item exists
 	 * @return Returns true/false if there was an item to peek at or not
 	 */
-	bool Peek(T& outVariable)
+	bool Peek(T& outVariable) const
 	{
 		if (Head)
 		{

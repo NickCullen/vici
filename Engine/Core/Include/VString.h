@@ -27,7 +27,7 @@ public:
 
 	VString operator+(const VString& other) const;
 	VString operator+(const char* other)  const;
-	VString& operator=(const VString& other);
+	/*VString& operator=(const VString& other);*/
 	VString& operator=(const char* other);
 
 	// Getters

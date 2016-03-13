@@ -62,6 +62,23 @@ public:
 	}
 
 	/**
+	 * Operator [] for const objects 
+	 */
+	const ValueType& operator[](const KeyType& key) const
+	{
+		uint32 index = key.Value() % MAX_DICT_SIZE;
+		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		{
+			if (Entries[index][i].Key == key)
+			{
+				return Entries[index][i].Val;
+			}
+		}
+
+		throw "Entry does not exist";
+	}
+
+	/**
 	 * Insert the value with the given key in the dict
 	 */
 	void Insert(const KeyType& key, const ValueType& val)
@@ -76,7 +93,7 @@ public:
 	 * @param outVal Pointer to set if a value was found
 	 * @return Returns true if the item was found and set
 	 */
-	bool Get(const KeyType& key, ValueType* outVal)
+	bool Get(const KeyType& key, ValueType* outVal) const
 	{
 		uint32 index = key.Value() % MAX_DICT_SIZE;
 		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
@@ -94,7 +111,7 @@ public:
 	 * Returns if there is an entry in the dict with the 
 	 * given key
 	 */
-	bool KeyExists(const KeyType& key)
+	bool KeyExists(const KeyType& key) const
 	{
 		uint32 index = key.Value() % MAX_DICT_SIZE;
 		for (uint32 i = 0; i < Entries[index].GetCount(); i++)

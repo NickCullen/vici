@@ -26,6 +26,11 @@ class CORE_API VLinkedList
 		{
 			return Data;
 		}
+
+		const T& operator*() const
+		{
+			return Data;
+		}
 	};
 
 private:
@@ -109,7 +114,7 @@ public:
 	 * Returns the first item on the list
 	 * may be nullptr
 	 */
-	const ListItem* GetFirst()
+	const ListItem* GetFirst() const
 	{
 		return Head->Next;
 	}
@@ -117,7 +122,7 @@ public:
 	/** 
 	 * Gets the next item given the current
 	 */
-	const ListItem* GetNext(const ListItem* current)
+	const ListItem* GetNext(const ListItem* current) const
 	{
 		return current ? current->Next : nullptr;
 	}
@@ -125,7 +130,7 @@ public:
 	/**
 	 * Returns the tail of the list
 	 */
-	const ListItem* GetLast()
+	const ListItem* GetLast() const
 	{
 		return Tail != Head ? Tail : nullptr;
 	}
@@ -133,7 +138,7 @@ public:
 	/**
 	 * gets the previous item from the current
 	 */
-	const ListItem* GetPrevious(const ListItem* current)
+	const ListItem* GetPrevious(const ListItem* current) const
 	{
 		return current && current->Prev != Head ? current->Prev : nullptr;
 	}

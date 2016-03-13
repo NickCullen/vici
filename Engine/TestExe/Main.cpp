@@ -4,9 +4,18 @@
 #include "Time.h"
 
 #include "VString.h"
+#include "Dictionary.h"
 
 void Tests()
 {
+	VDictionary<int> dict1;
+	VDictionary<int> dict2;
+
+	dict1.Insert("Hello", 2);
+	dict1.Insert("HELELE", 5);
+
+	dict2 = dict1;
+
 	VString str = "Goodbye";
 	VString str2 = str;
 	VArray<char> charArr;

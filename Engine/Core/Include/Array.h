@@ -37,6 +37,14 @@ public:
 	}
 
 	/**
+	* Array Index operator for const objects
+	*/
+	const T& operator[](uint32 index) const
+	{
+		return Elements.GetData(index);
+	}
+
+	/**
 	 * Gets an element at the given index
 	 */
 	T GetAt(uint32 index) const

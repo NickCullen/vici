@@ -89,6 +89,20 @@ public:
 		MaxCount = other.MaxCount;
 	}
 
+	/**
+	 * Same reason as copy constructor except we want to use realloc
+	 * instead of malloc
+	 */
+	VDynamicPool& operator=(const VDynamicPool<T>& other)
+	{
+		uint32 size = other.MaxCount * sizeof(T);
+		Data = (T*)realloc(Data,size);
+		memcpy(Data, other.Data, size);
+
+		MaxCount = other.MaxCount;
+		return *this;
+	}
+
 	inline T* GetPtr(uint32 index) const
 	{
 		return &Data[index];
@@ -121,7 +135,12 @@ public:
 		return Data[index];
 	}
 
-	VPoolPointer Get(uint32 index)
+	const T& operator[](int32 index) const
+	{
+		return Data[index];
+	}
+
+	VPoolPointer Get(uint32 index) const
 	{
 		if (index >= MaxCount)
 			Resize(index + (index >> 1));
