@@ -3,31 +3,24 @@
 #include "Window.h"
 #include "Time.h"
 
-#include "VString.h"
-#include "Dictionary.h"
+#include "MathLib.h"
 
 void Tests()
 {
-	VString str = "Goodbye";
-	VString str2 = str;
-	VArray<char> charArr;
+	Matrix4f m3 = Matrix4f::Identity();
+	m3(0, 0) = 10;
+	m3(0, 1) = 15;
+	m3(0, 2) = 23;
 
-	charArr.Add('H'); charArr.Add('e'); charArr.Add('l'); charArr.Add('l'); charArr.Add('o'); charArr.Add('\0');
-	VString str3 = charArr;
+	m3(1, 0) = 12;
+	m3(1, 1) = 21;
+	m3(1, 2) = 22;
 
-	const char* cstr = str3.GetCString();
+	m3(2, 0) = 4;
+	m3(2, 1) = 7;
+	m3(2, 2) = 3;
 
-	str2 = str3;
-
-	str2.SetString("Changed again it has");
-
-	const char* conv_str = (const char*)str;
-	char* conv_str2 = (char*)str2;
-
-	str = "Hello, ";
-	str2 = "World";
-	str3 = str + str2;
-
+	float det = m3.Determinant();
 
 	printf("Hello");
 }
