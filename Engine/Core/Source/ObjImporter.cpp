@@ -3,21 +3,9 @@
 #include "VString.h"
 #include "Vector3.h"
 #include "Vector2.h"
-#include <vector>
-#include "Array.h"
+#include "VertexBuffer.h"
 
 #define COMPARE(s1, s2) strcmp(s1, s2) == 0
-
-/**
- * Stores face info
- */
-struct OBJFace
-{
-	std::vector<uint32> pos;
-	std::vector<uint32> norm;
-	std::vector<uint32> uv;
-	EIndexType Type;		// Type of face
-};
 
 OBJImporter::OBJImporter()
 {
@@ -31,23 +19,19 @@ OBJImporter::~OBJImporter()
 
 bool OBJImporter::Import(const VFilePath& file)
 {
-	
-	VString objectName;
-	VString materialName;	// The material this object will use
-
 	VArray<Vector3f> positionsArr;
 	VArray<Vector2f> uvArr;
 	VArray<Vector3f> normalArr;
 	VArray<Vector3f> paramArr;
 
-	std::vector<OBJFace> faceArr;
+	OBJObject* currentObject = nullptr;
 
 	char buff[512];
 	FILE* fp = fopen(file.GetString(), "r");
 
-
 	if (fp)
 	{
+		// Parse data
 		while (fscanf(fp, "%s", buff) > 0)
 		{
 			// Comment
@@ -61,7 +45,11 @@ bool OBJImporter::Import(const VFilePath& file)
 			else if (buff[0] == 'o')
 			{
 				fscanf(fp, "%s", buff);
-				objectName = buff;
+
+				currentObject = new OBJObject();
+				currentObject->ReadableName = buff;
+
+				Objects.push_back(currentObject);
 			}
 
 			// Vertex Position
@@ -110,21 +98,21 @@ bool OBJImporter::Import(const VFilePath& file)
 					if (positionsArr.size() > 0)
 					{
 						fscanf(fp, "%d%c", &val, &slash);
-						face.pos.push_back(val);
+						face.PosIndices.push_back(val-1);
 					}
 
 					// Normal
 					if (normalArr.size() > 0)
 					{
 						fscanf(fp, "%d%c", &val, &slash);
-						face.norm.push_back(val);
+						face.NormIndices.push_back(val-1);
 					}
 
 					// UV
 					if (uvArr.size() > 0)
 					{
 						fscanf(fp, "%d%c", &val, &slash);
-						face.uv.push_back(val);
+						face.UVIndices.push_back(val-1);
 					}
 					
 					indexCount++;
@@ -140,7 +128,8 @@ bool OBJImporter::Import(const VFilePath& file)
 					default:	face.Type = EIndexType::INDEX_TYPE_POLYGON; break;
 				}
 
-				faceArr.push_back(face);
+				face.IndexCount = indexCount;
+				currentObject->Faces.push_back(face);
 			}
 
 			// Smooth group
@@ -161,10 +150,47 @@ bool OBJImporter::Import(const VFilePath& file)
 			else if (COMPARE(buff, "usemtl"))
 			{
 				fscanf(fp, "%s", buff);
-				materialName = buff;
+				currentObject->Material = &Materials[buff];
 			}
 		}
 
+		// Convert to interleaved vertex buffer
+		VertexBuffer = new VVertexBuffer();
+
+		int32 posIdx = positionsArr.size() > 0 ? VertexBuffer->AddElement<Vector3f>() : -1;
+		int32 uvIdx = uvArr.size() > 0 ? VertexBuffer->AddElement<Vector2f>() : -1;
+		int32 normalIdx = normalArr.size() > 0 ? VertexBuffer->AddElement<Vector3f>() : -1;
+		int32 paramIdx = paramArr.size() > 0 ? VertexBuffer->AddElement<Vector3f>() : -1;
+
+		if (VertexBuffer->Lock())
+		{
+			// Iterate over objects
+			for (uint32 i = 0; i < Objects.size(); i++)
+			{
+				OBJObject* o = Objects[i];
+
+				// Iterate over objects faces
+				for (uint32 j = 0; j < o->Faces.size(); j++)
+				{
+					OBJFace* f = &o->Faces[j];
+
+					// Iterate over indices of the face
+					for (uint32 k = 0; k < f->IndexCount; k++)
+					{
+						VertexBuffer->AddVertex();		// Add a vertex
+
+						if (posIdx != -1) VertexBuffer->AddData<Vector3f>(positionsArr[f->PosIndices[k]], posIdx);
+						if (uvIdx != -1) VertexBuffer->AddData<Vector2f>(uvArr[f->UVIndices[k]], uvIdx);
+						if (normalIdx != -1) VertexBuffer->AddData<Vector3f>(normalArr[f->NormIndices[k]], normalIdx);
+						//if (paramIdx != -1) VertexBuffer->AddData<Vector3f>(paramArr[f->para[k]], paramIdx);
+					}
+					
+
+				}
+			}
+
+			VertexBuffer->Unlock();
+		}
 		fclose(fp);
 
 		return true;
@@ -207,6 +233,7 @@ void OBJImporter::ParseMaterialFile(const VString& directory, const VString& mtl
 
 				// New Material
 				currentMaterialName = buff;
+				currentMaterial.readableName = buff;
 				Materials.Insert(currentMaterialName, currentMaterial);
 				
 			}

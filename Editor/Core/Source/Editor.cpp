@@ -31,11 +31,6 @@ bool VEditor::Init(int argc, const char** argv)
 {
 	Engine = VEngine::GetInstance();
 
-	// Load UI
-	OBJImporter importer;
-
-	importer.Import(VFilePath("Meshes/UI.obj", EFileLocation::FILE_EDITOR_RESOURCE_DIRECTORY));
-
 	MainWindow = new VMainWindow();
 	if (!MainWindow || !MainWindow->Init())
 	{
@@ -55,6 +50,12 @@ bool VEditor::Init(int argc, const char** argv)
 	{
 		return false;
 	}
+
+	// Load UI
+	OBJImporter importer;
+
+	importer.Import(VFilePath("Meshes/UI.obj", EFileLocation::FILE_EDITOR_RESOURCE_DIRECTORY));
+
 
 	// Init engine at the end
 	if (!Engine->Init(argc, argv))

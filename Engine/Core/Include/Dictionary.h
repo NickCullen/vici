@@ -93,19 +93,20 @@ public:
 	 * @param outVal Pointer to set if a value was found
 	 * @return Returns true if the item was found and set
 	 */
-	bool Get(const KeyType& key, ValueType* outVal) const
+	bool Get(const KeyType& key, ValueType& outVal) const
 	{
 		uint32 index = key.Value() % MAX_DICT_SIZE;
-		for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+		for (uint32 i = 0; i < Entries[index].size(); i++)
 		{
 			if (Entries[index][i].Key == key)
 			{
-				*outVal = Entries[index][i].Val;
+				outVal = Entries[index][i].Val;
 				return true;
 			}
 		}
 		return false;
 	}
+
 
 	/**
 	 * Returns if there is an entry in the dict with the 
