@@ -7,20 +7,8 @@
 
 void Tests()
 {
-	Matrix4f m3 = Matrix4f::Identity();
-	m3(0, 0) = 10;
-	m3(0, 1) = 15;
-	m3(0, 2) = 23;
-
-	m3(1, 0) = 12;
-	m3(1, 1) = 21;
-	m3(1, 2) = 22;
-
-	m3(2, 0) = 4;
-	m3(2, 1) = 7;
-	m3(2, 2) = 3;
-
-	float det = m3.Determinant();
+	Vector4f v(0, 1, 0);
+	Vector4f newV = Matrix4f::RotationZ(90) * v;
 
 	printf("Hello");
 }
