@@ -1,4 +1,6 @@
 #include <Windows.h>
+#include <stdio.h>
+#include "KeyCode.h"
 
 // Tut : http://nehe.gamedev.net/tutorial/creating_an_opengl_window_%28win32%29/13001/
 
@@ -7,7 +9,7 @@ HDC		hDC = nullptr;		// Private GDI Device Context
 HWND	hWnd = nullptr;		// Window handle
 HINSTANCE	hInstance;		// Instance of the application
 
-bool keys[256];				// Array of keys being pressed
+bool keys[MAX_KEYCOUNT];				// Array of keys being pressed
 bool active = true;			// Window active flag
 bool fullscreen = false;	// Fullscreen flag
 
@@ -212,6 +214,89 @@ bool CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 	//ReSizeGLScene(width, height);                       // Set Up Our Perspective GL Screen
 }
 
+
+void KeyAction(WPARAM key, bool down)
+{
+	EKeyCode code;
+	switch (key)
+	{
+		// Numberical keys
+		case '0' : code = (EKeyCode)'0'; break;
+		case '1' : code = (EKeyCode)'1'; break;
+		case '2' : code = (EKeyCode)'2'; break;
+		case '3' : code = (EKeyCode)'3'; break;
+		case '4' : code = (EKeyCode)'4'; break;
+		case '5' : code = (EKeyCode)'5'; break;
+		case '6' : code = (EKeyCode)'6'; break;
+		case '7' : code = (EKeyCode)'7'; break;
+		case '8' : code = (EKeyCode)'8'; break;
+		case '9' : code = (EKeyCode)'9'; break;
+
+		// Letters
+		case 'A': code = (EKeyCode)'A'; break;
+		case 'B': code = (EKeyCode)'B'; break;
+		case 'C': code = (EKeyCode)'C'; break;
+		case 'D': code = (EKeyCode)'D'; break;
+		case 'E': code = (EKeyCode)'E'; break;
+		case 'F': code = (EKeyCode)'F'; break;
+		case 'G': code = (EKeyCode)'G'; break;
+		case 'H': code = (EKeyCode)'H'; break;
+		case 'I': code = (EKeyCode)'I'; break;
+		case 'J': code = (EKeyCode)'J'; break;
+		case 'K': code = (EKeyCode)'K'; break;
+		case 'L': code = (EKeyCode)'L'; break;
+		case 'M': code = (EKeyCode)'M'; break;
+		case 'N': code = (EKeyCode)'N'; break;
+		case 'O': code = (EKeyCode)'O'; break;
+		case 'P': code = (EKeyCode)'P'; break;
+		case 'Q': code = (EKeyCode)'Q'; break;
+		case 'R': code = (EKeyCode)'R'; break;
+		case 'S': code = (EKeyCode)'S'; break;
+		case 'T': code = (EKeyCode)'T'; break;
+		case 'U': code = (EKeyCode)'U'; break;
+		case 'V': code = (EKeyCode)'V'; break;
+		case 'W': code = (EKeyCode)'W'; break;
+		case 'X': code = (EKeyCode)'X'; break;
+		case 'Y': code = (EKeyCode)'Y'; break;
+		case 'Z': code = (EKeyCode)'Z'; break;
+
+		// Function keys
+		case VK_F1:	 code = KEY_F1; break;
+		case VK_F2:	 code = KEY_F2; break;
+		case VK_F3:	 code = KEY_F3; break;
+		case VK_F4:	 code = KEY_F4; break;
+		case VK_F5:	 code = KEY_F5; break;
+		case VK_F6:	 code = KEY_F6; break;
+		case VK_F7:	 code = KEY_F7; break;
+		case VK_F8:	 code = KEY_F8; break;
+		case VK_F9:	 code = KEY_F9; break;
+		case VK_F10: code = KEY_F10; break;
+		case VK_F11: code = KEY_F11; break;
+		case VK_F12: code = KEY_F12; break;
+
+		// Special keys
+		case VK_ESCAPE:		code = KEY_ESC; break;
+		case VK_SHIFT:		code = KEY_SHIFT; break;
+		case VK_TAB:		code = KEY_TAB; break;
+		case VK_MENU:		code = KEY_ALT; break;
+		case VK_CONTROL:	code = KEY_CTRL; break;
+		case VK_CAPITAL:	code = KEY_CAPSLOCK; break;
+		case VK_NUMLOCK:	code = KEY_NUMLOCK; break;
+		case VK_SPACE:		code = KEY_SPACEBAR; break;
+		case VK_RETURN:		code = KEY_RETURN; break;
+		case VK_BACK:		code = KEY_BACKSPACE; break;
+		case VK_DELETE:		code = KEY_DELETE; break;
+		case VK_HOME:		code = KEY_HOME; break;
+
+		// Unkown
+		default:	code = KEY_UNKNOWN; break;
+	}
+
+	printf("code = %d\n", code);
+
+}
+
+// Main
 LRESULT CALLBACK WndProc(HWND    hWnd,                   // Handle For This Window
 	UINT    uMsg,                   // Message For This Window
 	WPARAM  wParam,                 // Additional Message Information
@@ -252,13 +337,13 @@ LRESULT CALLBACK WndProc(HWND    hWnd,                   // Handle For This Wind
 
 	case WM_KEYDOWN:                        // Is A Key Being Held Down?
 	{
-		keys[wParam] = TRUE;                    // If So, Mark It As TRUE
+		KeyAction(wParam, true);                    // If So, Mark It As TRUE
 		return 0;                       // Jump Back
 	}
 
 	case WM_KEYUP:                          // Has A Key Been Released?
 	{
-		keys[wParam] = FALSE;                   // If So, Mark It As FALSE
+		KeyAction(wParam, false);                   // If So, Mark It As FALSE
 		return 0;                       // Jump Back
 	}
 

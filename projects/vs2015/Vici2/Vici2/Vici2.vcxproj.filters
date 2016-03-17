@@ -278,5 +278,8 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\ObjImporter.h">
       <Filter>Core\File\Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\KeyCode.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
