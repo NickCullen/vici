@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "FilePath.h"
 #include "Environment.h"
+#include "MathLib.h"
 
 // Tut : http://nehe.gamedev.net/tutorial/creating_an_opengl_window_%28win32%29/13001/
 
@@ -359,6 +360,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
+void Test()
+{
+	Vector3f v1(1, 2, 3);
+	Vector4f v2(1, 2, 3, 4);
+
+	Quaternion q;
+	Quaternion q1(1, 2, 3, 4);
+	Quaternion q2 = v1;
+	Quaternion q3 = v2;
+
+
+	q1.Normalize();
+	q2.Normalize();
+
+	float d = q1.Dot(q2);
+
+}
+
 // Main
 int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 	HINSTANCE   hPrevInstance,              // Previous Instance
@@ -384,6 +403,8 @@ int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 
 	VEngine* vici = new VEngine();
 	vici->Init(0, nullptr);
+
+	Test();
 
 	while (!done)
 	{

@@ -145,6 +145,7 @@
     <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Matrix3.h" />
     <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Matrix4.h" />
     <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Plane.h" />
+    <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Quaternion.h" />
     <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Vector2.h" />
     <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Vector3.h" />
     <ClInclude Include="..\..\..\..\Engine\Math\Math\Include\Vector4.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Matrix3.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Matrix4.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Plane.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Quaternion.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Vector2.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Vector3.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Math\Math\Source\Vector4.cpp" />
