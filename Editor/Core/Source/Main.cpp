@@ -17,8 +17,6 @@ int main(int argc, const char** argv)
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), vResPath);
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_RUNNING_DIRECTORY), runningDirectory);
 
-	VEnvironment::GetInstance()->PrintEnvVars();
-
 	VEditor editor;
 	
 	if (editor.Init(argc, argv))

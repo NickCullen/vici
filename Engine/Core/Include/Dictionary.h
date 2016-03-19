@@ -134,7 +134,7 @@ public:
 		{
 			if (Entries[index][i].Key == key)
 			{
-				Entries[index].RemoveAt(i);
+				Entries[index].erase(Entries[index].begin() + i);
 				return true;
 			}
 		}

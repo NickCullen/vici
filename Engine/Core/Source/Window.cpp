@@ -15,10 +15,10 @@ int VWindow::Count = 0;
 #ifdef GLEW_MX	// Context switching stuff
 VWindow* VWindow::CurrentContext = nullptr;
 
-GLEWContext* glewGetContext()
-{
-	return (GLEWContext*)VWindow::CurrentContext->glewContext;
-}
+//GLEWContext* glewGetContext()
+//{
+//	return (GLEWContext*)VWindow::CurrentContext->glewContext;
+//}
 #endif
 
 // Definitions of glewGetContext

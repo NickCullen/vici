@@ -4,21 +4,16 @@
 #include "Singleton.h"
 #include "Hash.h"
 #include "VString.h"
+#include "Dictionary.h"
 
 /** 
  * Used to store and save environment variables
  */
 class CORE_API VEnvironment : public VSingleton<VEnvironment>
 {
-	struct VEnvVar
-	{
-		VEnvVar* Next;
-		VHash Key;
-		VString Value;
-	};
 
 private:
-	VEnvVar* Head;	// First variable
+	VDictionary<VString> Vars;
 public:
 
 	VEnvironment();
@@ -32,12 +27,12 @@ public:
 	 * the variable will not be added if a var with the same key already exists 
 	 * and the value will remain unachanged.
 	 */
-	bool Put(VHash key, const char* val, bool overwrite = true);
+	void Put(VHash key, const char* val, bool overwrite = true);
 
 	/**
-	 * Gets the value of an environment variable
+	 * Gets the value of an environment variable and stores it in outVal
 	 */
-	const char* Get(VHash key);
+	bool Get(VHash key, VString& outVal);
 
 	/**
 	 * Simply removes the variable with the given key
@@ -47,10 +42,6 @@ public:
 	/** 
 	 * Searches the system environment variable for the given key
 	 */
-	static const char* GetSystemEnvVar(const char* key);
+	static VString GetSystemEnvVar(const char* key);
 
-	/**
-	 * Prints env vars
-	 */
-	void PrintEnvVars();
 };

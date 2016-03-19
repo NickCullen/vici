@@ -1,6 +1,10 @@
 #include <Windows.h>
 #include <stdio.h>
 #include "KeyCode.h"
+#include "Engine.h"
+#include "Renderer.h"
+#include "FilePath.h"
+#include "Environment.h"
 
 // Tut : http://nehe.gamedev.net/tutorial/creating_an_opengl_window_%28win32%29/13001/
 
@@ -212,8 +216,9 @@ bool CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 	SetForegroundWindow(hWnd);                      // Slightly Higher Priority
 	SetFocus(hWnd);                             // Sets Keyboard Focus To The Window
 	//ReSizeGLScene(width, height);                       // Set Up Our Perspective GL Screen
-}
 
+	return true;
+}
 
 void KeyAction(WPARAM key, bool down)
 {
@@ -296,11 +301,7 @@ void KeyAction(WPARAM key, bool down)
 
 }
 
-// Main
-LRESULT CALLBACK WndProc(HWND    hWnd,                   // Handle For This Window
-	UINT    uMsg,                   // Message For This Window
-	WPARAM  wParam,                 // Additional Message Information
-	LPARAM  lParam)                 // Additional Message Information
+LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)                 // Additional Message Information
 {
 	switch (uMsg)                               // Check For Windows Messages
 	{
@@ -358,6 +359,7 @@ LRESULT CALLBACK WndProc(HWND    hWnd,                   // Handle For This Wind
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
+// Main
 int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 	HINSTANCE   hPrevInstance,              // Previous Instance
 	LPSTR       lpCmdLine,              // Command Line Parameters
@@ -366,17 +368,22 @@ int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 	MSG msg;                                // Windows Message Structure
 	bool done = FALSE;                         // Bool Variable To Exit Loop
 
-												  // Ask The User Which Screen Mode They Prefer
-	if (MessageBox(NULL, "Would You Like To Run In Fullscreen Mode?", "Start FullScreen?", MB_YESNO | MB_ICONQUESTION) == IDYES)
-	{
-		fullscreen = true;                       // Windowed Mode
-	}
-
 	// Create Our OpenGL Window
 	if (!CreateGLWindow("Vici Editor", 640, 480, 16, fullscreen))
 	{
 		return 0;                           // Quit If Window Was Not Created
 	}
+
+	// Setup stuff
+	VString vpath = VEnvironment::GetSystemEnvVar("VICI_HOME");
+	VFilePath vResPath = vpath + "Resources/";
+
+	printf("Res = %s\n", (char*)vResPath);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), vpath.c_str());
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), vResPath);
+
+	VEngine* vici = new VEngine();
+	vici->Init(0, nullptr);
 
 	while (!done)
 	{
@@ -402,7 +409,9 @@ int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 				}
 				else                        // Not Time To Quit, Update Screen
 				{
-					//DrawScene();		// Render here
+					vici->Update();
+					vici->Render();
+
 					SwapBuffers(hDC);
 				}
 

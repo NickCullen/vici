@@ -50,16 +50,16 @@ void VFilePath::PrefixLocation()
 	switch (Location)
 	{
 	case FILE_RUNNING_DIRECTORY:
-		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY));
+		VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY), Path);
 		break;
 	case FILE_EDITOR_DIRECTORY:
-		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_DIRECTORY));
+		VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_DIRECTORY), Path);
 		break;
 	case FILE_EDITOR_RESOURCE_DIRECTORY:
-		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY));
+		VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), Path);
 		break;
 	default:
-		Path = VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY));	// Assume running directory
+		VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY), Path);	// Assume running directory
 		break;
 	}
 
