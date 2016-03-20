@@ -2,7 +2,57 @@
 
 #include "CoreAPI.h"
 #include "InputDef.h"
+#include "Singleton.h"
+#include "KeyCode.h"
+#include "VTypes.h"
 
+class CORE_API VInput : public VSingleton<VInput>
+{
+	enum EKeyState
+	{
+		KEY_STATE_NONE,
+		KEY_STATE_DOWN,
+		KEY_STATE_UP
+	};
+
+	struct VKeyInfo
+	{
+		EKeyState State;	// The state of this key
+		uint32 Frame;		// What frame this key was down
+
+		VKeyInfo()
+			:State(KEY_STATE_NONE),
+			Frame(0) {}
+	};
+
+private:
+	VKeyInfo Keys[MAX_KEYCOUNT];
+
+	uint32 CurrentFrame;	// The current frame count
+
+	uint32 ActiveKeyCount;	// The number of active keys
+public:
+	VInput();
+	~VInput();
+
+	// Setters
+	inline void SetCurrentFrame(uint32 frame) { CurrentFrame = frame; }
+	void SetKeyDown(EKeyCode key);
+	void SetKeyUp(EKeyCode key);
+
+	// Returns true if specified key is down for one frame
+	bool KeyDown(EKeyCode key) const;
+
+	// Returns true if the specified key is up for one frame
+	bool KeyUp(EKeyCode key) const;
+
+	// Returns true if the key is down, will always return true if down
+	bool Key(EKeyCode key) const;
+
+	// Returns true if any keys are pressed
+	bool Anykey() const;
+
+};
 class CORE_API VButton
 {
 public:

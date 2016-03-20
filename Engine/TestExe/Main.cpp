@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
-#include "KeyCode.h"
+#include "Input.h"
 #include "Engine.h"
 #include "Renderer.h"
 #include "FilePath.h"
@@ -298,7 +298,10 @@ void KeyAction(WPARAM key, bool down)
 		default:	code = KEY_UNKNOWN; break;
 	}
 
-	printf("code = %d\n", code);
+	if (down)
+		VInput::GetInstance()->SetKeyDown(code);
+	else
+		VInput::GetInstance()->SetKeyUp(code);
 
 }
 
@@ -376,13 +379,16 @@ void Test()
 
 	float d = q1.Dot(q2);
 
+	Quaternion rot = Quaternion::EulerAngles(0, 90, 0);
+	
+	Matrix3f m3 = rot;
+	Matrix4f m4 = rot;
+
+
 }
 
 // Main
-int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
-	HINSTANCE   hPrevInstance,              // Previous Instance
-	LPSTR       lpCmdLine,              // Command Line Parameters
-	int     nCmdShow)               // Window Show State
+int main(int argc, char** argv)
 {
 	MSG msg;                                // Windows Message Structure
 	bool done = FALSE;                         // Bool Variable To Exit Loop
@@ -406,8 +412,14 @@ int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 
 	Test();
 
+	uint32 frame = 0;
+
 	while (!done)
 	{
+		// Per frame init
+		frame++;
+		VInput::GetInstance()->SetCurrentFrame(frame);
+
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))           // Is There A Message Waiting?
 		{
 			if (msg.message == WM_QUIT)               // Have We Received A Quit Message?
@@ -450,6 +462,9 @@ int WINAPI WinMain(HINSTANCE   hInstance,              // Instance
 				}
 			}
 		}
+
+		if (VInput::GetInstance()->KeyDown(KEY_4))
+			printf("4 pressed\n");
 	}
 
 	// Shutdown

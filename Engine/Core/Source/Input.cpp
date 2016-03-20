@@ -1,5 +1,54 @@
 #include "Input.h"
 
+// --------------------- Input -----------------------------------------------
+VInput::VInput()
+	:VSingleton(this),
+	CurrentFrame(0),
+	ActiveKeyCount(0)
+{
+
+}
+
+VInput::~VInput()
+{
+
+}
+
+
+void VInput::SetKeyDown(EKeyCode key)
+{
+	ActiveKeyCount++;
+	Keys[key].State = KEY_STATE_DOWN;
+	Keys[key].Frame = CurrentFrame;
+}
+
+void VInput::SetKeyUp(EKeyCode key)
+{
+	ActiveKeyCount--;
+	Keys[key].State = KEY_STATE_UP;
+	Keys[key].Frame = CurrentFrame;
+}
+
+bool VInput::KeyDown(EKeyCode key) const
+{
+	return (Keys[key].State == KEY_STATE_DOWN && Keys[key].Frame == CurrentFrame);
+}
+
+bool VInput::KeyUp(EKeyCode key) const
+{
+	return (Keys[key].State == KEY_STATE_UP && Keys[key].Frame == CurrentFrame);
+}
+
+bool VInput::Key(EKeyCode key) const
+{
+	return Keys[key].State == KEY_STATE_UP;
+}
+
+bool VInput::Anykey() const
+{
+	return ActiveKeyCount > 0;
+}
+
 // --------------------- Key Buttons -----------------------------------------
 VButton::VButton(int key, int scancode, int action, int mod)
 	:
