@@ -11,11 +11,12 @@ class CORE_API VInput : public VSingleton<VInput>
 	enum EKeyState
 	{
 		KEY_STATE_NONE,
-		KEY_STATE_DOWN,
-		KEY_STATE_UP
+		KEY_STATE_DOWN = 1,
+		KEY_STATE_UP = 2,
+		KEY_STATE_HELD = 4
 	};
 
-	struct VKeyInfo
+	struct CORE_API VKeyInfo
 	{
 		EKeyState State;	// The state of this key
 		uint32 Frame;		// What frame this key was down

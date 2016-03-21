@@ -465,9 +465,13 @@ int main(int argc, char** argv)
 
 		if (VInput::GetInstance()->KeyDown(KEY_4))
 			printf("4 pressed\n");
+		else if (VInput::GetInstance()->KeyUp(KEY_4))
+			printf("4 released\n");
+		else if (VInput::GetInstance()->Key(KEY_4))
+			printf("4 held\n");
 	}
 
 	// Shutdown
 	KillWindow();                             // Kill The Window
-	return (msg.wParam);                            // Exit The Program
+	return (int)(msg.wParam);                            // Exit The Program
 }

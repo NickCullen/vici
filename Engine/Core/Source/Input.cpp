@@ -17,9 +17,17 @@ VInput::~VInput()
 
 void VInput::SetKeyDown(EKeyCode key)
 {
-	ActiveKeyCount++;
-	Keys[key].State = KEY_STATE_DOWN;
-	Keys[key].Frame = CurrentFrame;
+	if (Keys[key].State == KEY_STATE_DOWN || Keys[key].State == KEY_STATE_HELD)
+	{
+		Keys[key].State = KEY_STATE_HELD;
+		Keys[key].Frame = CurrentFrame;
+	}
+	else
+	{
+		ActiveKeyCount++;
+		Keys[key].State = KEY_STATE_DOWN;
+		Keys[key].Frame = CurrentFrame;
+	}
 }
 
 void VInput::SetKeyUp(EKeyCode key)
@@ -41,7 +49,7 @@ bool VInput::KeyUp(EKeyCode key) const
 
 bool VInput::Key(EKeyCode key) const
 {
-	return Keys[key].State == KEY_STATE_UP;
+	return Keys[key].State & (KEY_STATE_HELD | KEY_STATE_DOWN) ? true : false;
 }
 
 bool VInput::Anykey() const
