@@ -8,6 +8,7 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration for WndProc
 
 // Static init
+bool VWindow::Initialized = false;
 uint32 VWindow::Count = 0;
 VWindow* VWindow::CurrentContext = nullptr;
 
@@ -48,6 +49,8 @@ VWindow::VWindow(uint32 width, uint32 height, const char* title, EWindowMode mod
 	UserData(nullptr),
 	Input(nullptr)
 {
+	if (!Initialized) Initialized = Initialize();
+
 	if (CreateNewWindow(width, height, title, mode, parent))
 	{
 		Input = new VInput();
@@ -58,6 +61,29 @@ VWindow::~VWindow()
 {
 	Close();
 	if (Input) delete(Input);
+}
+
+bool VWindow::Initialize()
+{
+	WNDCLASS wc;		// Window class structure
+
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;		// Redraw On Move, And Own DC For Window
+	wc.lpfnWndProc = (WNDPROC)WndProc;					// WndProc Handles Messages
+	wc.cbClsExtra = 0;									// No Extra Window Data
+	wc.cbWndExtra = 0;									// No Extra Window Data
+	wc.hInstance = GetModuleHandle(NULL);				// Set The Instance
+	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);				// Load The Default Icon
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);			// Load The Arrow Pointer
+	wc.hbrBackground = NULL;							// No Background Required For GL
+	wc.lpszMenuName = NULL;								// We Don't Want A Menu
+	wc.lpszClassName = "OpenGL";						// Set The Class Name
+
+	if (!RegisterClass(&wc))							// Attempt To Register The Window Class
+	{
+		MessageBox(NULL, "Failed To Register The Window Class.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
+		return false;
+	}
+	return true;
 }
 
 bool VWindow::CreateNewWindow(uint32 width, uint32 height, const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr)
@@ -75,8 +101,6 @@ bool VWindow::CreateNewWindow(uint32 width, uint32 height, const char* title = "
 
 	unsigned int PixelFormat;		// Holds the result of the chosen pixel format
 
-	WNDCLASS wc;		// Window class structure
-
 	DWORD dwExStyle;	// Window Extended Style
 	DWORD dwStyle;		// Window Style
 
@@ -89,22 +113,6 @@ bool VWindow::CreateNewWindow(uint32 width, uint32 height, const char* title = "
 	bool fullscreen = (mode == WINDOW_FULLSCREEN_BORDERLESS);             // Set The Global Fullscreen Flag
 
 	NativeWindow->hInstance = GetModuleHandle(NULL);	// Grab An Instance For Our Window
-	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;		// Redraw On Move, And Own DC For Window
-	wc.lpfnWndProc = (WNDPROC)WndProc;					// WndProc Handles Messages
-	wc.cbClsExtra = 0;									// No Extra Window Data
-	wc.cbWndExtra = 0;									// No Extra Window Data
-	wc.hInstance = NativeWindow->hInstance;							// Set The Instance
-	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);				// Load The Default Icon
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);			// Load The Arrow Pointer
-	wc.hbrBackground = NULL;							// No Background Required For GL
-	wc.lpszMenuName = NULL;								// We Don't Want A Menu
-	wc.lpszClassName = "OpenGL";						// Set The Class Name
-	
-	if (!RegisterClass(&wc))							// Attempt To Register The Window Class
-	{
-		MessageBox(NULL, "Failed To Register The Window Class.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
-		return false;
-	}
 
 	if (fullscreen)
 	{
@@ -156,7 +164,7 @@ bool VWindow::CreateNewWindow(uint32 width, uint32 height, const char* title = "
 		0, 0,										// Window Position
 		WindowRect.right - WindowRect.left,			// Calculate Adjusted Window Width
 		WindowRect.bottom - WindowRect.top,			// Calculate Adjusted Window Height
-		parent != nullptr ? parent->NativeWindow->hWnd : NULL,		// No Parent Window
+		NULL,//parent != nullptr ? parent->NativeWindow->hWnd : NULL,		// No Parent Window
 		NULL,										// No Menu
 		NativeWindow->hInstance,					// Instance
 		(LPVOID)this)))									// Pass this ptr To WM_CREATE
@@ -216,6 +224,14 @@ bool VWindow::CreateNewWindow(uint32 width, uint32 height, const char* title = "
 		return false;                           // Return FALSE
 	}
 
+	// Share if needed
+	if (parent != nullptr)
+	{
+		if (wglShareLists(parent->NativeWindow->hRC, NativeWindow->hRC) == FALSE)
+		{
+			MessageBox(NULL, "Unable to share GL lists", "WARNING", MB_OK | MB_ICONEXCLAMATION);
+		}
+	}
 	if (!wglMakeCurrent(NativeWindow->hDC, NativeWindow->hRC))                        // Try To Activate The Rendering Context
 	{
 		Close();                         // Reset The Display
@@ -344,17 +360,20 @@ void VWindow::TerminateAll()
 
 void VWindow::GetWindowSize(int* width, int* height)
 {
-
+	*width = 500;
+	*height = 500;
 }
 
 void VWindow::GetFrameBufferSize(int* width, int* height)
 {
-
+	*width = 500;
+	*height = 500;
 }
 
 void VWindow::GetPrimaryMonitorSize(int* width, int* height)
 {
-
+	*width = 500;
+	*height = 500;
 }
 
 void VWindow::SetBorderHint(bool show)

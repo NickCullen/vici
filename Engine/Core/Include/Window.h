@@ -22,6 +22,7 @@ class CORE_API VWindow
 {
 private:
 	static uint32 Count;	// Number of windows created
+	static bool Initialized;	// Window library initialized
 
 	uint32 WindowID;		// ID of this window (whatever value count is when this window is created)
 
@@ -39,6 +40,10 @@ private:
 	 */
 	bool CreateNewWindow(uint32 width, uint32 height, const char* title, EWindowMode mode, VWindow* parent);
 
+	/**
+	 * Initializes windowing library
+	 */
+	static bool Initialize();
 public:
 
 	static VWindow* CurrentContext;	// Pointer to the current context
