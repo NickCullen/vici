@@ -14,20 +14,8 @@ VRenderer::~VRenderer()
 {
 
 }
-
-GLEWContext* glewContext;
-GLEWContext* glewGetContext()
-{
-	return glewContext;
-}
-
 bool VRenderer::Init()
 {
-	glewContext = new GLEWContext();
-	glewContextInit(glewContext);
-	if (glewInit() != GLEW_OK)
-		return false;
-
 	return true;
 }
 

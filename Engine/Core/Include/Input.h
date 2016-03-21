@@ -1,32 +1,14 @@
 #pragma once
 
-#include "CoreAPI.h"
-#include "InputDef.h"
-#include "Singleton.h"
-#include "KeyCode.h"
-#include "VTypes.h"
-#include "Vector2.h"
+#include "InputTypes.h"
 
-#define MAX_MOUSE_BUTTONS 3
 
-class CORE_API VInput : public VSingleton<VInput>
+class CORE_API VInput
 {
-	enum EKeyState
-	{
-		KEY_STATE_NONE,
-		KEY_STATE_DOWN = 1,
-		KEY_STATE_UP = 2,
-		KEY_STATE_HELD = 4
-	};
-
-	enum EButtonState
-	{
-		BUTTON_STATE_NONE,
-		BUTTON_STATE_DOWN,
-		BUTTON_STATE_UP,
-		BUTTON_STATE_DBL
-	};
-
+	/**
+	 * Internally kept, stores per frame keyboard
+	 * key info
+	 */
 	struct CORE_API VKeyInfo
 	{
 		EKeyState State;	// The state of this key
@@ -37,6 +19,9 @@ class CORE_API VInput : public VSingleton<VInput>
 			Frame(0) {}
 	};
 
+	/**
+	 * Internally kept, stores per frame mouse button info
+	 */
 	struct CORE_API VButtonInfo
 	{
 		EButtonState State;
@@ -44,23 +29,31 @@ class CORE_API VInput : public VSingleton<VInput>
 
 		VButtonInfo()
 			:State(BUTTON_STATE_NONE),
-			 Frame(0) {}
+			Frame(0) {}
 	};
 
 private:
-	VKeyInfo Keys[MAX_KEYCOUNT];
+	static VInput* CurrentInputContext;		// The current input context to use
 
-	uint32 CurrentFrame;	// The current frame count
+	VKeyInfo Keys[MAX_KEYCOUNT];			// Key buffer
 
-	uint32 ActiveKeyCount;	// The number of active keys
+	uint32 CurrentFrame;					// The current frame count to prevent repeating up/down commands
 
-	Vector2f MousePosition;	
+	uint32 ActiveKeyCount;					// The number of active keys for this context
 
-	VButtonInfo MouseButtonStates[MAX_MOUSE_BUTTONS];
+	Vector2f MousePosition;					// The mouse position for this context
+
+	VButtonInfo MouseButtonStates[MAX_MOUSE_BUTTONS];	// Mouse button states
 
 public:
 	VInput();
 	~VInput();
+
+	// Returns the current input context
+	static VInput* GetInstance();
+
+	// Sets this to the current input context
+	void MakeCurrentContext();
 
 	// ------------------------- Keyboard ------------------------------
 	// Setters
@@ -86,51 +79,4 @@ public:
 	void SetMouseButtonUp(uint32 btn);
 	void SetMouseButtonDown(uint32 btn);
 	void SetMouseButtonDblClick(uint32 btn);
-};
-class CORE_API VButton
-{
-public:
-	int Key;		// Matches V_KEY
-	int Scancode;	
-	int Action;		// Matches V_KEY_RELEASE/PRESS/REPEAT
-	int Mod;
-
-	VButton(int key, int scancode, int action, int mod);
-};
-
-class CORE_API VMouseButton
-{
-public:
-	int Button;		// Matches V_MOUSE_BUTTON
-	int Action;		// Matches V_KEY_RELEASE/PRESS/REPEAT
-	int Mods;		
-
-	VMouseButton(int button, int action, int mods);
-};
-
-class CORE_API VMouseInfo
-{
-public:
-	float Y;
-	float X;
-
-	VMouseInfo(float x, float y);
-};
-
-class CORE_API VScrollInfo
-{
-public:
-	float XOffset;
-	float YOffset;
-
-	VScrollInfo(float xOffset, float yOffset);
-};
-
-class CORE_API VFileDropInfo
-{
-public:
-	int Count;		// Number of paths dropped here
-	const char** Paths;	// Array of pointers containing path names
-
-	VFileDropInfo(int count, const char** paths);
 };

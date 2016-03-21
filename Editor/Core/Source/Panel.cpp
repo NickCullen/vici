@@ -30,52 +30,7 @@ VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool bor
 	Width = width;
 	Height = height;
 
-	// Set callbacks
-	Window->SetKeyCallbackFn(VPanel::KeyCallbackFn);
-	Window->SetMouseButtonCallbackFn(VPanel::MouseButtonCallbackFn);
-	Window->SetCursorPosCallbackFn(VPanel::CursorPosCallbackFn);
-	Window->SetCursorEnteredCallbackFn(VPanel::CursorEnteredCallbackFn);
-	Window->SetScrollCallbackFn(VPanel::ScrollCallback);
-	Window->SetFileDropCallbackFn(VPanel::FileDropped);
-
 	return Window;
-}
-
-void VPanel::KeyCallbackFn(VWindow* win, VButton* button)
-{
-	VPanel* panel = (VPanel*)win->UserData;
-	if (panel)
-		panel->OnKeyPress(button);
-}
-void VPanel::MouseButtonCallbackFn(VWindow* win, VMouseButton* button)
-{
-	VPanel* panel = (VPanel*)win->UserData;
-	if (panel)
-		panel->OnMouseButton(button);
-}
-void VPanel::CursorPosCallbackFn(VWindow* win, VMouseInfo* mi)
-{
-	VPanel* panel = (VPanel*)win->UserData;
-	if (panel)
-		panel->OnCursorPosition(mi);
-}
-void VPanel::CursorEnteredCallbackFn(VWindow* win, bool entered)
-{
-	VPanel* panel = (VPanel*)win->UserData;
-	if (panel)
-		panel->OnCursorEnter(entered);
-}
-void VPanel::ScrollCallback(VWindow* win, VScrollInfo* si)
-{
-	VPanel* panel = (VPanel*)win->UserData;
-	if (panel)
-		panel->OnMouseScroll(si);
-}
-void VPanel::FileDropped(VWindow* win, VFileDropInfo* fdi)
-{
-	VPanel* panel = (VPanel*)win->UserData;
-	if (panel)
-		panel->OnFileDropped(fdi);
 }
 
 void VPanel::PostRender()

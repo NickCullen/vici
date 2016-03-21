@@ -1,7 +1,11 @@
 #pragma once
 
 #include "CoreAPI.h"
-#include "WindowDefs.h"
+#include "VTypes.h"
+
+// Forward decl
+struct NativeWindow_t;
+class VInput;
 
 /**
  * Enum defining how to open a window
@@ -17,43 +21,31 @@ enum EWindowMode
 class CORE_API VWindow
 {
 private:
-	static bool GLFWInit;
-	static int Count;	// Number of windows created
+	static uint32 Count;	// Number of windows created
 
-	int WindowID;		// ID of this window (whatever value count is when this window is created)
+	uint32 WindowID;		// ID of this window (whatever value count is when this window is created)
 
-	NativeWindow_t NativeWindow;	// Pointer to native window
+	NativeWindow_t* NativeWindow;	// Pointer to native window
 
-	Vkeyfun KeyCallback;					// Pointer to key callback function
-	Vmousebuttonfun MouseButtonCallback;	// Pointer to mouse button callback
-	Vcursorposfun CursorPosCallback;		// Pointer to mouse move over window callback
-	Vcursorenterfun CursorEnterCallback;	// Pointer to on cursor entered callback
-	Vscrollfun ScrollCallback;				// Pointer to mouse wheel scroll callback
-	Vdropfun FileDropCallback;				// Pointer to file dop callback
-
-	// Internal GLFW callbacksCallbacks
-	static void ErrorCallback(int error, const char* desc);
-	static void KeyCallbackFn(struct GLFWwindow* window, int key, int scancode, int action, int mods);
-	static void MouseButtonCallbackFn(struct GLFWwindow* window, int button, int action, int mods);
-	static void CursorPositionCallbackFn(struct GLFWwindow* window, double xpos, double ypos);
-	static void CursorEnteredCallbackFn(struct GLFWwindow* window, int entered);
-	static void ScrollCallbackFn(struct GLFWwindow* window, double x, double y);
-	static void FileDropCallbackFn(struct GLFWwindow* window, int count, const char** files);
-
-	static bool Init(); // Initalises library
+	VInput* Input;			// The input context for this window
 
 	/**
 	* Overloaded MakeCurrent function for internal use
 	*/
 	void MakeCurrent(VWindow* ctx);
+
+	/**
+	 * Crate window
+	 */
+	bool CreateNewWindow(uint32 width, uint32 height, const char* title, EWindowMode mode, VWindow* parent);
+
 public:
-#ifdef GLEW_MX
-	void* glewContext;
+
 	static VWindow* CurrentContext;	// Pointer to the current context
-#endif
+
 	void* UserData;					// Pointer to user data for callbacks
 
-	VWindow(int width, int height, const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr);
+	VWindow(uint32 width, uint32 height, const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr);
 	~VWindow();
 
 	/**
@@ -97,36 +89,6 @@ public:
 	static void TerminateAll();
 
 	/**
-	 * Sets keyboard button callback
-	 */
-	void SetKeyCallbackFn(Vkeyfun keyFn);
-
-	/**
-	 * Sets mouse button callback
-	 */
-	void SetMouseButtonCallbackFn(Vmousebuttonfun mouseFn);
-
-	/**
-	 * Sets function callback for when mouse moves over window
-	 */
-	void SetCursorPosCallbackFn(Vcursorposfun cursorFn);
-
-	/**
-	 * Sets function callback for when mouse enters/leaves window
-	 */
-	void SetCursorEnteredCallbackFn(Vcursorenterfun cursorFn);
-	
-	/**
-	 * Sets function callback for when mouse wheel scrolls
-	 */
-	void SetScrollCallbackFn(Vscrollfun scrollFn);
-
-	/**
-	 * Sets function callback for when files get drag and dropped onto this window
-	 */
-	void SetFileDropCallbackFn(Vdropfun dropFn);
-
-	/**
 	* Returns the size of the window
 	*/
 	void GetWindowSize(int* width, int* height);
@@ -146,8 +108,8 @@ public:
 	 */
 	static void SetBorderHint(bool show);
 
-	/** 
-	* Returns the ID of this window
-	*/
+	// Getters
 	inline int GetID() { return WindowID; }
+	inline VInput* GetInput() { return Input; }
+	inline NativeWindow_t* GetNativeWindow() { return NativeWindow; }
 };

@@ -85,7 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\Windows\;$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -99,7 +99,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\Windows\;$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -115,7 +115,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\Windows\;$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Engine\Core\Private\Windows\;$(SolutionDir)..\..\..\Engine\Core\Private\;$(SolutionDir)..\..\..\Engine\Core\Include\;$(SolutionDir)..\..\..\ThirdParty\Include\;$(SolutionDir)..\..\..\Engine\Math\Math\Include\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VICI_WINDOWS;CORE_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Engine\Core\Private\Windows\Window.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Buffer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Environment.cpp" />
@@ -161,13 +162,11 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture2D.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexArrayList.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexBuffer.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\InputDef.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VTypes.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Array.h" />
@@ -184,7 +183,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Hash.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\IndexBuffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Input.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\InputDef.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\InputTypes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\KeyCode.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\LinkedList.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Material.h" />
@@ -212,7 +211,6 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VTypes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\WindowDefs.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Private\Glew.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Private\stb_image.h" />
   </ItemGroup>
