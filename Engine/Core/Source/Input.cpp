@@ -4,7 +4,8 @@
 VInput::VInput()
 	:VSingleton(this),
 	CurrentFrame(0),
-	ActiveKeyCount(0)
+	ActiveKeyCount(0),
+	MousePosition(0.0f,0.0f)
 {
 
 }

@@ -5,6 +5,7 @@
 #include "Singleton.h"
 #include "KeyCode.h"
 #include "VTypes.h"
+#include "Vector2.h"
 
 class CORE_API VInput : public VSingleton<VInput>
 {
@@ -32,15 +33,18 @@ private:
 	uint32 CurrentFrame;	// The current frame count
 
 	uint32 ActiveKeyCount;	// The number of active keys
+
+	Vector2f MousePosition;	
 public:
 	VInput();
 	~VInput();
 
+	// ------------------------- Keyboard ------------------------------
 	// Setters
 	inline void SetCurrentFrame(uint32 frame) { CurrentFrame = frame; }
 	void SetKeyDown(EKeyCode key);
 	void SetKeyUp(EKeyCode key);
-
+	
 	// Returns true if specified key is down for one frame
 	bool KeyDown(EKeyCode key) const;
 
@@ -52,6 +56,10 @@ public:
 
 	// Returns true if any keys are pressed
 	bool Anykey() const;
+
+	// ------------------------ Mouse ---------------------------------
+	inline void SetMousePosition(Vector2f& pos) { MousePosition = pos; }
+	inline const Vector2f& GetMousePosition() { return MousePosition; }
 
 };
 class CORE_API VButton

@@ -352,6 +352,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 		return 0;                       // Jump Back
 	}
 
+	case WM_MOUSEMOVE:
+	{
+		uint32 x = LOWORD(wParam);
+		uint32 y = lParam;
+
+		printf("x = %d y = %d\n", x, y);
+		return 0;
+	}
+
 	case WM_SIZE:                           // Resize The OpenGL Window
 	{
 		//ReSizeGLScene(LOWORD(lParam), HIWORD(lParam));       // LoWord=Width, HiWord=Height
