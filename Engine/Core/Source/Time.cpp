@@ -1,5 +1,12 @@
 #include "Time.h"
-#include "GLFW/glfw3.h"
+
+#ifdef VICI_WINDOWS
+#include <Windows.h>
+
+#define GetTimeInSeconds() GetTickCount() / 1000.0f
+
+#endif
+
 
 VTime::VTime()
 	:VSingleton(this)
@@ -8,5 +15,5 @@ VTime::VTime()
 }
 void VTime::UpdateTime()
 {
-	Time = (float)glfwGetTime();
+	Time = (float)GetTimeInSeconds();
 }
