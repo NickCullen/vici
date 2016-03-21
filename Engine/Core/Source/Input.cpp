@@ -16,6 +16,7 @@ VInput::~VInput()
 }
 
 
+// ---------------------------------------------- Keyboard -----------------------------------------
 void VInput::SetKeyDown(EKeyCode key)
 {
 	if (Keys[key].State == KEY_STATE_DOWN || Keys[key].State == KEY_STATE_HELD)
@@ -57,6 +58,27 @@ bool VInput::Anykey() const
 {
 	return ActiveKeyCount > 0;
 }
+
+// --------------------------------- Mouse Buttons ----------------------------
+void VInput::SetMouseButtonUp(uint32 btn)
+{
+	MouseButtonStates[btn].State = BUTTON_STATE_UP;
+	MouseButtonStates[btn].Frame = CurrentFrame;
+
+}
+
+void VInput::SetMouseButtonDown(uint32 btn)
+{
+	MouseButtonStates[btn].State = BUTTON_STATE_DOWN;
+	MouseButtonStates[btn].Frame = CurrentFrame;
+}
+
+void VInput::SetMouseButtonDblClick(uint32 btn)
+{
+	MouseButtonStates[btn].State = BUTTON_STATE_DBL;
+	MouseButtonStates[btn].Frame = CurrentFrame;
+}
+
 
 // --------------------- Key Buttons -----------------------------------------
 VButton::VButton(int key, int scancode, int action, int mod)

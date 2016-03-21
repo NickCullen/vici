@@ -7,6 +7,8 @@
 #include "VTypes.h"
 #include "Vector2.h"
 
+#define MAX_MOUSE_BUTTONS 3
+
 class CORE_API VInput : public VSingleton<VInput>
 {
 	enum EKeyState
@@ -15,6 +17,14 @@ class CORE_API VInput : public VSingleton<VInput>
 		KEY_STATE_DOWN = 1,
 		KEY_STATE_UP = 2,
 		KEY_STATE_HELD = 4
+	};
+
+	enum EButtonState
+	{
+		BUTTON_STATE_NONE,
+		BUTTON_STATE_DOWN,
+		BUTTON_STATE_UP,
+		BUTTON_STATE_DBL
 	};
 
 	struct CORE_API VKeyInfo
@@ -27,6 +37,16 @@ class CORE_API VInput : public VSingleton<VInput>
 			Frame(0) {}
 	};
 
+	struct CORE_API VButtonInfo
+	{
+		EButtonState State;
+		uint32 Frame;
+
+		VButtonInfo()
+			:State(BUTTON_STATE_NONE),
+			 Frame(0) {}
+	};
+
 private:
 	VKeyInfo Keys[MAX_KEYCOUNT];
 
@@ -35,6 +55,9 @@ private:
 	uint32 ActiveKeyCount;	// The number of active keys
 
 	Vector2f MousePosition;	
+
+	VButtonInfo MouseButtonStates[MAX_MOUSE_BUTTONS];
+
 public:
 	VInput();
 	~VInput();
@@ -60,7 +83,9 @@ public:
 	// ------------------------ Mouse ---------------------------------
 	inline void SetMousePosition(Vector2f& pos) { MousePosition = pos; }
 	inline const Vector2f& GetMousePosition() { return MousePosition; }
-
+	void SetMouseButtonUp(uint32 btn);
+	void SetMouseButtonDown(uint32 btn);
+	void SetMouseButtonDblClick(uint32 btn);
 };
 class CORE_API VButton
 {

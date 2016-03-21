@@ -352,12 +352,60 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 		return 0;                       // Jump Back
 	}
 
-	case WM_MOUSEMOVE:
+	case WM_MOUSEMOVE:		// Mouse moves over the context
 	{
-		uint32 x = LOWORD(wParam);
-		uint32 y = lParam;
+		uint32 x = LOWORD(lParam);
+		uint32 y = HIWORD(lParam);
 
-		printf("x = %d y = %d\n", x, y);
+		VInput::GetInstance()->SetMousePosition(Vector2f(x, y));
+
+		return 0;
+	}
+
+	case WM_LBUTTONDOWN:		// Left button down
+	{
+		VInput::GetInstance()->SetMouseButtonDown(0);
+		return 0;
+	}
+
+	case WM_RBUTTONDOWN:		// Right button down
+	{
+		VInput::GetInstance()->SetMouseButtonDown(1);
+		return 0;
+	}
+	case WM_MBUTTONDOWN:		// Middle button down
+	{
+		VInput::GetInstance()->SetMouseButtonDown(2);
+		return 0;
+	}
+	case WM_LBUTTONUP:			// Left button Up
+	{
+		VInput::GetInstance()->SetMouseButtonUp(0);
+		return 0;
+	}
+	case WM_RBUTTONUP:			// Right button up
+	{
+		VInput::GetInstance()->SetMouseButtonUp(1);
+		return 0;
+	}
+	case WM_MBUTTONUP:			// Middle button up
+	{
+		VInput::GetInstance()->SetMouseButtonUp(2);
+		return 0;
+	}
+	case WM_LBUTTONDBLCLK:		// Left button dbl click
+	{
+		VInput::GetInstance()->SetMouseButtonDblClick(0);
+		return 0;
+	}
+	case WM_RBUTTONDBLCLK:		// Right button dbl click
+	{
+		VInput::GetInstance()->SetMouseButtonDblClick(1);
+		return 0;
+	}
+	case WM_MBUTTONDBLCLK:		// Middle button dbl click
+	{
+		VInput::GetInstance()->SetMouseButtonDblClick(2);
 		return 0;
 	}
 
