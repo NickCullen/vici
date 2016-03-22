@@ -30,6 +30,10 @@ private:
 
 	VInput* Input;			// The input context for this window
 
+	uint32 Width;			// Width and height of rendering context
+	uint32 Height;
+
+
 	/**
 	* Overloaded MakeCurrent function for internal use
 	*/
@@ -38,7 +42,7 @@ private:
 	/**
 	 * Crate window
 	 */
-	bool CreateNewWindow(uint32 width, uint32 height, const char* title, EWindowMode mode, VWindow* parent);
+	bool CreateNewWindow(const char* title, EWindowMode mode, VWindow* parent);
 
 	/**
 	 * Initializes windowing library
@@ -52,6 +56,11 @@ public:
 
 	VWindow(uint32 width, uint32 height, const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr);
 	~VWindow();
+
+	/**
+	 * Handles resize of window
+	 */
+	void HandleResize(uint32 width, uint32 height);
 
 	/**
 	 * Positions the window
