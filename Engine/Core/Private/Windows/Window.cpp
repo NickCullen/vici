@@ -20,7 +20,8 @@ struct NativeWindow_t
 	HWND	hWnd = nullptr;		// Window handle
 	HINSTANCE	hInstance;		// Instance of the application
 	RECT WindowRect;			// Rect for the window
-
+	DWORD dwExStyle;	// Window Extended Style
+	DWORD dwStyle;		// Window Style
 #ifdef GLEW_MX
 	GLEWContext* glewContext;
 #endif
@@ -44,20 +45,24 @@ GLEWContext* glewGetContext()
 #endif
 
 // ------------------------------------ VWindow -------------------------------------
-VWindow::VWindow(uint32 width, uint32 height, const char* title, EWindowMode mode, VWindow* parent)
+VWindow::VWindow()
 	:WindowID(++Count),
 	NativeWindow(nullptr),
 	UserData(nullptr),
 	Input(nullptr),
-	Width(width),
-	Height(height)
+	Width(500),
+	Height(500),
+	X(0),
+	Y(0),
+	Mode(WINDOW_DEFAULT),
+	Parent(nullptr),
+	Title("My Window"),
+	CloseFlag(false)
 {
 	if (!Initialized) Initialized = Initialize();
 
-	if (CreateNewWindow(title, mode, parent))
-	{
-		Input = new VInput();
-	}
+	Input = new VInput();
+
 }
 
 VWindow::~VWindow()
@@ -89,7 +94,7 @@ bool VWindow::Initialize()
 	return true;
 }
 
-bool VWindow::CreateNewWindow(const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr)
+bool VWindow::CreateNewWindow()
 {
 	// Create NativeWindow ptr
 	if (NativeWindow != nullptr)
@@ -104,16 +109,13 @@ bool VWindow::CreateNewWindow(const char* title = "Default Window", EWindowMode 
 
 	unsigned int PixelFormat;		// Holds the result of the chosen pixel format
 
-	DWORD dwExStyle;	// Window Extended Style
-	DWORD dwStyle;		// Window Style
-
 	                        // Grabs Rectangle Upper Left / Lower Right Values
 	NativeWindow->WindowRect.left = (long)0;              // Set Left Value To 0
 	NativeWindow->WindowRect.right = (long)Width;         // Set Right Value To Requested Width
 	NativeWindow->WindowRect.top = (long)0;               // Set Top Value To 0
 	NativeWindow->WindowRect.bottom = (long)Height;       // Set Bottom Value To Requested Height
 
-	bool fullscreen = (mode == WINDOW_FULLSCREEN_BORDERLESS);             // Set The Global Fullscreen Flag
+	bool fullscreen = (Mode == WINDOW_FULLSCREEN_BORDERLESS);             // Set The Global Fullscreen Flag
 
 	NativeWindow->hInstance = GetModuleHandle(NULL);	// Grab An Instance For Our Window
 
@@ -146,25 +148,26 @@ bool VWindow::CreateNewWindow(const char* title = "Default Window", EWindowMode 
 
 	if (fullscreen)                             // Are We Still In Fullscreen Mode?
 	{
-		dwExStyle = WS_EX_APPWINDOW;        // Window Extended Style
-		dwStyle = WS_POPUP;                 // Windows Style
+		NativeWindow->dwExStyle = WS_EX_APPWINDOW;        // Window Extended Style
+		NativeWindow->dwStyle = WS_POPUP;                 // Windows Style
 											//ShowCursor(FALSE);                  // Hide Mouse Pointer
 	}
 	else
 	{
-		dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;           // Window Extended Style
-		dwStyle = WS_OVERLAPPEDWINDOW;                    // Windows Style
+		NativeWindow->dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;           // Window Extended Style
+		NativeWindow->dwStyle = WS_OVERLAPPEDWINDOW;                    // Windows Style
 	}
 
-	AdjustWindowRectEx(&NativeWindow->WindowRect, dwStyle, FALSE, dwExStyle);     // Adjust Window To True Requested Size
+	AdjustWindowRectEx(&NativeWindow->WindowRect, NativeWindow->dwStyle, FALSE, NativeWindow->dwExStyle);     // Adjust Window To True Requested Size
 
-	if (!(NativeWindow->hWnd = CreateWindowEx(dwExStyle,      // Extended Style For The Window
+	if (!(NativeWindow->hWnd = CreateWindowEx(
+		NativeWindow->dwExStyle,      // Extended Style For The Window
 		"OpenGL",									// Class Name
-		title,										// Window Title
+		Title.c_str(),								// Window Title
 		WS_CLIPSIBLINGS |							// Required Window Style
 		WS_CLIPCHILDREN |							// Required Window Style
-		dwStyle,									// Selected Window Style
-		0, 0,										// Window Position
+		NativeWindow->dwStyle,									// Selected Window Style
+		X, Y,										// Window Position
 		NativeWindow->WindowRect.right - NativeWindow->WindowRect.left,			// Calculate Adjusted Window Width
 		NativeWindow->WindowRect.bottom - NativeWindow->WindowRect.top,			// Calculate Adjusted Window Height
 		NULL,//parent != nullptr ? parent->NativeWindow->hWnd : NULL,		// No Parent Window
@@ -228,9 +231,9 @@ bool VWindow::CreateNewWindow(const char* title = "Default Window", EWindowMode 
 	}
 
 	// Share if needed
-	if (parent != nullptr)
+	if (Parent != nullptr)
 	{
-		if (wglShareLists(parent->NativeWindow->hRC, NativeWindow->hRC) == FALSE)
+		if (wglShareLists(Parent->NativeWindow->hRC, NativeWindow->hRC) == FALSE)
 		{
 			MessageBox(NULL, "Unable to share GL lists", "WARNING", MB_OK | MB_ICONEXCLAMATION);
 		}
@@ -262,12 +265,16 @@ bool VWindow::CreateNewWindow(const char* title = "Default Window", EWindowMode 
 	// Restore previous context
 	MakeCurrent(previousContext);
 
+	CloseFlag = false;
+
 	return true;
 }
 
 void VWindow::Close()	// Called when window should be teard down
 {
 	if (!NativeWindow) return;
+
+	CloseFlag = true;
 
 	//if (fullscreen)		// Is window full screen - make sure cursor is shown
 	{
@@ -325,19 +332,14 @@ void VWindow::MakeCurrent()
 }
 
 
-void VWindow::SetPosition(int xPos, int yPos)
-{
-
-}
-
 bool VWindow::ShouldClose()
 {
-	return false;
+	return CloseFlag;
 }
 
 void VWindow::SignalShouldClose()
 {
-
+	PostMessage(NativeWindow->hWnd, WM_CLOSE, NULL, NULL);
 }
 
 void VWindow::Swapbuffers()
@@ -383,13 +385,68 @@ void VWindow::SetBorderHint(bool show)
 
 }
 
-void VWindow::HandleResize(uint32 width, uint32 height)
+// -------------------------- Setters -------------------------------
+void VWindow::SetPosition(uint32 xPos, uint32 yPos, bool post)
+{
+	X = xPos;
+	Y = yPos;
+
+	if (NativeWindow && post)
+	{
+		uint32 nw = NativeWindow->WindowRect.right - NativeWindow->WindowRect.left;
+		uint32 nh = NativeWindow->WindowRect.bottom - NativeWindow->WindowRect.top;
+		MoveWindow(NativeWindow->hWnd,
+			X, Y,
+			nw, nh,
+			TRUE
+		);
+	}
+}
+
+void VWindow::SetSize(uint32 width, uint32 height, bool post)
 {
 	Width = width;
 	Height = height;
+	
+	if (NativeWindow && post)
+	{
+		NativeWindow->WindowRect.left = (long)0;              // Set Left Value To 0
+		NativeWindow->WindowRect.right = (long)Width;         // Set Right Value To Requested Width
+		NativeWindow->WindowRect.top = (long)0;               // Set Top Value To 0
+		NativeWindow->WindowRect.bottom = (long)Height;       // Set Bottom Value To Requested Height
+		
+		AdjustWindowRectEx(&NativeWindow->WindowRect, NativeWindow->dwStyle, FALSE, NativeWindow->dwExStyle);     // Adjust Window To True Requested Size
+
+		uint32 nw = NativeWindow->WindowRect.right - NativeWindow->WindowRect.left;
+		uint32 nh = NativeWindow->WindowRect.bottom - NativeWindow->WindowRect.top;
+		MoveWindow(NativeWindow->hWnd,
+			X + NativeWindow->WindowRect.left, Y + NativeWindow->WindowRect.top,
+			nw, nh,
+			TRUE
+		);
+
+	}
 }
 
+void VWindow::SetMode(EWindowMode mode)
+{
+	Mode = mode;
+}
 
+void VWindow::SetParent(VWindow* parent)
+{
+	Parent = parent;
+}
+
+void VWindow::SetTitle(const VString& title)
+{
+	Title = title;
+}
+
+void VWindow::SetCloseFlag(bool flag)
+{
+	CloseFlag = flag;
+}
 
 
 // ------------------------- Wnd proc --------------------------------
@@ -519,13 +576,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 
 	case WM_SIZE:
 	{
-		pThis->HandleResize(LOWORD(lParam), HIWORD(lParam));
+		pThis->SetSize(LOWORD(lParam), HIWORD(lParam), false);
 		return 0;
 	}
 
+	case WM_MOVE:
+	{
+		uint32 x = LOWORD(lParam);   // horizontal position 
+		uint32 y = HIWORD(lParam);   // vertical position 
+
+		pThis->SetPosition(x, y, false);
+	}
 	case WM_CLOSE:                          // Did We Receive A Close Message?
 	{
-		PostQuitMessage(0);                 // Send A Quit Message
+		pThis->SetCloseFlag(true);
 		return 0;                       // Jump Back
 	}
 

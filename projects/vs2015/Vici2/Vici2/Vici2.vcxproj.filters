@@ -111,9 +111,6 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp">
       <Filter>Core\Engine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp">
-      <Filter>Core\Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp">
       <Filter>Core\File\Source</Filter>
     </ClCompile>
@@ -168,6 +165,9 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Private\Windows\Window.cpp">
       <Filter>Core\Platform\Private\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\VTime.cpp">
+      <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h">
@@ -189,9 +189,6 @@
       <Filter>Core\Engine\Include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h">
-      <Filter>Core\Engine\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h">
       <Filter>Core\Engine\Include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h">
@@ -301,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h">
       <Filter>Core\Platform\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VTime.h">
+      <Filter>Core\Engine\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,8 @@
 #include "Environment.h"
 #include "MathLib.h"
 #include "Window.h"
+#include <random>
+#include <time.h>
 
 void Test()
 {
@@ -34,7 +36,16 @@ void Test()
 // Main
 int main(int argc, char** argv)
 {
-	VWindow win(512, 512, "My Window", EWindowMode::WINDOW_DEFAULT, nullptr);
+	srand(time(NULL));
+	
+	VWindow win;
+	win.SetSize(512, 512);
+	win.SetTitle("My Window");
+	win.SetMode(EWindowMode::WINDOW_DEFAULT);
+	if (!win.CreateNewWindow())
+	{
+		printf("Leaving\n");
+	}
 
 
 	// Setup stuff
@@ -69,8 +80,12 @@ int main(int argc, char** argv)
 		win.Swapbuffers();
 
 
-		if (VInput::GetInstance()->KeyDown(KEY_4))
-			printf("4 pressed\n");
+		if (VInput::GetInstance()->KeyDown(KEY_M))
+		{
+			int w, h;
+			win.GetFrameBufferSize(&w, &h);
+			win.SetSize(w + 10, h);
+		}
 		else if (VInput::GetInstance()->KeyUp(KEY_4))
 			printf("4 released\n");
 		else if (VInput::GetInstance()->Key(KEY_4))

@@ -2,6 +2,7 @@
 
 #include "CoreAPI.h"
 #include "VTypes.h"
+#include "VString.h"
 
 // Forward decl
 struct NativeWindow_t;
@@ -13,6 +14,7 @@ class VInput;
 enum EWindowMode
 {
 	WINDOW_DEFAULT,
+	WINDOW_DEFAULT_NO_TOPBAR,
 	WINDOW_FULLSCREEN_WINDOWED,
 	WINDOW_FULLSCREEN_BORDERLESS
 };
@@ -21,28 +23,42 @@ enum EWindowMode
 class CORE_API VWindow
 {
 private:
-	static uint32 Count;	// Number of windows created
+	static uint32 Count;		// Number of windows created
 	static bool Initialized;	// Window library initialized
 
-	uint32 WindowID;		// ID of this window (whatever value count is when this window is created)
+	// ID Of this window
+	uint32 WindowID;
 
-	NativeWindow_t* NativeWindow;	// Pointer to native window
+	// Struct containing native windows
+	NativeWindow_t* NativeWindow;
 
-	VInput* Input;			// The input context for this window
+	// Input context for this window
+	VInput* Input;		
 
-	uint32 Width;			// Width and height of rendering context
+	// Title of the window
+	VString Title;
+
+	// Parent window (this window will share its render context
+	VWindow* Parent;
+
+	// position
+	uint32 X;
+	uint32 Y;
+
+	// Size
+	uint32 Width;			
 	uint32 Height;
 
+	// How this window is to be displayed
+	EWindowMode Mode;
+
+	// Close flag
+	bool CloseFlag;
 
 	/**
 	* Overloaded MakeCurrent function for internal use
 	*/
 	void MakeCurrent(VWindow* ctx);
-
-	/**
-	 * Crate window
-	 */
-	bool CreateNewWindow(const char* title, EWindowMode mode, VWindow* parent);
 
 	/**
 	 * Initializes windowing library
@@ -54,18 +70,13 @@ public:
 
 	void* UserData;					// Pointer to user data for callbacks
 
-	VWindow(uint32 width, uint32 height, const char* title = "Default Window", EWindowMode mode = WINDOW_DEFAULT, VWindow* parent = nullptr);
+	VWindow();
 	~VWindow();
 
 	/**
-	 * Handles resize of window
-	 */
-	void HandleResize(uint32 width, uint32 height);
-
-	/**
-	 * Positions the window
-	 */
-	void SetPosition(int xPos, int yPos);
+	* Crate window
+	*/
+	bool CreateNewWindow();
 
 	/**
 	* Sets current opengl context for rendering 
@@ -121,6 +132,14 @@ public:
 	 * Hints to set before creating windows
 	 */
 	static void SetBorderHint(bool show);
+
+	// Setters
+	void SetPosition(uint32 xPos, uint32 yPos, bool post = true);
+	void SetSize(uint32 width, uint32 height, bool post = true);
+	void SetMode(EWindowMode mode);
+	void SetParent(VWindow* parent);
+	void SetTitle(const VString& title);
+	void SetCloseFlag(bool flag);
 
 	// Getters
 	inline int GetID() { return WindowID; }

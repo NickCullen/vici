@@ -23,7 +23,23 @@ VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool bor
 	VWindow::SetBorderHint(border);		
 
 	// Share the context of the main window
-	Window = new VWindow(width, height, title, WINDOW_DEFAULT, VMainWindow::GetInstance()->GetWindow());
+	Window = new VWindow();
+	if (!Window)
+		return false;
+
+	Window->SetParent(VMainWindow::GetInstance()->GetWindow());
+	Window->SetSize(width, height);
+	Window->SetTitle("Vici Editor");
+	Window->SetMode(WINDOW_DEFAULT);
+	Window->UserData = this;
+
+	if (!Window->CreateNewWindow())
+	{
+		delete(Window);
+		Window = nullptr;
+		return false;
+	}
+	
 	Window->UserData = this;	// Make sure we store a reference to his
 
 	// Set vars

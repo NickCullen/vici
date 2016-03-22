@@ -165,7 +165,7 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Time.cpp" />
+    <ClCompile Include="..\..\..\..\Engine\Core\Source\VTime.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VTypes.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +208,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexArrayList.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VertexBuffer.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VString.h" />
-    <ClInclude Include="..\..\..\..\Engine\Core\Include\Time.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\VTime.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VTypes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Window.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Private\Glew.h" />

@@ -1,7 +1,7 @@
 #include "Editor.h"
 #include "GameView.h"
 #include "SceneView.h"
-#include "Time.h"
+#include "VTime.h"
 #include "Window.h"
 #include "Engine.h"
 #include "MainWindow.h"
