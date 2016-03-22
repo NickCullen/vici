@@ -4,10 +4,12 @@
 #include "Singleton.h"
 #include "EngineConstants.h"
 #include "EngineMacros.h"
+#include "VTypes.h"
 
 class CORE_API VEngine : public VSingleton<VEngine>
 {
 private:
+	uint32 CurrentFrame;			// Frame counter
 
 public:
 	VEngine();
@@ -18,4 +20,10 @@ public:
 	void FixedUpdate();
 	void Update();
 	void Render();
+
+	// Setters
+	inline void SetCurrentFrame(uint32 val) { CurrentFrame = val; }
+
+	// Getters
+	inline uint32 GetCurrentFrame() { return CurrentFrame; }
 };

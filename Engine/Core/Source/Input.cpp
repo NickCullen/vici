@@ -1,12 +1,12 @@
 #include "Input.h"
+#include "Engine.h"
 
 // Static init
 VInput* VInput::CurrentInputContext = nullptr;
 
 // --------------------- Input -----------------------------------------------
 VInput::VInput()
-	:CurrentFrame(0),
-	ActiveKeyCount(0),
+	:ActiveKeyCount(0),
 	MousePosition(0.0f,0.0f)
 {
 
@@ -34,13 +34,13 @@ void VInput::SetKeyDown(EKeyCode key)
 	if (Keys[key].State == KEY_STATE_DOWN || Keys[key].State == KEY_STATE_HELD)
 	{
 		Keys[key].State = KEY_STATE_HELD;
-		Keys[key].Frame = CurrentFrame;
+		Keys[key].Frame = VEngine::GetInstance()->GetCurrentFrame();
 	}
 	else
 	{
 		ActiveKeyCount++;
 		Keys[key].State = KEY_STATE_DOWN;
-		Keys[key].Frame = CurrentFrame;
+		Keys[key].Frame = VEngine::GetInstance()->GetCurrentFrame();;
 	}
 }
 
@@ -48,17 +48,17 @@ void VInput::SetKeyUp(EKeyCode key)
 {
 	ActiveKeyCount--;
 	Keys[key].State = KEY_STATE_UP;
-	Keys[key].Frame = CurrentFrame;
+	Keys[key].Frame = VEngine::GetInstance()->GetCurrentFrame();;
 }
 
 bool VInput::KeyDown(EKeyCode key) const
 {
-	return (Keys[key].State == KEY_STATE_DOWN && Keys[key].Frame == CurrentFrame);
+	return (Keys[key].State == KEY_STATE_DOWN && Keys[key].Frame == VEngine::GetInstance()->GetCurrentFrame());
 }
 
 bool VInput::KeyUp(EKeyCode key) const
 {
-	return (Keys[key].State == KEY_STATE_UP && Keys[key].Frame == CurrentFrame);
+	return (Keys[key].State == KEY_STATE_UP && Keys[key].Frame == VEngine::GetInstance()->GetCurrentFrame());
 }
 
 bool VInput::Key(EKeyCode key) const
@@ -75,18 +75,18 @@ bool VInput::Anykey() const
 void VInput::SetMouseButtonUp(uint32 btn)
 {
 	MouseButtonStates[btn].State = BUTTON_STATE_UP;
-	MouseButtonStates[btn].Frame = CurrentFrame;
+	MouseButtonStates[btn].Frame = VEngine::GetInstance()->GetCurrentFrame();;
 
 }
 
 void VInput::SetMouseButtonDown(uint32 btn)
 {
 	MouseButtonStates[btn].State = BUTTON_STATE_DOWN;
-	MouseButtonStates[btn].Frame = CurrentFrame;
+	MouseButtonStates[btn].Frame = VEngine::GetInstance()->GetCurrentFrame();;
 }
 
 void VInput::SetMouseButtonDblClick(uint32 btn)
 {
 	MouseButtonStates[btn].State = BUTTON_STATE_DBL;
-	MouseButtonStates[btn].Frame = CurrentFrame;
+	MouseButtonStates[btn].Frame = VEngine::GetInstance()->GetCurrentFrame();;
 }

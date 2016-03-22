@@ -37,8 +37,6 @@ private:
 
 	VKeyInfo Keys[MAX_KEYCOUNT];			// Key buffer
 
-	uint32 CurrentFrame;					// The current frame count to prevent repeating up/down commands
-
 	uint32 ActiveKeyCount;					// The number of active keys for this context
 
 	Vector2f MousePosition;					// The mouse position for this context
@@ -57,7 +55,6 @@ public:
 
 	// ------------------------- Keyboard ------------------------------
 	// Setters
-	inline void SetCurrentFrame(uint32 frame) { CurrentFrame = frame; }
 	void SetKeyDown(EKeyCode key);
 	void SetKeyUp(EKeyCode key);
 	

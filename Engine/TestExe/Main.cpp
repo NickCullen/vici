@@ -56,12 +56,11 @@ int main(int argc, char** argv)
 	{
 		// Per frame init
 		frame++;
-		
+		vici->SetCurrentFrame(frame);
+
 		win.MakeCurrent();
 
-		VInput::GetInstance()->SetCurrentFrame(frame);
-
-
+		
 		win.PollEvents();
 
 		vici->Update();
