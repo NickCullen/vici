@@ -16,7 +16,7 @@ VGameView::~VGameView()
 
 bool VGameView::Init()
 {
-	int mWidth = 0, mHeight = 0;	// Monitor width and height
+	uint32 mWidth = 0, mHeight = 0;	// Monitor width and height
 	VWindow::GetPrimaryMonitorSize(&mWidth, &mHeight);
 
 	//Work out positions
@@ -25,7 +25,6 @@ bool VGameView::Init()
 
 	Window = CreateWindow(x2, y2, "Game View", WINDOW_DEFAULT);
 	Window->SetPosition(x1, y1);
-	Window->SetBorderHint(false);
 
 	return true;
 }

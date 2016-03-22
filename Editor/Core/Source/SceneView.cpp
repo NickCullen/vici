@@ -14,7 +14,7 @@ VSceneView::~VSceneView()
 
 bool VSceneView::Init()
 {
-	int mWidth = 0, mHeight = 0;	// Monitor width and height
+	uint32 mWidth = 0, mHeight = 0;	// Monitor width and height
 	VWindow::GetPrimaryMonitorSize(&mWidth, &mHeight);
 
 	//Work out positions
@@ -23,7 +23,6 @@ bool VSceneView::Init()
 
 	Window = CreateWindow((int)x2, (int)y2, "Scene View", WINDOW_DEFAULT);
 	Window->SetPosition((int)x1, (int)y1);
-	Window->SetBorderHint(false);
 
 	return true;
 }

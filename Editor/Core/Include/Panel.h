@@ -1,5 +1,7 @@
 #pragma once
 
+#include "VTypes.h"
+
 class VWindow;
 class VButton;
 class VMouseButton;
@@ -19,8 +21,8 @@ private:
 protected:
 	VWindow* Window;
 
-	int Width;
-	int Height;
+	uint32 Width;
+	uint32 Height;
 
 	VWindow* CreateWindow(int width, int height, const char* title, bool border = false);
 public:

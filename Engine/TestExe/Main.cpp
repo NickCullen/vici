@@ -41,7 +41,7 @@ int main(int argc, char** argv)
 	VWindow win;
 	win.SetSize(512, 512);
 	win.SetTitle("My Window");
-	win.SetMode(EWindowMode::WINDOW_DEFAULT);
+	win.SetMode(EWindowMode::WINDOW_DEFAULT_NO_TOPBAR);
 	if (!win.CreateNewWindow())
 	{
 		printf("Leaving\n");
@@ -63,6 +63,8 @@ int main(int argc, char** argv)
 
 	uint32 frame = 0;
 
+	int curMode = WINDOW_DEFAULT_NO_TOPBAR;
+
 	while (!win.ShouldClose())
 	{
 		// Per frame init
@@ -71,7 +73,9 @@ int main(int argc, char** argv)
 
 		win.MakeCurrent();
 
-		
+		VRenderer::GetInstance()->SetViewport(0, 0, win.GetWidth(), win.GetHeight());
+		VRenderer::GetInstance()->ClearAllBuffers();
+
 		win.PollEvents();
 
 		vici->Update();
@@ -82,9 +86,11 @@ int main(int argc, char** argv)
 
 		if (VInput::GetInstance()->KeyDown(KEY_M))
 		{
-			int w, h;
-			win.GetFrameBufferSize(&w, &h);
-			win.SetSize(w + 10, h);
+			curMode++;
+			if (curMode > EWindowMode::WINDOW_FULLSCREEN_BORDERLESS)
+				curMode = 0;
+			
+			win.SetMode((EWindowMode)curMode);
 		}
 		else if (VInput::GetInstance()->KeyUp(KEY_4))
 			printf("4 released\n");

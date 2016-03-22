@@ -16,7 +16,7 @@ VMainWindow::~VMainWindow()
 
 bool VMainWindow::Init()
 {
-	int sw, sh;
+	uint32 sw, sh;
 	VWindow::GetPrimaryMonitorSize(&sw, &sh);
 
 	Window = new VWindow();

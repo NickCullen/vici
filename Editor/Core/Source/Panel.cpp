@@ -19,9 +19,6 @@ VPanel::~VPanel()
 
 VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool border)
 {
-	// Make sure appropriate hints are set
-	VWindow::SetBorderHint(border);		
-
 	// Share the context of the main window
 	Window = new VWindow();
 	if (!Window)
@@ -30,7 +27,7 @@ VWindow* VPanel::CreateWindow(int width, int height, const char* title, bool bor
 	Window->SetParent(VMainWindow::GetInstance()->GetWindow());
 	Window->SetSize(width, height);
 	Window->SetTitle("Vici Editor");
-	Window->SetMode(WINDOW_DEFAULT);
+	Window->SetMode(WINDOW_DEFAULT_NO_TOPBAR);
 	Window->UserData = this;
 
 	if (!Window->CreateNewWindow())
@@ -68,13 +65,13 @@ void VPanel::MakeContextCurrent()
 int VPanel::GetWidth()
 {
 	if (Window != nullptr)
-		Window->GetFrameBufferSize(&Width, &Height);
+		Window->GetWindowSize(&Width, &Height);
 	return Width;
 }
 
 int VPanel::GetHeight()
 {
 	if (Window != nullptr)
-		Window->GetFrameBufferSize(&Width, &Height);
+		Window->GetWindowSize(&Width, &Height);
 	return Height;
 }

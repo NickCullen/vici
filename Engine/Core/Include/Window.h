@@ -52,6 +52,9 @@ private:
 	// How this window is to be displayed
 	EWindowMode Mode;
 
+	// Fullscreen flag
+	bool FullScreen;
+
 	// Close flag
 	bool CloseFlag;
 
@@ -64,6 +67,17 @@ private:
 	 * Initializes windowing library
 	 */
 	static bool Initialize();
+
+	/**
+	 * Handles the switch of Mode when creating window
+	 */
+	bool HandleMode();
+
+	/**
+	 * Updates the natively kept window rect
+	 */
+	void UpdateWindowRect();
+
 public:
 
 	static VWindow* CurrentContext;	// Pointer to the current context
@@ -84,16 +98,6 @@ public:
 	void MakeCurrent();	
 
 	/**
-	* Queries window to see if it should close or not
-	*/
-	bool ShouldClose();
-
-	/**
-	 * Tell the window it should close
-	 */
-	void SignalShouldClose();
-
-	/**
 	* Swaps back buffers
 	*/
 	void Swapbuffers();
@@ -108,41 +112,43 @@ public:
 	*/
 	void Close();
 
-	/** 
-	* Terminates all windows
+	/**
+	* Queries window to see if it should close or not
 	*/
-	static void TerminateAll();
+	bool ShouldClose();
+
+	/**
+	* Tell the window it should close
+	*/
+	void SignalClose();
 
 	/**
 	* Returns the size of the window
 	*/
-	void GetWindowSize(int* width, int* height);
-
-	/**
-	* Returns the size of the context frame buffer (may differ from window size)
-	*/
-	void GetFrameBufferSize(int* width, int* height);
+	void GetWindowSize(uint32* width, uint32* height);
 
 	/**
 	 * Returns the max size of the screen
 	 */
-	static void GetPrimaryMonitorSize(int* width, int* height);
+	static void GetPrimaryMonitorSize(uint32* width, uint32* height);
 
 	/**
-	 * Hints to set before creating windows
+	 * Returns true if the window is open
 	 */
-	static void SetBorderHint(bool show);
-
+	bool IsOpen();
+	
 	// Setters
 	void SetPosition(uint32 xPos, uint32 yPos, bool post = true);
 	void SetSize(uint32 width, uint32 height, bool post = true);
+	void SetTitle(const VString& title, bool post = true);
 	void SetMode(EWindowMode mode);
 	void SetParent(VWindow* parent);
-	void SetTitle(const VString& title);
 	void SetCloseFlag(bool flag);
 
 	// Getters
 	inline int GetID() { return WindowID; }
 	inline VInput* GetInput() { return Input; }
 	inline NativeWindow_t* GetNativeWindow() { return NativeWindow; }
+	inline uint32 GetWidth() { return Width; }
+	inline uint32 GetHeight() { return Height; }
 };

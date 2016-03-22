@@ -34,6 +34,13 @@ struct NativeWindow_t
 		, glewContext(nullptr)
 #endif
 	{}
+
+	~NativeWindow_t()
+	{
+#ifdef GLEW_MX
+		delete(glewContext);
+#endif
+	}
 };
 
 
@@ -57,7 +64,8 @@ VWindow::VWindow()
 	Mode(WINDOW_DEFAULT),
 	Parent(nullptr),
 	Title("My Window"),
-	CloseFlag(false)
+	CloseFlag(false),
+	FullScreen(false)
 {
 	if (!Initialized) Initialized = Initialize();
 
@@ -94,6 +102,70 @@ bool VWindow::Initialize()
 	return true;
 }
 
+bool VWindow::HandleMode()
+{
+	FullScreen = Mode == WINDOW_FULLSCREEN_BORDERLESS;
+
+	if (FullScreen)
+	{
+		DEVMODE dmScreenSettings;								// Device Mode
+		memset(&dmScreenSettings, 0, sizeof(dmScreenSettings)); // Makes Sure Memory's Cleared
+		dmScreenSettings.dmSize = sizeof(dmScreenSettings);     // Size Of The Devmode Structure
+		dmScreenSettings.dmPelsWidth = Width;					// Selected Screen Width
+		dmScreenSettings.dmPelsHeight = Height;					// Selected Screen Height
+		dmScreenSettings.dmBitsPerPel = 8;					// Selected Bits Per Pixel
+		dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
+
+		// Try To Set Selected Mode And Get Results.  NOTE: CDS_FULLSCREEN Gets Rid Of Start Bar.
+		if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+		{
+			FullScreen = false;
+		}
+	}
+
+	//AdjustWindowRectEx(&NativeWindow->WindowRect, NativeWindow->dwStyle, FALSE, NativeWindow->dwExStyle);     // Adjust Window To True Requested Size
+	UpdateWindowRect();
+
+	switch (Mode)
+	{
+	// Normal app window
+	case WINDOW_DEFAULT:
+		NativeWindow->dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;          
+		NativeWindow->dwStyle = WS_OVERLAPPEDWINDOW;                    
+		break;
+	// App window without the title bar
+	case WINDOW_DEFAULT_NO_TOPBAR:
+		NativeWindow->dwExStyle = NULL;
+		NativeWindow->dwStyle = WS_POPUP | WS_BORDER | WS_THICKFRAME; 
+		break;
+	// Same as default but Width and Height are fullscreen
+	case WINDOW_FULLSCREEN_WINDOWED:
+		GetPrimaryMonitorSize(&Width, &Height);
+		NativeWindow->dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;          
+		NativeWindow->dwStyle = WS_OVERLAPPEDWINDOW;
+		break;
+	case WINDOW_FULLSCREEN_BORDERLESS:
+		NativeWindow->dwExStyle = WS_EX_APPWINDOW;        
+		NativeWindow->dwStyle = WS_POPUP;                 
+		break;
+	default:
+		return false;
+	}
+
+	return true;
+}
+
+void VWindow::UpdateWindowRect()
+{
+	NativeWindow->WindowRect.left = (long)0;              // Set Left Value To 0
+	NativeWindow->WindowRect.right = (long)Width;         // Set Right Value To Requested Width
+	NativeWindow->WindowRect.top = (long)0;               // Set Top Value To 0
+	NativeWindow->WindowRect.bottom = (long)Height;       // Set Bottom Value To Requested Height
+
+	AdjustWindowRectEx(&NativeWindow->WindowRect, NativeWindow->dwStyle, FALSE, NativeWindow->dwExStyle);     // Adjust Window To True Requested Size
+
+}
+
 bool VWindow::CreateNewWindow()
 {
 	// Create NativeWindow ptr
@@ -109,56 +181,16 @@ bool VWindow::CreateNewWindow()
 
 	unsigned int PixelFormat;		// Holds the result of the chosen pixel format
 
-	                        // Grabs Rectangle Upper Left / Lower Right Values
+
+	NativeWindow->hInstance = GetModuleHandle(NULL);	// Grab An Instance For Our Window
+
 	NativeWindow->WindowRect.left = (long)0;              // Set Left Value To 0
 	NativeWindow->WindowRect.right = (long)Width;         // Set Right Value To Requested Width
 	NativeWindow->WindowRect.top = (long)0;               // Set Top Value To 0
 	NativeWindow->WindowRect.bottom = (long)Height;       // Set Bottom Value To Requested Height
 
-	bool fullscreen = (Mode == WINDOW_FULLSCREEN_BORDERLESS);             // Set The Global Fullscreen Flag
-
-	NativeWindow->hInstance = GetModuleHandle(NULL);	// Grab An Instance For Our Window
-
-	if (fullscreen)
-	{
-		DEVMODE dmScreenSettings;								// Device Mode
-		memset(&dmScreenSettings, 0, sizeof(dmScreenSettings)); // Makes Sure Memory's Cleared
-		dmScreenSettings.dmSize = sizeof(dmScreenSettings);     // Size Of The Devmode Structure
-		dmScreenSettings.dmPelsWidth = Width;					// Selected Screen Width
-		dmScreenSettings.dmPelsHeight = Height;					// Selected Screen Height
-		dmScreenSettings.dmBitsPerPel = 8;					// Selected Bits Per Pixel
-		dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
-		
-		// Try To Set Selected Mode And Get Results.  NOTE: CDS_FULLSCREEN Gets Rid Of Start Bar.
-		if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-		{
-			// If The Mode Fails, Offer Two Options.  Quit Or Run In A Window.
-			if (MessageBox(NULL, "The Requested Fullscreen Mode Is Not Supported By\nYour Video Card. Use Windowed Mode Instead?", "NeHe GL", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
-			{
-				fullscreen = false;
-			}
-			else
-			{
-				// Pop Up A Message Box Letting User Know The Program Is Closing.
-				MessageBox(NULL, "Program Will Now Close.", "ERROR", MB_OK | MB_ICONSTOP);
-				return false;                   // Exit And Return FALSE
-			}
-		}
-	}
-
-	if (fullscreen)                             // Are We Still In Fullscreen Mode?
-	{
-		NativeWindow->dwExStyle = WS_EX_APPWINDOW;        // Window Extended Style
-		NativeWindow->dwStyle = WS_POPUP;                 // Windows Style
-											//ShowCursor(FALSE);                  // Hide Mouse Pointer
-	}
-	else
-	{
-		NativeWindow->dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;           // Window Extended Style
-		NativeWindow->dwStyle = WS_OVERLAPPEDWINDOW;                    // Windows Style
-	}
-
-	AdjustWindowRectEx(&NativeWindow->WindowRect, NativeWindow->dwStyle, FALSE, NativeWindow->dwExStyle);     // Adjust Window To True Requested Size
+	// Setup settings to create window
+	HandleMode();
 
 	if (!(NativeWindow->hWnd = CreateWindowEx(
 		NativeWindow->dwExStyle,      // Extended Style For The Window
@@ -305,10 +337,10 @@ void VWindow::Close()	// Called when window should be teard down
 		MessageBox(NULL, "Could Not Release hWnd.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
 	}
 
-	if (!UnregisterClass("OpenGL", NativeWindow->hInstance))	// Are We Able To Unregister Class
-	{
-		MessageBox(NULL, "Could Not Unregister Class.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
-	}
+	//if (!UnregisterClass("OpenGL", NativeWindow->hInstance))	// Are We Able To Unregister Class
+	//{
+	//	MessageBox(NULL, "Could Not Unregister Class.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
+	//}
 
 	delete(NativeWindow);
 	NativeWindow = nullptr;
@@ -337,7 +369,7 @@ bool VWindow::ShouldClose()
 	return CloseFlag;
 }
 
-void VWindow::SignalShouldClose()
+void VWindow::SignalClose()
 {
 	PostMessage(NativeWindow->hWnd, WM_CLOSE, NULL, NULL);
 }
@@ -358,31 +390,22 @@ void VWindow::PollEvents()
 	}
 }
 
-void VWindow::TerminateAll()
-{
 
-}
-
-void VWindow::GetWindowSize(int* width, int* height)
-{
-	*width = NativeWindow->WindowRect.right - NativeWindow->WindowRect.left;
-	*height = NativeWindow->WindowRect.bottom - NativeWindow->WindowRect.top;
-}
-
-void VWindow::GetFrameBufferSize(int* width, int* height)
+void VWindow::GetWindowSize(uint32* width, uint32* height)
 {
 	*width = Width;
 	*height = Height;
 }
-void VWindow::GetPrimaryMonitorSize(int* width, int* height)
+
+void VWindow::GetPrimaryMonitorSize(uint32* width, uint32* height)
 {
 	*height = GetSystemMetrics(SM_CYSCREEN);
 	*width = GetSystemMetrics(SM_CXSCREEN);
 }
 
-void VWindow::SetBorderHint(bool show)
+bool VWindow::IsOpen()
 {
-
+	return (NativeWindow && NativeWindow->hWnd);
 }
 
 // -------------------------- Setters -------------------------------
@@ -391,7 +414,7 @@ void VWindow::SetPosition(uint32 xPos, uint32 yPos, bool post)
 	X = xPos;
 	Y = yPos;
 
-	if (NativeWindow && post)
+	if (IsOpen() && post)
 	{
 		uint32 nw = NativeWindow->WindowRect.right - NativeWindow->WindowRect.left;
 		uint32 nh = NativeWindow->WindowRect.bottom - NativeWindow->WindowRect.top;
@@ -408,14 +431,9 @@ void VWindow::SetSize(uint32 width, uint32 height, bool post)
 	Width = width;
 	Height = height;
 	
-	if (NativeWindow && post)
+	if (IsOpen() && post)
 	{
-		NativeWindow->WindowRect.left = (long)0;              // Set Left Value To 0
-		NativeWindow->WindowRect.right = (long)Width;         // Set Right Value To Requested Width
-		NativeWindow->WindowRect.top = (long)0;               // Set Top Value To 0
-		NativeWindow->WindowRect.bottom = (long)Height;       // Set Bottom Value To Requested Height
-		
-		AdjustWindowRectEx(&NativeWindow->WindowRect, NativeWindow->dwStyle, FALSE, NativeWindow->dwExStyle);     // Adjust Window To True Requested Size
+		UpdateWindowRect();
 
 		uint32 nw = NativeWindow->WindowRect.right - NativeWindow->WindowRect.left;
 		uint32 nh = NativeWindow->WindowRect.bottom - NativeWindow->WindowRect.top;
@@ -428,20 +446,90 @@ void VWindow::SetSize(uint32 width, uint32 height, bool post)
 	}
 }
 
+void VWindow::SetTitle(const VString& title, bool post)
+{
+	Title = title;
+	if (IsOpen())
+	{
+		SetWindowText(NativeWindow->hWnd, TEXT(Title.c_str()));
+	}
+}
+
 void VWindow::SetMode(EWindowMode mode)
 {
-	Mode = mode;
+	if (Mode != mode)
+	{
+		Mode = mode;
+		if (IsOpen())
+		{
+			int shwCmd = SW_SHOW;
+
+			switch (Mode)
+			{
+				// Normal app window
+			case WINDOW_DEFAULT:
+				NativeWindow->dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+				NativeWindow->dwStyle = WS_OVERLAPPEDWINDOW;
+				break;
+				// App window without the title bar
+			case WINDOW_DEFAULT_NO_TOPBAR:
+				NativeWindow->dwExStyle = NULL;
+				NativeWindow->dwStyle = WS_POPUP | WS_BORDER | WS_THICKFRAME;
+				break;
+				// Same as default but Width and Height are fullscreen
+			case WINDOW_FULLSCREEN_WINDOWED:
+				NativeWindow->dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+				NativeWindow->dwStyle = WS_OVERLAPPEDWINDOW;
+				shwCmd = SW_MAXIMIZE;
+
+				break;
+			case WINDOW_FULLSCREEN_BORDERLESS:
+				NativeWindow->dwExStyle = WS_EX_APPWINDOW;
+				NativeWindow->dwStyle = WS_POPUP;
+
+				FullScreen = true;
+
+				DEVMODE dmScreenSettings;								// Device Mode
+				memset(&dmScreenSettings, 0, sizeof(dmScreenSettings)); // Makes Sure Memory's Cleared
+				dmScreenSettings.dmSize = sizeof(dmScreenSettings);     // Size Of The Devmode Structure
+				dmScreenSettings.dmPelsWidth = Width;					// Selected Screen Width
+				dmScreenSettings.dmPelsHeight = Height;					// Selected Screen Height
+				dmScreenSettings.dmBitsPerPel = 8;					// Selected Bits Per Pixel
+				dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
+
+				// Try To Set Selected Mode And Get Results.  NOTE: CDS_FULLSCREEN Gets Rid Of Start Bar.
+				if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+				{
+					FullScreen = false;
+				}
+
+				break;
+			}
+
+			UpdateWindowRect();
+
+
+			SetWindowLong(NativeWindow->hWnd, GWL_STYLE, NativeWindow->dwStyle);
+			SetWindowLong(NativeWindow->hWnd, GWL_EXSTYLE, NativeWindow->dwExStyle);
+
+			SetPosition(X, Y, true);
+			SetSize(Width, Height, true);
+
+			ShowWindow(NativeWindow->hWnd, shwCmd);                       // Show The Window
+			SetForegroundWindow(NativeWindow->hWnd);                      // Slightly Higher Priority
+			SetFocus(NativeWindow->hWnd);                             // Sets Keyboard Focus To The Window
+		}
+	}
 }
 
 void VWindow::SetParent(VWindow* parent)
 {
 	Parent = parent;
+
+	// Cannot reparent window after init
 }
 
-void VWindow::SetTitle(const VString& title)
-{
-	Title = title;
-}
+
 
 void VWindow::SetCloseFlag(bool flag)
 {
@@ -586,6 +674,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 		uint32 y = HIWORD(lParam);   // vertical position 
 
 		pThis->SetPosition(x, y, false);
+
+		return 0;
 	}
 	case WM_CLOSE:                          // Did We Receive A Close Message?
 	{
