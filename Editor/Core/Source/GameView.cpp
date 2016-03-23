@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "Renderer.h"
 #include "Engine.h"
+#include "Input.h"
 
 
 VGameView::VGameView()
@@ -33,7 +34,10 @@ void VGameView::Render()
 {
 	VRenderer::GetInstance()->SetViewport(0, 0, GetWidth(), GetHeight());
 	VRenderer::GetInstance()->ClearAllBuffers();
-	VRenderer::GetInstance()->ClearColor(0.1f, 0.1f, 0.1f);
+
+	float r = VInput::GetInstance()->Anykey() ? 1.0f : 0.1f;
+
+	VRenderer::GetInstance()->ClearColor(r, 0.1f, 0.1f);
 	
 	VEngine::GetInstance()->Render();
 }

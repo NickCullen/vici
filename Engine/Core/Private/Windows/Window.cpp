@@ -639,14 +639,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 
 	case WM_ACTIVATE:                       // Watch For Window Activate Message
 	{
-		//if (!HIWORD(wParam))                    // Check Minimization State
-		//{
-		//	active = true;                    // Program Is Active
-		//}
-		//else
-		//{
-		//	active = false;                   // Program Is No Longer Active
-		//}
 
 		return 0;                       // Return To The Message Loop
 	}

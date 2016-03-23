@@ -7,7 +7,7 @@ VInput* VInput::CurrentInputContext = nullptr;
 // --------------------- Input -----------------------------------------------
 VInput::VInput()
 	:ActiveKeyCount(0),
-	MousePosition(0.0f,0.0f)
+	MousePosition(0.0f, 0.0f)
 {
 
 }
@@ -26,6 +26,7 @@ void VInput::MakeCurrentContext()
 {
 	CurrentInputContext = this; 
 }
+
 
 
 // ---------------------------------------------- Keyboard -----------------------------------------

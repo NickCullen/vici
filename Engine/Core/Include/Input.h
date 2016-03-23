@@ -42,7 +42,6 @@ private:
 	Vector2f MousePosition;					// The mouse position for this context
 
 	VButtonInfo MouseButtonStates[MAX_MOUSE_BUTTONS];	// Mouse button states
-
 public:
 	VInput();
 	~VInput();
