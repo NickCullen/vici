@@ -97,6 +97,18 @@
     <Filter Include="Core\Platform\Private\Windows">
       <UniqueIdentifier>{07b802a4-ea6e-4edd-8db4-c67ca4279885}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Reflection">
+      <UniqueIdentifier>{988bdb4a-c34b-41a7-818f-c81dab9567b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Reflection\Ponder">
+      <UniqueIdentifier>{d42b1ca2-6cf0-4658-bff9-7411b1b74c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Reflection\Ponder\Include">
+      <UniqueIdentifier>{f3f2ea84-2812-4cc8-9a23-b701fb3b94e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Reflection\Ponder\Source">
+      <UniqueIdentifier>{1c460f09-8fc2-48fd-a925-19bc930e1c34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp">
@@ -167,6 +179,81 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VTime.cpp">
       <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\classvisitor.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\enum.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\enumbuilder.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\enummanager.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\enumobject.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\enumproperty.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\error.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\errors.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\format.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\function.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\observer.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\observernotifier.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\pondertype.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\property.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\simpleproperty.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\tagholder.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\userobject.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\userproperty.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\util.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\value.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\args.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\arrayproperty.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\class.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\classcast.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Downloads\ponder\src\classmanager.cpp">
+      <Filter>Core\Reflection\Ponder\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,5 +389,268 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\VTime.h">
       <Filter>Core\Engine\Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\args.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\arraymapper.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\arrayproperty.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\class.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\classbuilder.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\classcast.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\classget.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\classvisitor.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\config.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\constructor.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\arraypropertyimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\classmanager.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\constructorimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\dictionary.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\enummanager.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\enumpropertyimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\functionimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\functiontraits.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\getter.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\issmartpointer.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\objectholder.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\objecttraits.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\observernotifier.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\propertyfactory.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\rawtype.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\returntype.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\simplepropertyimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\typeid.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\userpropertyimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\util.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\valueimpl.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\valueprovider.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\variant.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\variant_recursive_wrapper.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\detail\yesnotype.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\enum.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\enumbuilder.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\enumget.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\enumobject.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\enumproperty.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\error.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\errors.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\format.h">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\function.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\observer.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\pondertype.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\property.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qlist.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qstring.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qt.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qtfunction.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qthelper.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qtmapper.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qtsimpleproperty.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\qt\qvector.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\simpleproperty.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\tagholder.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\type.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\userobject.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\userproperty.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\value.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\valuemapper.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\valuevisitor.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder\version.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder-xml\common.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder-xml\libxml.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder-xml\qtxml.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder-xml\rapidxml.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder-xml\tinyxml.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\ponder-xml\xerces.hpp">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\Reflection.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\class.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\classbuilder.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\classget.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\detail\arraypropertyimpl.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\detail\enumpropertyimpl.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\detail\getter.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\detail\objectholder.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\detail\simplepropertyimpl.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\detail\userpropertyimpl.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\enum.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\enumget.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\enumobject.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\error.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\userobject.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder\value.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
+    <None Include="..\..\..\..\Engine\Core\Include\ponder-xml\common.inl">
+      <Filter>Core\Reflection\Ponder\Include</Filter>
+    </None>
   </ItemGroup>
 </Project>
