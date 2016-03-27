@@ -602,6 +602,9 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Reflection.h">
       <Filter>Core\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineIncludes.h">
+      <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Engine\Core\Include\ponder\class.inl">

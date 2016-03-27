@@ -41,3 +41,6 @@ public:
 	inline uint32 GetContextID() { return ContextID; }
 	inline VShader* GetActiveShader() { return ActiveShader; }
 };
+
+PONDER_TYPE(VSingleton<VRenderer>)
+PONDER_TYPE(VRenderer)

@@ -13,6 +13,10 @@ VHash::VHash(const VHash& other)
 {
 	_hash = other._hash;
 }
+VHash::VHash(const VString& str)
+{
+	_hash = Hashify(str.c_str());
+}
 VHash::VHash(const char* str)
 {
 	_hash = Hashify(str);
@@ -94,4 +98,14 @@ bool VHash::operator>(const char* other)
 bool VHash::operator>(char* other)
 {
 	return (_hash > Hashify((const char*)other));
+}
+
+void VHash::Register()
+{
+	ponder::Class::declare<VHash>("VHash")
+		.constructor()
+		.constructor<const VHash&>()
+		.constructor<const VString&>()
+		.constructor<char*>()
+		;
 }

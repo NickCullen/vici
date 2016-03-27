@@ -2,9 +2,7 @@
 
 #include "CoreAPI.h"
 #include "Singleton.h"
-#include "EngineConstants.h"
-#include "EngineMacros.h"
-#include "VTypes.h"
+#include "EngineIncludes.h"
 
 class CORE_API VEngine : public VSingleton<VEngine>
 {
@@ -26,4 +24,11 @@ public:
 
 	// Getters
 	inline uint32 GetCurrentFrame() { return CurrentFrame; }
+
+	// Register function
+	static void Register();
 };
+
+PONDER_TYPE(VEngine)
+PONDER_TYPE(VSingleton<VEngine>)
+

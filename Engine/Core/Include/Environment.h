@@ -45,3 +45,6 @@ public:
 	static VString GetSystemEnvVar(const char* key);
 
 };
+
+PONDER_TYPE(VSingleton<VEnvironment>)
+PONDER_TYPE(VEnvironment)

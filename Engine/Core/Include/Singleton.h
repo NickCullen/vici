@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Reflection.h"
+
 template<typename T>
 class VSingleton
 {
@@ -19,7 +21,19 @@ public:
 			Instance = new T;
 		return Instance;
 	}
+
+	static void Register()
+	{
+
+		//Class::declare<VSingleton<T>>("VSingleton");
+
+		/*Class::declare<VSingleton>("VSingleton")
+			.constructor()
+			.property("Instance", &VSingleton::GetInstance)
+			;*/
+	}
 };
 
 template<typename T>
 T* VSingleton<T>::Instance = nullptr;
+

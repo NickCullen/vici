@@ -202,6 +202,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\DynamicPool.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Engine.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineConstants.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineIncludes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineMacros.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Environment.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\FilePath.h" />

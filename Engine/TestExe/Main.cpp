@@ -11,32 +11,30 @@
 
 void Test()
 {
-	Vector3f v1(1, 2, 3);
-	Vector4f v2(1, 2, 3, 4);
+	VEngine::Register();
+	VHash::Register();
 
-	Quaternion q;
-	Quaternion q1(1, 2, 3, 4);
-	Quaternion q2 = v1;
-	Quaternion q3 = v2;
-
-
-	q1.Normalize();
-	q2.Normalize();
-
-	float d = q1.Dot(q2);
-
-	Quaternion rot = Quaternion::EulerAngles(0, 90, 0);
 	
-	Matrix3f m3 = rot;
-	Matrix4f m4 = rot;
+	
+	for (size_t i = 0; i < ponder::classCount(); i++)
+	{
+		const ponder::Class& cl = ponder::classByIndex(i);
 
+		printf("Stats for class %s:\n", cl.name().c_str());
+		printf("\t%d Constructors\n", cl.constructorCount());
+		printf("\t%d Properties\n", cl.propertyCount());
+		printf("\t%d Methods\n", cl.functionCount());
+		
+		
+	}
+	
 
 }
 
 // Main
 int main(int argc, char** argv)
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	
 	VWindow win;
 	win.SetSize(512, 512);

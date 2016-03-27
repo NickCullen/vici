@@ -2,6 +2,8 @@
 
 #include "CoreAPI.h"
 #include "VTypes.h"
+#include "Reflection.h"
+#include "VString.h"
 
 //the typedef for a hash
 typedef uint32 vhash_int;
@@ -46,6 +48,13 @@ public:
 	* @param str string to hash
 	*/
 	VHash(const char* str);
+
+	/**
+	 * Copy constructor
+	 * @param the VString
+	 */
+	VHash(const VString& str);
+
 	/**
 	* Another overloaded constructor taking const char* to avoid errors of casting 
 	* from char* to const char* and vis versa
@@ -187,4 +196,10 @@ public:
 
 		return hash;
 	}
+
+	// Register function
+	static void Register();
+
 };
+
+PONDER_TYPE(VHash)
