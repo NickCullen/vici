@@ -87,11 +87,19 @@ void VEngine::Render()
 // Register function
 void VEngine::Register()
 {
-	//Class::declare<VSingleton<VEngine>>("VSingleton<VEngine>")
-		//.constructor<VEngine*>()
+	ponder::Class::declare<TestBase>();
+
+	ponder::Class::declare<TestClass>()
+		.base<TestBase>();
+
+
+	ponder::Class::declare<VSingleton>();
+		//.property("Instance", &VSingleton::GetInstance);
+		//.constructor<VEngine*>();
 		//;
 
-	ponder::Class::declare<VEngine>("VEngine")
+	ponder::Class::declare<VEngine>()
+		.base<VSingleton>()
 		.constructor<>()
 		.property("CurrentFrame", &VEngine::GetCurrentFrame, &VEngine::SetCurrentFrame)
 		.function("Init", &VEngine::Init)

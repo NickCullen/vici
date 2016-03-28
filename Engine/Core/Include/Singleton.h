@@ -2,38 +2,35 @@
 
 #include "Reflection.h"
 
-template<typename T>
+template<typename SingletonType>
 class VSingleton
 {
 private:
-	static T* Instance;
+	static SingletonType* Instance;
 
 public:
 
-	VSingleton(T* instance)
+	VSingleton(SingletonType* instance)
 	{
 		Instance = instance;
 	}
 
-	static T* GetInstance()
+	static SingletonType* GetInstance()
 	{
 		if (Instance == nullptr)
-			Instance = new T;
+			Instance = new SingletonType;
 		return Instance;
 	}
 
 	static void Register()
 	{
+		//ponder::Class::declare<VSingleton<T>>("VSingleton<VEngine>")
+			//.
+			//.property("Instance", &VSingleton<T>::GetInstance);
 
-		//Class::declare<VSingleton<T>>("VSingleton");
-
-		/*Class::declare<VSingleton>("VSingleton")
-			.constructor()
-			.property("Instance", &VSingleton::GetInstance)
-			;*/
 	}
 };
 
-template<typename T>
-T* VSingleton<T>::Instance = nullptr;
+template<typename SingletonType>
+SingletonType* VSingleton<SingletonType>::Instance = nullptr;
 

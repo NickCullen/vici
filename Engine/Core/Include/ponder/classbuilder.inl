@@ -41,12 +41,13 @@ ClassBuilder<T>::ClassBuilder(Class& target)
 {
 }
 
+
 template <typename T>
 template <typename U>
 ClassBuilder<T>& ClassBuilder<T>::base()
 {
     // Retrieve the base metaclass and its name
-    const Class& baseClass = classByType<U>();
+	const Class& baseClass = classByName(detail::StaticTypeId<U>::get(false)); //classByType<U>();
     std::string baseName = baseClass.name();
 
     // First make sure that the base class is not already a base of the current class

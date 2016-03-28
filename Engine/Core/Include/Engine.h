@@ -32,3 +32,15 @@ public:
 PONDER_TYPE(VEngine)
 PONDER_TYPE(VSingleton<VEngine>)
 
+class TestBase
+{
+
+};
+
+class TestClass : public TestBase
+{
+
+};
+
+PONDER_TYPE(TestBase)
+PONDER_TYPE(TestClass)
