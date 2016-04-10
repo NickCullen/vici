@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Engine\Core\Private\OpenGL\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Private\Windows\Window.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Buffer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Engine.cpp" />
@@ -162,7 +163,6 @@
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Texture2D.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexArrayList.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VertexBuffer.cpp" />
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\TextFile.cpp" />
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VTime.cpp" />
@@ -197,6 +197,7 @@
     <ClInclude Include="..\..\..\..\Engine\Core\Include\PrimitiveShapes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Queue.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Renderer.h" />
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\RendererTypes.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Shader.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Singleton.h" />
     <ClInclude Include="..\..\..\..\Engine\Core\Include\Stack.h" />

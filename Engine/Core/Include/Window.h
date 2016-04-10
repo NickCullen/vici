@@ -88,7 +88,7 @@ public:
 	~VWindow();
 
 	/**
-	* Crate window
+	* Crate opengl window
 	*/
 	bool CreateNewWindow();
 

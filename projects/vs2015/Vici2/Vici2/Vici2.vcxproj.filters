@@ -99,9 +99,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Engine\Core\Source\Renderer.cpp">
-      <Filter>Core\Graphics\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\Shader.cpp">
       <Filter>Core\Graphics\Source</Filter>
     </ClCompile>
@@ -167,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Engine\Core\Source\VTime.cpp">
       <Filter>Core\Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Engine\Core\Private\OpenGL\Renderer.cpp">
+      <Filter>Core\Graphics\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Engine\Core\Include\EngineIncludes.h">
       <Filter>Core\Engine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Engine\Core\Include\RendererTypes.h">
+      <Filter>Core\Graphics\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

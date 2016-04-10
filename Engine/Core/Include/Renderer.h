@@ -3,16 +3,22 @@
 #include "CoreAPI.h"
 #include "Singleton.h"
 #include "VTypes.h"
+#include "RendererTypes.h"
 
 class VShader;
+struct VRenderContext;
 
 // Macros
 #define CHECK_RENDERER_ERR VRenderer::CheckErrors()
 
+/**
+ * Class containing all required render functions and wraps
+ * the underlying rendering system
+ */
 class CORE_API VRenderer : public VSingleton<VRenderer>
 {
 private:
-	uint32 ContextID;	// The id of the current context  (0 is default)
+	static VRenderContext* CurrentContext;
 
 	VShader* ActiveShader;	// The currently active shader
 
@@ -20,7 +26,31 @@ public:
 	VRenderer();
 	~VRenderer();
 
-	static bool Init();
+	/**
+	 * Creates a render context
+	 */
+	VRenderContext* CreateContext();
+
+	/**
+	 * Sets the specified context to current
+	 */
+	void SetCurrentContext(VRenderContext* context);
+
+	/**
+	 * Returns the current context
+	 */
+	inline VRenderContext* GetCurrentContext() { return CurrentContext; }
+
+	/**
+	 * Returns the integer id of the current context
+	 */
+	uint32 GetContextID();
+
+	/**
+	 * Destroys the given context
+	 */
+	void DestroyContext(VRenderContext* context);
+
 	static void GetVersionString(const char** str);
 	static void GetVersionNumber(int32* major, int32* minor);
 	static void CheckErrors(const char* message = nullptr);
@@ -35,9 +65,8 @@ public:
 
 	// VRenderer Setters
 	inline void SetActiveShader(VShader* Shader) { ActiveShader = Shader; }
-	inline void SetContextID(uint32 id) { ContextID = id; }
+	
 
-	// VRenderer Getters
-	inline uint32 GetContextID() { return ContextID; }
+	
 	inline VShader* GetActiveShader() { return ActiveShader; }
 };

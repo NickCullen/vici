@@ -1,7 +1,6 @@
 #include "Window.h"
 #include <Windows.h>
 #include "Input.h"
-#include "Glew.h"
 #include "Renderer.h"
 
 // Prototypes
@@ -22,34 +21,24 @@ struct NativeWindow_t
 	RECT WindowRect;			// Rect for the window
 	DWORD dwExStyle;	// Window Extended Style
 	DWORD dwStyle;		// Window Style
-#ifdef GLEW_MX
-	GLEWContext* glewContext;
-#endif
+	VRenderContext* RenderContext;	// Created by VRenderer
+
 	NativeWindow_t()
 		: hRC(nullptr),
 		hDC(nullptr),
 		hWnd(nullptr),
-		hInstance(nullptr)
-#ifdef GLEW_MX
-		, glewContext(nullptr)
-#endif
+		hInstance(nullptr), 
+		RenderContext(nullptr)
 	{}
 
 	~NativeWindow_t()
 	{
-#ifdef GLEW_MX
-		delete(glewContext);
-#endif
+		VRenderer::GetInstance()->DestroyContext(RenderContext);
 	}
 };
 
 
-#ifdef GLEW_MX
-GLEWContext* glewGetContext()
-{
-	return VWindow::CurrentContext->GetNativeWindow()->glewContext;
-}
-#endif
+
 
 // ------------------------------------ VWindow -------------------------------------
 VWindow::VWindow()
@@ -174,10 +163,7 @@ bool VWindow::CreateNewWindow()
 
 	NativeWindow = new NativeWindow_t();
 
-#ifdef GLEW_MX
-	NativeWindow->glewContext = nullptr;
 	VWindow* PreviousContext = CurrentContext;
-#endif
 
 	unsigned int PixelFormat;		// Holds the result of the chosen pixel format
 
@@ -281,15 +267,9 @@ bool VWindow::CreateNewWindow()
 	VWindow* previousContext = VWindow::CurrentContext;
 	MakeCurrent();
 
-	NativeWindow->glewContext = new GLEWContext();
-	glewContextInit(NativeWindow->glewContext);
-	if (glewInit() != GLEW_OK)
-	{
-		Close();
-		MessageBox(NULL, "Cannot initialize Glew", "ERROR", MB_OK | MB_ICONEXCLAMATION);
-		return false;                           // Return FALSE
-	}
-
+	// Create appropriate render context
+	NativeWindow->RenderContext = VRenderer::GetInstance()->CreateContext();
+	
 	ShowWindow(NativeWindow->hWnd, SW_SHOW);                       // Show The Window
 	SetForegroundWindow(NativeWindow->hWnd);                      // Slightly Higher Priority
 	SetFocus(NativeWindow->hWnd);                             // Sets Keyboard Focus To The Window
@@ -342,6 +322,7 @@ void VWindow::Close()	// Called when window should be teard down
 	//	MessageBox(NULL, "Could Not Unregister Class.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
 	//}
 
+	
 	delete(NativeWindow);
 	NativeWindow = nullptr;
 }
@@ -359,7 +340,7 @@ void VWindow::MakeCurrent()
 	wglMakeCurrent(NativeWindow->hDC, NativeWindow->hRC);
 	CurrentContext = this;
 
-	VRenderer::GetInstance()->SetContextID(WindowID - 1);
+	VRenderer::GetInstance()->SetCurrentContext(NativeWindow->RenderContext);
 	Input->MakeCurrentContext();
 }
 
@@ -537,6 +518,8 @@ void VWindow::SetCloseFlag(bool flag)
 }
 
 
+#pragma region - WND PROC -
+
 // ------------------------- Wnd proc --------------------------------
 void KeyAction(VWindow* win, WPARAM key, bool down)
 {
@@ -624,7 +607,7 @@ void KeyAction(VWindow* win, WPARAM key, bool down)
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)                 // Additional Message Information
 {
-	
+
 	VWindow* pThis = (VWindow*)GetWindowLongPtr(hWnd, -21);
 
 	switch (uMsg)                               // Check For Windows Messages
@@ -634,7 +617,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 		// Set 'this' VWindow pointer
 		SetWindowLongPtr(hWnd, -21, (LONG_PTR)((CREATESTRUCT*)lParam)->lpCreateParams);
 		SetWindowPos(hWnd, 0, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
-	
+
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
 	}
 
@@ -750,3 +733,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)  
 	// Pass All Unhandled Messages To DefWindowProc
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
+
+#pragma endregion
+

@@ -38,9 +38,6 @@ void Callback(VVertexArrayList* list)
 //THIS IS ALL TEST CODE FOR NOW
 bool VEngine::Init(int argc, const char** argv)
 {
-	if (!VRenderer::Init())
-		return false;
-
 	MeshRenderer = new VMeshRenderer();
 	MeshRenderer->SetMeshData(VPrimitiveShapes::CreateQuad());
 

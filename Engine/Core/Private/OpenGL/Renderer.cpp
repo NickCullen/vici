@@ -2,9 +2,36 @@
 #include "Glew.h"
 #include <stdio.h>
 
+// Static init
+VRenderContext* VRenderer::CurrentContext = nullptr;
+
+#pragma region - VRenderTypes -
+
+struct VRenderContext
+{
+#ifdef GLEW_MX
+	static uint32 Count;	// Number of contexts
+	uint32 ID;
+	GLEWContext* Context;
+#else
+	const uint32 ID = 0;
+#endif
+
+};
+
+uint32 VRenderContext::Count = 0;
+
+#pragma endregion
+
+#ifdef GLEW_MX
+GLEWContext* glewGetContext()
+{
+	return VRenderer::GetInstance()->GetCurrentContext()->Context;
+}
+#endif
+
 VRenderer::VRenderer() 
 	:VSingleton(this),
-	ContextID(0),
 	ActiveShader(nullptr)
 {
 
@@ -14,9 +41,46 @@ VRenderer::~VRenderer()
 {
 
 }
-bool VRenderer::Init()
+
+VRenderContext* VRenderer::CreateContext()
 {
-	return true;
+	VRenderContext* ctx = new VRenderContext();
+
+	CurrentContext = ctx;
+
+#ifdef GLEW_MX
+	ctx->Context = new GLEWContext();
+	glewContextInit(ctx->Context);
+	ctx->ID = ctx->Count++;
+#endif
+
+	if (glewInit() != GLEW_OK)
+	{
+		DestroyContext(ctx);
+		ctx = nullptr;
+	}
+	return ctx;
+}
+
+void VRenderer::DestroyContext(VRenderContext* context)
+{
+	if (context)
+	{
+#ifdef GLEW_MX
+		if (context->Context) delete(context->Context);
+#endif
+		delete(context);
+	}
+}
+
+void VRenderer::SetCurrentContext(VRenderContext* context) 
+{ 
+	CurrentContext = context; 
+}
+
+uint32 VRenderer::GetContextID()
+{
+	return CurrentContext ? CurrentContext->ID : 0;
 }
 
 void VRenderer::GetVersionString(const char** str)
