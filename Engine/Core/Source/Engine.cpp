@@ -82,31 +82,3 @@ void VEngine::Render()
 {
 	MeshRenderer->Render();
 }
-
-
-// Register function
-void VEngine::Register()
-{
-	ponder::Class::declare<TestBase>();
-
-	ponder::Class::declare<TestClass>()
-		.base<TestBase>();
-
-
-	ponder::Class::declare<VSingleton>();
-		//.property("Instance", &VSingleton::GetInstance);
-		//.constructor<VEngine*>();
-		//;
-
-	ponder::Class::declare<VEngine>()
-		.base<VSingleton>()
-		.constructor<>()
-		.property("CurrentFrame", &VEngine::GetCurrentFrame, &VEngine::SetCurrentFrame)
-		.function("Init", &VEngine::Init)
-		.function("FixedUpdate", &VEngine::FixedUpdate)
-		.function("Update", &VEngine::Update)
-		.function("Render", &VEngine::Render)
-		;
-
-	
-}

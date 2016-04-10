@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Reflection.h"
-
 template<typename SingletonType>
 class VSingleton
 {
@@ -22,13 +20,6 @@ public:
 		return Instance;
 	}
 
-	static void Register()
-	{
-		//ponder::Class::declare<VSingleton<T>>("VSingleton<VEngine>")
-			//.
-			//.property("Instance", &VSingleton<T>::GetInstance);
-
-	}
 };
 
 template<typename SingletonType>

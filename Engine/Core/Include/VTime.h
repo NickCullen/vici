@@ -26,6 +26,3 @@ public:
 	inline float GetDeltaTime() { return DeltaTime; }
 	inline float GetFixedDeltaTime() { return FixedDeltaTime; }
 };
-
-PONDER_TYPE(VSingleton<VTime>)
-PONDER_TYPE(VTime)

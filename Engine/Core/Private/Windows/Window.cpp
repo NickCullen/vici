@@ -624,14 +624,15 @@ void KeyAction(VWindow* win, WPARAM key, bool down)
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM  wParam, LPARAM  lParam)                 // Additional Message Information
 {
-	VWindow* pThis = (VWindow*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+	
+	VWindow* pThis = (VWindow*)GetWindowLongPtr(hWnd, -21);
 
 	switch (uMsg)                               // Check For Windows Messages
 	{
 	case WM_NCCREATE:
 	{
 		// Set 'this' VWindow pointer
-		SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG_PTR)((CREATESTRUCT*)lParam)->lpCreateParams);
+		SetWindowLongPtr(hWnd, -21, (LONG_PTR)((CREATESTRUCT*)lParam)->lpCreateParams);
 		SetWindowPos(hWnd, 0, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 	
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);

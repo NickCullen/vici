@@ -99,13 +99,3 @@ bool VHash::operator>(char* other)
 {
 	return (_hash > Hashify((const char*)other));
 }
-
-void VHash::Register()
-{
-	ponder::Class::declare<VHash>("VHash")
-		.constructor()
-		.constructor<const VHash&>()
-		.constructor<const VString&>()
-		.constructor<char*>()
-		;
-}

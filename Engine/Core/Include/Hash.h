@@ -2,7 +2,6 @@
 
 #include "CoreAPI.h"
 #include "VTypes.h"
-#include "Reflection.h"
 #include "VString.h"
 
 //the typedef for a hash
@@ -197,9 +196,4 @@ public:
 		return hash;
 	}
 
-	// Register function
-	static void Register();
-
 };
-
-PONDER_TYPE(VHash)

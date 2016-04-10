@@ -15,22 +15,6 @@
 void Test()
 {
 	
-	VEngine::Register();
-	VHash::Register();
-	
-	for (size_t i = 0; i < ponder::classCount(); i++)
-	{
-		const ponder::Class& cl = ponder::classByIndex(i);
-
-		printf("Stats for class %s:\n", cl.name().c_str());
-		printf("\tBase class = %s\n", cl.baseCount() > 0 ? cl.base(0).name().c_str() : "none");
-		printf("\t%d Constructors\n", cl.constructorCount());
-		printf("\t%d Properties\n", cl.propertyCount());
-		printf("\t%d Methods\n", cl.functionCount());
-		
-		
-	}
-	
 
 }
 

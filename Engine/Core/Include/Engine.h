@@ -24,23 +24,4 @@ public:
 
 	// Getters
 	inline uint32 GetCurrentFrame() { return CurrentFrame; }
-
-	// Register function
-	static void Register();
 };
-
-PONDER_TYPE(VEngine)
-PONDER_TYPE(VSingleton<VEngine>)
-
-class TestBase
-{
-
-};
-
-class TestClass : public TestBase
-{
-
-};
-
-PONDER_TYPE(TestBase)
-PONDER_TYPE(TestClass)
