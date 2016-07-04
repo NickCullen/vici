@@ -5,7 +5,9 @@
 #include "VTypes.h"
 #include "VString.h"
 
+// Forward decl.
 class VTexture;
+struct VShaderInputHandle;
 
 class CORE_API VMaterial
 {
@@ -15,7 +17,7 @@ class CORE_API VMaterial
 	 */
 	struct ParamHandle
 	{
-		UniformHandle Handle;		// Uniform location of param in the shader
+		VShaderInputHandle* Handle;		// Uniform location of param in the shader
 		IMaterialParam* Param;		// The param data
 		VString Name;				// Name of the argument in the shader
 	};

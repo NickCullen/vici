@@ -2,12 +2,12 @@
 
 #include "CoreAPI.h"
 #include "VTypes.h"
+#include "RendererTypes.h"
 
-/* Typedefs */
-typedef int32 ShaderHandle;
-typedef int32 UniformHandle;
-typedef int32 SamplerHandle;
-typedef uint32 ShaderDebugFlags;
+// Forward Decl.
+struct VShaderHandle;
+struct VShaderInputHandle;		// all shader inputs... Shader uniforms / samplers	/ per vertex data etc.
+struct VShaderDebugFlags;
 
 /* Constants */
 #define _DECL_SHADER_INPUT(NAME, val) static const char* SHADER_IN_##NAME##_ID = #val;
@@ -56,13 +56,13 @@ _DECL_SHADER_OUTPUT(COLOR, oColor)
 
 
 /* Sets all locations to intial -1 */
-#define _GEN_DEFAULT_VAL(variable, a ,b) variable##Location = -1;
+#define _GEN_DEFAULT_VAL(variable, a ,b) variable##Location = nullptr;
 
 /* Unrolls the input to generate member variables */
-#define _GEN_MEMBERS(name, a, b) UniformHandle name##Location;
+#define _GEN_MEMBERS(name, a, b) VShaderInputHandle* name##Location;
 
 /* Unrolls the input to generate getters */
-#define _GEN_GETTERS(name, a, b) inline UniformHandle Get##name##Location(){return name##Location;}
+#define _GEN_GETTERS(name, a, b) inline VShaderInputHandle* Get##name##Location(){return name##Location;}
 
 /* Unrolls the input to get the location */
 #define _GEN_LOCATIONS(name, id, function) name##Location = function(id);
@@ -79,10 +79,7 @@ private:
 	class VFilePath* VPath; /**< path for vertex shader */
 	class VFilePath* FPath; /**< Path for fragment shader */
 
-	ShaderHandle VHandle; /**< The vertex shader */
-	ShaderHandle FHandle; /**< The fragment shader */
-
-	ShaderHandle Program; /**< The program as a whole */
+	VShaderHandle* ShaderHandle;	/**< Underlying shader handle */
 
 	bool Loaded; /**< Flag to show if the shader has been loaded */
 
@@ -113,31 +110,24 @@ public:
 	void Use();
 
 	/**
-	* Inline function returning the
-	* shader program
-	* @return uint32 representing the shader program internally
-	*/
-	inline ShaderHandle	GetProgram(){ return Program; }
-
-	/**
 	* Returns the location of the specified sample
 	* @param id The samplers name in the glsl shader
 	*/
-	SamplerHandle SamplerLocation(const char* id);
+	VShaderInputHandle* SamplerLocation(const char* id);
 
 	/**
 	* Returns the location of the specified uniform
 	* @param id The uniform id
 	* @return Integer specifying the location of the uniform 
 	*/
-	UniformHandle UniformLocation(const char* id);
+	VShaderInputHandle* UniformLocation(const char* id);
 
 	/**
 	* Returns the location of the specified attribute location
 	* @param id of the attribute
 	* @return integer specifiying the location of the attribute
 	*/
-	UniformHandle AttributeLocation(const char* id);
+	VShaderInputHandle* AttributeLocation(const char* id);
 
 	/**
 	* Binds the given out variable to the given location
@@ -157,7 +147,7 @@ public:
 	* @param shaderProgram The shader to debug
 	* @param checkType the type of check to carry out on the shader
 	*/
-	void DebugShader(ShaderHandle shaderProgram, ShaderDebugFlags checkType);
+	void DebugShader(const VShaderHandle& shaderProgram, unsigned int checkType);
 
 	/**
 	* Unlike debug shader this debugs the program as a whole
@@ -165,7 +155,7 @@ public:
 	* @param program The program to debug
 	* @param checkType the type of check to carry out on the shader
 	*/
-	void DebugProgram(ShaderHandle program, ShaderDebugFlags checkType);
+	void DebugProgram(const VShaderHandle& program, unsigned int checkType);
 
 	/**
 	* Loads the shader common shader code into memory 

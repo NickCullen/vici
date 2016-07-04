@@ -1,5 +1,4 @@
 #include "Shader.h"
-#include "Glew.h"
 #include <string>
 #include "TextFile.h"
 #include "Renderer.h"
@@ -9,9 +8,7 @@
 char* VShader::CommonCode = nullptr;
 
 VShader::VShader()
-	:VHandle(-1),
-	FHandle(-1),
-	Program(-1),
+	:ShaderHandle(nullptr),
 	Loaded(false),
 	FPath(nullptr),
 	VPath(nullptr)
@@ -28,12 +25,7 @@ VShader::~VShader()
 
 void VShader::Unload()
 {
-	if (VHandle > 0)
-		glDeleteShader(VHandle);
-	if (FHandle > 0)
-		glDeleteShader(FHandle);
-	if (Program > 0)
-		glDeleteProgram(Program);
+	VRenderer::GetInstance()->DestroyShader(ShaderHandle);
 
 	//set all locations to -1
 	_COMMON_SHADER_LOCATIONS(_GEN_DEFAULT_VAL)
@@ -51,8 +43,7 @@ void VShader::Unload()
 
 bool VShader::Load(const VFilePath& vertexShaderPath, const VFilePath& fragShaderPath)
 {
-	VHandle = glCreateShader(GL_VERTEX_SHADER);
-	FHandle = glCreateShader(GL_FRAGMENT_SHADER);
+	ShaderHandle = VRenderer::GetInstance()->CreateShaderHandles(SHADER_VERTEX | SHADER_FRAGMENT);
 
 	// store paths..
 	VPath = new VFilePath(vertexShaderPath);
@@ -141,26 +132,10 @@ bool VShader::Load(const VFilePath& vertexShaderPath, const VFilePath& fragShade
 		ff = fs;
 	}
 
-	//set shader source
-	glShaderSource(VHandle, 1, &vv, NULL);
-	glShaderSource(FHandle, 1, &ff, NULL);
+	VRenderer::GetInstance()->SetShaderSource(ShaderHandle, SHADER_VERTEX, &vv);
+	VRenderer::GetInstance()->SetShaderSource(ShaderHandle, SHADER_FRAGMENT, &ff);
 
-	//compile and check for errors
-	glCompileShader(VHandle);
-	DebugShader(VHandle, GL_COMPILE_STATUS);
-	glCompileShader(FHandle);
-	DebugShader(FHandle, GL_COMPILE_STATUS);
-
-	//create program and attach shaders
-	Program = glCreateProgram();
-	glAttachShader(Program, VHandle);
-	glAttachShader(Program, FHandle);
-
-	//link the shaders to program and check for error
-	glLinkProgram(Program);
-
-	//print any errors
-	DebugProgram(Program, GL_LINK_STATUS);
+	VRenderer::GetInstance()->CompileShader(ShaderHandle);
 
 	//get the locations
 	_COMMON_SHADER_LOCATIONS(_GEN_LOCATIONS)
@@ -177,70 +152,28 @@ bool VShader::Load(const VFilePath& vertexShaderPath, const VFilePath& fragShade
 
 void VShader::Use()
 {
-	if (Program > 0)
-	{
-		glUseProgram(Program);
-		VRenderer::GetInstance()->SetActiveShader(this);
-	}
-}
-
-void VShader::DebugShader(ShaderHandle shader, ShaderDebugFlags checkType)
-{
-	//check for errors
-	int noError;
-	glGetShaderiv(shader, checkType, &noError);
-	if (!noError)
-	{
-		GLint infoLen = 0;
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-		if (infoLen>1)
-		{
-			char* infoLog = new char[infoLen];
-			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-			printf("Error in shader %d - %s\n", Program, infoLog);
-			delete(infoLog);
-		}
-	}
+	VRenderer::GetInstance()->SetActiveShader(ShaderHandle);
 }
 
 
-void VShader::DebugProgram(ShaderHandle program, ShaderDebugFlags checkType)
+VShaderInputHandle* VShader::SamplerLocation(const char* id)
 {
-	//check for errors
-	int noError;
-	glGetProgramiv(program, checkType, &noError);
-	if (!noError)
-	{
-		GLint infoLen = 0;
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLen);
-		if (infoLen>1)
-		{
-			char* infoLog = new char[infoLen];
-			glGetProgramInfoLog(program, infoLen, NULL, infoLog);
-			printf("Error in program %d - %s\n", Program, infoLog);
-			delete(infoLog);
-		}
-	}
+	return UniformLocation(id);
 }
 
-SamplerHandle VShader::SamplerLocation(const char* id)
+VShaderInputHandle* VShader::UniformLocation(const char* id)
 {
-	return glGetUniformLocation(Program, id);
+	return VRenderer::GetInstance()->GetUniformHandle(ShaderHandle, id);
 }
 
-UniformHandle VShader::UniformLocation(const char* id)
+VShaderInputHandle* VShader::AttributeLocation(const char* id)
 {
-	return glGetUniformLocation(Program, id);
-}
-
-UniformHandle VShader::AttributeLocation(const char* id)
-{
-	return glGetAttribLocation(Program, id);
+	return VRenderer::GetInstance()->GetAttributeHandle(ShaderHandle, id);
 }
 
 void VShader::BindFragDataLocation(const char* id, uint32 location)
 {
-	glBindFragDataLocation(Program, location, id);
+	VRenderer::GetInstance()->BindFragDataLocation(ShaderHandle, id, location);
 }
 
 void VShader::LoadSharedCode(const char* cwd)

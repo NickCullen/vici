@@ -2,6 +2,7 @@
 #include "Glew.h"
 #include <memory>
 #include "Shader.h"
+#include "Renderer.h"
 
 VVertexBuffer::VVertexBuffer(EBufferUse usage)
 	:VBuffer(ARRAY_BUFFER, usage),
@@ -91,16 +92,11 @@ void VVertexBuffer::SetElementsInShader(VShader* shader)
 	{
 		VVertexElement* e = &Elements[i];
 
-		UniformHandle attribID = shader->AttributeLocation(e->Info.ShaderID);
-		if (attribID != -1)
+		VShaderInputHandle* attribID = shader->AttributeLocation(e->Info.ShaderID);
+		if (attribID != nullptr)
 		{
-			glEnableVertexAttribArray(attribID);
-			glVertexAttribPointer(attribID, 
-				e->Info.NumOfComponents, 
-				ElementTypeToGL(e->Info.Type),
-				e->Info.Normalize ? GL_TRUE : GL_FALSE, 
-				VertexSize, 
-				(void*)e->Offset);
+			VRenderer::GetInstance()->EnableVertexAttribArray(attribID);
+			VRenderer::GetInstance()->VertexAttribPointer(attribID, e, VertexSize);
 		}
 	}
 }

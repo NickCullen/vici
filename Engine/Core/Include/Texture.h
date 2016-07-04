@@ -131,7 +131,7 @@ public:
 	void FromArray(void* pixels, int32 sizeInBytes);
 
 	// Implements IMaterialParam interface
-	virtual bool SendToShader(UniformHandle handle) override;
+	virtual bool SendToShader(struct VShaderInputHandle* handle) override;
 	virtual void CleanupFromShader() override;
 
 	// Setters

@@ -2,7 +2,7 @@
 #include "Glew.h"
 #include "Vector4.h"
 #include <memory>
-
+#include "Renderer.h"
 //REMEMBER: OpenGL textures (0,0) == bottom left and (1,1) == top right.
 
 int32 VTexture::ActiveTextureCount = 0;
@@ -163,10 +163,10 @@ int8 VTexture::ComponentsInColorMode()
 	return ComponentsInColorMode(PixelFormat);
 }
 
-bool VTexture::SendToShader(UniformHandle handle)
+bool VTexture::SendToShader(VShaderInputHandle* handle)
 {
 	Bind(ActiveTextureCount);
-	glUniform1i(handle, ActiveTextureCount);
+	VRenderer::GetInstance()->BindUniform(handle, ActiveTextureCount);
 	ActiveTextureCount++;
 	return true;	// TEMP
 }
