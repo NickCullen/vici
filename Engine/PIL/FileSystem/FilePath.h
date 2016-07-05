@@ -37,8 +37,6 @@ private:
 public:
 	VFilePath(const VString & relativeFilePath, EFileLocation location);
 	VFilePath(const VString & relativeFilePath);
-	/*VFilePath(const char* relativeFilePath);
-	VFilePath(char* relativeFilePath);*/
 
 	~VFilePath();
 

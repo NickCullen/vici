@@ -56,6 +56,7 @@
     <ClInclude Include="..\..\..\Engine\PIL\Platform\KeyCode.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Platform\Window.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Timer\Time.h" />
+    <ClInclude Include="..\..\..\Engine\PIL\Timer\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Engine\PIL\FileSystem\CommonSource\FilePath.cpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="..\..\..\Engine\PIL\Platform\Windows\Input.cpp" />
     <ClCompile Include="..\..\..\Engine\PIL\Platform\Windows\Window.cpp" />
     <ClCompile Include="..\..\..\Engine\PIL\Timer\Windows\Time.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Timer\Windows\Timer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DC883966-C45C-4D99-B806-B16A944149A2}</ProjectGuid>

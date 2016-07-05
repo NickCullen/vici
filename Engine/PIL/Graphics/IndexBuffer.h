@@ -20,6 +20,9 @@ enum EIndexType
 	INDEX_TYPE_POLYGON 
 };
 
+/**
+ * Buffer which contain indices into a vertex buffer
+ */
 class PIL_API VIndexBuffer : public VBuffer
 {
 private:

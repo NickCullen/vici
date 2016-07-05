@@ -27,18 +27,6 @@ VFilePath::VFilePath(const VString& relativeFilePath)
 	Path = relativeFilePath;
 }
 
-/*VFilePath::VFilePath(const char* relativeFilePath)
-{
-	EnsurePathFriendly((char*)relativeFilePath);
-	Path = relativeFilePath;
-}
-
-VFilePath::VFilePath(char* relativeFilePath)
-{
-	EnsurePathFriendly(relativeFilePath);
-	Path = relativeFilePath;
-}*/
-
 VFilePath::~VFilePath()
 {
 	
@@ -62,8 +50,6 @@ void VFilePath::PrefixLocation()
 		VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY), Path);	// Assume running directory
 		break;
 	}
-
-	
 }
 
 const char* VFilePath::EnsurePathFriendly(char* path)
@@ -115,19 +101,4 @@ VString VFilePath::GetDirectory() const
 	size_t indexOf = ret.find_last_of(VALID_SLASH);
 	ret.erase(indexOf+1);
 	return ret;
-
-	/*VString dirPath = Path;
-	uint32 deducted = 0;
-	for (int32 i = (int32)dirPath.length(); i > 0; i--)
-	{
-		if (dirPath[i] != VALID_SLASH)
-		{
-			dirPath[i] = '\0';
-			deducted++;
-		}
-		else
-			break;
-	}
-	dirPath.SetLength(dirPath.length() - deducted);
-	return dirPath;*/
 }

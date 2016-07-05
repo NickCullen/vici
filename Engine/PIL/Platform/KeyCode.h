@@ -4,7 +4,7 @@ enum EKeyCode
 {
 	KEY_UNKNOWN = -1,
 
-	// Numberical keys
+	// Numerical keys
 	KEY_0 = '0',
 	KEY_1 = '1',
 	KEY_2 = '2',
