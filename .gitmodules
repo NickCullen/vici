@@ -1,3 +1,6 @@
 [submodule "Engine/Math"]
 	path = Engine/Math
 	url = https://github.com/NickCullen/Mathlib.git
+[submodule "Engine/PIL/Collections/EASTL"]
+	path = Engine/PIL/Collections/EASTL
+	url = https://github.com/electronicarts/EASTL.git
