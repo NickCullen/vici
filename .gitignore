@@ -3,7 +3,6 @@ tmp_build/
 [dD]oc/
 *.DS_Store
 *.pyc
-CMakeLists.txt
 *.exp
 *.pdb
 *.ilk
