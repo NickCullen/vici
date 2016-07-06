@@ -7,6 +7,7 @@ CMakeLists.txt
 *.exp
 *.pdb
 *.ilk
+*.VC.db
 
 /Lib/Win32/*/*.dll
 /Lib/Win64/*/*.dll
