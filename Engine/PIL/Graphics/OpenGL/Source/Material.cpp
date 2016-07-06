@@ -1,5 +1,5 @@
 #include "PIL/Graphics/Material.h"
-#include "PIL/Graphics/OpenGL/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include "PIL/Graphics/Texture.h"
 
 VMaterial::VMaterial()

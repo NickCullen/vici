@@ -2,7 +2,7 @@
 #include "PIL/Graphics/VertexBuffer.h"
 #include "PIL/Graphics/IndexBuffer.h"
 #include "PIL/Graphics/Shader.h"
-#include "PIL/Graphics/OpenGL/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include "PIL/Graphics/MeshData.h"
 #include "PIL/Graphics/Material.h"
 

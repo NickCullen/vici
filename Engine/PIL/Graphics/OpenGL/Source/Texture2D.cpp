@@ -1,7 +1,7 @@
 #include "PIL/Graphics/Texture2D.h"
-#include "Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include "PIL/FileSystem/FilePath.h"
-#include "GLTypeConverters.h"
+#include "PIL/Graphics/OpenGL/Include/GLTypeConverters.h"
 
 // Image loading
 #define STB_IMAGE_IMPLEMENTATION

@@ -1,5 +1,5 @@
 #include "PIL/Graphics/IndexBuffer.h"
-#include "PIL/Graphics/OpenGL/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 
 VIndexBuffer::VIndexBuffer(EIndexType indexType, EBufferUse usage)
 	:VBuffer(ELEMENT_BUFFER, usage),

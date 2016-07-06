@@ -3,7 +3,7 @@
 #include "PIL/PILAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
 #include "PIL/Graphics/GraphicsTypes.h"
-#include "PIL/Graphics/OpenGL/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 
 class PIL_API GLTypeConverter
 {

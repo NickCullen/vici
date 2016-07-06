@@ -1,9 +1,9 @@
 #include "PIL/Graphics/Renderer.h"
-#include "Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include <stdio.h>
 #include "PIL/Collections/Array.h"
 #include "PIL/Graphics/VertexBuffer.h"
-#include "GLTypeConverters.h"
+#include "PIL/Graphics/OpenGL/Include/GLTypeConverters.h"
 
 // Static init
 VRenderer* VRenderer::Instance = nullptr;	

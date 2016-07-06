@@ -3,10 +3,10 @@
 #include "PIL/FileSystem/TextFile.h"
 #include "PIL/Graphics/Renderer.h"
 #include "PIL/FileSystem/FilePath.h"
-#include "PIL/Graphics/OpenGL/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include "PIL/Collections/Array.h"
 #include "PIL/Graphics/VertexBuffer.h"
-#include "GLTypeConverters.h"
+#include "PIL/Graphics/OpenGL/Include/GLTypeConverters.h"
 
 // init statics
 char* VShader::CommonCode = nullptr;

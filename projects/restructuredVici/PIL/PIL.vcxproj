@@ -39,8 +39,8 @@
     <ClInclude Include="..\..\..\Engine\PIL\Graphics\MaterialParam.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Graphics\MeshData.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Graphics\MeshRenderer.h" />
-    <ClInclude Include="..\..\..\Engine\PIL\Graphics\OpenGL\Glew.h" />
-    <ClInclude Include="..\..\..\Engine\PIL\Graphics\OpenGL\GLTypeConverters.h" />
+    <ClInclude Include="..\..\..\Engine\PIL\Graphics\OpenGL\Include\Glew.h" />
+    <ClInclude Include="..\..\..\Engine\PIL\Graphics\OpenGL\Include\GLTypeConverters.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Graphics\PrimitiveShapes.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Graphics\Renderer.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Graphics\Shader.h" />
@@ -55,30 +55,33 @@
     <ClInclude Include="..\..\..\Engine\PIL\Platform\InputTypes.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Platform\KeyCode.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Platform\Window.h" />
+    <ClInclude Include="..\..\..\Engine\PIL\Threads\ConditionVariable.h" />
+    <ClInclude Include="..\..\..\Engine\PIL\Threads\Mutex.h" />
+    <ClInclude Include="..\..\..\Engine\PIL\Threads\Thread.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Timer\Time.h" />
     <ClInclude Include="..\..\..\Engine\PIL\Timer\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Engine\PIL\FileSystem\CommonSource\FilePath.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\FileSystem\CommonSource\TextFile.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Buffer.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\IndexBuffer.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Material.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\MaterialParam.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\MeshData.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\MeshRenderer.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\PrimitiveShapes.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Renderer.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Shader.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Texture.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Texture2D.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\VertexArrayList.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\VertexBuffer.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Platform\CommonSource\Environment.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Platform\Windows\Input.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Platform\Windows\Window.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Timer\Windows\Time.cpp" />
-    <ClCompile Include="..\..\..\Engine\PIL\Timer\Windows\Timer.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\FileSystem\Common\FilePath.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\FileSystem\Common\TextFile.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\Buffer.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\IndexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\Material.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\MaterialParam.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\MeshData.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\MeshRenderer.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\PrimitiveShapes.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\Renderer.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\Shader.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\Texture.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\Texture2D.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\VertexArrayList.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Graphics\OpenGL\Source\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Platform\Common\Environment.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Platform\Win32\Input.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Platform\Win32\Window.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Timer\Win32\Time.cpp" />
+    <ClCompile Include="..\..\..\Engine\PIL\Timer\Win32\Timer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DC883966-C45C-4D99-B806-B16A944149A2}</ProjectGuid>
@@ -132,17 +135,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
+    <OutDir>$(VICI_HOME)Build\Windows\x86\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(VICI_HOME)Build\Windows\x86\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(VICI_HOME)Build\Windows\x64\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(VICI_HOME)Build\Windows\x64\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\nmcul\Desktop\vici\Engine;C:\Users\nmcul\Desktop\vici\ThirdParty\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(VICI_HOME)Engine;$(VICI_HOME)ThirdParty\Glew\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_WIN32;VICI_PC;VICI_OPENGL</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\nmcul\Desktop\vici\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(VICI_HOME)ThirdParty\Glew\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -151,11 +164,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\nmcul\Desktop\vici\Engine;C:\Users\nmcul\Desktop\vici\ThirdParty\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(VICI_HOME)Engine;$(VICI_HOME)ThirdParty\Glew\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_WIN32;VICI_PC;VICI_OPENGL</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\nmcul\Desktop\vici\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(VICI_HOME)ThirdParty\Glew\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -166,13 +179,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\nmcul\Desktop\vici\Engine;C:\Users\nmcul\Desktop\vici\ThirdParty\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_WIN32;VICI_PC;VICI_OPENGL</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(VICI_HOME)Engine;$(VICI_HOME)ThirdParty\Glew\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\nmcul\Desktop\vici\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(VICI_HOME)ThirdParty\Glew\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -183,13 +196,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\nmcul\Desktop\vici\Engine;C:\Users\nmcul\Desktop\vici\ThirdParty\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(VICI_HOME)Engine;$(VICI_HOME)ThirdParty\Glew\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PIL_EXPORTS;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;VICI_WINDOWS;VICI_WIN32;VICI_PC;VICI_OPENGL</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\nmcul\Desktop\vici\ThirdParty\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(VICI_HOME)ThirdParty\Glew\Lib\Windows\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -1,5 +1,5 @@
 #include "PIL/Graphics/Buffer.h"
-#include "PIL/Graphics/OpenGL/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include <memory>
 
 VBuffer::VBuffer(EBufferType type, EBufferUse usage)

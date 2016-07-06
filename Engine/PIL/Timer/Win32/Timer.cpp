@@ -34,7 +34,7 @@ void VTimer::Tick()
 
 		double elapsed = double(newTime.QuadPart - InternalTime->Time.QuadPart) / InternalTime->Freq;		// Get difference in seconds
 																											// Set vars
-		TimeInSeconds += elapsed;
+		TimeInSeconds += float(elapsed);
 
 		// Swap
 		InternalTime->Time = newTime;

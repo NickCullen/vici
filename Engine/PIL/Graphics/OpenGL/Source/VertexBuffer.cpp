@@ -1,5 +1,5 @@
 #include "PIL/Graphics/VertexBuffer.h"
-#include "Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include <memory>
 #include "PIL/Graphics/Shader.h"
 #include "PIL/Graphics/Renderer.h"

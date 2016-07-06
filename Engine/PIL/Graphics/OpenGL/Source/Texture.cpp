@@ -1,5 +1,5 @@
 #include "PIL/Graphics/Texture.h"
-#include "Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include <memory>
 #include "PIL/Graphics/Renderer.h"
 //REMEMBER: OpenGL textures (0,0) == bottom left and (1,1) == top right.

@@ -61,9 +61,6 @@ int main(int argc, char** argv)
 	material->AddParam("tex1", Texture);
 	material->AddParam("tex2", Texture2);
 
-	VTimer timer;
-	timer.Begin();
-
 	VTime::GetInstance()->UpdateTime();
 	while (!win->ShouldClose())
 	{
@@ -83,13 +80,6 @@ int main(int argc, char** argv)
 		MeshRenderer->Render();
 
 		win->Swapbuffers();
-
-		timer.Tick();
-		printf("time = %.4f\n", timer.GetTimeInSeconds());
-		if (timer.GetTimeInSeconds() > 5.0f)
-		{
-			timer.Reset();
-		}
 
 		CHECK_RENDERER_ERR;
 	}

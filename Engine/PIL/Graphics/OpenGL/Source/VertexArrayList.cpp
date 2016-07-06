@@ -1,5 +1,5 @@
 #include "PIL/Graphics/VertexArrayList.h"
-#include "Glew.h"
+#include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include "PIL/Graphics/Renderer.h"
 
 VVertexArrayList::VVertexArrayList()
