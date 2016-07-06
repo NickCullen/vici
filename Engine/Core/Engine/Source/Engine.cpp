@@ -1,17 +1,15 @@
-#include "Engine.h"
-#include "Renderer.h"
+#include "Core/Engine/Engine.h"
+#include "PIL/Graphics/Renderer.h"
 #include <stdio.h>
 
 // Temp
-#include "Shader.h"
-#include "Glew.h"
-#include "MeshRenderer.h"
-#include "PrimitiveShapes.h"
-#include "Texture2D.h"
-#include "Vector4.h"
-#include "FilePath.h"
-#include "Renderer.h"
-#include "Material.h"
+#include "PIL/Graphics/Shader.h"
+#include "PIL/Graphics/MeshRenderer.h"
+#include "PIL/Graphics/PrimitiveShapes.h"
+#include "PIL/Graphics/Texture2D.h"
+#include "Core/Math/Math/Include/Vector4.h"
+#include "PIL/FileSystem/FilePath.h"
+#include "PIL/Graphics/Material.h"
 
 VShader* Shader;
 VMeshRenderer* MeshRenderer;
@@ -41,11 +39,10 @@ bool VEngine::Init(int argc, const char** argv)
 	MeshRenderer = new VMeshRenderer();
 	MeshRenderer->SetMeshData(VPrimitiveShapes::CreateQuad());
 
-	VFilePath vPath("Shaders\\test.vert", FILE_EDITOR_RESOURCE_DIRECTORY);
-	VFilePath fPath("Shaders\\test.frag", FILE_EDITOR_RESOURCE_DIRECTORY);
+	VFilePath shaderPath("Shaders\\test", FILE_EDITOR_RESOURCE_DIRECTORY);
 
 	Shader = new VShader();
-	Shader->Load(vPath, fPath);
+	Shader->Load(shaderPath);
 	Shader->BindFragDataLocation(SHADER_OUT_COLOR_ID, 0);
 
 	// Set material that will be used for this mesh

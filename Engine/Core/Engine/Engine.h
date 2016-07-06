@@ -1,8 +1,8 @@
 #pragma once
 
-#include "CoreAPI.h"
+#include "Core/CoreAPI.h"
 #include "Singleton.h"
-#include "EngineIncludes.h"
+#include "Core/EngineIncludes.h"
 
 class CORE_API VEngine : public VSingleton<VEngine>
 {

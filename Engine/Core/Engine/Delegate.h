@@ -3,7 +3,7 @@
 // Credit: https://github.com/marcmo/delegates/
 // Modified to follow engine style
 
-#include "CoreAPI.h"
+#include "Core/CoreAPI.h"
 
 // we have C++11 support...yeah!
 /**

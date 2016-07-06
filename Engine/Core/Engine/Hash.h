@@ -1,8 +1,8 @@
 #pragma once
 
-#include "CoreAPI.h"
-#include "VTypes.h"
-#include "VString.h"
+#include "Core/CoreAPI.h"
+#include "PIL/DataTypes/PlatformTypes.h"
+#include "PIL/Collections/String.h"
 
 //the typedef for a hash
 typedef uint32 vhash_int;

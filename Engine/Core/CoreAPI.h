@@ -8,7 +8,7 @@
 #define API_IMPORT 
 #endif
 
-#ifdef CORE_EXPORTS
+#ifdef Core_EXPORTS
 #define CORE_API API_EXPORT
 #define EXPIMP_TEMPLATE
 #else
