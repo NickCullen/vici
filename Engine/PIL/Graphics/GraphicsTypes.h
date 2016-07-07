@@ -1,6 +1,8 @@
 #pragma once
 
-// Type of value in an element
+/**
+ * Valid types recognised by the GPU
+ */
 enum EElementType
 {
 	ELEM_TYPE_FLOAT,
@@ -17,6 +19,9 @@ enum EElementType
 	ELEM_TYPE_UINT32,
 };
 
+/**
+ * Valid colour modes
+ */
 enum EColorMode
 {
 	COLOR_GREYSCALE,		// 1 component
@@ -36,7 +41,7 @@ enum ETextureType
 };
 
 /**
-* Defines what happens when coordinates exceed 0 <-> 1
+* Defines what happens when uv-coordinates exceed 0 <-> 1
 */
 enum ETextureWrapMode
 {
@@ -59,4 +64,41 @@ enum ETextureFilterMethod
 	FILTER_LINEAR_MIPMAP_NEAREST,
 	FILTER_NEAREST_MIPMAP_LINEAR,
 	FILTER_LINEAR_MIPMAP_LINEAR
+};
+
+/**
+* Enum specifying what data a VBuffer holds
+*/
+enum EBufferType
+{
+	ARRAY_BUFFER,			// vertex data
+	ELEMENT_BUFFER			// index data
+};
+
+/**
+* Defines how a VBuffer is to be used
+*/
+enum EBufferUse
+{
+	STATIC_DRAW,		// Upload once - draw many times
+	DYNAMIC_DRAW,		// Changed from time to time but drawn many more times than that
+	STREAM_DRAW			// Vertex data will change almost every frame
+};
+
+/**
+* Defines what index type an index array
+* draws its vertices
+*/
+enum EIndexType
+{
+	INDEX_TYPE_POINTS,
+	INDEX_TYPE_LINES,
+	INDEX_TYPE_LINE_LOOP,
+	INDEX_TYPE_LINE_STRIP,
+	INDEX_TYPE_TRIANGLES,
+	INDEX_TYPE_TRIANGLE_STRIP,
+	INDEX_TYPE_TRIANGLE_FAN,
+	INDEX_TYPE_QUADS,
+	INDEX_TYPE_QUAD_STRIP,
+	INDEX_TYPE_POLYGON
 };

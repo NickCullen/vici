@@ -1,5 +1,6 @@
 #include "PIL/Graphics/Buffer.h"
 #include "PIL/Graphics/OpenGL/Include/Glew.h"
+#include "PIL/Graphics/OpenGL/Include/GLTypeConverters.h"
 #include <memory>
 
 // OpenGL VBOHandle decleration
@@ -26,28 +27,6 @@ VBuffer::~VBuffer()
 	delete(VBO);
 }
 
-uint32 VBuffer::BufferTypeToGL()
-{
-	switch (Type)
-	{
-	case ARRAY_BUFFER:		return GL_ARRAY_BUFFER;
-	case ELEMENT_BUFFER:	return GL_ELEMENT_ARRAY_BUFFER;
-	default:				return GL_ARRAY_BUFFER;		// Assume array buffer
-	}
-}
-
-
-uint32 VBuffer::BufferUsageToGL()
-{
-	switch (Usage)
-	{
-	case STATIC_DRAW:		return GL_STATIC_DRAW;
-	case DYNAMIC_DRAW:		return GL_DYNAMIC_DRAW;
-	case STREAM_DRAW:		return GL_STREAM_DRAW;
-	default:				return GL_STATIC_DRAW;	// Assume static
-	}
-}
-
 void VBuffer::Resize(int32 NewSize)
 {
 	// Make sure Size doesnt exceed NewSize for when we copy data over
@@ -70,7 +49,7 @@ void VBuffer::Resize(int32 NewSize)
 
 void VBuffer::Bind()
 {
-	glBindBuffer(BufferTypeToGL(), VBO->vbo);
+	glBindBuffer(GLTypeConverter::BufferTypeToGL(Type), VBO->vbo);
 }
 
 bool VBuffer::Lock()
@@ -81,14 +60,14 @@ bool VBuffer::Lock()
 	if (VBO->vbo <= 0)
 		return false;
 
-	glBindBuffer(BufferTypeToGL(), VBO->vbo);
+	glBindBuffer(GLTypeConverter::BufferTypeToGL(Type), VBO->vbo);
 
 	return true;
 }
 
 void VBuffer::Unlock()
 {
-	glBufferData(BufferTypeToGL(), Size, Data, BufferUsageToGL());
+	glBufferData(GLTypeConverter::BufferTypeToGL(Type), Size, Data, GLTypeConverter::BufferUsageToGL(Usage));
 }
 
 void VBuffer::FlushClientMemory()

@@ -78,4 +78,43 @@ public:
 		default:							return GL_LINEAR;	// Assume linear
 		}
 	}
+
+	static inline uint32 BufferTypeToGL(const EBufferType Type)
+	{
+		switch (Type)
+		{
+		case ARRAY_BUFFER:		return GL_ARRAY_BUFFER;
+		case ELEMENT_BUFFER:	return GL_ELEMENT_ARRAY_BUFFER;
+		default:				return GL_ARRAY_BUFFER;		// Assume array buffer
+		}
+	}
+
+	static inline uint32 BufferUsageToGL(const EBufferUse Usage)
+	{
+		switch (Usage)
+		{
+		case STATIC_DRAW:		return GL_STATIC_DRAW;
+		case DYNAMIC_DRAW:		return GL_DYNAMIC_DRAW;
+		case STREAM_DRAW:		return GL_STREAM_DRAW;
+		default:				return GL_STATIC_DRAW;	// Assume static
+		}
+	}
+
+	static inline uint32 IndexTypeToGL(const EIndexType IndexType)
+	{
+		switch (IndexType)
+		{
+		case INDEX_TYPE_POINTS:				return GL_POINTS;
+		case INDEX_TYPE_LINES: 				return GL_LINES;
+		case INDEX_TYPE_LINE_LOOP:			return GL_LINE_LOOP;
+		case INDEX_TYPE_LINE_STRIP:			return GL_LINE_STRIP;
+		case INDEX_TYPE_TRIANGLES:			return GL_TRIANGLES;
+		case INDEX_TYPE_TRIANGLE_STRIP:		return GL_TRIANGLE_STRIP;
+		case INDEX_TYPE_TRIANGLE_FAN:		return GL_TRIANGLE_FAN;
+		case INDEX_TYPE_QUADS:				return GL_QUADS;
+		case INDEX_TYPE_QUAD_STRIP:			return GL_QUAD_STRIP;
+		case INDEX_TYPE_POLYGON:			return GL_POLYGON;
+		default:							return GL_TRIANGLES;	// Assume triangles
+		}
+	}
 };

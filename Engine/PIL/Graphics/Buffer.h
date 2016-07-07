@@ -2,24 +2,11 @@
 
 #include "PIL/PILAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
+#include "PIL/Graphics/GraphicsTypes.h"
 
 // Non-public abi
 struct VBOHandle;
 
-// Defines what type of buffer this is
-enum EBufferType
-{
-	ARRAY_BUFFER,			// vertex data
-	ELEMENT_BUFFER			// index data
-};
-
-// Defines how this buffer is to be used
-enum EBufferUse
-{
-	STATIC_DRAW,		// Upload once - draw many times
-	DYNAMIC_DRAW,		// Changed from time to time but drawn many more times than that
-	STREAM_DRAW		// Vertex data will change almost every frame
-};
 
 /** 
  * Base class for Vertex and Index buffers
@@ -27,66 +14,95 @@ enum EBufferUse
 class PIL_API VBuffer
 {
 protected:
-	void* Data;		// Buffer data in memory
+	void* Data;			/*<< Buffer data in memory */
 
-	int32 Count;	// Number of items in this buffer object
+	int32 Count;		/**< Number of items in this buffer object */
 
-	int32 Size;			// Current size in bytes of the buffer data
+	int32 Size;			/**< Current size (in bytes) of the buffer data */
 
-	int32 MaxSize;		// Allocated size in bytes of Data
+	int32 MaxSize;		/**< Allocated size (in bytes) of Data */
 
-	VBOHandle* VBO;		// Reference to the vertex buffer in gpu
+	VBOHandle* VBO;		/**< Graphics API specific Handle to the vertex buffer on the GPU*/
 
-	EBufferType Type;	// The type of vertex buffer
+	EBufferType Type;	/**< The type of this vertex buffer */
 
-	EBufferUse Usage;	// How this buffer is to be used
+	EBufferUse Usage;	/**< How this buffer is to be used */
 
-	// Convert Type to its GLEnum equiv.
-	uint32 BufferTypeToGL();
-
-	// Convert its usage to its GLenum equiv.
-	uint32 BufferUsageToGL();
-
-	// Resizes Data array to NewSize where NewSize = size in bytes of new array
+	/**
+	 * Resizes the Data array to NewSize where NewSize is the size (in bytes) of new array
+	 * @param NewSize Size (in bytes) of the buffer
+	 */
 	void Resize(int32 NewSize);
 
-	// Classes deriving from VBuffer must implement 
-	// GetSingleItemDataSize which should return the size of
-	// 1 element in the Data array. This would be the size of a vertex
-	// in a vertex buffer or the size of 1 index element in an IndexBuffer
-	// Internal use only.
+	/**
+	 * Classes deriving from VBuffer must implement 
+	 * GetSingleItemDataSize which should return the size of
+	 * 1 element in the Data array. This would be the size of a vertex
+	 * in a vertex buffer or the size of 1 index element in an IndexBuffer
+	 * Internal use only.
+	 * @return Size (in bytes) of a SINGLE element in the buffer
+	 */
 	virtual int32 GetSingleItemDataSize() = 0;
 
-	// Same reason as GetSingleItemDataSize, except this will
-	// force the derived class to set its datasize
+	/**
+	 * Sets the size of a single element in the buffer
+	 * @param size Size (in bytes) of a single element in the buffer
+	 */
 	virtual void SetSingleItemDataSize(int32 size) = 0;
 public:
 
+	/**
+	 * Overloaded constructor
+	 * @param type The buffer type (See EBufferType)
+	 * @param usage How this buffer is to be used (See EBufferUse)
+	 */
 	VBuffer(EBufferType type, EBufferUse usage);
 
+	/**
+	 * Default destructor
+	 */
 	virtual ~VBuffer();
 
-	// Binds the vertex buffer
+	/**
+	 * Binds the buffer on the GPU
+	 */
 	void Bind();
 
-	// Creates the VBO and prepares for uploading vertices
+	/**
+	 * Creates the VBO and prepares for uploading data to the gpu
+	 */
 	bool Lock();
 
-	// Sends the vertex data upto the GPU
+	/**
+	 * Sends the data upto the GPU
+	 */
 	void Unlock();
 
-	// Frees the data held in client memory
+	/**
+	 * Frees the data held in client (RAM) memory
+	 */
 	void FlushClientMemory();
 
-	// Frees the data held on the GPU
+	/**
+	 * Frees the data held on the GPU
+	 */
 	void FlushGPUMemory();
 
-	// Frees all data
+	/**
+	 * Free both client and GPU memory
+	 */
 	void Flush();
 
-	// Getters
+	/**
+	 * Returns the number of elements in the buffer
+	 */
 	inline int32 GetCount() { return Count; }
 
-	// Sets the data from an array
+	/**
+	 * Creates the buffer from a c-style array
+	 * @param data Pointer to the data
+	 * @param sizeOfArray The size of array (in bytes) 
+	 * @param sizePerEntry The size of a single element in the data array. This is size per vertex in a vertex buffer or a single index element in an index buffer
+	 */
 	void FromArray(void* data, int32 sizeOfArray, int32 sizePerEntry);
 };
