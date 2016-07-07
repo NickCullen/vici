@@ -9,7 +9,7 @@ class PIL_API GLTypeConverter
 {
 public:
 
-	static inline uint32 GLTypeConverter::ElementTypeToGL(const EElementType type)
+	static inline uint32 ElementTypeToGL(EElementType type)
 	{
 
 		switch (type)
@@ -29,7 +29,7 @@ public:
 		}
 	}
 
-	static inline uint32 GLTypeConverter::ColorModeToGL(const EColorMode colorMode)
+	static inline uint32 ColorModeToGL(EColorMode colorMode)
 	{
 		switch (colorMode)
 		{
@@ -42,7 +42,7 @@ public:
 	}
 
 
-	static inline uint32 TextureTypeToGL(const ETextureType texType)
+	static inline uint32 TextureTypeToGL(ETextureType texType)
 	{
 		switch (texType)
 		{
@@ -53,7 +53,7 @@ public:
 		}
 	}
 
-	static inline uint32 WrapModeToGL(const ETextureWrapMode mode)
+	static inline uint32 WrapModeToGL(ETextureWrapMode mode)
 	{
 		switch (mode)
 		{
@@ -65,7 +65,7 @@ public:
 		}
 	}
 
-	static inline uint32 FilterMethodToGL(const ETextureFilterMethod method)
+	static inline uint32 FilterMethodToGL(ETextureFilterMethod method)
 	{
 		switch (method)
 		{
@@ -79,7 +79,7 @@ public:
 		}
 	}
 
-	static inline uint32 BufferTypeToGL(const EBufferType Type)
+	static inline uint32 BufferTypeToGL(EBufferType Type)
 	{
 		switch (Type)
 		{
@@ -89,7 +89,7 @@ public:
 		}
 	}
 
-	static inline uint32 BufferUsageToGL(const EBufferUse Usage)
+	static inline uint32 BufferUsageToGL(EBufferUse Usage)
 	{
 		switch (Usage)
 		{
@@ -100,7 +100,7 @@ public:
 		}
 	}
 
-	static inline uint32 IndexTypeToGL(const EIndexType IndexType)
+	static inline uint32 IndexTypeToGL(EIndexType IndexType)
 	{
 		switch (IndexType)
 		{
