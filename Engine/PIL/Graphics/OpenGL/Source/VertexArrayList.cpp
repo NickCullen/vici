@@ -5,6 +5,11 @@
 VVertexArrayList::VVertexArrayList()
 	:Handler(nullptr)
 {
+#if VICI_EDITOR
+	memset(VAO, 0, sizeof(VAO));
+#else
+	VAO[0] = 0;
+#endif
 }
 
 VVertexArrayList::VVertexArrayList(IVertexArrayHandler* handler)

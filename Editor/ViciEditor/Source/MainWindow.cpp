@@ -1,8 +1,6 @@
-#include "MainWindow.h"
-#include "Window.h"
-#include "Renderer.h"
-#include "Engine.h"
-#include "Input.h"
+#include "ViciEditor/MainWindow.h"
+#include "PIL/Platform/Window.h"
+#include "Core/EngineIncludes.h"
 
 VMainWindow::VMainWindow()
 	:VSingleton(this)

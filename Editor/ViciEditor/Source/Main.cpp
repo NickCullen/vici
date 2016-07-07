@@ -1,7 +1,5 @@
-#include "Editor.h"
-#include "EngineMacros.h"
-#include "Environment.h"
-#include "FilePath.h"
+#include "ViciEditor/Editor.h"
+#include "Core/EngineIncludes.h"
 #include <stdio.h>
 
 int main(int argc, const char** argv)

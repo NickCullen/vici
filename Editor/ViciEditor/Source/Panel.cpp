@@ -1,6 +1,6 @@
-#include "Panel.h"
-#include "Window.h"
-#include "MainWindow.h"
+#include "ViciEditor/Panel.h"
+#include "PIL/Platform/Window.h"
+#include "ViciEditor/MainWindow.h"
 
 VPanel::VPanel()
 	:Window(nullptr),

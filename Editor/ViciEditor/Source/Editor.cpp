@@ -1,13 +1,9 @@
-#include "Editor.h"
-#include "GameView.h"
-#include "SceneView.h"
-#include "VTime.h"
-#include "Window.h"
-#include "Engine.h"
-#include "MainWindow.h"
-#include "Renderer.h"
-#include "ObjImporter.h"
-#include "FilePath.h"
+#include "ViciEditor/Editor.h"
+#include "ViciEditor/GameView.h"
+#include "ViciEditor/SceneView.h"
+#include "ViciEditor/MainWindow.h"
+#include "Core/EngineIncludes.h"
+#include "Core/Util/ObjImporter.h"
 
 VEditor::VEditor()
 	:SceneView(nullptr),
@@ -75,7 +71,7 @@ int VEditor::Run()
 	VTime::GetInstance()->SetFixedDeltaTime(dt);
 	VTime::GetInstance()->UpdateTime();
 
-	float currentTime = VTime::GetInstance()->GetTime();
+	float currentTime = (float)VTime::GetInstance()->GetTime();
 	float accumulator = 0.0f;
 
 	VPanel* panels[] = { MainWindow , GameView, SceneView };
@@ -85,7 +81,7 @@ int VEditor::Run()
 	{
 		VTime::GetInstance()->UpdateTime();	// Update time
 
-		float newTime = VTime::GetInstance()->GetTime();
+		float newTime = (float)VTime::GetInstance()->GetTime();
 		float frameTime = newTime - currentTime;
 
 		VTime::GetInstance()->SetDeltaTime(frameTime);		// Set per frame delta time

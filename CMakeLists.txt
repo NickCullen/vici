@@ -172,7 +172,7 @@ endif()
 add_subdirectory(Engine)
 
 if(VICI_EDITOR)
-	#add_subdirectory(Editor)
+	add_subdirectory(Editor)
 endif()
 
 #-------------------------------------------------------------------------------------------

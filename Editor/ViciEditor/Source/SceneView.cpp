@@ -1,9 +1,7 @@
-#include "SceneView.h"
-#include "Window.h"
-#include "Renderer.h"
+#include "ViciEditor/SceneView.h"
+#include "PIL/Platform/Window.h"
 #include <stdio.h>
-#include "Engine.h"
-#include "Input.h"
+#include "Core/EngineIncludes.h"
 
 VSceneView::VSceneView()
 {

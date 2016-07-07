@@ -1,9 +1,7 @@
-#include "GameView.h"
-#include "Window.h"
+#include "ViciEditor/GameView.h"
+#include "Core/EngineIncludes.h"
+#include "PIL/Platform/Window.h"
 #include <stdio.h>
-#include "Renderer.h"
-#include "Engine.h"
-#include "Input.h"
 
 
 VGameView::VGameView()
