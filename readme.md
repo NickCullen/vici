@@ -26,6 +26,8 @@ You will now see the Visual studio solution in the Project folder.
 - Open Project/Vici.sln
 - ctrl + shift + B to build
 
+If you are doing an editor build, make sure ViciEditorLauncher project is set to be the startup project.
+
 ### Mac
 So far this project will only run on Windows, but using Cmake it is pretty straight forward to run on Mac (when I get around
 to implementing its layer).
