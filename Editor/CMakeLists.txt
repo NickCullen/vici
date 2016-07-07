@@ -38,7 +38,7 @@ endif()
 #-------------------------------------------------------------------------------------------
 # Build to shared library
 #-------------------------------------------------------------------------------------------
-add_executable(ViciEditor 
+add_library(ViciEditor SHARED
 	${VICI_EDITOR_SOURCES}	
 )
 
@@ -48,6 +48,8 @@ add_executable(ViciEditor
 target_link_libraries(ViciEditor PRIVATE PIL Core)
 
 
-
 # Filter sources for cleaner project structure
 FILTER_SOURCES("${VICI_EDITOR_SOURCES}")
+
+# Create editor EXE
+add_subdirectory(ViciEditorLauncher)

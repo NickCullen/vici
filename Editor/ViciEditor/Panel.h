@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ViciEditor/ViciEditorAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
 
 class VWindow;
@@ -9,7 +10,7 @@ class VMouseInfo;
 class VScrollInfo;
 class VFileDropInfo;
 
-class VPanel
+class VICI_EDITOR_API VPanel
 {
 	friend class VEditor;
 private:

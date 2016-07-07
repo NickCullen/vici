@@ -2,7 +2,7 @@
 
 #include "Panel.h"
 
-class VGameView : public VPanel
+class VICI_EDITOR_API VGameView : public VPanel
 {
 private:
 

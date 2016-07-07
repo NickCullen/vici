@@ -1,11 +1,13 @@
 #pragma once
 
+#include "ViciEditor/ViciEditorAPI.h"
+
 class VEngine;
 class VMainWindow;
 class VSceneView;
 class VGameView;
 
-class VEditor
+class VICI_EDITOR_API VEditor
 {
 private:
 	VMainWindow* MainWindow;

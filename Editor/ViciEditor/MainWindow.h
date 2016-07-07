@@ -5,7 +5,7 @@
 
 class VWindow;
 
-class VMainWindow : public VSingleton<VMainWindow>, public VPanel
+class VICI_EDITOR_API VMainWindow : public VSingleton<VMainWindow>, public VPanel
 {
 private:
 

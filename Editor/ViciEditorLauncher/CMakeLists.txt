@@ -1,62 +1,28 @@
 #-------------------------------------------------------------------------------------------
 # Source Files
 #-------------------------------------------------------------------------------------------
-file(GLOB CORE_SOURCES 
+file(GLOB VICI_EDITOR_EXE_SOURCES 
 	LIST_DIRECTORIES false
 	RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
 
-	# Core
-	"*.h"
+	# Source
+	"*.cpp"
 
-	# Engine
-	"Engine/*.h"
-	"Engine/Source/*.cpp"
-
-	# Graphics
-	"Graphics/*.h"
-	"Graphics/Source/*.cpp"
-	
-	# Math
-	"Math/Math/Include/*.h"
-	"Math/Math/Source/*.cpp"
-
-	# Util
-	"Util/*.h"
-	"Util/Source/*.cpp"
 )
-
-#-------------------------------------------------------------------------------------------
-# Definitions
-#-------------------------------------------------------------------------------------------
-if(VICI_WIN32)
-	# OpenGL Required
-	if(VICI_OPENGL)
-		if(VICI_EDITOR)
-			add_definitions(-DGLEW_MX)
-		endif()
-
-	endif()
-
-elseif(VICI_MAC)
-	# TODO
-
-elseif(VICI_LINUX)
-	# TODO
-
-endif()
-
 
 #-------------------------------------------------------------------------------------------
 # Build to shared library
 #-------------------------------------------------------------------------------------------
-add_library(Core SHARED 
-	${CORE_SOURCES}	
+add_executable(ViciEditorLauncher
+	${VICI_EDITOR_EXE_SOURCES}	
 )
 
 #-------------------------------------------------------------------------------------------
 # Modules this library depends upon
 #-------------------------------------------------------------------------------------------
-target_link_libraries(Core PRIVATE PIL)
+target_link_libraries(ViciEditorLauncher PRIVATE PIL Core ViciEditor)
+
+
 
 # Filter sources for cleaner project structure
-FILTER_SOURCES("${CORE_SOURCES}")
+FILTER_SOURCES("${VICI_EDITOR_EXE_SOURCES}")

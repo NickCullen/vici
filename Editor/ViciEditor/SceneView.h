@@ -2,7 +2,7 @@
 
 #include "Panel.h"
 
-class VSceneView : public VPanel
+class VICI_EDITOR_API VSceneView : public VPanel
 {
 private:
 	
