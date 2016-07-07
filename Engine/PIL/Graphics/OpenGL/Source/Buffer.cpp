@@ -2,20 +2,28 @@
 #include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include <memory>
 
+// OpenGL VBOHandle decleration
+struct VBOHandle
+{
+	GLuint vbo;
+};
+
 VBuffer::VBuffer(EBufferType type, EBufferUse usage)
 	:Data(nullptr),
 	Count(0),
 	Size(0),
 	MaxSize(0),
-	VBO(0),
 	Type(type),
 	Usage(usage)
 {
+	VBO = new VBOHandle();
+	VBO->vbo = 0;
 }
 
 VBuffer::~VBuffer()
 {
 	Flush();
+	delete(VBO);
 }
 
 uint32 VBuffer::BufferTypeToGL()
@@ -62,18 +70,18 @@ void VBuffer::Resize(int32 NewSize)
 
 void VBuffer::Bind()
 {
-	glBindBuffer(BufferTypeToGL(), VBO);
+	glBindBuffer(BufferTypeToGL(), VBO->vbo);
 }
 
 bool VBuffer::Lock()
 {
 	FlushGPUMemory();
-	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &VBO->vbo);
 
-	if (VBO <= 0)
+	if (VBO->vbo <= 0)
 		return false;
 
-	glBindBuffer(BufferTypeToGL(), VBO);
+	glBindBuffer(BufferTypeToGL(), VBO->vbo);
 
 	return true;
 }
@@ -95,10 +103,10 @@ void VBuffer::FlushClientMemory()
 
 void VBuffer::FlushGPUMemory()
 {
-	if (VBO > 0)
+	if (VBO->vbo > 0)
 	{
-		glDeleteBuffers(1, &VBO);
-		VBO = 0;
+		glDeleteBuffers(1, &VBO->vbo);
+		VBO->vbo = 0;
 	}
 }
 

@@ -4,12 +4,12 @@
 
 // Temp
 #include "PIL/Graphics/Shader.h"
-#include "PIL/Graphics/MeshRenderer.h"
-#include "PIL/Graphics/PrimitiveShapes.h"
+#include "Core/Graphics/MeshRenderer.h"
+#include "Core/Graphics/PrimitiveShapes.h"
 #include "PIL/Graphics/Texture2D.h"
 #include "Core/Math/Math/Include/Vector4.h"
 #include "PIL/FileSystem/FilePath.h"
-#include "PIL/Graphics/Material.h"
+#include "Core/Graphics/Material.h"
 
 VShader* Shader;
 VMeshRenderer* MeshRenderer;

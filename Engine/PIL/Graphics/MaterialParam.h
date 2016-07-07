@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Shader.h"
+#include "PIL/PILAPI.h"
+
 /**
  * Interface class for passing paramters to shader
  */

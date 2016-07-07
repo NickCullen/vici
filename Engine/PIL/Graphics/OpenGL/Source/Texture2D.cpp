@@ -20,17 +20,6 @@ VTexture2D::~VTexture2D()
 
 }
 
-// Binds the vertex buffer
-bool VTexture2D::Lock()
-{
-	if (!VTexture::Lock())
-		return false;
-
-	glBindTexture(GL_TEXTURE_2D, Handle);
-
-	return true;
-}
-
 VTexture2D* VTexture2D::FromFile(const VFilePath& filePath)
 {
 	int comp, width, height;
@@ -78,12 +67,12 @@ VTexture2D* VTexture2D::FromFile(const VFilePath& filePath)
 // Sends the vertex data upto the GPU
 void VTexture2D::Unlock(bool freeClientMemory)
 {
-	uint32 wrapMode = WrapModeToGL(WrapMode);
+	uint32 wrapMode = GLTypeConverter::WrapModeToGL(WrapMode);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, FilterMethodToGL(MinFilterMethod));
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, FilterMethodToGL(MagFilterMethod));
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GLTypeConverter::FilterMethodToGL(MinFilterMethod));
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GLTypeConverter::FilterMethodToGL(MagFilterMethod));
 
 
 	glTexImage2D(GL_TEXTURE_2D,				// Type of texture
@@ -98,7 +87,7 @@ void VTexture2D::Unlock(bool freeClientMemory)
 
 	// Generate mips if needed
 	if (GenerateMipMap)
-		glGenerateMipmap(TextureTypeToGL(Type));
+		glGenerateMipmap(GLTypeConverter::TextureTypeToGL(Type));
 
 	// Free RAM space if requested
 	if (freeClientMemory)

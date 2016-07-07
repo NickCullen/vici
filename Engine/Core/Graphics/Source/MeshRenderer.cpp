@@ -1,10 +1,9 @@
-#include "PIL/Graphics/MeshRenderer.h"
+#include "Core/Graphics/MeshRenderer.h"
 #include "PIL/Graphics/VertexBuffer.h"
 #include "PIL/Graphics/IndexBuffer.h"
 #include "PIL/Graphics/Shader.h"
-#include "PIL/Graphics/OpenGL/Include/Glew.h"
-#include "PIL/Graphics/MeshData.h"
-#include "PIL/Graphics/Material.h"
+#include "Core/Graphics/MeshData.h"
+#include "Core/Graphics/Material.h"
 
 
 VMeshRenderer::VMeshRenderer()

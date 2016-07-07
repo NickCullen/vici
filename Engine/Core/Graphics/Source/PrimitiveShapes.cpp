@@ -1,7 +1,7 @@
-#include "PIL/Graphics/PrimitiveShapes.h"
+#include "Core/Graphics/PrimitiveShapes.h"
 #include "PIL/Graphics/VertexBuffer.h"
 #include "PIL/Graphics/IndexBuffer.h"
-#include "PIL/Graphics/MeshData.h"
+#include "Core/Graphics/MeshData.h"
 #include "PIL/DataTypes/PlatformTypes.h"
 #include "PIL/Graphics/Shader.h"	// Need shader IN constants
 

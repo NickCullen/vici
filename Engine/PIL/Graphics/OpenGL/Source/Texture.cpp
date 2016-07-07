@@ -2,14 +2,22 @@
 #include "PIL/Graphics/OpenGL/Include/Glew.h"
 #include <memory>
 #include "PIL/Graphics/Renderer.h"
+#include "PIL/Graphics/Shader.h"
+#include "PIL/Graphics/OpenGL/Include/GLTypeConverters.h"
+
 //REMEMBER: OpenGL textures (0,0) == bottom left and (1,1) == top right.
 
 int32 VTexture::ActiveTextureCount = 0;
 
+// Handle definition
+struct VInternalTextureHandle
+{
+	GLuint Texture;
+};
+
 VTexture::VTexture(ETextureType type, ETextureWrapMode wrapMode)
 	:Type(type),
 	WrapMode(wrapMode),
-	Handle(0),
 	Pixels(nullptr),
 	GenerateMipMap(true),
 	MinFilterMethod(FILTER_LINEAR),
@@ -19,54 +27,20 @@ VTexture::VTexture(ETextureType type, ETextureWrapMode wrapMode)
 	PixelFormat(COLOR_RGB),
 	PixelDataType(ELEM_TYPE_UINT8)
 {
+	Handle = new VInternalTextureHandle();
+	Handle->Texture = 0;
 }
 
 VTexture::~VTexture()
 {
 	Flush();
-}
-
-uint32 VTexture::TextureTypeToGL(const ETextureType texType)
-{
-	switch (texType)
-	{
-		case TEXTURE_1D: return GL_TEXTURE_1D;
-		case TEXTURE_2D: return GL_TEXTURE_2D;
-		case TEXTURE_3D: return GL_TEXTURE_3D;
-		default:		 return GL_TEXTURE_2D;	// 2D texture assumed
-	}
-}
-
-uint32 VTexture::WrapModeToGL(const ETextureWrapMode mode)
-{
-	switch (mode)
-	{
-		case WRAP_REPEAT:				return GL_REPEAT;
-		case WRAP_MIRRORED_REPEAT:		return GL_MIRRORED_REPEAT;
-		case WRAP_CLAMP_TO_EDGE:		return GL_CLAMP_TO_EDGE;
-		case WRAP_CLAMP_TO_BORDER:		return GL_CLAMP_TO_BORDER;
-		default:						return GL_REPEAT;		// Assume repeat
-	}
-}
-
-uint32 VTexture::FilterMethodToGL(const ETextureFilterMethod method)
-{
-	switch (method)
-	{
-		case FILTER_NEAREST:				return GL_NEAREST;
-		case FILTER_LINEAR:					return GL_LINEAR;
-		case FILTER_NEAREST_MIPMAP_NEAREST:	return GL_NEAREST_MIPMAP_NEAREST;
-		case FILTER_LINEAR_MIPMAP_NEAREST:	return GL_LINEAR_MIPMAP_NEAREST;
-		case FILTER_NEAREST_MIPMAP_LINEAR:	return GL_NEAREST_MIPMAP_LINEAR;
-		case FILTER_LINEAR_MIPMAP_LINEAR:	return GL_LINEAR_MIPMAP_LINEAR;
-		default:							return GL_LINEAR;	// Assume linear
-	}
+	delete(Handle);
 }
 
 void VTexture::Bind(int32 activeTextureNum)
 {
 	glActiveTexture(GL_TEXTURE0 + activeTextureNum);
-	glBindTexture(TextureTypeToGL(Type), Handle);
+	glBindTexture(GLTypeConverter::TextureTypeToGL(Type), Handle->Texture);
 }
 
 void VTexture::Unbind()
@@ -77,11 +51,13 @@ void VTexture::Unbind()
 bool VTexture::Lock()
 {
 	FlushGPUMemory();
-	glGenTextures(1, &Handle);
+	glGenTextures(1, &Handle->Texture);
 
 	// Error generating texture
-	if (Handle <= 0)
+	if (Handle->Texture <= 0)
 		return false;
+
+	glBindTexture(GLTypeConverter::TextureTypeToGL(Type), Handle->Texture);
 
 	return true;
 }
@@ -97,10 +73,10 @@ void VTexture::FlushClientMemory()
 
 void VTexture::FlushGPUMemory()
 {
-	if (Handle > 0)
+	if (Handle->Texture > 0)
 	{
-		glDeleteTextures(1, &Handle);
-		Handle = 0;
+		glDeleteTextures(1, &Handle->Texture);
+		Handle->Texture = 0;
 	}
 }
 
@@ -114,7 +90,7 @@ void VTexture::SetBorderColor(const Vector4f& color)
 {
 	Bind();	// Ensure bound
 	float* floatData = (float*)&color;
-	glTexParameterfv(TextureTypeToGL(Type), GL_TEXTURE_BORDER_COLOR, floatData);
+	glTexParameterfv(GLTypeConverter::TextureTypeToGL(Type), GL_TEXTURE_BORDER_COLOR, floatData);
 }
 
 void VTexture::SetMinFilterMetho(ETextureFilterMethod method)
@@ -174,3 +150,4 @@ void VTexture::CleanupFromShader()
 {
 	ActiveTextureCount--;
 }
+

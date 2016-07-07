@@ -1,6 +1,6 @@
-#include "PIL/Graphics/Material.h"
-#include "PIL/Graphics/OpenGL/Include/Glew.h"
+#include "Core/Graphics/Material.h"
 #include "PIL/Graphics/Texture.h"
+#include "PIL/Graphics/Shader.h"
 
 VMaterial::VMaterial()
 	:Shader(nullptr)

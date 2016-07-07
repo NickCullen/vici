@@ -19,9 +19,6 @@ public:
 	 */
 	static VTexture2D* FromFile(const class VFilePath& filePath);
 
-	// Binds the vertex buffer
-	virtual bool Lock() override;
-
 	// Sends the vertex data upto the GPU
 	virtual void Unlock(bool freeClientMemory = false) override;
 

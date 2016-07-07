@@ -1,7 +1,7 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
-#include "MaterialParam.h"
+#include "Core/CoreAPI.h"
+#include "PIL/Graphics/MaterialParam.h"
 #include "PIL/Collections/LinkedList.h"
 #include "PIl/DataTypes/PlatformTypes.h"
 #include "PIL/Collections/String.h"
@@ -11,7 +11,7 @@ class VTexture;
 class VShader;
 struct VShaderInputHandle;
 
-class PIL_API VMaterial
+class CORE_API VMaterial
 {
 	/**
 	 * couples the uniform location 

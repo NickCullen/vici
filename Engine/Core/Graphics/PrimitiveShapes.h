@@ -1,13 +1,13 @@
 #pragma once
 
 #include "PIL/DataTypes/PlatformTypes.h"
-#include "PIL/PILAPI.h"
+#include "Core/CoreAPI.h"
 
 class VMeshData;
 class VVertexBuffer;
 
 
-class PIL_API VPrimitiveShapes
+class CORE_API VPrimitiveShapes
 {
 private:
 

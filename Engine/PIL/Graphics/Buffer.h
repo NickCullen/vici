@@ -3,8 +3,8 @@
 #include "PIL/PILAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
 
-// Typedefs
-typedef uint32 VBO_t;
+// Non-public abi
+struct VBOHandle;
 
 // Defines what type of buffer this is
 enum EBufferType
@@ -35,7 +35,7 @@ protected:
 
 	int32 MaxSize;		// Allocated size in bytes of Data
 
-	VBO_t VBO;	// Reference to the vertex buffer in gpu
+	VBOHandle* VBO;		// Reference to the vertex buffer in gpu
 
 	EBufferType Type;	// The type of vertex buffer
 

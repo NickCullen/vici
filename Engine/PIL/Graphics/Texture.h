@@ -5,44 +5,12 @@
 #include "MaterialParam.h"
 #include "GraphicsTypes.h"
 
-typedef uint32 Texture_t;
+// Non-public abi texture handle
+struct VInternalTextureHandle;
 
 /**
- * Defines how the texture is used by the graphics library
+ * Base class for textures
  */
-enum ETextureType
-{
-	TEXTURE_1D,
-	TEXTURE_2D,
-	TEXTURE_3D
-};
-
-/**
- * Defines what happens when coordinates exceed 0 <-> 1
- */
-enum ETextureWrapMode
-{
-	WRAP_REPEAT,
-	WRAP_MIRRORED_REPEAT,
-	WRAP_CLAMP_TO_EDGE,
-	WRAP_CLAMP_TO_BORDER
-};
-
-/**
- * Filter methods for textures
- */
-enum ETextureFilterMethod
-{
-	FILTER_NEAREST,			// Returns the pixel that is closest to the coordinates.
-	FILTER_LINEAR,			// Returns the weighted average of the 4 pixels surrounding the given coordinates.
-	
-	// Sample from mipmaps instead
-	FILTER_NEAREST_MIPMAP_NEAREST,
-	FILTER_LINEAR_MIPMAP_NEAREST,
-	FILTER_NEAREST_MIPMAP_LINEAR,
-	FILTER_LINEAR_MIPMAP_LINEAR
-};
-
 class PIL_API VTexture : public IMaterialParam
 {
 protected:
@@ -50,7 +18,7 @@ protected:
 
 	void* Pixels;		// Pixel data
 
-	Texture_t Handle;	// Handle to the texture on the gpu
+	VInternalTextureHandle* Handle;	// Handle to the texture on the gpu
 
 	ETextureType Type;
 
@@ -81,18 +49,6 @@ public:
 
 	virtual ~VTexture();
 
-	// Converts the given texture type to
-	// its relevant GLenum
-	static uint32 TextureTypeToGL(const ETextureType type);
-
-	// Converts the given wrap mode to
-	// its relevant GLenum
-	static uint32 WrapModeToGL(const ETextureWrapMode mode);
-
-	// Converts the given filter method to
-	// its relevant GLenum
-	static uint32 FilterMethodToGL(const ETextureFilterMethod method);
-
 	// Make this texture active
 	// Pass in an integer if you want to bind it to an active texture
 	// other than texture0
@@ -104,13 +60,13 @@ public:
 	// Prepares the texture for uploading to the 
 	// GPU. Call before editing pixel data.
 	// Binds the vertex buffer
-	virtual bool Lock();
+	bool Lock();
 
 	// Sends the vertex data upto the GPU
-	// Soley upto the derived class to handle what happens when
+	// Solely upto the derived class to handle what happens when
 	// uploading to the GPU
 	// Pass in true to delete Pixel array in RAM
-	virtual void Unlock(bool freeClientMemory = false) = 0;	
+	virtual void Unlock(bool freeClientMemory = false) = 0;
 
 	// Frees the data held in client memory
 	void FlushClientMemory();

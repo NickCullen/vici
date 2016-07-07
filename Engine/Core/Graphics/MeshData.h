@@ -1,11 +1,11 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
+#include "Core/CoreAPI.h"
 
 class VVertexBuffer;
 class VIndexBuffer;
 
-class PIL_API VMeshData
+class CORE_API VMeshData
 {
 	friend class VPrimitiveShapes;
 private:

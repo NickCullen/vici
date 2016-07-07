@@ -40,4 +40,42 @@ public:
 		default:				return GL_RGB;	// Assume rgb
 		}
 	}
+
+
+	static inline uint32 TextureTypeToGL(const ETextureType texType)
+	{
+		switch (texType)
+		{
+		case TEXTURE_1D: return GL_TEXTURE_1D;
+		case TEXTURE_2D: return GL_TEXTURE_2D;
+		case TEXTURE_3D: return GL_TEXTURE_3D;
+		default:		 return GL_TEXTURE_2D;	// 2D texture assumed
+		}
+	}
+
+	static inline uint32 WrapModeToGL(const ETextureWrapMode mode)
+	{
+		switch (mode)
+		{
+		case WRAP_REPEAT:				return GL_REPEAT;
+		case WRAP_MIRRORED_REPEAT:		return GL_MIRRORED_REPEAT;
+		case WRAP_CLAMP_TO_EDGE:		return GL_CLAMP_TO_EDGE;
+		case WRAP_CLAMP_TO_BORDER:		return GL_CLAMP_TO_BORDER;
+		default:						return GL_REPEAT;		// Assume repeat
+		}
+	}
+
+	static inline uint32 FilterMethodToGL(const ETextureFilterMethod method)
+	{
+		switch (method)
+		{
+		case FILTER_NEAREST:				return GL_NEAREST;
+		case FILTER_LINEAR:					return GL_LINEAR;
+		case FILTER_NEAREST_MIPMAP_NEAREST:	return GL_NEAREST_MIPMAP_NEAREST;
+		case FILTER_LINEAR_MIPMAP_NEAREST:	return GL_LINEAR_MIPMAP_NEAREST;
+		case FILTER_NEAREST_MIPMAP_LINEAR:	return GL_NEAREST_MIPMAP_LINEAR;
+		case FILTER_LINEAR_MIPMAP_LINEAR:	return GL_LINEAR_MIPMAP_LINEAR;
+		default:							return GL_LINEAR;	// Assume linear
+		}
+	}
 };

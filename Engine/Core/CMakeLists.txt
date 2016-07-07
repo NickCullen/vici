@@ -12,6 +12,10 @@ file(GLOB CORE_SOURCES
 	"Engine/*.h"
 	"Engine/Source/*.cpp"
 
+	# Graphics
+	"Graphics/*.h"
+	"Graphics/Source/*.cpp"
+	
 	# Math
 	"Math/Math/Include/*.h"
 	"Math/Math/Source/*.cpp"

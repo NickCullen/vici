@@ -5,7 +5,8 @@
 #include "GraphicsConstants.h"
 #include "PIL/Collections/String.h"
 
-typedef uint32 VAO_t;
+// non-public abi
+struct VAOHandle;
 
 /**
  * Objects that manage Vertex array lists must
@@ -26,7 +27,7 @@ public:
 class PIL_API VVertexArrayList
 {
 private:
-	VAO_t VAO[MAX_RENDER_CONTEXTS];	// 1 VAO per render context
+	VAOHandle* VAO[MAX_RENDER_CONTEXTS];	// 1 VAO per render context
 
 	IVertexArrayHandler* Handler;	// Handler for this array;
 

@@ -1,12 +1,13 @@
 #pragma once
 
-#include "VertexArrayList.h"
+#include "Core/CoreAPI.h"
+#include "PIL/Graphics/VertexArrayList.h"
 
 class VShader;	
 class VMeshData;
 class VMaterial;
 
-class PIL_API VMeshRenderer : public IVertexArrayHandler
+class CORE_API VMeshRenderer : public IVertexArrayHandler
 {
 private:
 	VVertexArrayList VertexArrayList;	// The list of vertex arrays for this mesh
