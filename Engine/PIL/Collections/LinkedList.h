@@ -1,14 +1,12 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
-
 /** 
  * Dynamic class data structure ideal for chains of
  * items which do not change often. If using for an
  * array of items, consider VArray
  */
 template<typename T>
-class PIL_API VLinkedList
+class VLinkedList
 {
 	struct ListItem
 	{

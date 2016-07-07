@@ -2,6 +2,9 @@
 # Source Files
 #-------------------------------------------------------------------------------------------
 file(GLOB CORE_SOURCES 
+	LIST_DIRECTORIES false
+	RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+
 	# Core
 	"*.h"
 
@@ -10,12 +13,12 @@ file(GLOB CORE_SOURCES
 	"Engine/Source/*.cpp"
 
 	# Math
-	"Engine/*.h"
-	"Engine/Source/*.cpp"
+	"Math/Math/Include/*.h"
+	"Math/Math/Source/*.cpp"
 
 	# Util
-	"Engine/*.h"
-	"Engine/Source/*.cpp"
+	"Util/*.h"
+	"Util/Source/*.cpp"
 )
 
 #-------------------------------------------------------------------------------------------
@@ -50,3 +53,8 @@ add_library(Core SHARED
 # Modules this library depends upon
 #-------------------------------------------------------------------------------------------
 target_link_libraries(Core PRIVATE PIL)
+
+
+
+# Filter sources for cleaner project structure
+FILTER_SOURCES("${CORE_SOURCES}")

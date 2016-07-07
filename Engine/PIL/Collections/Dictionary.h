@@ -1,6 +1,5 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
 #include "Array.h"
 
@@ -8,7 +7,7 @@
  * Class to store values as a key,value pair
  */
 template< typename ValueType, typename KeyType = uint32>
-class PIL_API VDictionary
+class VDictionary
 {
 	class VDictionaryEntry
 	{

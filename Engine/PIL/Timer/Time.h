@@ -20,12 +20,7 @@ private:
 	VTime();
 	~VTime() = default;
 public:
-	static VTime* GetInstance()
-	{
-		if (Instance == nullptr)
-			Instance = new VTime();
-		return Instance;
-	}
+	static VTime* GetInstance();
 
 	// Setters
 	inline void UpdateTime();	// Will set Time using the native timer
@@ -38,5 +33,3 @@ public:
 	inline double GetFixedDeltaTime() { return FixedDeltaTime; }
 };
 
-// Static init
-VTime* VTime::Instance = nullptr;

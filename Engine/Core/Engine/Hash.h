@@ -5,7 +5,7 @@
 #include "PIL/Collections/String.h"
 
 //the typedef for a hash
-typedef uint32 vhash_int;
+#define vhash_int uint32
 
 /**
 * This class is used to optimize the comparison between 2 strings 
@@ -66,7 +66,7 @@ public:
 	* @param other integer 
 	* @return returns true if equal false if not
 	*/
-	bool operator==(vhash_int other);
+	//bool operator==(vhash_int other);
 
 	/**
 	* equality comparison between this hash and a string
@@ -176,6 +176,23 @@ public:
 	{
 		return _hash;
 	}
+
+	/**
+	 * Cast to vhash_int
+	 */
+	operator vhash_int()
+	{
+		return _hash;
+	}
+
+	/**
+	* Const Cast to vhash_int
+	*/
+	operator vhash_int() const
+	{
+		return _hash;
+	}
+
 
 	/**
 	* Static function which takes a string and hashifies it into 

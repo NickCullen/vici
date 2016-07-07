@@ -27,10 +27,10 @@ VHash::VHash(char* str)
 }
 
 //references
-bool VHash::operator==(vhash_int other)
-{
-	return(_hash == other);
-}
+//bool VHash::operator==(vhash_int other)
+//{
+//	return(_hash == other);
+//}
 
 bool VHash::operator==(const char* other)
 {

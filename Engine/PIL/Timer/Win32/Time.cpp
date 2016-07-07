@@ -1,6 +1,9 @@
 #include "PIL/Timer/Time.h"
 #include <Windows.h>
 
+// Static init
+VTime* VTime::Instance = nullptr;
+
 struct VInternalTimeData
 {
 	LARGE_INTEGER Time;
@@ -18,6 +21,13 @@ VTime::VTime()
 	InternalTime->Freq = double(clockFreq.QuadPart);		// Set frequency to seconds
 
 	QueryPerformanceCounter(&InternalTime->Time);			// Take Time
+}
+
+VTime* VTime::GetInstance()
+{
+	if (Instance == nullptr)
+		Instance = new VTime();
+	return Instance;
 }
 
 void VTime::UpdateTime()

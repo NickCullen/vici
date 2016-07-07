@@ -1,11 +1,10 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
 #include <memory>
 
 template <typename T>
-class PIL_API VPool
+class VPool
 {
 protected:
 	T* Data;	// Array of data

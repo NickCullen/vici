@@ -2,16 +2,12 @@
 
 #include "Pool.h"
 
-// Forward decl. friends
-template<typename T> 
-class VArray;
-
 /**
  * Pool of objects that can resize if
  * a call to Get exceeds MaxCount
  */
 template<typename T>
-class PIL_API VDynamicPool : public VPool<T>
+class VDynamicPool : public VPool<T>
 {
 	/**
 	 * Use for safe access when working with dynamic pools
@@ -62,7 +58,6 @@ class PIL_API VDynamicPool : public VPool<T>
 	};
 
 	friend class VPoolPointer;
-	friend class VArray<T>;
 
 public:
 	VDynamicPool()

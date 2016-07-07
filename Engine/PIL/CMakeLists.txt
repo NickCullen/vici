@@ -2,6 +2,9 @@
 # Source Files
 #-------------------------------------------------------------------------------------------
 file(GLOB PIL_SOURCES_COMMON 
+	LIST_DIRECTORIES false
+	RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+
 	# PIL Common
 	"*.h"
 
@@ -12,35 +15,35 @@ file(GLOB PIL_SOURCES_COMMON
 
 	# Data types
 	"DataTypes/*.h"
-	"Collections/${VICI_TARGET_SYSTEM}/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.h"
+	"DataTypes/${VICI_TARGET_SYSTEM}/*.cpp"
+	"DataTypes/${VICI_TARGET_SYSTEM}/*.h"
 
 	# File System
 	"FileSystem/*.h"
 	"FileSystem/Common/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.h"
+	"FileSystem/${VICI_TARGET_SYSTEM}/*.cpp"
+	"FileSystem/${VICI_TARGET_SYSTEM}/*.h"
 
 	# Graphics
 	"Graphics/*.h"
-	"Collections/${VICI_TARGET_SYSTEM}/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.h"
+	"Graphics/${VICI_TARGET_SYSTEM}/*.cpp"
+	"Graphics/${VICI_TARGET_SYSTEM}/*.h"
 
 	# Platform 
 	"Platform/*.h"
 	"Platform/Common/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.h"
+	"Platform/${VICI_TARGET_SYSTEM}/*.cpp"
+	"Platform/${VICI_TARGET_SYSTEM}/*.h"
 
 	# Threads
 	"Threads/*.h"
-	"Collections/${VICI_TARGET_SYSTEM}/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.h"
+	"Threads/${VICI_TARGET_SYSTEM}/*.cpp"
+	"Threads/${VICI_TARGET_SYSTEM}/*.h"
 
 	# Timer
 	"Timer/*.h"
-	"Collections/${VICI_TARGET_SYSTEM}/*.cpp"
-	"Collections/${VICI_TARGET_SYSTEM}/*.h"
+	"Timer/${VICI_TARGET_SYSTEM}/*.cpp"
+	"Timer/${VICI_TARGET_SYSTEM}/*.h"
 )
 
 #-------------------------------------------------------------------------------------------
@@ -66,6 +69,9 @@ endif()
 #-------------------------------------------------------------------------------------------
 if(VICI_OPENGL)
 	file(GLOB GRAPHICS_SOURCES 
+		LIST_DIRECTORIES false
+		RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+		
 		# Graphics
 		"Graphics/OpenGL/Include/*.h"
 		"Graphics/OpenGL/Source/*.cpp"
@@ -117,3 +123,8 @@ add_library(PIL SHARED
 if(PIL_LIBRARIES)
 	target_link_libraries(PIL PRIVATE ${PIL_LIBRARIES})
 endif()
+
+# Filter sources for cleaner project structure
+FILTER_SOURCES("${PIL_SOURCES_COMMON}")
+FILTER_SOURCES("${PLATFORM_SOURCES}")
+FILTER_SOURCES("${GRAPHICS_SOURCES}")

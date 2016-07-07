@@ -1,10 +1,8 @@
 #pragma once
 
-#include "CoreAPI.h"
-#include "IndexBuffer.h"
-#include "VString.h"
-#include "Dictionary.h"
-#include "Vector3.h"
+#include "Core/CoreAPI.h"
+#include "Core/EngineIncludes.h"
+#include "PIL/Graphics/IndexBuffer.h"
 
 class CORE_API OBJImporter
 {
@@ -49,7 +47,7 @@ class CORE_API OBJImporter
 	};
 
 private:
-	VDictionary<OBJMaterial> Materials;	// Materials stored by their id
+	VDictionary<OBJMaterial, VHash> Materials;	// Materials stored by their id
 
 	VArray<OBJObject*> Objects;		// Objects in this obj file 
 

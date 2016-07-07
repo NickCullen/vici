@@ -1,12 +1,10 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
-
 /**
  * Queue datastructure that is FIFO
  */
 template <typename T>
-class PIL_API VQueue
+class VQueue
 {
 	class VQueueItem
 	{

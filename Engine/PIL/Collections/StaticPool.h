@@ -7,7 +7,7 @@
  * the given size unless specifically told otherwise.
  */
 template<typename T>
-class PIL_API VStaticPool : public VPool<T>
+class VStaticPool : public VPool<T>
 {
 private:
 

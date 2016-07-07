@@ -2,6 +2,23 @@ cmake_minimum_required(VERSION 3.1)
 project(Vici)
 
 #-------------------------------------------------------------------------------------------
+# Helpful Functions
+#-------------------------------------------------------------------------------------------
+function(FILTER_SOURCES SOURCE_LIST)
+	foreach(_source IN ITEMS ${SOURCE_LIST})
+		get_filename_component(_source_path "${_source}" PATH)
+
+		if(VICI_WINDOWS)
+			string(REPLACE "/" "\\" _source_path "${_source_path}")
+		endif()
+
+		message("${_source_path}")
+
+		source_group("${_source_path}" FILES "${_source}")
+	endforeach()
+endfunction()
+
+#-------------------------------------------------------------------------------------------
 # First checks
 #-------------------------------------------------------------------------------------------
 if(DEFINED ENV{VICI_HOME})
@@ -23,6 +40,7 @@ option(VICI_EDITOR_BUILD "Use to build editor methods and functionality into the
 # Defines
 #-------------------------------------------------------------------------------------------
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+add_definitions(-DVICI_ENGINE)
 
 # Common Defines
 if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
@@ -122,23 +140,40 @@ set (CMAKE_CXX_STANDARD 11)
 #-------------------------------------------------------------------------------------------
 # Output Directories
 #-------------------------------------------------------------------------------------------
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+if(VICI_EDITOR)
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${VICI_HOME}Build/Editor/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${VICI_HOME}Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+else()
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+endif()
 
 #-------------------------------------------------------------------------------------------
 # Include dirs
 #-------------------------------------------------------------------------------------------
 include_directories(Engine)
 
+if(VICI_EDITOR)
+	include_directories(Editor)
+endif()
 #-------------------------------------------------------------------------------------------
 # Libraries		- Make sure all modules can find each other
 #-------------------------------------------------------------------------------------------
-link_directories("${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+if(VICI_EDITOR)
+	link_directories("${VICI_HOME}Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+else()
+	link_directories("${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+endif()
+
 
 #-------------------------------------------------------------------------------------------
 # Sub-projects
 #-------------------------------------------------------------------------------------------
 add_subdirectory(Engine)
+
+if(VICI_EDITOR)
+	#add_subdirectory(Editor)
+endif()
 
 #-------------------------------------------------------------------------------------------
 # Installation

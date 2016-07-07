@@ -1,9 +1,7 @@
 #pragma once
 
-#include "PIL/PILAPI.h"
-
 template<typename T>
-class PIL_API VStack
+class VStack
 {
 	class VStackNode
 	{

@@ -1,9 +1,6 @@
-#include "ObjImporter.h"
-#include "FilePath.h"
-#include "VString.h"
-#include "Vector3.h"
-#include "Vector2.h"
-#include "VertexBuffer.h"
+#include "Core/Util/ObjImporter.h"
+#include "PIL/Graphics/IndexBuffer.h"
+#include "PIL/Graphics/VertexBuffer.h"
 
 #define COMPARE(s1, s2) strcmp(s1, s2) == 0
 
@@ -167,21 +164,23 @@ bool OBJImporter::Import(const VFilePath& file)
 			// Iterate over objects
 			for (uint32 i = 0; i < Objects.size(); i++)
 			{
-				OBJObject* o = Objects[i];
+				//OBJObject* o = Objects[i];
+				OBJObject* o = Objects.at(i);
 
 				// Iterate over objects faces
 				for (uint32 j = 0; j < o->Faces.size(); j++)
 				{
-					OBJFace* f = &o->Faces[j];
+					//OBJFace* f = &o->Faces[j];
+					OBJFace* f = &o->Faces.at(j);
 
 					// Iterate over indices of the face
 					for (uint32 k = 0; k < f->IndexCount; k++)
 					{
 						VertexBuffer->AddVertex();		// Add a vertex
 
-						if (posIdx != -1) VertexBuffer->AddData<Vector3f>(positionsArr[f->PosIndices[k]], posIdx);
-						if (uvIdx != -1) VertexBuffer->AddData<Vector2f>(uvArr[f->UVIndices[k]], uvIdx);
-						if (normalIdx != -1) VertexBuffer->AddData<Vector3f>(normalArr[f->NormIndices[k]], normalIdx);
+						if (posIdx != -1) VertexBuffer->AddData<Vector3f>(positionsArr.at(f->PosIndices.at(k)), posIdx);
+						if (uvIdx != -1) VertexBuffer->AddData<Vector2f>(uvArr.at(f->UVIndices.at(k)), uvIdx);
+						if (normalIdx != -1) VertexBuffer->AddData<Vector3f>(normalArr.at(f->NormIndices.at(k)), normalIdx);
 						//if (paramIdx != -1) VertexBuffer->AddData<Vector3f>(paramArr[f->para[k]], paramIdx);
 					}
 					

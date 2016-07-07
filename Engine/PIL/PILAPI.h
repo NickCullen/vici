@@ -8,8 +8,12 @@
 
 #ifdef PIL_EXPORTS
 #define PIL_API API_EXPORT
+#ifndef EXPIMP_TEMPLATE
 #define EXPIMP_TEMPLATE
+#endif
 #else
 #define PIL_API API_IMPORT
+#ifndef EXPIMP_TEMPLATE
 #define EXPIMP_TEMPLATE extern
+#endif
 #endif
