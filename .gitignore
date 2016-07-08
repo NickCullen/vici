@@ -7,7 +7,7 @@ tmp_build/
 *.exp
 *.pdb
 *.ilk
-*.VC.db
+*.VC.db*
 
 /Lib/Win32/*/*.dll
 /Lib/Win64/*/*.dll

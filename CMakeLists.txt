@@ -24,6 +24,7 @@ endfunction()
 if(DEFINED ENV{VICI_HOME})
 	message("Vici home directory = $ENV{VICI_HOME}")
 	set(VICI_HOME $ENV{VICI_HOME})
+	string(REPLACE "\\" "/" VICI_HOME "${VICI_HOME}")
 	set(VICI_THIRD_PARTY_DIR "$ENV{VICI_HOME}ThirdParty/")
 else()
 	message("ERROR! No VICI_HOME Environment variable set, have you run the setup.bat/sh script?")
@@ -35,6 +36,7 @@ endif()
 #-------------------------------------------------------------------------------------------
 option(VICI_USE_DIRECTX "Use DirectX on Windows builds" OFF)
 option(VICI_EDITOR_BUILD "Use to build editor methods and functionality into the engine" ON)
+option(VICI_BUILD_EXAMPLE_PROJECT "Should the example project be used in build?" ON)
 
 #-------------------------------------------------------------------------------------------
 # Defines
@@ -173,6 +175,11 @@ add_subdirectory(Engine)
 
 if(VICI_EDITOR)
 	add_subdirectory(Editor)
+endif()
+
+# Build the example / test project
+if(VICI_BUILD_EXAMPLE_PROJECT)
+	add_subdirectory(ExampleProject)
 endif()
 
 #-------------------------------------------------------------------------------------------

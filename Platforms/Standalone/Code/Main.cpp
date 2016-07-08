@@ -2,6 +2,9 @@
 #include "Core/EngineIncludes.h"
 #include "PIL/Platform/Window.h"
 
+// This will have to change
+#include "Module/Module.h"
+
 // Main
 int main(int argc, char** argv)
 {
@@ -20,8 +23,10 @@ int main(int argc, char** argv)
 		printf("Error creating window\n");
 		return 1;
 	}
-	win.MakeContextCurrent();
+	win.MakeCurrent();
 
+	// Create project module
+	ExampleProjectModule* module = new ExampleProjectModule();
 
 	// Setup stuff
 	VEngine* vici = new VEngine();
@@ -37,8 +42,11 @@ int main(int argc, char** argv)
 	float currentTime = (float)VTime::GetInstance()->GetTime();
 	float accumulator = 0.0f;
 
-	while (!Quit)
+	while (!win.ShouldClose())
 	{
+		// Poll events
+		win.PollEvents();
+
 		VTime::GetInstance()->UpdateTime();	// Update time
 
 		float newTime = (float)VTime::GetInstance()->GetTime();
@@ -57,29 +65,20 @@ int main(int argc, char** argv)
 		while (accumulator >= dt)
 		{
 			// TODO:: Fixed update code goes here
-			if (IsPlaying)
-			{
-				vici->FixedUpdate();
-			}
+			vici->FixedUpdate();
 
 			t += dt;
 			accumulator -= dt;
 		}
 
 		// TODO:: Single frame update code here
-		if (IsPlaying)
-		{
-			vici->Update();
-		}
+		vici->Update();
 
 		// TODO:: Render here
 		vici->Render();
 
 		// Swap buffers
-		win.SwapBuffers();
-
-		// Poll events
-		win.PollEvents();
+		win.Swapbuffers();
 
 	}
 
