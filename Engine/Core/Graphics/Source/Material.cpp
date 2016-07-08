@@ -20,7 +20,7 @@ void VMaterial::PrepareForRender()
 	for (auto item = Uniforms.GetFirst(); item; item = Uniforms.GetNext(item))
 	{
 		ParamHandle* cur = &item->Data;
-		if (cur->Handle >= 0)
+		if (cur->Handle != nullptr)
 		{
 			cur->Param->SendToShader(cur->Handle);
 		}
@@ -32,7 +32,7 @@ void VMaterial::CleanupAfterRender()
 	for (auto item = Uniforms.GetFirst(); item; item = Uniforms.GetNext(item))
 	{
 		ParamHandle* cur = &item->Data;
-		if (cur->Handle >= 0)
+		if (cur->Handle != nullptr)
 		{
 			cur->Param->CleanupFromShader();
 		}
