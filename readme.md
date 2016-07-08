@@ -57,3 +57,12 @@ Setup process will be as follows
 - > make
 
 
+# Building Example Project
+- > cd VICI_HOME/ExampleProject
+- > mkdir Project && cd Project
+- > cmake ..
+
+Open up the Visual Studio solution (or platform relevant project/makefile) and you will notice two projects were generatored. One "ExampleProjectLib"
+which contains all the code for the project and is built as a shared library and one "ExampleProject" which hosts the executable code.
+
+Make ExampleProject the startup project and build & run.
