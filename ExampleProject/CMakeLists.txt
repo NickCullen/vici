@@ -28,11 +28,12 @@ file(GLOB_RECURSE PROJECT_SOURCES
 	RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
 
 	# Code
-	"*.h"
-	"*.cpp"
+	"Code/*.h"
+	"Code/*.cpp"
 
 	# Intermediate asset files
-	"*.xml"
+	"Assets/*.xml"
+	"Settings/*.xml"
 )
 
 
