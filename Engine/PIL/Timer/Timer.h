@@ -14,7 +14,7 @@ class PIL_API VTimer
 private:
 	VInternalTimeData* InternalTime;
 
-	float TimeInSeconds;		// Time kept in seconds
+	double TimeInSeconds;		// Time kept in seconds
 
 	bool Paused;
 public:
@@ -55,5 +55,10 @@ public:
 	/**
 	 * Returns the time in seconds
 	 */
-	inline float GetTimeInSeconds() { return TimeInSeconds; }
+	inline double GetTimeInSeconds() { return TimeInSeconds; }
+
+	/**
+	 * Returns the time in milliseconds
+	 */
+	inline double GetTimeInMilliSeconds() { return TimeInSeconds * 1000.0; }
 };

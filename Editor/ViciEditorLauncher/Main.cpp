@@ -4,16 +4,26 @@
 
 int main(int argc, const char** argv)
 {
-	const char* path = argv[0];
-	VFilePath runningDirectory = VFilePath::TrimPath((char*)path);
-
-	VString vpath = VEnvironment::GetSystemEnvVar("VICI_HOME");
-	VFilePath vResPath = vpath + "Resources/";
-
-	printf("Res = %s\n", (char*)vResPath);
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), vpath.c_str());
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), vResPath);
+	// Setup running directory path
+	VFilePath runningDirectory = VFilePath::TrimPath((char*)argv[0]);
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_RUNNING_DIRECTORY), runningDirectory);
+
+	// SETUP paths for VICI_EDITOR editor builds
+#ifdef VICI_EDITOR
+	VFilePath viciHome = VEnvironment::GetInstance()->GetSystemEnvVar("VICI_HOME");
+
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), viciHome);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), viciHome + "Resources/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), VFilePath(PROJECT_LOCATION) + "Assets/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), VFilePath(PROJECT_LOCATION) + "Settings/");
+
+	// RELEASE path builds
+#else
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), runningDirectory + "Assets/Resources/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), runningDirectory);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), runningDirectory + "Assets/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), runningDirectory + "Settings/");
+#endif
 
 	VEditor editor;
 	

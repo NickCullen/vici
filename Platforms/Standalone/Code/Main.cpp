@@ -14,36 +14,24 @@ int main(int argc, char** argv)
 	
 	// SETUP paths for VICI_EDITOR editor builds
 #ifdef VICI_EDITOR
-	VString viciHome = VEnvironment::GetInstance()->GetSystemEnvVar("VICI_HOME");
-	if (viciHome.empty())
-	{
-		printf("Please run setup.bat/sh in VICI_HOME directory\n");
-		return -1;
-	}
-	
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), viciHome.c_str());
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), (viciHome + "Resources/").c_str());
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), (VFilePath(PROJECT_LOCATION) + "Assets/"));
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), (VFilePath(PROJECT_LOCATION) + "Settings/"));
+	VFilePath viciHome = VEnvironment::GetInstance()->GetSystemEnvVar("VICI_HOME");
+
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), viciHome);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), viciHome + "Resources/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), VFilePath(PROJECT_LOCATION) + "Assets/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), VFilePath(PROJECT_LOCATION) + "Settings/");
 	
 	// RELEASE path builds
 #else
-	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), (runningDirectory + "Assets/Resources/").c_str());
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), runningDirectory + "Assets/Resources/");
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), runningDirectory);
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), runningDirectory + "Assets/");
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), runningDirectory + "Settings/");
 #endif
 
-	// TODO:: This window creation will load from a file...
-	VWindow win;
-	win.SetSize(512, 512);
-	win.SetTitle("My Window");
-	if (!win.CreateNewWindow())
-	{
-		printf("Error creating window\n");
-		return 1;
-	}
-	win.MakeCurrent();
+	// Load Window settings and open
+	VWindow* win = VSerialization::CreateAndLoadObject<VWindow>(VFilePath("window.xml", FILE_SETTINGS_DIRECTORY));		// Load
+	win->CreateNewWindow();																								// Open
 
 	// Create project module
 	ExampleProjectModule* module = new ExampleProjectModule();
@@ -62,10 +50,10 @@ int main(int argc, char** argv)
 	float currentTime = (float)VTime::GetInstance()->GetTime();
 	float accumulator = 0.0f;
 
-	while (!win.ShouldClose())
+	while (!win->ShouldClose())
 	{
 		// Poll events
-		win.PollEvents();
+		win->PollEvents();
 
 		VTime::GetInstance()->UpdateTime();	// Update time
 
@@ -98,7 +86,7 @@ int main(int argc, char** argv)
 		vici->Render();
 
 		// Swap buffers
-		win.Swapbuffers();
+		win->Swapbuffers();
 
 	}
 

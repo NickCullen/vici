@@ -183,7 +183,7 @@ bool VWindow::CreateNewWindow()
 	if (!(NativeWindow->hWnd = CreateWindowEx(
 		NativeWindow->dwExStyle,      // Extended Style For The Window
 		"OpenGL",									// Class Name
-		Title,								// Window Title
+		Title.c_str(),								// Window Title
 		WS_CLIPSIBLINGS |							// Required Window Style
 		WS_CLIPCHILDREN |							// Required Window Style
 		NativeWindow->dwStyle,									// Selected Window Style
@@ -434,7 +434,7 @@ void VWindow::SetTitle(const char* title, bool post)
 	Title = title;
 	if (IsOpen())
 	{
-		SetWindowText(NativeWindow->hWnd, TEXT(Title));
+		SetWindowText(NativeWindow->hWnd, TEXT(Title.c_str()));
 	}
 }
 

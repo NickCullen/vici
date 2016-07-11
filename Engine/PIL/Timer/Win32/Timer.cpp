@@ -8,7 +8,7 @@ struct VInternalTimeData
 };
 
 VTimer::VTimer()
-	: TimeInSeconds(0.0f),
+	: TimeInSeconds(0.0),
 	Paused(true)
 {
 	InternalTime = new VInternalTimeData();
@@ -34,7 +34,7 @@ void VTimer::Tick()
 
 		double elapsed = double(newTime.QuadPart - InternalTime->Time.QuadPart) / InternalTime->Freq;		// Get difference in seconds
 																											// Set vars
-		TimeInSeconds += float(elapsed);
+		TimeInSeconds += elapsed;
 
 		// Swap
 		InternalTime->Time = newTime;
@@ -45,7 +45,7 @@ void VTimer::Begin()
 {
 	QueryPerformanceCounter(&InternalTime->Time);			// Take Time
 
-	TimeInSeconds = 0.0f;	// Reset
+	TimeInSeconds = 0.0;	// Reset
 	Paused = false;
 }
 
@@ -61,11 +61,11 @@ void VTimer::Resume()
 
 void VTimer::Stop()
 {
-	TimeInSeconds = 0.0f;
+	TimeInSeconds = 0.0;
 	Paused = true;
 }
 
 void VTimer::Reset()
 {
-	TimeInSeconds = 0.0f;
+	TimeInSeconds = 0.0;
 }

@@ -23,6 +23,9 @@ file(GLOB CORE_SOURCES
 	# Util
 	"Util/*.h"
 	"Util/Source/*.cpp"
+
+	# Serialization
+	"Serialization/*h"
 )
 
 #-------------------------------------------------------------------------------------------

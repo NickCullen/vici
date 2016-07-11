@@ -52,4 +52,5 @@
 // Math library
 #include "Core/Math/Math/Include/MathLib.h"
 
-
+// Serialization library
+#include "Core/Serialization/Serialization.h"

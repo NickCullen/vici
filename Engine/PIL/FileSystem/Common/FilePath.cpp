@@ -40,6 +40,12 @@ void VFilePath::PrefixLocation()
 	case FILE_RUNNING_DIRECTORY:
 		VEnvironment::GetInstance()->Get(ItemToString(FILE_RUNNING_DIRECTORY), Path);
 		break;
+	case FILE_ASSET_DIRECTORY:
+		VEnvironment::GetInstance()->Get(ItemToString(FILE_ASSET_DIRECTORY), Path);
+		break;
+	case FILE_SETTINGS_DIRECTORY:
+		VEnvironment::GetInstance()->Get(ItemToString(FILE_SETTINGS_DIRECTORY), Path);
+		break;
 	case FILE_EDITOR_DIRECTORY:
 		VEnvironment::GetInstance()->Get(ItemToString(FILE_EDITOR_DIRECTORY), Path);
 		break;

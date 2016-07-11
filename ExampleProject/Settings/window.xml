@@ -1,3 +1,12 @@
-<tmp>
+<?xml version="1.0" encoding="utf-8"?>
+<cereal>
+	<value0>
+		<Title>ExampleProject</Title>
+		<X>0</X>
+		<Y>0</Y>
+		<Width>1700</Width>
+		<Height>900</Height>
+		<Mode>0</Mode>
+	</value0>
+</cereal>
 
-</tmp>

@@ -47,6 +47,7 @@ endif()
 # Options
 #-------------------------------------------------------------------------------------------
 option(VICI_EDITOR_BUILD "Is this an editor build?" ON)
+option(VICI_BUILD_TESTS "Should tests be built?" ON)
 
 #-------------------------------------------------------------------------------------------
 # Defines
@@ -164,16 +165,19 @@ endif()
 # Compiler Flags
 #-------------------------------------------------------------------------------------------
 set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 
 #-------------------------------------------------------------------------------------------
 # Include dirs
 #-------------------------------------------------------------------------------------------
 include_directories("${VICI_HOME}Engine")
+include_directories("${VICI_HOME}ThirdParty/cereal-1.2.0/include")		# cereal is used as our method for serialization
 
 if(VICI_EDITOR)
 	include_directories("${VICI_HOME}Editor")
 endif()
+
 #-------------------------------------------------------------------------------------------
 # Libraries		- Make sure all modules can find each other
 #-------------------------------------------------------------------------------------------

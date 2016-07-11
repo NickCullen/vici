@@ -2,6 +2,8 @@
 
 #include "PIL/PILAPI.h"
 #include "PIL/DataTypes/PlatformTypes.h"
+#include "PIL/Collections/String.h"
+#include "Core/Serialization/Serialization.h"
 
 // Forward decl
 struct NativeWindow_t;
@@ -35,7 +37,7 @@ private:
 	VInput* Input;		
 
 	// Title of the window
-	const char* Title;
+	VString Title;
 
 	// Parent window (this window will share its render context
 	VWindow* Parent;
@@ -150,4 +152,16 @@ public:
 	inline NativeWindow_t* GetNativeWindow() { return NativeWindow; }
 	inline uint32 GetWidth() { return Width; }
 	inline uint32 GetHeight() { return Height; }
+
+	// Serialize this window
+	template< class Archive >
+	void serialize(Archive & ar)
+	{
+		ar(CEREAL_NVP(Title), 
+			CEREAL_NVP(X),
+			CEREAL_NVP(Y), 
+			CEREAL_NVP(Width),
+			CEREAL_NVP(Height),
+			CEREAL_NVP(Mode));
+	}
 };
