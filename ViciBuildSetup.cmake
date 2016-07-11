@@ -53,6 +53,7 @@ option(VICI_EDITOR_BUILD "Is this an editor build?" ON)
 #-------------------------------------------------------------------------------------------
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-DVICI_ENGINE)
+add_definitions(-DPROJECT_LOCATION="${CMAKE_CURRENT_SOURCE_DIR}/")		# PROJECT_LOCATION will always be the root CMake file (or whichever CMake file includes this)
 
 # Common Defines
 if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)

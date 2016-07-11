@@ -1,14 +1,19 @@
 cmake_minimum_required(VERSION 3.1)
 project(ExampleProject)
 
-# Include Project vars
+#-------------------------------------------------------------------------------------------
+# Common project vars amoungst Vici projects
+#-------------------------------------------------------------------------------------------
 include("$ENV{VICI_HOME}ViciBuildSetup.cmake")
 
-
-# Add its own include include_directories
+#-------------------------------------------------------------------------------------------
+# Include Directories
+#-------------------------------------------------------------------------------------------
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Code")
 
-# Add its own link include_directories
+#-------------------------------------------------------------------------------------------
+# Link Directories
+#-------------------------------------------------------------------------------------------
 if(VICI_EDITOR)
 	link_directories("${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
 else()

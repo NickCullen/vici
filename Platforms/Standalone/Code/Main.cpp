@@ -9,10 +9,30 @@
 int main(int argc, char** argv)
 {
 	// Setup running directory path
-	const char* path = argv[0];
-	VFilePath runningDirectory = VFilePath::TrimPath((char*)path);
-
+	VFilePath runningDirectory = VFilePath::TrimPath((char*)argv[0]);
 	VEnvironment::GetInstance()->Put(ItemToString(FILE_RUNNING_DIRECTORY), runningDirectory);
+	
+	// SETUP paths for VICI_EDITOR editor builds
+#ifdef VICI_EDITOR
+	VString viciHome = VEnvironment::GetInstance()->GetSystemEnvVar("VICI_HOME");
+	if (viciHome.empty())
+	{
+		printf("Please run setup.bat/sh in VICI_HOME directory\n");
+		return -1;
+	}
+	
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), viciHome.c_str());
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), (viciHome + "Resources/").c_str());
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), (VFilePath(PROJECT_LOCATION) + "Assets/"));
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), (VFilePath(PROJECT_LOCATION) + "Settings/"));
+	
+	// RELEASE path builds
+#else
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_RESOURCE_DIRECTORY), (runningDirectory + "Assets/Resources/").c_str());
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_EDITOR_DIRECTORY), runningDirectory);
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_ASSET_DIRECTORY), runningDirectory + "Assets/");
+	VEnvironment::GetInstance()->Put(ItemToString(FILE_SETTINGS_DIRECTORY), runningDirectory + "Settings/");
+#endif
 
 	// TODO:: This window creation will load from a file...
 	VWindow win;
