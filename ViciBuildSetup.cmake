@@ -15,6 +15,21 @@ function(FILTER_SOURCES SOURCE_LIST)
 	endforeach()
 endfunction()
 
+# Ensures vici DLLs are copied
+function (COPY_VICI_RUNTIMES targetProject)
+	if(VICI_EDITOR)
+		add_custom_command(TARGET ${targetProject} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+				"${VICI_HOME}Build/Editor/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}"
+				"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	else()
+		add_custom_command(TARGET ${targetProject} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+				"${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}"
+				"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	endif()
+
+endfunction()
 #-------------------------------------------------------------------------------------------
 # First checks
 #-------------------------------------------------------------------------------------------
@@ -27,6 +42,11 @@ else()
 	message("ERROR! No VICI_HOME Environment variable set, have you run the setup.bat/sh script?")
 	return()
 endif()
+
+#-------------------------------------------------------------------------------------------
+# Options
+#-------------------------------------------------------------------------------------------
+option(VICI_EDITOR_BUILD "Is this an editor build?" ON)
 
 #-------------------------------------------------------------------------------------------
 # Defines
@@ -124,6 +144,22 @@ endif()
 
 
 #-------------------------------------------------------------------------------------------
+# Output directories
+#-------------------------------------------------------------------------------------------
+if(VICI_EDITOR)
+	message("Editor build")
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+else()
+	message("Runtime Build")
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
+endif()
+
+
+#-------------------------------------------------------------------------------------------
 # Compiler Flags
 #-------------------------------------------------------------------------------------------
 set (CMAKE_CXX_STANDARD 11)
@@ -145,5 +181,7 @@ if(VICI_EDITOR)
 else()
 	link_directories("${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
 endif()
+
+
 
 

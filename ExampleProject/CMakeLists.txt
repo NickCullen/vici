@@ -4,18 +4,6 @@ project(ExampleProject)
 # Include Project vars
 include("$ENV{VICI_HOME}ViciBuildSetup.cmake")
 
-# Output for this project will be in its own build directory
-if(VICI_EDITOR)
-	message("Editor build")
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
-	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/Editor/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
-else()
-	message("Runtime Build")
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}")
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
-	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Build/${VICI_TARGET_SYSTEM}/Lib/${VICI_PLATFORM_TARGET}")
-endif()
 
 # Add its own include include_directories
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Code")
@@ -34,9 +22,12 @@ file(GLOB_RECURSE PROJECT_SOURCES
 	LIST_DIRECTORIES false
 	RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
 
-	# Search patterns
+	# Code
 	"*.h"
 	"*.cpp"
+
+	# Intermediate asset files
+	"*.xml"
 )
 
 
@@ -76,3 +67,6 @@ endif()
 
 # Filter sources for cleaner project structure
 FILTER_SOURCES("${PROJECT_SOURCES}")
+
+# Copy vici runtimes
+COPY_VICI_RUNTIMES(ExampleProjectLib)
