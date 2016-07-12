@@ -5,27 +5,29 @@
 #include "PIL/Graphics/GraphicsTypes.h"
 #include "PIL/Graphics/OpenGL/Include/Glew.h"
 
+#define CASE_TYPE(TYPE) case PlatformTypeToCode<TYPE>::Code: return PlatformTypeToCode<TYPE>::OPENGL_TYPE
+
 class PIL_API GLTypeConverter
 {
 public:
 
-	static inline uint32 ElementTypeToGL(EElementType type)
+	static inline uint32 ElementTypeToGL(EPlatformType Type)
 	{
-
-		switch (type)
+		switch (Type)
 		{
-		case ELEM_TYPE_FLOAT:			return GL_FLOAT;
-		case ELEM_TYPE_DOUBLE:			return GL_DOUBLE;
+			CASE_TYPE(int8);
+			CASE_TYPE(int16);
+			CASE_TYPE(int32);
+			CASE_TYPE(int64);
 
-		case ELEM_TYPE_INT8:			return GL_BYTE;
-		case ELEM_TYPE_INT16:			return GL_SHORT;
-		case ELEM_TYPE_INT32:			return GL_INT;
+			CASE_TYPE(uint8);
+			CASE_TYPE(uint16);
+			CASE_TYPE(uint32);
+			CASE_TYPE(uint64);
 
-		case ELEM_TYPE_UINT8:			return GL_UNSIGNED_BYTE;
-		case ELEM_TYPE_UINT16:			return GL_UNSIGNED_SHORT;
-		case ELEM_TYPE_UINT32:			return GL_UNSIGNED_INT;
-
-		default:						return GL_FLOAT;	// Assume float
+			CASE_TYPE(float32);
+			CASE_TYPE(float64);
+			default: return PlatformTypeToCode<float32>::Code;
 		}
 	}
 

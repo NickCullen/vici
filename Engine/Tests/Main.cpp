@@ -1,54 +1,59 @@
 #include "Macros.h"
 #include <stdio.h>
 #include "PIL/Timer/Timer.h"
-#include "Core/EngineIncludes.h"
 #include <time.h>
 #include <random>
-#include "PIL/Platform//Window.h"
+#include "PIL/Platform/Window.h"
+#include "Tests/Classes.h"
 
-class TestSerializationClass
-{
-public:
-	int x;
 
-	float y;
-
-	VString name;
-
-	VArray<VString> MyArray;
-
-	TestSerializationClass()
-	{
-		x = 5;
-		y = 42.66f;
-		name = "ThisIsMyName";
-
-		MyArray.push_back(VString("String1"));
-		MyArray.push_back(VString("String2"));
-		MyArray.push_back(VString("String3"));
-		MyArray.push_back(VString("String4"));
-	}
-
-	template< class Archive >
-	void serialize(Archive & ar)
-	{
-		ar(CEREAL_NVP(x), CEREAL_NVP(y), CEREAL_NVP(name), CEREAL_NVP(MyArray));
-	}
-};
 
 int main(int argc, char** argv)
 {
-	srand(time(nullptr));
-
-	VWindow win;
-	win.SetTitle("MyGame");
-	win.SetSize(1920, 1080);
-	win.SetPosition(0, 0);
 	
-	std::ofstream oss("Window.xml", std::ios::binary);
-	cereal::XMLOutputArchive archive1(oss);
+	VSharedPointer<GameObject> sp = Object::Instantiate<GameObject>();
+	sp->ObjectID = 21241;
+	VSharedPointer<GameObject> child = Object::Instantiate<GameObject>();
+	child->ObjectID = 1111;
+	
+	sp->Children.push_back(child);
 
-	archive1(win);
+	VSharedPointer<GameObject> spCopy = GameObject::Instantiate(sp);
+
+	TEST(GameObjectSer)
+	{
+		VSharedPointer<GameObject> go1 = std::make_shared<GameObject>();
+		go1->ObjectID = 1;
+
+		for (int i = 0; i < 3; i++)
+		{
+			go1->Children.push_back(std::make_shared<GameObject>());
+			go1->Children[i]->ObjectID = 1 + i + 1;
+		}
+
+
+		std::ofstream oss("test.xml", std::ios::binary);
+		cereal::XMLOutputArchive archive1(oss);
+
+		archive1(cereal::make_nvp("GameObject", go1));
+
+	}
+	END()
+
+	TEST(GameObjectDeser)
+	{
+		VSharedPointer<GameObject> go;
+
+		std::ifstream iss("test.xml", std::ios::binary);
+		cereal::XMLInputArchive archive1(iss);
+
+		archive1(go);
+
+		
+
+	}
+	END()
+
 
 	return 1;
 

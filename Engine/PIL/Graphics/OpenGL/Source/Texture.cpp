@@ -25,7 +25,7 @@ VTexture::VTexture(ETextureType type, ETextureWrapMode wrapMode)
 	LOD(0),
 	InternalFormat(COLOR_RGB),
 	PixelFormat(COLOR_RGB),
-	PixelDataType(ELEM_TYPE_UINT8)
+	PixelDataType(TYPE_UINT8)
 {
 	Handle = new VInternalTextureHandle();
 	Handle->Texture = 0;

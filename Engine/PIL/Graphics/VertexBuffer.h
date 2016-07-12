@@ -13,14 +13,14 @@ class VShader;
 struct PIL_API VElementInfo
 {
 	const char* ShaderID;	// Name of input array in shader
-	EElementType Type;		// What type is each component of this element?
+	EPlatformType Type;		// What type is each component of this element?
 	int8 NumOfComponents;	// How many components of said type are there in this element?
 	bool Normalize;			// Should the values be normalized when sent to the GPU?
 
 	VElementInfo() = default;
 
 	// Constructor
-	VElementInfo(const char* nameInShader, int8 numOfComponents, EElementType type = ELEM_TYPE_FLOAT, bool normalize = false)
+	VElementInfo(const char* nameInShader, int8 numOfComponents, EPlatformType type = TYPE_FLOAT32, bool normalize = false)
 		:ShaderID(nameInShader),
 		Type(type),
 		NumOfComponents(numOfComponents),

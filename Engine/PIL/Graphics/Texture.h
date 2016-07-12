@@ -32,7 +32,7 @@ protected:
 
 	EColorMode PixelFormat;			// Format of pixels in Pixels array
 
-	EElementType PixelDataType;		// What type of data are the pixel elements?
+	EPlatformType PixelDataType;		// What type of data are the pixel elements?
 
 	int32 LOD;	// Level of detail
 	
@@ -95,5 +95,5 @@ public:
 	inline void SetGenerateMipmap(bool setMipmap) { GenerateMipMap = setMipmap; }
 	inline void SetInternalFormat(EColorMode mode) { InternalFormat = mode; }
 	inline void SetPixelFormat(EColorMode mode) { PixelFormat = mode; }
-	inline void SetPixelDataType(EElementType type) { PixelDataType = type; }
+	inline void SetPixelDataType(EPlatformType type) { PixelDataType = type; }
 };

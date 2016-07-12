@@ -1,25 +1,6 @@
 #pragma once
 
 /**
- * Valid types recognised by the GPU
- */
-enum EElementType
-{
-	ELEM_TYPE_FLOAT,
-	ELEM_TYPE_DOUBLE,
-
-	ELEM_TYPE_INT8,
-	ELEM_TYPE_INT16,
-	ELEM_TYPE_INT24,
-	ELEM_TYPE_INT32,
-
-	ELEM_TYPE_UINT8,
-	ELEM_TYPE_UINT16,
-	ELEM_TYPE_UINT24,
-	ELEM_TYPE_UINT32,
-};
-
-/**
  * Valid colour modes
  */
 enum EColorMode

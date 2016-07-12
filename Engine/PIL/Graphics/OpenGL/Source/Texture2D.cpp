@@ -40,7 +40,7 @@ VTexture2D* VTexture2D::FromFile(const VFilePath& filePath)
 			tex->Height = height;
 			tex->InternalFormat = colorMode;
 			tex->PixelFormat = colorMode;
-			tex->PixelDataType = ELEM_TYPE_UINT8;
+			tex->PixelDataType = TYPE_UINT8;
 			tex->GenerateMipMap = true;
 			
 			tex->Pixels = new stbi_uc[width*height*comp];

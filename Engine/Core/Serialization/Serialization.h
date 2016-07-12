@@ -19,6 +19,7 @@
 
 // Serialization methods for std types
 #include <cereal/types/vector.hpp>
+#include <cereal/types/polymorphic.hpp>			// Allow inherited types
 
 // Type of input archive (differs betwen release/debug)
 #define INPUT_ARCHIVE_TYPE XMLInputArchive
@@ -44,6 +45,7 @@ public:
 	 * Dtor
 	 */
 	~VSerialization() {}
+
 
 	/**
 	 * Loads an object from the given file

@@ -23,6 +23,7 @@
 #include "PIL/Timer/Timer.h"
 
 // Collections 
+#include "PIL/Collections/SharedPointer.h"
 #include "PIL/Collections/String.h"
 #include "PIL/Collections/Array.h"
 #include "PIL/Collections/Dictionary.h"
