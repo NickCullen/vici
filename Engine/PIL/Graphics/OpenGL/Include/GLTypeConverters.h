@@ -5,7 +5,7 @@
 #include "PIL/Graphics/GraphicsTypes.h"
 #include "PIL/Graphics/OpenGL/Include/Glew.h"
 
-#define CASE_TYPE(TYPE) case PlatformTypeToCode<TYPE>::Code: return PlatformTypeToCode<TYPE>::OPENGL_TYPE
+#define CASE_TYPE(TYPE) case PlatformTypeToCode<TYPE>::Code: 
 
 class PIL_API GLTypeConverter
 {
@@ -15,19 +15,20 @@ public:
 	{
 		switch (Type)
 		{
-			CASE_TYPE(int8);
-			CASE_TYPE(int16);
-			CASE_TYPE(int32);
-			CASE_TYPE(int64);
+			CASE_TYPE(int8)		return GL_BYTE;
+			CASE_TYPE(int16)	return GL_SHORT;
+			CASE_TYPE(int32)	return GL_INT;
+			CASE_TYPE(int64)	return GL_INT;				// Not Supported - GL_INT assumed
 
-			CASE_TYPE(uint8);
-			CASE_TYPE(uint16);
-			CASE_TYPE(uint32);
-			CASE_TYPE(uint64);
+			CASE_TYPE(uint8)	return GL_UNSIGNED_BYTE;
+			CASE_TYPE(uint16)	return GL_UNSIGNED_SHORT;
+			CASE_TYPE(uint32)	return GL_UNSIGNED_INT;
+			CASE_TYPE(uint64)	return GL_UNSIGNED_INT;		// not Supported - GL_UNSIGNED_INT assumed
 
-			CASE_TYPE(float32);
-			CASE_TYPE(float64);
-			default: return PlatformTypeToCode<float32>::Code;
+			CASE_TYPE(float32)	return GL_FLOAT;	
+			CASE_TYPE(float64)	return GL_DOUBLE;
+			
+			default: return GL_FLOAT;						// Default - Float assumed
 		}
 	}
 

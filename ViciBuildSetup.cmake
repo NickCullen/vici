@@ -174,10 +174,6 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 include_directories("${VICI_HOME}Engine")
 include_directories("${VICI_HOME}ThirdParty/cereal-1.2.0/include")		# cereal is used as our method for serialization
 
-if(VICI_OPENGL)
-	include_directories("${VICI_HOME}ThirdParty/Glew/Include")		# Include Glew directory
-endif()
-
 if(VICI_EDITOR)
 	include_directories("${VICI_HOME}Editor")
 endif()

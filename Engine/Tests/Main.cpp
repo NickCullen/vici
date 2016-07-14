@@ -11,26 +11,10 @@
 int main(int argc, char** argv)
 {
 	
-	VSharedPointer<GameObject> sp = Object::Instantiate<GameObject>();
-	sp->ObjectID = 21241;
-	VSharedPointer<GameObject> child = Object::Instantiate<GameObject>();
-	child->ObjectID = 1111;
-	
-	sp->Children.push_back(child);
-
-	VSharedPointer<GameObject> spCopy = GameObject::Instantiate(sp);
-
 	TEST(GameObjectSer)
 	{
 		VSharedPointer<GameObject> go1 = std::make_shared<GameObject>();
-		go1->ObjectID = 1;
-
-		for (int i = 0; i < 3; i++)
-		{
-			go1->Children.push_back(std::make_shared<GameObject>());
-			go1->Children[i]->ObjectID = 1 + i + 1;
-		}
-
+		go1->Name = "MyName";
 
 		std::ofstream oss("test.xml", std::ios::binary);
 		cereal::XMLOutputArchive archive1(oss);

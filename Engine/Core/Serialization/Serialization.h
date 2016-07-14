@@ -19,6 +19,7 @@
 
 // Serialization methods for std types
 #include <cereal/types/vector.hpp>
+#include <cereal/types/string.hpp>
 #include <cereal/types/polymorphic.hpp>			// Allow inherited types
 
 // Type of input archive (differs betwen release/debug)

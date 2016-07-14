@@ -86,7 +86,9 @@ if(VICI_WIN32)
 	if(VICI_OPENGL)
 
 		# Glew	----------------------------------------------------------------------
-		link_directories("${VICI_THIRD_PARTY_DIR}Glew/Lib/${VICI_TARGET_SYSTEM}/${VICI_PLATFORM_TARGET}")
+		include_directories("${VICI_HOME}ThirdParty/Glew/Include")		# Include Glew directory
+
+		link_directories("${VICI_THIRD_PARTY_DIR}Glew/Lib/${VICI_TARGET_SYSTEM}/${VICI_PLATFORM_TARGET}")	# Include Glew Lib directory
 
 		# NOTE:: Need to swap glewmxs for glew32 for non-editor builds!
 		if(VICI_EDITOR)

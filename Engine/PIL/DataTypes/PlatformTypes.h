@@ -4,10 +4,6 @@
 #include "PIL/Collections/SharedPointer.h"
 #include "PIL/Collections/Array.h"
 
-#if VICI_OPENGL
-#include "PIL/Graphics/OpenGL/Include/Glew.h"
-#endif
-
 typedef int8_t  int8;
 typedef int16_t int16;
 typedef int32_t int32;
@@ -131,9 +127,7 @@ struct PlatformTypeToCode<int8>
 	{
 		lhs = rhs;
 	}
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_BYTE };
-#endif
+
 };
 
 /**
@@ -153,9 +147,7 @@ struct PlatformTypeToCode<int16>
 	{
 		lhs = rhs;
 	}
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_SHORT };
-#endif
+
 };
 
 /**
@@ -175,9 +167,7 @@ struct PlatformTypeToCode<int32>
 	{
 		lhs = rhs;
 	}
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_INT };
-#endif
+
 };
 
 /**
@@ -198,9 +188,6 @@ struct PlatformTypeToCode<int64>
 		lhs = rhs;
 	}
 
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_INT };		// Not supported - default to int32
-#endif
 };
 
 // Unsigned -----
@@ -223,9 +210,6 @@ struct PlatformTypeToCode<uint8>
 		lhs = rhs;
 	}
 
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_UNSIGNED_BYTE };
-#endif
 };
 
 /**
@@ -245,10 +229,6 @@ struct PlatformTypeToCode<uint16>
 	{
 		lhs = rhs;
 	}
-
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_UNSIGNED_SHORT };
-#endif
 };
 
 /**
@@ -269,9 +249,6 @@ struct PlatformTypeToCode<uint32>
 		lhs = rhs;
 	}
 
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_UNSIGNED_INT };
-#endif
 };
 
 /**
@@ -291,10 +268,6 @@ struct PlatformTypeToCode<uint64>
 	{
 		lhs = rhs;
 	}
-
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_UNSIGNED_INT };		// Not supported - default to uint32
-#endif
 };
 
 // Floats & Doubles -----
@@ -318,9 +291,6 @@ struct PlatformTypeToCode<float32>
 		lhs = rhs;
 	}
 
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_FLOAT };
-#endif
 };
 
 /**
@@ -341,7 +311,4 @@ struct PlatformTypeToCode<float64>
 		lhs = rhs;
 	}
 
-#ifdef VICI_OPENGL
-	enum { OPENGL_TYPE = GL_DOUBLE };
-#endif
 };

@@ -89,14 +89,36 @@ public:
 
 class GameObject : public Object
 {
-	_CLASS_DEF_WITH_SUPER_(GameObject, Object)
+public:	
+	typedef Object Super;	
+	
+	GameObject_MEMBERS(_DECL_MEMBERS_)
+	
+	template <class Archive>	
+	void serialize(Archive& ar)	
+	{	
+		cereal::prologue(ar, Name);
+
+		Super::serialize(ar);	
+		GameObject_MEMBERS(_SERIALIZE_MEMBERS_)
+	}	
+	
+	void CopyFrom(GameObject& other)
+	{	
+		Super::CopyFrom(other);	
+		GameObject_MEMBERS(_COPY_MEMBERS_)
+	}	
 
 public:
 	
+	VString Name;
+
 	GameObject()
 		: Super()
 	{
+		
 		GameObject_MEMBERS(_DEFAULT_MEMBERS_)
+
 	}
 
 	GameObject(const GameObject& other)
