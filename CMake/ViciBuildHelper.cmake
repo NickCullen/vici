@@ -1,8 +1,16 @@
 #-------------------------------------------------------------------------------------------
-# Helpful Functions / Macros
+# Module Helper Macros
 #-------------------------------------------------------------------------------------------
+# Appens to the module list
+macro(_Internal_APPEND_MODULE MOD_NAME)
+	if( NOT DEFINED MODULE_LIST)
+		set(MODULE_LIST "")
+	endif()
 
-# Sets output
+	set(MODULE_LIST ${MODULE_LIST} ${MOD_NAME} )
+endmacro(_Internal_APPEND_MODULE)
+
+# Sets output of build files (.dll / .exe / .lib etc.)
 macro(DEFINE_OUT_DIRS)
 	if(VICI_EDITOR)
 		set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Bin/Editor")
@@ -15,18 +23,26 @@ macro(DEFINE_OUT_DIRS)
 	endif()
 endmacro(DEFINE_OUT_DIRS)
 
-# Module Helper
+# Must be set at start of module
 macro(BEGIN_MODULE)
 	DEFINE_OUT_DIRS()
 	include_directories("Include")
 endmacro(BEGIN_MODULE)
 
-# Declare a module and append it to global
+# To be placed for each module in each project folders DeclModules.cmake file
 macro(DECL_MODULE MOD_NAME MOD_LOC)
 	message("DECL_MODULE: ${MOD_NAME} at ${MOD_LOC}")
 	set("${MOD_NAME}_INCLUDES_LOC" "${MOD_LOC}Include")
-	set("${MOD_NAME}_BINARIES_LOC" "${MOD_LOC}Bin")
-	set("${MOD_NAME}_LIB_LOC" "${MOD_LOC}Lib")
+
+	if(VICI_EDITOR)
+		set("${MOD_NAME}_BINARIES_LOC" "${MOD_LOC}Bin/Editor")
+		set("${MOD_NAME}_LIB_LOC" "${MOD_LOC}Lib/Editor")
+	else()
+		set("${MOD_NAME}_BINARIES_LOC" "${MOD_LOC}Bin")
+		set("${MOD_NAME}_LIB_LOC" "${MOD_LOC}Lib")
+	endif()
+	# Append to module list
+	_Internal_APPEND_MODULE(${MOD_NAME})
 endmacro(DECL_MODULE)
 
 # References a module
@@ -35,6 +51,21 @@ macro(REF_MODULE MOD_NAME)
 	link_directories("${${MOD_NAME}_LIB_LOC}")
 	link_libraries("${MOD_NAME}")
 endmacro(REF_MODULE)
+
+# Ensure all shared library objects exist. Should be called
+# when the target is an executable and all .dlls are required
+macro(COPY_MODULE_SHARED_OBJECTS TAR)
+	foreach(MOD ${MODULE_LIST})
+		message("Copying module ${MOD}")
+		add_custom_command(TARGET ${TAR} POST_BUILD 
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${${MOD}_BINARIES_LOC}/$<CONFIGURATION>"
+			$<TARGET_FILE_DIR:${TAR}>)
+	endforeach()
+endmacro(COPY_MODULE_SHARED_OBJECTS)
+#-------------------------------------------------------------------------------------------
+# Helpful Functions / Macros
+#-------------------------------------------------------------------------------------------
 
 function(FILTER_SOURCES SOURCE_LIST)
 	foreach(_source IN ITEMS ${SOURCE_LIST})
