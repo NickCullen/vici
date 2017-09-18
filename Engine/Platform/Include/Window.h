@@ -13,6 +13,9 @@ namespace Platform
 
 		int32 Width;
 		int32 Height;
+
+		bool bIsOpen = false;
+
 	public:
 		
 	public:
@@ -25,5 +28,6 @@ namespace Platform
 
 		void PollEvents();
 
+		inline bool IsOpen() { return bIsOpen; }
 	};
 }

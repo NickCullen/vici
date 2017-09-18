@@ -23,7 +23,7 @@ if(VICI_STANDALONE)
 	include_directories("${SDL2_SRC}/include")
 	link_directories("${SDL2_BIN}")
 
-	set(ADDITONAL_LIBS ${ADDITONAL_LIBS} SDL2)
+	set(ADDITONAL_LIBS ${ADDITONAL_LIBS} SDL2-2.0)
 endif()
 
 #-------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 using namespace Platform;
 
-static StandalonePlatformService pfs;
+//static StandalonePlatformService pfs;
 
 StandalonePlatformService::StandalonePlatformService()
 {
@@ -10,4 +10,10 @@ StandalonePlatformService::StandalonePlatformService()
 }
 
 bool StandalonePlatformService::Load()
+{
+    return true;
+}
 bool StandalonePlatformService::Unload()
+{
+    return true;
+}

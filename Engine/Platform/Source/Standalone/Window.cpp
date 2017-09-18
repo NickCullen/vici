@@ -45,6 +45,8 @@ bool VWindow::Open(int32 x, int32 y, uint32 w, uint32 h)
 		return false;
 	}
 
+	bIsOpen = true;
+	
 	return true;
 }
 
@@ -61,6 +63,8 @@ void VWindow::Close()
 		delete(WindowNativePtr);
 		WindowNativePtr = nullptr;
 	}
+	
+	bIsOpen = false;
 }
 
 void VWindow::PollEvents()
@@ -70,7 +74,10 @@ void VWindow::PollEvents()
 	{
 		switch (e.type)
 		{
-
+		case SDL_QUIT:
+			Close();
+			return;
+			break;
 		
 		default:
 			break;
