@@ -3,6 +3,4 @@ BEGIN_MODULE()
 #-------------------------------------------------------------------------------------------
 # Module Compilation Target
 #-------------------------------------------------------------------------------------------
-add_library(Core SHARED
-    "Source/Test.cpp"
-)
+add_library(Core SHARED ${MODULE_SOURCES})

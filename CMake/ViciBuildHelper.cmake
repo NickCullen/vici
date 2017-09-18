@@ -27,6 +27,26 @@ endmacro(DEFINE_OUT_DIRS)
 macro(BEGIN_MODULE)
 	DEFINE_OUT_DIRS()
 	include_directories("Include")
+
+	# Source/Header file management (for pretty solution files)
+	#-------------------------------------------------------------------------------------------
+	file( GLOB_RECURSE MOD_SRC_FILES              # Variable containing all source files
+		LIST_DIRECTORIES false                      
+		RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/"             # Relative paths from the root directory
+		"Source/*.cpp"                              # Search pattern
+	)
+
+	file( GLOB_RECURSE MOD_HEADER_FILES              # Variable containing all source files
+		LIST_DIRECTORIES false                      
+		RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/"             # Relative paths from the root directory
+		"Include/*.h"                              # Search pattern
+	)
+
+	# Run filter on source/headers
+	FILTER_SOURCES("${MOD_SRC_FILES}")
+	FILTER_SOURCES("${MOD_HEADER_FILES}")
+	set(MODULE_SOURCES ${MOD_SRC_FILES} ${MOD_HEADER_FILES})
+	
 endmacro(BEGIN_MODULE)
 
 # To be placed for each module in each project folders DeclModules.cmake file
@@ -45,22 +65,28 @@ macro(DECL_MODULE MOD_NAME MOD_LOC)
 	_Internal_APPEND_MODULE(${MOD_NAME})
 endmacro(DECL_MODULE)
 
-# References a module
-macro(REF_MODULE MOD_NAME)
-	include_directories("${${MOD_NAME}_INCLUDES_LOC}")
-	link_directories("${${MOD_NAME}_LIB_LOC}")
-	link_libraries("${MOD_NAME}")
-endmacro(REF_MODULE)
+# References all specified modules for TAR (target)
+macro(REF_MODULES TAR)
+	message("${TAR} Is refernecing:")
+	foreach(MOD ${ARGN})
+		message("-- ${MOD}")
+		target_include_directories(${TAR} PRIVATE "${${MOD}_INCLUDES_LOC}")
+		link_directories("${${MOD}_LIB_LOC}")
+		target_link_libraries(${TAR} LINK_PRIVATE ${MOD})
+		add_dependencies(${TAR} ${MOD})
+	endforeach()
+endmacro(REF_MODULES)
 
 # Ensure all shared library objects exist. Should be called
 # when the target is an executable and all .dlls are required
 macro(COPY_MODULE_SHARED_OBJECTS TAR)
 	foreach(MOD ${MODULE_LIST})
-		message("Copying module ${MOD}")
-		add_custom_command(TARGET ${TAR} POST_BUILD 
-			COMMAND ${CMAKE_COMMAND} -E copy_directory
-			"${${MOD}_BINARIES_LOC}/$<CONFIGURATION>"
-			$<TARGET_FILE_DIR:${TAR}>)
+		if(NOT "${MOD}" STREQUAL "${TAR}")
+			add_custom_command(TARGET ${TAR} POST_BUILD 
+				COMMAND ${CMAKE_COMMAND} -E copy_directory
+				"${${MOD}_BINARIES_LOC}/$<CONFIGURATION>"
+				$<TARGET_FILE_DIR:${TAR}>)
+		endif()
 	endforeach()
 endmacro(COPY_MODULE_SHARED_OBJECTS)
 #-------------------------------------------------------------------------------------------
@@ -75,27 +101,10 @@ function(FILTER_SOURCES SOURCE_LIST)
 			string(REPLACE "/" "\\" _source_path "${_source_path}")
 		endif()
 
-		message("${_source_path}")
-
 		source_group("${_source_path}" FILES "${_source}")
 	endforeach()
 endfunction()
 
-# Ensures vici DLLs are copied
-function (COPY_VICI_RUNTIMES targetProject)
-	if(VICI_EDITOR)
-		add_custom_command(TARGET ${targetProject} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_directory
-				"${VICI_HOME}Build/Editor/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}"
-				"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-	else()
-		add_custom_command(TARGET ${targetProject} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_directory
-				"${VICI_HOME}Build/${VICI_TARGET_SYSTEM}/Bin/${VICI_PLATFORM_TARGET}"
-				"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-	endif()
-
-endfunction()
 #-------------------------------------------------------------------------------------------
 # First checks
 #-------------------------------------------------------------------------------------------

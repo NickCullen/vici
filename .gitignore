@@ -2,6 +2,8 @@ tmp_build/
 [pP]roject/
 [bB]uild/
 [dD]oc/
+[bB]in/
+[lL]ib/
 *.DS_Store
 *.pyc
 *.exp
