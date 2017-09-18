@@ -5,8 +5,19 @@
 /**
  * Interface base class for all services
  */
-template<typename T>
-class IService : public TSingleton<T>
+namespace Core
 {
+	class IService
+	{
+	protected:
+		bool bIsLoaded = false;		/**< Is this service loaded? */
 
-};
+		
+		virtual bool Load() = 0;
+		virtual bool Unload() = 0;
+	public:
+		bool IsLoaded() { return bIsLoaded; }
+	};
+
+	
+}

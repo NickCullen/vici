@@ -42,10 +42,89 @@ macro(BEGIN_MODULE)
 		"Include/*.h"                              # Search pattern
 	)
 
+	set(VALID_SOURCES "")
+	set(VALID_HEADERS "")
+
+	# Remove any files which shouldn't be in this build.
+	foreach(ITEM ${MOD_SRC_FILES})
+		# Standalone builds.
+		if(NOT VICI_STANDALONE)
+			if("${ITEM}" MATCHES "/Standalone/")
+				message("Excluding ${ITEM} as this is not a Standalone build.")
+				continue()
+			endif()
+		endif()
+
+		# Windows builds
+		if(NOT VICI_WINDOWS)
+			if("${ITEM}" MATCHES "/Windows/")
+				message("Excluding ${ITEM} as this is not a Windows build.")
+				continue()
+			endif()
+		endif()
+
+		# Mac builds
+		if(NOT VICI_MAC)
+			if("${ITEM}" MATCHES "/Mac/")
+				message("Excluding ${ITEM} as this is not a Mac build.")
+				continue()
+			endif()
+		endif()
+
+		# Linux builds
+		if(NOT VICI_LINUX)
+			if("${ITEM}" MATCHES "/Linux/")
+				message("Excluding ${ITEM} as this is not a Linux build.")
+				continue()
+			endif()
+		endif()
+
+		# Valid if it gets here
+		set(VALID_SOURCES ${VALID_SOURCES} ${ITEM})
+	endforeach()
+
+	# Remove any files which shouldn't be in this build.
+	foreach(ITEM ${MOD_HEADER_FILES})
+		# Standalone builds.
+		if(NOT VICI_STANDALONE)
+			if("${ITEM}" MATCHES "/Standalone/")
+				message("Excluding ${ITEM} as this is not a Standalone build.")
+				continue()
+			endif()
+		endif()
+
+		# Windows builds
+		if(NOT VICI_WINDOWS)
+			if("${ITEM}" MATCHES "/Windows/")
+				message("Excluding ${ITEM} as this is not a Windows build.")
+				continue()
+			endif()
+		endif()
+
+		# Mac builds
+		if(NOT VICI_MAC)
+			if("${ITEM}" MATCHES "/Mac/")
+				message("Excluding ${ITEM} as this is not a Mac build.")
+				continue()
+			endif()
+		endif()
+
+		# Linux builds
+		if(NOT VICI_LINUX)
+			if("${ITEM}" MATCHES "/Linux/")
+				message("Excluding ${ITEM} as this is not a Linux build.")
+				continue()
+			endif()
+		endif()
+
+		# Valid if it gets here
+		set(VALID_HEADERS ${VALID_HEADERS} ${ITEM})
+	endforeach()
+
 	# Run filter on source/headers
-	FILTER_SOURCES("${MOD_SRC_FILES}")
-	FILTER_SOURCES("${MOD_HEADER_FILES}")
-	set(MODULE_SOURCES ${MOD_SRC_FILES} ${MOD_HEADER_FILES})
+	FILTER_SOURCES("${VALID_SOURCES}")
+	FILTER_SOURCES("${VALID_HEADERS}")
+	set(MODULE_SOURCES ${VALID_SOURCES} ${VALID_HEADERS})
 	
 endmacro(BEGIN_MODULE)
 

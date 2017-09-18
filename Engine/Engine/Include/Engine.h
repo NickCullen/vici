@@ -3,7 +3,10 @@
 #include "EngineAPI.h"
 #include "IService.h"
 
-class ENGINE_API VEngine : public IService<VEngine>
+namespace Engine
 {
+	class ENGINE_API VEngine : public Core::IService<VEngine>
+	{
 
-};
+	};
+}

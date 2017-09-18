@@ -1,13 +1,29 @@
 #pragma once
 
 #include "PlatformAPI.h"
-#include "CoreTypes.h"
+#include "CoreIncludes.h"
 
-class PLATFORM_API Window
+
+namespace Platform
 {
-private:
+	class PLATFORM_API VWindow
+	{
+	private:
+		struct SWindowNativePtr* WindowNativePtr = nullptr;	/**< Pointer to the underlying window system */
 
-public:
+		int32 Width;
+		int32 Height;
+	public:
+		
+	public:
 
-	static Window* Open(int32 x, int32 y, uint32 w, uint32 h);
-};
+		~VWindow();
+
+		bool Open(int32 x, int32 y, uint32 w, uint32 h);
+
+		void Close();
+
+		void PollEvents();
+
+	};
+}
