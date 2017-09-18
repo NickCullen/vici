@@ -2,22 +2,19 @@ cmake_minimum_required(VERSION 3.1)
 project(Vici)
 
 #-------------------------------------------------------------------------------------------
-# Options
+# Build Vars / Functions / Macros helper. (Will declare all Engine modules internally)
 #-------------------------------------------------------------------------------------------
-option(VICI_USE_DIRECX "Should DirectX Be used over OpenGL for Windows?" OFF)
+include("CMake/ViciBuildHelper.cmake")
 
-
-# Include project vars
-include("ViciBuildSetup.cmake")
 
 #-------------------------------------------------------------------------------------------
 # Sub-projects
 #-------------------------------------------------------------------------------------------
 add_subdirectory(Engine)
 
-if(VICI_EDITOR)
-	add_subdirectory(Editor)
-endif()
+#if(VICI_EDITOR)
+#	add_subdirectory(ViciEditor)
+#endif()
 
 # Build the example / test project
 #if(VICI_BUILD_EXAMPLE_PROJECT)

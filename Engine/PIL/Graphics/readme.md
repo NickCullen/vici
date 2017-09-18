@@ -1,1 +1,0 @@
-Graphics wrappers around the underlying architecture
