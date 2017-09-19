@@ -9,11 +9,20 @@ int main(int argc, char** argv)
 	Core::VString str3 = str1 + str2 + "!";
 
 
-	uint32 loc = str3.FirstIndexOf("Wod");
+	uint32 loc = str3.FirstIndexOf("Wo");
 	if (loc != Core::VString::INVALID_POS)
 	{
 		printf("FOUND\n!");
 	}
+
+	loc = str3.LastIndexOf(str2 + "!");
+	if (loc != Core::VString::INVALID_POS)
+	{
+		printf("FOUND LAST OF\n!");
+	}
+
+	Core::VString SubStr = str3.GetSubstr(str3.GetLength()-1, 3);
+
 	Platform::VWindow w;
 
 	w.Open(10, 100, 100, 200);

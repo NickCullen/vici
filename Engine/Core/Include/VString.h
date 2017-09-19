@@ -35,6 +35,11 @@ namespace Core
 		uint32 FirstIndexOf(const VString& other) const;
 		uint32 FirstIndexOf(const char* other) const;
 
+		uint32 LastIndexOf(const VString& other) const;
+		uint32 LastIndexOf(const char* other) const;
+
+		VString GetSubstr(uint32 Start, uint32 Num) const;
+
         inline uint32 GetLength() const
         {
             return Length;
