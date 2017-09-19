@@ -4,6 +4,7 @@ tmp_build/
 [dD]oc/
 [bB]in/
 [lL]ib/
+[Tt]hirdParty/
 *.DS_Store
 *.pyc
 *.exp
