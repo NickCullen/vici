@@ -3,9 +3,20 @@
 
 int main(int argc, char** argv)
 {
+	Core::VString str1 = "Hello";
+	Core::VString str2 = ", World";
+
+	Core::VString str3 = str1 + str2 + "!";
+
+
+	uint32 loc = str3.FirstIndexOf("Wod");
+	if (loc != Core::VString::INVALID_POS)
+	{
+		printf("FOUND\n!");
+	}
 	Platform::VWindow w;
 
-	w.Open(10, 10, 100, 200);
+	w.Open(10, 100, 100, 200);
 	
 	while(w.IsOpen())
 	{

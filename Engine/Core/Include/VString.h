@@ -7,6 +7,9 @@ namespace Core
 {
     class CORE_API VString
     {
+	public:
+		static const uint32 INVALID_POS;
+
     private:
         char* Data = nullptr;
     
@@ -26,6 +29,12 @@ namespace Core
         bool operator==(const VString& other) const;
         bool operator!=(const VString& other) const;
         
+		VString operator+(const VString& other) const;
+		VString operator+(const char* other) const;
+
+		uint32 FirstIndexOf(const VString& other) const;
+		uint32 FirstIndexOf(const char* other) const;
+
         inline uint32 GetLength() const
         {
             return Length;
