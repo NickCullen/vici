@@ -1,5 +1,5 @@
 #include "VString.h"
-#include <string>
+#include <string.h>
 
 using namespace Core;
 
