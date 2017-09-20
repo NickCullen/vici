@@ -4,3 +4,5 @@ BEGIN_MODULE()
 # Module Compilation Target
 #-------------------------------------------------------------------------------------------
 add_library(Core SHARED ${MODULE_SOURCES})
+
+END_MODULE(Core)

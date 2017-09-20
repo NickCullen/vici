@@ -1,4 +1,9 @@
 #-------------------------------------------------------------------------------------------
+# Global Options
+#-------------------------------------------------------------------------------------------
+option(VICI_WITH_TESTS "Include test framework (Google Test), if true sources in Tests folder will be included" ON)
+
+#-------------------------------------------------------------------------------------------
 # Module Helper Macros
 #-------------------------------------------------------------------------------------------
 # Appens to the module list
@@ -12,21 +17,22 @@ endmacro(_Internal_APPEND_MODULE)
 
 # Sets output of build files (.dll / .exe / .lib etc.)
 macro(DEFINE_OUT_DIRS)
-	if(VICI_EDITOR)
-		set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binaries/${VICI_TARGET_SYSTEM}/Runtime/Editor")
-		set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binaries/${VICI_TARGET_SYSTEM}/Lib/Editor")
-		set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binaries/${VICI_TARGET_SYSTEM}/Lib/Editor")
-	else()
-		set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binaries/${VICI_TARGET_SYSTEM}/Runtime")
-		set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binaries/${VICI_TARGET_SYSTEM}/Lib")
-		set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binaries/${VICI_TARGET_SYSTEM}/Lib")
-	endif()
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${RUNTIME_FOLDER_PATH}")
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${LIBRARY_FOLDER_PATH}")
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${ARCHIVE_FOLDER_PATH}")
 endmacro(DEFINE_OUT_DIRS)
 
 # Must be set at start of module
 macro(BEGIN_MODULE)
 	DEFINE_OUT_DIRS()
+	
+	# Required Include folders
 	include_directories("Include")
+
+	# Required Lib folders
+	if(VICI_WITH_TESTS)
+		link_directories(${GTEST_LINK_DIR})
+	endif()
 
 	# Source/Header file management (for pretty solution files)
 	#-------------------------------------------------------------------------------------------
@@ -41,6 +47,18 @@ macro(BEGIN_MODULE)
 		RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/"             # Relative paths from the root directory
 		"Include/*.h"                              # Search pattern
 	)
+
+	# If test build, then include test folders
+	if(VICI_WITH_TESTS)
+		file( GLOB_RECURSE TEST_FILES              # Variable containing all source files
+			LIST_DIRECTORIES false                      
+			RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/"             # Relative paths from the root directory
+			"Tests/*.*"                              # Search pattern
+		)
+
+		# Append to sources
+		set (MOD_SRC_FILES ${MOD_SRC_FILES} ${TEST_FILES})
+	endif()
 
 	set(VALID_SOURCES "")
 	set(VALID_HEADERS "")
@@ -128,18 +146,23 @@ macro(BEGIN_MODULE)
 	
 endmacro(BEGIN_MODULE)
 
+macro(END_MODULE TAR)
+	# Ensure test framework is linked if needed
+	if(VICI_WITH_TESTS)
+		target_include_directories(${TAR} PRIVATE ${GTEST_INCLUDES})
+		target_link_libraries(${TAR} LINK_PRIVATE ${GTEST_LIBRARIES})
+		add_dependencies(${TAR} ${GTEST_PROJECT_NAME})
+	endif()
+endmacro()
+
 # To be placed for each module in each project folders DeclModules.cmake file
 macro(DECL_MODULE MOD_NAME MOD_LOC)
 	message("DECL_MODULE: ${MOD_NAME} at ${MOD_LOC}")
 	set("${MOD_NAME}_INCLUDES_LOC" "${MOD_LOC}Include")
 
-	if(VICI_EDITOR)
-		set("${MOD_NAME}_BINARIES_LOC" "${CMAKE_SOURCE_DIR}Binaries/${VICI_TARGET_SYSTEM}/Runtime/Editor")
-		set("${MOD_NAME}_LIB_LOC" "${CMAKE_SOURCE_DIR}Binaries/${VICI_TARGET_SYSTEM}/Lib/Editor")
-	else()
-		set("${MOD_NAME}_BINARIES_LOC" "${CMAKE_SOURCE_DIR}Binaries/${VICI_TARGET_SYSTEM}/Runtime")
-		set("${MOD_NAME}_LIB_LOC" "${CMAKE_SOURCE_DIR}Binaries/${VICI_TARGET_SYSTEM}/Lib")
-	endif()
+	set("${MOD_NAME}_BINARIES_LOC" "${CMAKE_SOURCE_DIR}/${RUNTIME_FOLDER_PATH}")
+	set("${MOD_NAME}_LIB_LOC" "${CMAKE_SOURCE_DIR}/${LIBRARY_FOLDER_PATH}")
+
 	# Append to module list
 	_Internal_APPEND_MODULE(${MOD_NAME})
 endmacro(DECL_MODULE)
@@ -149,13 +172,9 @@ macro(DECL_ENGINE_MODULE MOD_NAME MOD_LOC)
 	message("DECL_ENGINE_MODULE: ${MOD_NAME} at ${MOD_LOC}")
 	set("${MOD_NAME}_INCLUDES_LOC" "${MOD_LOC}Include")
 
-	if(VICI_EDITOR)
-		set("${MOD_NAME}_BINARIES_LOC" "${VICI_HOME}Binaries/${VICI_TARGET_SYSTEM}/Runtime/Editor")
-		set("${MOD_NAME}_LIB_LOC" "${VICI_HOME}Binaries/${VICI_TARGET_SYSTEM}/Lib/Editor")
-	else()
-		set("${MOD_NAME}_BINARIES_LOC" "${VICI_HOME}Binaries/${VICI_TARGET_SYSTEM}/Runtime")
-		set("${MOD_NAME}_LIB_LOC" "${VICI_HOME}Binaries/${VICI_TARGET_SYSTEM}/Lib")
-	endif()
+	set("${MOD_NAME}_BINARIES_LOC" "${VICI_RUNTIME_FOLDER}")
+	set("${MOD_NAME}_LIB_LOC" "${VICI_LIBRARY_FOLDER}")
+
 	# Append to module list
 	_Internal_APPEND_MODULE(${MOD_NAME})
 endmacro(DECL_ENGINE_MODULE)
@@ -306,6 +325,30 @@ if(NOT VICI_WINDOWS )
 endif()
 
 #-------------------------------------------------------------------------------------------
+# Generic output locations
+# Paths here are relative to whatever absolute folder is being specified so that
+# there is a consistent bin/lib output folder wherever you prefix with.
+#-------------------------------------------------------------------------------------------
+if(VICI_EDITOR)
+	set(RUNTIME_FOLDER_PATH "Binaries/${VICI_TARGET_SYSTEM}/Runtime/Editor")
+	set(LIBRARY_FOLDER_PATH "Binaries/${VICI_TARGET_SYSTEM}/Lib/Editor")
+	set(ARCHIVE_FOLDER_PATH "Binaries/${VICI_TARGET_SYSTEM}/Lib/Editor")
+else()
+	set(RUNTIME_FOLDER_PATH "Binaries/${VICI_TARGET_SYSTEM}/Runtime")
+	set(LIBRARY_FOLDER_PATH "Binaries/${VICI_TARGET_SYSTEM}/Lib")
+	set(ARCHIVE_FOLDER_PATH "Binaries/${VICI_TARGET_SYSTEM}/Lib")
+endif()
+
+set(VICI_RUNTIME_FOLDER "${VICI_HOME}/${RUNTIME_FOLDER_PATH}")
+set(VICI_LIBRARY_FOLDER "${VICI_HOME}/${LIBRARY_FOLDER_PATH}")
+set(VICI_ARCHIVE_FOLDER "${VICI_HOME}/${ARCHIVE_FOLDER_PATH}")
+
+#-------------------------------------------------------------------------------------------
 # Declare All Engine Modules
 #-------------------------------------------------------------------------------------------
 include("${VICI_HOME}Engine/DeclModules.cmake")
+
+#-------------------------------------------------------------------------------------------
+# Declare Required External Projects
+#-------------------------------------------------------------------------------------------
+include("${VICI_HOME}CMake/GTest.cmake")

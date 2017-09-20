@@ -30,3 +30,5 @@ REF_MODULES(Platform Core)
 target_link_libraries(Platform LINK_PRIVATE ${ADDITONAL_LIBS})
 target_include_directories(Platform PRIVATE ${ADDITIONAL_INCLUDES})
 add_dependencies(Platform ${ADDITIONAL_DEPS})
+
+END_MODULE(Platform)

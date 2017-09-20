@@ -47,7 +47,11 @@ void VString::Free()
 {
     if(Data != nullptr)
     {
-        delete [] Data;
+		delete [] Data;
+		Data = nullptr;
+
+		Length = 0;
+		Capacity = 0;
     }
 }
 
@@ -60,6 +64,35 @@ void VString::CalculateHash()
         Hash ^= Data[i];
         Hash *= 16777619;
     }
+}
+VString& VString::operator=(const VString& other)
+{
+	Free();	// Ensure data does not exist
+
+	Length = other.GetLength();
+    Capacity = Length + 1;
+    Data = new char[Capacity];
+    strncpy(Data, other.Data, Length);
+	Data[Length] = '\0';
+
+	CalculateHash();
+	
+	return *this;
+}
+
+VString& VString::operator=(const char* str)
+{
+	Free();	// Ensure data does not exist;
+
+	Length = strlen(str);
+    Capacity = Length + 1;
+    Data = new char[Capacity];
+    strncpy(Data, str, Length);
+	Data[Length] = '\0';
+
+	CalculateHash();
+	
+	return *this;
 }
 
 bool VString::operator==(const VString& other) const

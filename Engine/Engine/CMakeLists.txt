@@ -9,3 +9,5 @@ add_library(Engine SHARED ${MODULE_SOURCES})
 # Reference other modules. First param is target (i.e. this module)
 #-------------------------------------------------------------------------------------------
 REF_MODULES(Engine Core)
+
+END_MODULE(Engine)

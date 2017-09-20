@@ -24,7 +24,8 @@ namespace Core
     
         ~VString();
 
-        void Free();
+        VString& operator=(const VString& other);
+        VString& operator=(const char* other);
 
         bool operator==(const VString& other) const;
         bool operator!=(const VString& other) const;
@@ -57,5 +58,7 @@ namespace Core
 
     private:
         void CalculateHash();
+
+        void Free();
     };
 }
