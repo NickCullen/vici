@@ -1,44 +1,21 @@
-include(ExternalProject)
+
 BEGIN_MODULE()
 
+set(ADDITIONAL_INCLUDES "")
+set(ADDITIONAL_LIB_DIRS "")
 set(ADDITONAL_LIBS "")
+set(ADDITIONAL_DEPS "")
 
 if(VICI_STANDALONE)
-	# SDL
-	ExternalProject_Add(SDL2_Project
-		URL "https://www.libsdl.org/release/SDL2-2.0.5.tar.gz"
+	include(SDL2.cmake)
 
-		UPDATE_COMMAND ""
-		PATCH_COMMAND ""
-
-		SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/SDL2"
-		CMAKE_ARGS -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_RUNTIME_OUTPUT_DIRECTORY} -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
-		
-		CMAKE_CACHE_ARGS -DSDL_STATIC:BOOL=OFF -DSDL_SHARED:BOOL=ON
-
-		TEST_COMMAND ""
-	)
-
-	ExternalProject_Get_Property(SDL2_Project SOURCE_DIR)
-	ExternalProject_Get_Property(SDL2_Project BINARY_DIR)
-
-	set(SDL2_SRC ${SOURCE_DIR})
-
-	message("SDL SRC = ${SDL2_SRC}")
-	message("SDL BIN = ${BINARY_DIR}")
-
-	include_directories("${SDL2_SRC}/include")
-	message(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-	link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-
-	if(VICI_WINDOWS)
-		set(ADDITONAL_LIBS ${ADDITONAL_LIBS} SDL2)
-	else()
-		set(ADDITONAL_LIBS ${ADDITONAL_LIBS} SDL2-2.0.1)
-	endif()
-	
+	set(ADDITIONAL_INCLUDES ${ADDITIONAL_INCLUDES} ${SDL2_INCLUDES})
+	set(ADDITIONAL_LIB_DIRS ${ADDITIONAL_LIB_DIRS} ${SDL2_LINK_DIR})
+	set(ADDITONAL_LIBS ${ADDITONAL_LIBS} ${SDL2_LIBRARIES})
+	set(ADDITIONAL_DEPS ${ADDITIONAL_DEPS} ${SDL2_PROJECT_NAME})
 endif()
 
+link_directories(${ADDITIONAL_LIB_DIRS})
 #-------------------------------------------------------------------------------------------
 # Module Compilation Target
 #-------------------------------------------------------------------------------------------
@@ -49,6 +26,7 @@ add_library(Platform SHARED ${MODULE_SOURCES})
 #-------------------------------------------------------------------------------------------
 REF_MODULES(Platform Core)
 
-# Additional libs for this module.
+# Additional Libs & dependencies for this module
 target_link_libraries(Platform LINK_PRIVATE ${ADDITONAL_LIBS})
-add_dependencies(Platform SDL2_Project)
+target_include_directories(Platform PRIVATE ${ADDITIONAL_INCLUDES})
+add_dependencies(Platform ${ADDITIONAL_DEPS})

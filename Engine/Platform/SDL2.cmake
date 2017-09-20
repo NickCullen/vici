@@ -1,0 +1,40 @@
+include(ExternalProject)
+
+set(SDL2_PROJECT_NAME SDL2_Project)
+
+# SDL
+ExternalProject_Add(${SDL2_PROJECT_NAME}
+    URL "https://www.libsdl.org/release/SDL2-2.0.5.tar.gz"
+
+    UPDATE_COMMAND ""
+    PATCH_COMMAND ""
+
+    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/SDL2"
+    CMAKE_ARGS -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_RUNTIME_OUTPUT_DIRECTORY} -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
+
+    CMAKE_CACHE_ARGS -DSDL_STATIC:BOOL=OFF -DSDL_SHARED:BOOL=ON
+
+    TEST_COMMAND ""
+)
+
+ExternalProject_Get_Property(${SDL2_PROJECT_NAME} SOURCE_DIR)
+ExternalProject_Get_Property(${SDL2_PROJECT_NAME} BINARY_DIR)
+
+set(SDL2_SRC_DIR ${SOURCE_DIR})
+set(SDL2_BIN_DIR ${BINARY_DIR})
+
+set(SDL2_INCLUDES "${SDL2_SRC_DIR}/include")
+set(SDL2_LINK_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+
+if(VICI_WINDOWS)
+    set(SDL2_LIBRARIES SDL2)
+else()
+    set(SDL2_LIBRARIES SDL2-2.0.1)
+endif()
+
+
+message("----- ThirdParty: SDL2 -----")
+message("Include Dir: ${SDL2_INCLUDES}")
+message("Link Dir: ${SDL2_LINK_DIR}")
+message("Libraries: ${SDL2_LIBRARIES}")
+message("----------------------------")

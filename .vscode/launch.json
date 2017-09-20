@@ -5,7 +5,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/Binaries/Mac/Debug/Runtime/Editor/Test",
+            "program": "${workspaceRoot}/Binaries/Mac/Runtime/Editor/Test",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

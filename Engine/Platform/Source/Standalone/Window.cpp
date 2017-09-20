@@ -36,7 +36,7 @@ bool VWindow::Open(int32 x, int32 y, uint32 w, uint32 h)
 
 	WindowNativePtr = new SWindowNativePtr;
 	
-	WindowNativePtr->SDLWindow = SDL_CreateWindow("Window", x, y, w, h, NULL);
+	WindowNativePtr->SDLWindow = SDL_CreateWindow("Window", x, y, w, h, 0);
 	if (WindowNativePtr->SDLWindow == nullptr)
 	{
 		delete(WindowNativePtr);
