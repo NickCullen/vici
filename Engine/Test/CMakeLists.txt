@@ -1,5 +1,26 @@
 BEGIN_MODULE()
 
+
+set(ADDITIONAL_INCLUDES "")
+set(ADDITIONAL_LIB_DIRS "")
+set(ADDITONAL_LIBS "")
+set(ADDITIONAL_DEPS "")
+
+if(VICI_STANDALONE)
+    include(GTest.cmake)
+
+    set(ADDITIONAL_INCLUDES ${ADDITIONAL_INCLUDES} ${GTEST_INCLUDES})
+	set(ADDITIONAL_LIB_DIRS ${ADDITIONAL_LIB_DIRS} ${GTEST_LINK_DIR})
+	set(ADDITONAL_LIBS ${ADDITONAL_LIBS} ${GTEST_LIBRARIES})
+	set(ADDITIONAL_DEPS ${ADDITIONAL_DEPS} ${GTEST_PROJECT_NAME})
+endif()
+
+
 add_executable(Test ${MODULE_SOURCES})
 
 REF_MODULES(Test Core Platform)
+
+# Additional Libs & dependencies for this module
+target_link_libraries(Test LINK_PRIVATE ${ADDITONAL_LIBS})
+target_include_directories(Test PRIVATE ${ADDITIONAL_INCLUDES})
+add_dependencies(Test ${ADDITIONAL_DEPS})
