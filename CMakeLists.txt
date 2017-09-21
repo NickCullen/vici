@@ -36,6 +36,8 @@ add_subdirectory(Engine)
 if(VICI_EDITOR)
 #	add_subdirectory(ViciEditor)
 
+	add_subdirectory(CLI)
+	
 	if(VICI_WITH_TESTS)
 		set (TEST_MODULES Core Engine Platform)
 		add_subdirectory(RunTests)
