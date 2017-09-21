@@ -1,3 +1,0 @@
-[submodule "Engine/Core/Math"]
-	path = Engine/Core/Math
-	url = https://github.com/NickCullen/Mathlib.git
