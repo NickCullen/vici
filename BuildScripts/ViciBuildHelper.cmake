@@ -2,6 +2,7 @@
 # Global Options
 #-------------------------------------------------------------------------------------------
 option(VICI_WITH_TESTS "Include test framework (Google Test), if true sources in Tests folder will be included" ON)
+option(VICI_EDITOR_BUILD "Is this an editor build?" ON)
 
 #-------------------------------------------------------------------------------------------
 # Module Helper Macros
@@ -15,24 +16,10 @@ macro(_Internal_APPEND_MODULE MOD_NAME)
 	set(MODULE_LIST ${MODULE_LIST} ${MOD_NAME} )
 endmacro(_Internal_APPEND_MODULE)
 
-# Sets output of build files (.dll / .exe / .lib etc.)
-macro(DEFINE_OUT_DIRS)
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${RUNTIME_FOLDER_PATH}")
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${LIBRARY_FOLDER_PATH}")
-	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${ARCHIVE_FOLDER_PATH}")
-endmacro(DEFINE_OUT_DIRS)
-
 # Must be set at start of module
 macro(BEGIN_MODULE)
-	DEFINE_OUT_DIRS()
-	
 	# Required Include folders
 	include_directories("Include")
-
-	# Required Lib folders
-	if(VICI_WITH_TESTS)
-		link_directories(${GTEST_LINK_DIR})
-	endif()
 
 	# Source/Header file management (for pretty solution files)
 	#-------------------------------------------------------------------------------------------
@@ -147,12 +134,7 @@ macro(BEGIN_MODULE)
 endmacro(BEGIN_MODULE)
 
 macro(END_MODULE TAR)
-	# Ensure test framework is linked if needed
-	if(VICI_WITH_TESTS)
-		target_include_directories(${TAR} PRIVATE ${GTEST_INCLUDES})
-		target_link_libraries(${TAR} LINK_PRIVATE ${GTEST_LIBRARIES})
-		add_dependencies(${TAR} ${GTEST_PROJECT_NAME})
-	endif()
+	
 endmacro()
 
 # To be placed for each module in each project folders DeclModules.cmake file
@@ -203,10 +185,10 @@ macro(COPY_MODULE_SHARED_OBJECTS TAR)
 		endif()
 	endforeach()
 endmacro(COPY_MODULE_SHARED_OBJECTS)
+
 #-------------------------------------------------------------------------------------------
 # Helpful Functions / Macros
 #-------------------------------------------------------------------------------------------
-
 function(FILTER_SOURCES SOURCE_LIST)
 	foreach(_source IN ITEMS ${SOURCE_LIST})
 		get_filename_component(_source_path "${_source}" PATH)
@@ -218,25 +200,6 @@ function(FILTER_SOURCES SOURCE_LIST)
 		source_group("${_source_path}" FILES "${_source}")
 	endforeach()
 endfunction()
-
-#-------------------------------------------------------------------------------------------
-# First checks
-#-------------------------------------------------------------------------------------------
-if(DEFINED ENV{VICI_HOME})
-	message("Vici home directory = $ENV{VICI_HOME}")
-	set(VICI_HOME $ENV{VICI_HOME})
-	string(REPLACE "\\" "/" VICI_HOME "${VICI_HOME}")
-	set(VICI_THIRD_PARTY_DIR "$ENV{VICI_HOME}ThirdParty/")
-else()
-	message("ERROR! No VICI_HOME Environment variable set, have you run the setup.bat/sh script?")
-	return()
-endif()
-
-#-------------------------------------------------------------------------------------------
-# Options
-#-------------------------------------------------------------------------------------------
-option(VICI_EDITOR_BUILD "Is this an editor build?" ON)
-option(VICI_BUILD_TESTS "Should tests be built?" ON)
 
 #-------------------------------------------------------------------------------------------
 # Defines
@@ -343,12 +306,21 @@ set(VICI_RUNTIME_FOLDER "${VICI_HOME}/${RUNTIME_FOLDER_PATH}")
 set(VICI_LIBRARY_FOLDER "${VICI_HOME}/${LIBRARY_FOLDER_PATH}")
 set(VICI_ARCHIVE_FOLDER "${VICI_HOME}/${ARCHIVE_FOLDER_PATH}")
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${RUNTIME_FOLDER_PATH}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${LIBRARY_FOLDER_PATH}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${ARCHIVE_FOLDER_PATH}")
+
 #-------------------------------------------------------------------------------------------
 # Declare All Engine Modules
 #-------------------------------------------------------------------------------------------
 include("${VICI_HOME}Engine/DeclModules.cmake")
 
 #-------------------------------------------------------------------------------------------
-# Declare Required External Projects
+# Ensure Google Test framework is included and linked for all following targets.
 #-------------------------------------------------------------------------------------------
-include("${VICI_HOME}CMake/GTest.cmake")
+if(VICI_WITH_TESTS)
+	hunter_add_package(GTest)
+
+	find_package(GTest CONFIG REQUIRED) 
+	link_libraries(GTest::gtest)
+endif()
