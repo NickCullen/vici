@@ -29,10 +29,10 @@ macro(BEGIN_MODULE)
 	# Required Include folders
 	include_directories("Include")
 
-	# Required Lib folders
-	if(VICI_WITH_TESTS)
-		link_directories(${GTEST_LINK_DIR})
-	endif()
+	# TODO Required Lib folders
+	#if(VICI_WITH_TESTS)
+		#link_directories(${GTEST_LINK_DIR})
+	#endif()
 
 	# Source/Header file management (for pretty solution files)
 	#-------------------------------------------------------------------------------------------
@@ -149,11 +149,12 @@ endmacro(BEGIN_MODULE)
 macro(END_MODULE TAR)
 	# Ensure test framework is linked if needed
 	if(VICI_WITH_TESTS)
-		target_include_directories(${TAR} PRIVATE ${GTEST_INCLUDES})
-		target_link_libraries(${TAR} LINK_PRIVATE ${GTEST_LIBRARIES})
-		add_dependencies(${TAR} ${GTEST_PROJECT_NAME})
+		hunter_add_package(GTest)
+		find_package(GTest CONFIG REQUIRED)
+		target_link_libraries(${TAR} LINK_PRIVATE GTest::gtest)
+
 	endif()
-endmacro()
+endmacro(END_MODULE)
 
 # To be placed for each module in each project folders DeclModules.cmake file
 macro(DECL_MODULE MOD_NAME MOD_LOC)
@@ -220,7 +221,11 @@ function(FILTER_SOURCES SOURCE_LIST)
 endfunction()
 
 #-------------------------------------------------------------------------------------------
-# First checks
+# Execution Entry
+#-------------------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------------------
+# Check VICI_HOME environment var exists
 #-------------------------------------------------------------------------------------------
 if(DEFINED ENV{VICI_HOME})
 	message("Vici home directory = $ENV{VICI_HOME}")
@@ -351,4 +356,4 @@ include("${VICI_HOME}Engine/DeclModules.cmake")
 #-------------------------------------------------------------------------------------------
 # Declare Required External Projects
 #-------------------------------------------------------------------------------------------
-include("${VICI_HOME}CMake/GTest.cmake")
+#include("${VICI_HOME}CMake/GTest.cmake")
