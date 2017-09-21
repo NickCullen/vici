@@ -33,9 +33,14 @@ include("BuildScripts/ViciBuildHelper.cmake")
 #-------------------------------------------------------------------------------------------
 add_subdirectory(Engine)
 
-#if(VICI_EDITOR)
+if(VICI_EDITOR)
 #	add_subdirectory(ViciEditor)
-#endif()
+
+	if(VICI_WITH_TESTS)
+		set (TEST_MODULES Core Engine Platform)
+		add_subdirectory(RunTests)
+	endif()
+endif()
 
 # Build the example / test project
 #if(VICI_BUILD_EXAMPLE_PROJECT)

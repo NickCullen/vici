@@ -35,18 +35,6 @@ macro(BEGIN_MODULE)
 		"Include/*.h"                              # Search pattern
 	)
 
-	# If test build, then include test folders
-	if(VICI_WITH_TESTS)
-		file( GLOB_RECURSE TEST_FILES              # Variable containing all source files
-			LIST_DIRECTORIES false                      
-			RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/"             # Relative paths from the root directory
-			"Tests/*.*"                              # Search pattern
-		)
-
-		# Append to sources
-		set (MOD_SRC_FILES ${MOD_SRC_FILES} ${TEST_FILES})
-	endif()
-
 	set(VALID_SOURCES "")
 	set(VALID_HEADERS "")
 
@@ -140,6 +128,7 @@ endmacro()
 # To be placed for each module in each project folders DeclModules.cmake file
 macro(DECL_MODULE MOD_NAME MOD_LOC)
 	message("DECL_MODULE: ${MOD_NAME} at ${MOD_LOC}")
+	set("${MOD_NAME}_LOCATION" "${MOD_LOC}")
 	set("${MOD_NAME}_INCLUDES_LOC" "${MOD_LOC}Include")
 
 	set("${MOD_NAME}_BINARIES_LOC" "${CMAKE_SOURCE_DIR}/${RUNTIME_FOLDER_PATH}")
@@ -152,6 +141,7 @@ endmacro(DECL_MODULE)
 # For engine modules to be declared
 macro(DECL_ENGINE_MODULE MOD_NAME MOD_LOC)
 	message("DECL_ENGINE_MODULE: ${MOD_NAME} at ${MOD_LOC}")
+	set("${MOD_NAME}_LOCATION" "${MOD_LOC}")
 	set("${MOD_NAME}_INCLUDES_LOC" "${MOD_LOC}Include")
 
 	set("${MOD_NAME}_BINARIES_LOC" "${VICI_RUNTIME_FOLDER}")
@@ -314,13 +304,3 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${ARCHIVE_FOLDER_PATH}")
 # Declare All Engine Modules
 #-------------------------------------------------------------------------------------------
 include("${VICI_HOME}Engine/DeclModules.cmake")
-
-#-------------------------------------------------------------------------------------------
-# Ensure Google Test framework is included and linked for all following targets.
-#-------------------------------------------------------------------------------------------
-if(VICI_WITH_TESTS)
-	hunter_add_package(GTest)
-
-	find_package(GTest CONFIG REQUIRED) 
-	link_libraries(GTest::gtest)
-endif()
