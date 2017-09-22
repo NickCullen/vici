@@ -13,6 +13,17 @@
             "externalConsole": true
         },
         {
+            "name": "(Windows) Launch Tests",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/Binaries/Windows/Runtime/Editor/Debug/RunTests.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": true
+        },
+        {
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
@@ -25,7 +36,7 @@
             "MIMode": "lldb"
         },
         {
-            "name": "(lldb) Test Launch",
+            "name": "(lldb) Launch Tests",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/Binaries/Mac/Runtime/Editor/RunTests",

@@ -5,8 +5,10 @@
 
 namespace Engine
 {
-	class ENGINE_API VEngine : public Core::IService<VEngine>
+	class ENGINE_API VEngine
 	{
+	public:
 
+		VEngine();
 	};
 }
