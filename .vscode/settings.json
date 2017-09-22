@@ -8,6 +8,8 @@
         "Binaries/**": true,
         "build/**": true,
         "setup.bat": true,
-        "setup.sh": true
+        "setup.sh": true,
+        "CLI/Bin/**": true,
+        "CLI/Lib/**": true
     }
 }

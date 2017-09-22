@@ -18,6 +18,7 @@ if(VICI_STANDALONE)
 
 	find_package(SDL2 CONFIG REQUIRED)
 	target_link_libraries(Platform LINK_PRIVATE SDL2::SDL2)
+
 endif()
 
 END_MODULE(Platform)
