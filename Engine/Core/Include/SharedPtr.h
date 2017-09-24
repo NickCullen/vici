@@ -52,7 +52,7 @@ namespace Core
         /**
         * Dereference operator
         */
-        T* operator* ()
+        T* operator* () const
         {
             return Ptr;
         }
@@ -60,7 +60,7 @@ namespace Core
         /**
         * Pointer memory accessor override
         */
-        T* operator-> ()
+        T* operator-> () const
         {
             return Ptr;
         }
@@ -90,7 +90,7 @@ namespace Core
             return *this;
         }
 
-        uint32 GetRefCount()
+        uint32 GetRefCount() const
         {
             return Counter->GetCount();
         }

@@ -27,3 +27,41 @@ TEST(TSharedPtr, DataConstructor) {
     EXPECT_EQ(sp.GetRefCount(), 1);
     EXPECT_EQ(sp->TestData, 22);
 }
+
+TEST(TSharedPtr, CopyConstructor) {
+    TestClass* tc = new TestClass();
+    tc->TestData = 22;
+
+    TSharedPtr<TestClass> sp1 = tc;
+    TSharedPtr<TestClass> sp2 = sp1;
+
+    EXPECT_EQ(sp1.GetRefCount(), 2);
+    EXPECT_EQ(sp2.GetRefCount(), 2);
+
+    EXPECT_TRUE(*sp1 != nullptr);
+    EXPECT_TRUE(*sp2 != nullptr);
+    EXPECT_TRUE(*sp1 == *sp2);
+}
+
+TEST(TSharedPtr, AssignmentOperator) {
+    TestClass* tc1 = new TestClass();
+    tc1->TestData = 22;
+
+    TestClass* tc2 = new TestClass();
+    tc2->TestData = 11;
+
+    TSharedPtr<TestClass> sp1 = tc1;
+    TSharedPtr<TestClass> sp2 = tc2;        
+
+    sp2 = sp1;
+
+    EXPECT_EQ(sp1.GetRefCount(), 2);
+    EXPECT_EQ(sp2.GetRefCount(), 2);
+
+    EXPECT_TRUE(*sp1 != nullptr);
+    EXPECT_TRUE(*sp2 != nullptr);
+    EXPECT_TRUE(*sp1 == *sp2);
+
+    EXPECT_EQ(sp1->TestData, 22);
+    EXPECT_EQ(sp2->TestData, 22);
+}
