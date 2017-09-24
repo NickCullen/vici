@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 
+#ifdef VICI_WINDOWS
 #include <windows.h>
+#endif
 
 using namespace std;
 namespace po = boost::program_options;
@@ -42,7 +44,7 @@ int main(int ac, char** av)
                 cmdWithArgs += av[i];
             }
 
-            return system (cmdWithArgs.c_str()); // As an example. Change [notepad] to any executable file //    
+            //return system (cmdWithArgs.c_str()); // As an example. Change [notepad] to any executable file //    
         }
     }
 

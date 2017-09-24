@@ -3,7 +3,11 @@
 #include <iostream>
 #include <string>
 
+#ifdef VICI_WINDOWS
+
 #include <windows.h>
+
+#endif
 
 using namespace std;
 namespace po = boost::program_options;
