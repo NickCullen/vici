@@ -33,6 +33,31 @@ namespace Core
 			}
 		};
 
+		struct TListItemIterator
+		{
+			TListItem* Current;
+
+			TListItemIterator(TListItem* current)
+			{
+				Current = current;
+			}
+
+			T& operator*()
+			{
+				return Current->Data;
+			}
+
+			void operator++()
+			{
+				Current = Current->Next;
+			}
+
+			bool operator!=(const TListItemIterator& It)
+			{
+				return (Current != It.Current);
+			}
+		};
+
 	private:
 		TListItem* Head;
 		TListItem* Tail;
@@ -62,6 +87,8 @@ namespace Core
 				delete(current);
 				current = next;
 			}
+			Tail = Head;	// Move back.
+			Head->Next = nullptr;
 		}
 
 		/**
@@ -142,5 +169,9 @@ namespace Core
 		{
 			return current && current->Prev != Head ? current->Prev : nullptr;
 		}
+
+		// For support with C++11 foreach loop
+		TListItemIterator begin() { return TListItemIterator((TListItem*)GetFirst()); }
+		TListItemIterator end() { return TListItemIterator(nullptr);  }
 	};
 }
