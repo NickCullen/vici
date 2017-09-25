@@ -132,6 +132,7 @@ namespace Core
 
         void CopyToData(T* NewData, uint32 NewDataSize)
         {
+            // Ideally should use memcpy... ;)
             for(uint32 i; i < NewDataSize; i++)
                 Data[i] = NewData[i];
         }

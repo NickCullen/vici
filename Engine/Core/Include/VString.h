@@ -16,7 +16,7 @@ namespace Core
         uint32 Length = 0;
         uint32 Capacity = 0;
     
-        uint64 Hash = 0;
+        uint32 Hash = 0;
     public:
         VString();
         VString(const char* str);
@@ -41,6 +41,8 @@ namespace Core
 
 		VString GetSubstr(uint32 Start, uint32 Num) const;
 
+        uint32 operator%(uint32 Num) const;
+
         inline uint32 GetLength() const
         {
             return Length;
@@ -54,6 +56,11 @@ namespace Core
         inline const char* GetData() const
         {
             return (const char*)Data;
+        }
+
+        inline uint32 GetHash() const
+        {
+            return Hash;
         }
 
     private:

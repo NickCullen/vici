@@ -243,3 +243,8 @@ VString VString::GetSubstr(uint32 Start, uint32 Num) const
 
 	return Ret;
 }
+
+uint32 VString::operator%(uint32 Num) const
+{
+	return Hash % Num;
+}

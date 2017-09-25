@@ -8,7 +8,7 @@ namespace Core
 	/**
 	* Class to store values as a key,value pair
 	*/
-	template< typename ValueType, typename KeyType = uint32>
+	template< typename KeyType, typename ValueType>
 	class TDictionary
 	{
 		class TDictionaryEntry
@@ -26,7 +26,7 @@ namespace Core
 
 
 	public:
-		const static int MAX_DICT_SIZE = 32;
+		const static uint32 MAX_DICT_SIZE = 32;
 
 	private:
 		TArray<TDictionaryEntry> Entries[MAX_DICT_SIZE];
@@ -51,7 +51,7 @@ namespace Core
 		ValueType& operator[](const KeyType& key)
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].size(); i++)
+			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
@@ -68,7 +68,7 @@ namespace Core
 		const ValueType& operator[](const KeyType& key) const
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].GetCount(); i++)
+			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
@@ -84,7 +84,7 @@ namespace Core
 		*/
 		void Insert(const KeyType& key, const ValueType& val)
 		{
-			int index = key % MAX_DICT_SIZE;
+			uint32 index = key % MAX_DICT_SIZE;
 			Entries[index].Add(TDictionaryEntry(key, val));
 		}
 
@@ -97,7 +97,7 @@ namespace Core
 		bool Get(const KeyType& key, ValueType& outVal) const
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].size(); i++)
+			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
@@ -116,7 +116,7 @@ namespace Core
 		bool KeyExists(const KeyType& key) const
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].size(); i++)
+			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
 			{
 				if (Entries[index][i].Key == key)
 					return true;
@@ -131,7 +131,7 @@ namespace Core
 		bool Remove(const KeyType& key)
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].size(); i++)
+			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
