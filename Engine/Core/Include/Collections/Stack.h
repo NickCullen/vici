@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CoreTypes.h"
+
 namespace Core
 {
 	template<typename T>
@@ -17,6 +19,9 @@ namespace Core
 		};
 	private:
 		TStackNode* Head;
+
+		uint32 Count = 0;
+
 	public:
 		TStack()
 			:Head(nullptr)
@@ -25,10 +30,10 @@ namespace Core
 
 		~TStack()
 		{
-			Empty();
+			Clear();
 		}
 
-		void Empty()
+		void Clear()
 		{
 			while (Head)
 			{
@@ -36,6 +41,7 @@ namespace Core
 				delete(Head);
 				Head = next;
 			}
+			Count = 0;
 		}
 
 
@@ -58,6 +64,7 @@ namespace Core
 				Head = newNode;
 			}
 			newNode->Data = item;
+			Count++;
 		}
 
 		/**
@@ -73,6 +80,7 @@ namespace Core
 				outVariable = dataNode->Data;
 				Head = Head->Next;
 				delete(dataNode);
+				Count--;
 				return true;
 			}
 			return false;
@@ -92,6 +100,8 @@ namespace Core
 			}
 			return false;
 		}
+
+		inline uint32 GetCount() { return Count; }
 	};
 
 }
