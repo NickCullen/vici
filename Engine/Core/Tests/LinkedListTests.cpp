@@ -48,14 +48,14 @@ TEST(TLinkedList, Iterate)
     EXPECT_EQ(total, 0);
 }
 
-TEST(TLinkedList, Empty)
+TEST(TLinkedList, Clear)
 {
     TLinkedList<int> lst;
 
     lst.Add(25);
     lst.Add(50);
     
-    lst.Empty();
+    lst.Clear();
 
     int total = 0;
     for(auto i : lst)

@@ -71,14 +71,14 @@ namespace Core
 
 		~TLinkedList()
 		{
-			Empty();
+			Clear();
 			delete(Head);
 		}
 
 		/**
 		* Empties the list, leaving data untouched
 		*/
-		void Empty()
+		void Clear()
 		{
 			TListItem* current = Head->Next;
 			while (current)
