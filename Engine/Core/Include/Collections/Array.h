@@ -35,7 +35,7 @@ namespace Core
         {
             // Ensure space
             if((Length+1) >= Capacity)
-                Resize(Capacity + (Capacity * 1.5f));
+                Resize(Capacity + (uint32)(Capacity * 1.5f));
 
             Data[Length++] = Item;
         }
@@ -133,7 +133,7 @@ namespace Core
         void CopyToData(T* NewData, uint32 NewDataSize)
         {
             // Ideally should use memcpy... ;)
-            for(uint32 i; i < NewDataSize; i++)
+            for(uint32 i = 0; i < NewDataSize; i++)
                 Data[i] = NewData[i];
         }
     };

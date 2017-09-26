@@ -5,7 +5,7 @@
 
 namespace Core
 {
-    class CORE_API RefCounter
+    class RefCounter
     {
     private:
         uint32 Count = 0;
