@@ -31,6 +31,8 @@ namespace Core
 	private:
 		TArray<TDictionaryEntry> Entries[MAX_DICT_SIZE];
 
+		uint32 Count = 0;
+
 	public:
 		TDictionary()
 		{
@@ -51,7 +53,7 @@ namespace Core
 		ValueType& operator[](const KeyType& key)
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
+			for (uint32 i = 0; i < Entries[index].GetCount(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
@@ -68,7 +70,7 @@ namespace Core
 		const ValueType& operator[](const KeyType& key) const
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
+			for (uint32 i = 0; i < Entries[index].GetCount(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
@@ -86,6 +88,7 @@ namespace Core
 		{
 			uint32 index = key % MAX_DICT_SIZE;
 			Entries[index].Add(TDictionaryEntry(key, val));
+			Count++;
 		}
 
 		/**
@@ -97,7 +100,7 @@ namespace Core
 		bool Get(const KeyType& key, ValueType& outVal) const
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
+			for (uint32 i = 0; i < Entries[index].GetCount(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
@@ -116,7 +119,7 @@ namespace Core
 		bool KeyExists(const KeyType& key) const
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
+			for (uint32 i = 0; i < Entries[index].GetCount(); i++)
 			{
 				if (Entries[index][i].Key == key)
 					return true;
@@ -131,16 +134,20 @@ namespace Core
 		bool Remove(const KeyType& key)
 		{
 			uint32 index = key % MAX_DICT_SIZE;
-			for (uint32 i = 0; i < Entries[index].GetLength(); i++)
+			for (uint32 i = 0; i < Entries[index].GetCount(); i++)
 			{
 				if (Entries[index][i].Key == key)
 				{
 					Entries[index].Remove(i);
+					Count--;
 					return true;
 				}
 			}
 			return false;
 		}
+
+		// Getters
+		inline uint32 GetCount() { return Count; }
 
 	};
 

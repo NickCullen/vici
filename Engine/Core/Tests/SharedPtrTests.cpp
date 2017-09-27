@@ -65,3 +65,28 @@ TEST(TSharedPtr, AssignmentOperator) {
     EXPECT_EQ(sp1->TestData, 22);
     EXPECT_EQ(sp2->TestData, 22);
 }
+
+TEST(TSharedPtr, ClearRefernce)
+{
+    TSharedPtr<TestClass> sp = new TestClass();   
+    
+    EXPECT_TRUE(sp);
+    
+    sp.ClearReference();
+
+    EXPECT_FALSE(sp);
+}
+
+TEST(TSharedPtr, CopyEmptySharedPointer)
+{
+    TSharedPtr<TestClass> sp1 = new TestClass();   
+    TSharedPtr<TestClass> sp2;
+
+    EXPECT_TRUE(sp1);
+    EXPECT_FALSE(sp2);
+
+    sp1 = sp2;
+
+    EXPECT_FALSE(sp1);
+    EXPECT_FALSE(sp2);
+}

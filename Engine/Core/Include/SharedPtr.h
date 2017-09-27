@@ -1,16 +1,25 @@
 #pragma once
 
 #include "RefCounter.h"
+#include "Collections/Array.h"
+#include "WeakPtrBase.h"
 
 namespace Core
 {
+    // Forward decl.
     template<typename T>
-    struct TSharedPtr
+    class TWeakPtr;
+
+    template<typename T>
+    class TSharedPtr
     {
+        friend class TWeakPtr<T>;
     private:
         T* Ptr = nullptr;       /**< Native pointer to data */
 
         RefCounter* Counter = nullptr;      /**< Refernce counter to data */
+
+        TArray<IWeakPtrBase*>* WeakReferences;    /**< An array of weak references to this shared pointer */
 
     public:
 
@@ -18,6 +27,7 @@ namespace Core
         {
             Counter = new RefCounter();
             Counter->AddRef();
+            WeakReferences = new TArray<IWeakPtrBase*>();
         }
 
         TSharedPtr(T* ptr)
@@ -25,6 +35,7 @@ namespace Core
         {
             Counter = new RefCounter();
             Counter->AddRef();
+            WeakReferences = new TArray<IWeakPtrBase*>();
         }
 
         /**
@@ -32,7 +43,8 @@ namespace Core
         */
         TSharedPtr(const TSharedPtr<T>& Other)
             : Ptr(Other.Ptr),
-            Counter(Other.Counter)
+            Counter(Other.Counter),
+            WeakReferences(Other.WeakReferences)
         {
             Counter->AddRef();
         }
@@ -43,7 +55,7 @@ namespace Core
         */
         ~TSharedPtr()
         {
-            if(Counter->RemoveRef() == 0)
+            if(Counter != nullptr && Counter->RemoveRef() == 0)
             {
                 Erase(); 
             }
@@ -85,21 +97,71 @@ namespace Core
                 // and increment the reference count
                 Ptr = Other.Ptr;
                 Counter = Other.Counter;
-                Counter->AddRef();
+                if(Counter != nullptr)
+                    Counter->AddRef();
+                WeakReferences = Other.WeakReferences;
             }
             return *this;
         }
 
-        uint32 GetRefCount() const
+        /**
+         * Clears reference to pointer
+         */ 
+        void ClearReference()
         {
-            return Counter->GetCount();
+            if(Counter->RemoveRef() == 0)
+            {
+                Erase();
+            }
+
+            Ptr = nullptr;
+            Counter = nullptr;
+            WeakReferences = nullptr;
         }
 
-    private:
+        /**
+         * Determine if this shared pointer is valid
+         */
+        operator bool() const
+        {
+            return Ptr != nullptr;
+        }
+
+        inline uint32 GetRefCount() const
+        {
+            return Counter != nullptr ? Counter->GetCount() : 0;
+        }
+
+        inline uint32 GetWeakRefCount() const
+        {
+            return WeakReferences != nullptr ? WeakReferences->GetCount() : 0;
+        }
+
+    protected:
         void Erase()
         {
             delete Ptr;
             delete Counter;
+
+            // Invalidate all weak references which point to here
+            for(uint32 i = 0; i < WeakReferences->GetCount(); i++)
+            {
+                (*WeakReferences)[i]->Invalidate();
+            }
+            delete WeakReferences;
         }
+
+        void AddWeakReferencePtr(IWeakPtrBase* weakPtr)
+        {
+            WeakReferences->Add(weakPtr);
+            weakPtr->Validate();
+        }
+
+        void RemoveWeakReferencePtr(IWeakPtrBase* weakPtr)
+        {
+            WeakReferences->RemoveItem(weakPtr);
+            weakPtr->Invalidate();
+        }
+
     };
 }

@@ -19,6 +19,7 @@ TEST(TLinkedList, Add)
     }
 
     EXPECT_EQ(total, 75);
+    EXPECT_EQ(lst.GetCount(), 2);
 }
 
 TEST(TLinkedList, Iterate)
@@ -64,6 +65,7 @@ TEST(TLinkedList, Clear)
     }
     
     EXPECT_EQ(total, 0);
+    EXPECT_EQ(lst.GetCount(), 0);
 }
 
 TEST(TLinkedList, Remove)
@@ -86,4 +88,5 @@ TEST(TLinkedList, Remove)
     }
     
     EXPECT_EQ(total, 50);
+    EXPECT_EQ(lst.GetCount(), 1);
 }

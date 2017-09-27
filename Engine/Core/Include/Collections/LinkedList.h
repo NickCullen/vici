@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CoreTypes.h"
+
 namespace Core
 {
 	/** 
@@ -61,6 +63,9 @@ namespace Core
 	private:
 		TListItem* Head;
 		TListItem* Tail;
+
+		uint32 Count = 0;
+
 	public:
 		TLinkedList()
 			:Head(nullptr),
@@ -89,6 +94,7 @@ namespace Core
 			}
 			Tail = Head;	// Move back.
 			Head->Next = nullptr;
+			Count = 0;
 		}
 
 		/**
@@ -100,6 +106,7 @@ namespace Core
 			Tail->Next->Prev = Tail;
 			Tail = Tail->Next;
 			Tail->Data = item;
+			Count++;
 		}
 
 		/**
@@ -132,6 +139,7 @@ namespace Core
 				if (item->Next)
 					item->Next->Prev = item->Prev;
 				delete (item);
+				Count--;
 				return true;
 			}
 			return false;
@@ -169,6 +177,9 @@ namespace Core
 		{
 			return current && current->Prev != Head ? current->Prev : nullptr;
 		}
+
+		// Getters
+		inline uint32 GetCount() { return Count; }
 
 		// For support with C++11 foreach loop
 		TListItemIterator begin() { return TListItemIterator((TListItem*)GetFirst()); }

@@ -8,7 +8,7 @@ namespace Core
     class TArray
     {
     private:
-        uint32 Length = 0;
+        uint32 Count = 0;
     
         uint32 Capacity = 0;
     
@@ -34,15 +34,15 @@ namespace Core
         void Add(const T& Item)
         {
             // Ensure space
-            if((Length+1) >= Capacity)
+            if((Count+1) >= Capacity)
                 Resize(Capacity + (uint32)(Capacity * 1.5f));
 
-            Data[Length++] = Item;
+            Data[Count++] = Item;
         }
 
         T& operator[](uint32 Index)
         {
-            if(Index < Length)
+            if(Index < Count)
                 return Data[Index];
             
             throw "Index out of range";
@@ -50,7 +50,7 @@ namespace Core
 
         const T& operator[](uint32 Index) const
         {
-            if(Index < Length)
+            if(Index < Count)
                 return Data[Index];
         
             throw "Index out of range";
@@ -58,19 +58,19 @@ namespace Core
 
         bool Remove(uint32 Index)
         {
-            if(Index < Length)
+            if(Index < Count)
             {
                 // Swap last for this
-                Data[Index] = Data[Length-- -1];
+                Data[Index] = Data[Count-- -1];
                 return true;
             }
             return false;
         }
 
-        bool Remove(const T& Item)
+        bool RemoveItem(const T& Item)
         {
             // Find index and use that overloaded fnc.
-            for(uint32 i = 0; i < Length; i++)
+            for(uint32 i = 0; i < Count; i++)
             {
                 if(Data[i] == Item)
                     return Remove(i);
@@ -81,7 +81,7 @@ namespace Core
 
         void Clear()
         {
-            Length = 0; // As simple as setting to 0
+            Count = 0; // As simple as setting to 0
 
             // Although, if the list is taking up an absurd
             // ammount of memory, shrink it down
@@ -89,7 +89,7 @@ namespace Core
                 Resize(10);
         }
         
-        inline uint32 GetLength() const { return Length; }
+        inline uint32 GetCount() const { return Count; }
         inline uint32 GetCapacity() const { return Capacity; }
         inline T* GetData() const { return Data; }
     private:
