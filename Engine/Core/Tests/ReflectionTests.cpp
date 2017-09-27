@@ -23,8 +23,5 @@ TEST(WIP_ReflectionTests, ClassCreation)
 
     VClass* ptr = constructor.GetClassPtr();
 
-    TestClass* tc = new TestClass();
-
-
-    printf("TestClass size = %d\n", ptr->GetSize());
+    VClass* ptr2 = VClassManager::GetInstance()->GetClass("TestClass");
 }

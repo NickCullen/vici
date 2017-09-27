@@ -22,3 +22,8 @@ VClass* VClassManager::CreateClassPointer(const VString& ClassName)
     else
         return nullptr;
 }
+
+VClass* VClassManager::GetClass(const VString& ClassName) const
+{
+    return ConstructedClasses.KeyExists(ClassName) ? ConstructedClasses[ClassName] : nullptr;
+}

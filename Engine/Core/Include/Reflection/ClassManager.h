@@ -26,5 +26,10 @@ namespace Core
          * be modified after they have been created once!
          */
         VClass* CreateClassPointer(const VString& ClassName);
+
+        /**
+         * Returns the class with the given name
+         */
+        VClass* GetClass(const VString& ClassName) const;
     };
 }
