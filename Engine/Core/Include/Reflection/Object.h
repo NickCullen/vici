@@ -5,7 +5,7 @@ namespace Core
 {
     class VClass;
 
-    class CORE_API VObject
+    class VObject
     {
     public:
         virtual const VClass* GetClass() = 0; 

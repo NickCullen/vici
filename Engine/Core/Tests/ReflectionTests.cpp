@@ -8,20 +8,28 @@ using namespace Core;
 
 class TestClass : public VObject
 {
-private:
-    uint32 MyInt = 20;
+public:
+    int MyInt = 20;
 
-    uint32 MyInt2 = 40;
+    int MyInt2 = 40;
 public:
 
     virtual const VClass* GetClass(){ return nullptr; }
 };
 
-TEST(WIP_ReflectionTests, ClassCreation)
+
+TEST(Reflection, ClassBuilder)
 {
-    auto constructor = VClassTypeConstructor<TestClass>("TestClass");
 
-    VClass* ptr = constructor.GetClassPtr();
+    VType t1 = typeof(int);
+    VType r3 = typeof(VString);
 
-    VClass* ptr2 = VClassManager::GetInstance()->GetClass("TestClass");
+    auto c = VClassTypeConstructor<TestClass>("TestClass")
+        .AddProperty("MyInt", &TestClass::MyInt);
+
+
+    auto ptr = c.GetClassPtr();
+
+    int i = 0;
+    i++;
 }

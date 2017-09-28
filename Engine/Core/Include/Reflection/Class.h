@@ -16,14 +16,14 @@ namespace Core
         template<typename T>
         friend class VClassTypeConstructor;
 
-        typedef TArray<VProperty> PropertyList;
+        typedef TArray<VProperty*> PropertyList;
 
     private:
         VString Name;
 
         uint32 Size;
 
-        //PropertyList Properties;
+        PropertyList Properties;
 
     public:
 
